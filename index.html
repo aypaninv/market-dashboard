@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Dashboard</title>
+
+<style>
+/* ---------- GLOBAL FONT FIX ---------- */
+* {
+  font-family: "Courier New", monospace !important;
+}
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  background: #f4f4f4;
+}
+
+/* ---------- Header ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #1e1e1e;
+  padding: 6px 8px;
+}
+
+/* ---------- Tabs ---------- */
+#globalTabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 6px 12px;
+  cursor: pointer;
+  background: #333;
+  border-radius: 4px;
+  white-space: nowrap;
+  color: white;
+  font-size: 13px;
+}
+
+.tab.active {
+  background: #007acc;
+}
+
+/* ---------- Search ---------- */
+.search-wrapper {
+  margin-left: auto;
+  position: relative;
+}
+
+.search-icon {
+  cursor: pointer;
+  font-size: 16px;
+  color: #ccc;
+  user-select: none;
+}
+
+.search-input {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  display: none;
+}
+
+.search-input input {
+  padding: 4px 8px;
+  font-size: 12px;
+  width: 180px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+/* ---------- App ---------- */
+#app {
+  padding: 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div id="globalTabs"></div>
+
+  <div class="search-wrapper">
+    <span class="search-icon" onclick="toggleSearch()">🔍</span>
+    <div class="search-input" id="searchBox">
+      <input
+        type="text"
+        id="globalSearch"
+        placeholder="Search…"
+        onkeyup="applyGlobalSearch(this.value)"
+      />
+    </div>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<script>
+const globalTabs = document.getElementById("globalTabs");
+let firstTabActivated = false;
+
+/* ---------- Global tab registration ---------- */
+window.registerTabs = function (tabBuilderFn) {
+  tabBuilderFn(addGlobalTab);
+};
+
+function addGlobalTab(label, onClick) {
+  const div = document.createElement("div");
+  div.className = "tab";
+  div.innerText = label;
+
+  div.onclick = () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    div.classList.add("active");
+
+    clearSearch();
+    onClick();
+  };
+
+  globalTabs.appendChild(div);
+
+  if (!firstTabActivated) {
+    firstTabActivated = true;
+    div.click();
+  }
+}
+
+/* ---------- Feature loader ---------- */
+function loadFeature(file) {
+  return fetch(file)
+    .then(r => r.text())
+    .then(html => {
+      const app = document.getElementById("app");
+      app.insertAdjacentHTML("beforeend", html);
+
+      app.querySelectorAll("script").forEach(oldScript => {
+        const s = document.createElement("script");
+        s.textContent = oldScript.textContent;
+        document.body.appendChild(s);
+        oldScript.remove();
+      });
+    });
+}
+
+/* ---------- Smart Search ---------- */
+function applyGlobalSearch(text) {
+  const q = text.toLowerCase();
+
+  let activeTable = null;
+  document.querySelectorAll("table").forEach(t => {
+    if (t.offsetParent !== null) activeTable = t;
+  });
+  if (!activeTable) return;
+
+  const rows = activeTable.querySelectorAll("tr");
+  rows.forEach((row, i) => {
+    if (i === 0) return;
+    row.style.display =
+      row.innerText.toLowerCase().includes(q) ? "" : "none";
+  });
+}
+
+/* ---------- Search toggle ---------- */
+function toggleSearch() {
+  const box = document.getElementById("searchBox");
+  const input = document.getElementById("globalSearch");
+
+  box.style.display = box.style.display === "block" ? "none" : "block";
+  if (box.style.display === "block") input.focus();
+}
+
+function clearSearch() {
+  document.getElementById("globalSearch").value = "";
+  applyGlobalSearch("");
+  document.getElementById("searchBox").style.display = "none";
+}
+
+/* Close search */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") clearSearch();
+});
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".search-wrapper")) {
+    document.getElementById("searchBox").style.display = "none";
+  }
+});
+
+/* ---------- Load features in order ---------- */
+loadFeature("portfolio.html")
+  .then(() => loadFeature("tfwatch.html"))
+  .then(() => loadFeature("trend.html"));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!-- ===================== TFWATCH FEATURE ===================== -->
+
+<style>
+.update-time {
+  position: fixed;
+  top: 6px;
+  right: 10px;
+  font-size: 11px;
+  color: #bbb;
+  z-index: 999;
+}
+
+.content {
+  height: calc(100vh - 60px);
+  overflow: auto;
+  padding: 8px;
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+  font-size: 13px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  background: white;
+}
+
+th {
+  background: #f0f0f0;
+  position: sticky;
+  top: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+th.symbol-col,
+td.symbol-col {
+  position: sticky;
+  left: 0;
+  background: #fafafa;
+  z-index: 6;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) td { background: #f9f9f9; }
+
+td.text { text-align: left; }
+td.num  { text-align: right; }
+
+.green { background: #c8f7c5 !important; }
+.red   { background: #f7c5c5 !important; }
+</style>
+
+<div id="tfwatchFeature" style="display:none">
+  <div class="update-time" id="updateTime_tf"></div>
+  <div class="content">
+    <table id="dataTable_tf"></table>
+  </div>
+</div>
+
+<script>
+const CSV_TFW = "tfwatch_report.csv";
+
+const COLS_TFW = [
+  "Symbol","Folio","DD_High",
+  "4H_MACD","D_MACD","W_MACD","M_MACD",
+  "W_RSI","M_RSI",
+  "CurPrice","Sector","MarketCap","Notes"
+];
+
+let rawTF = [];
+let curTF = [];
+let tfSortState = {};   // ✅ FIX: persistent sort state
+
+function parseCSV_TF(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+/* ---------- Register Tabs ---------- */
+window.registerTabs(addTab => {
+  fetch(CSV_TFW)
+    .then(r => r.text())
+    .then(t => {
+      rawTF = parseCSV_TF(t);
+      [...new Set(rawTF.map(d => d.Folio).filter(Boolean))].sort()
+        .forEach(folio =>
+          addTab(folio, () => {
+            document.getElementById("portfolioFeature")?.style.setProperty("display","none");
+            document.getElementById("tfwatchFeature").style.display = "block";
+            renderTF(rawTF.filter(d => d.Folio === folio));
+          })
+        );
+      updateTFTime();
+    });
+});
+
+function renderTF(data) {
+  curTF = [...data];
+  tfSortState = {}; // reset manual sort on tab change
+
+  // DEFAULT SORT (UNCHANGED)
+  curTF.sort((a, b) => {
+    const x = parseFloat(a.D_MACD);
+    const y = parseFloat(b.D_MACD);
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+    return x - y;
+  });
+
+  drawTF(curTF);
+}
+
+function drawTF(data) {
+  const table = document.getElementById("dataTable_tf");
+  table.innerHTML = "";
+  if (!data.length) return;
+
+  const tr = document.createElement("tr");
+  COLS_TFW.forEach(h => {
+    if (!(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+
+    // ✅ FIXED MANUAL SORT
+    th.onclick = () => {
+      const asc = !tfSortState[h];
+      tfSortState = { [h]: asc };
+
+      curTF.sort((a, b) =>
+        asc
+          ? parseFloat(a[h]) - parseFloat(b[h])
+          : parseFloat(b[h]) - parseFloat(a[h])
+      );
+
+      drawTF(curTF);
+    };
+
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_TFW.forEach(h => {
+      if (!(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
+      } else {
+        td.innerText = v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
+      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function openChart(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
+
+function updateTFTime() {
+  fetch(CSV_TFW, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_tf").innerText =
+        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
+        + " / " +
+        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>
