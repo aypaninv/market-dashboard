@@ -115,12 +115,6 @@ window.registerTabs(addTab => {
                 d.StopLoss &&
                 !isNaN(parseFloat(d.StopLoss)) &&
                 parseFloat(d.CurPrice) < parseFloat(d.StopLoss)
-              ) ||
-              (
-                !isNaN(parseFloat(d.PnL)) &&
-                !isNaN(parseFloat(d.D_MACD)) &&
-                parseFloat(d.PnL) < 0 &&
-                parseFloat(d.D_MACD) < 0
               )
             )
           )
