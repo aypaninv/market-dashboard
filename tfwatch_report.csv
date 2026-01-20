@@ -1,19 +1,19 @@
 Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,W_RSI,M_RSI,CurPrice,Sector,MarketCap,Notes,Day_RSI
 TVSMOTOR,TFCore_Low,-5.3,-14,-6,-11,8,65,80,3701.9,Auto - 2W,Large Cap,,50.45
-M&M,TFCore_Low,-4.75,-16,-5,-6,8,59,69,3657.4,Auto - PV/Trucks,Large Cap,,44.82
+M&M,TFCore_Low,-4.75,-16,-6,-6,8,59,69,3657.4,Auto - PV/Trucks,Large Cap,,44.92
 CCL,TFCore_Low,-8.44,11,6,-5,9,58,66,983.75,Agri - Tea/Coffee,Small Cap,,53.51
 HDFCAMC,TFCore_Low,-13.06,4,1,-18,-1,47,65,2579.6,Financials - AMC,Mid Cap,,47.01
 LT,TFCore_Low,-7.75,-14,-8,-2,3,52,60,3869.8,Infra - Construction,Large Cap,,31.77
 MANORAMA,TFCore_Low,-30.22,-17,-8,-24,-2,40,59,1228.2,Agri - Misc,Small Cap,,31.62
 CONTROLPR,TFCore_Low,-37.95,1,-7,-15,-19,37,47,661.1,IT - Equipments,Small Cap,,27.96
-SYRMA,TFCore_Low,-24.65,-13,-4,-14,7,46,59,685.65,Electronic - Equipment,Small Cap,,30.78
+SYRMA,TFCore_Low,-24.65,-13,-5,-14,7,46,59,685.65,Electronic - Equipment,Small Cap,,30.48
 KEI,TFCore,-14.31,-2,-7,5,1,55,62,4318.4,Power - Wiring,Mid Cap,,50.26
 POLYCAB,TFCore_Low,-6.67,-12,-6,-11,5,55,63,7418.0,Power - Wiring,Mid Cap,,46.04
 PSPPROJECT,TFCore_Low,-24.0,-14,-6,-5,8,46,51,782.75,Infra - Construction,Small Cap,,24.34
 SIRCA,TFCore_Low,-8.4,5,3,-10,8,58,65,493.7,Consumption - Paints,Small Cap,,52.21
 DATAPATTNS,TFCore_Low,-31.98,-12,-4,-8,-1,45,50,2486.0,Defense - Technology,Small Cap,,35.93
 BAJFINANCE,TFCore_Low,-12.07,2,1,-7,12,51,64,969.45,Financials - NBFC,Large Cap,,51.48
-EICHERMOT,TFCore_Low,-3.81,1,-10,-4,12,62,85,7323.5,Auto - 2W,Large Cap,,39.83
+EICHERMOT,TFCore_Low,-3.81,1,-12,-4,12,62,85,7323.5,Auto - 2W,Large Cap,,39.36
 ICICIGI,TFCore_Low,-18.12,-14,-7,-7,-12,46,53,1884.8,Financials - Non-Life,Large Cap,,37.02
 TATACONSUM,TFCore_Low,-7.0,-12,-7,-3,3,61,60,1180.2,Consumption - Misc,Large Cap,,52.1
 SAFARI,TFCore_Low,-27.17,-18,-30,-4,-12,41,51,1999.0,Consumption - Luggage,Small Cap,,27.98
@@ -25,12 +25,12 @@ BAJAJ-AUTO,TFCore_Low,-26.18,-12,-4,4,-13,65,60,9429.5,Auto - 2W,Large Cap,,55.6
 SCHAEFFLER,TFCore_Low,-23.82,5,3,-25,-2,48,56,3771.6,Industrial - Bearings,Mid Cap,,39.25
 KSB,TFCore_Low,-31.42,-10,-15,-25,-14,42,50,727.0,Industrial - Pumps/Engines,Small Cap,,41.13
 ACUTAAS,TFCore_Low,-11.56,-13,-5,-5,7,56,91,1682.2,Healthcare - Pharma,Small Cap,,47.51
-CIPLA,TFCore_Low,-18.2,-16,-8,-13,-13,36,41,1392.3,Healthcare - Pharma,Large Cap,,24.46
+CIPLA,TFCore_Low,-18.2,-16,-9,-13,-13,36,41,1392.3,Healthcare - Pharma,Large Cap,,24.05
 BRITANNIA,TFCore_Low,-8.14,-12,-6,-13,8,53,61,5943.5,Consumption - FMCG,Large Cap,,43.75
 GILLETTE,TFCore_Low,-29.86,7,1,-21,-4,37,47,8066.5,Consumption - Personal,Mid Cap,,48.88
 AFFLE,TFCore_Low,-22.58,-14,-6,-17,-2,42,51,1692.4,IT - Product/Platform,Small Cap,,44.62
-APARINDS,TFCore_Low,-38.39,-25,-17,-6,-12,31,53,7257.5,Power - Equipment,Small Cap,,12.37
-APLAPOLLO,TFCore,-3.71,5,-7,6,5,62,67,1919.7,Metals - Pipe & Tube,Mid Cap,,59.18
+APARINDS,TFCore_Low,-38.39,-25,-18,-6,-12,31,53,7257.5,Power - Equipment,Small Cap,,12.23
+APLAPOLLO,TFCore,-3.71,5,-8,6,5,62,67,1919.7,Metals - Pipe & Tube,Mid Cap,,58.88
 CHOLAFIN,TFCore_Low,-7.16,-14,-6,-2,4,57,66,1700.4,Financials - MFI,Large Cap,,50.24
 CRAFTSMAN,TFCore,-5.76,-14,-5,4,7,62,70,7604.0,Auto - OEM Suppliers,Small Cap,,53.89
 LALPATHLAB,TFCore_Low,-24.28,-16,-6,-16,-2,39,47,1383.4,Healthcare - Diagnostics,Mid Cap,,34.0
@@ -79,13 +79,13 @@ COFORGE,TFCore_Low,-13.83,16,9,-4,-2,46,56,1728.0,IT - Software/Consulting,Mid C
 AIAENG,TFCore,-21.9,-16,-6,17,2,63,55,3865.9,Metals - Casting/Forging,Mid Cap,,50.8
 BECTORFOOD,TFCore_Low,-49.71,-16,-1,-6,-12,35,44,221.29,Consumption - FMCG,Small Cap,,32.57
 SUNPHARMA,TFCore_Low,-14.54,-11,-4,-2,-11,43,50,1675.4,Healthcare - Pharma,Large Cap,,32.27
-OFSS,TFCore_Low,-39.56,4,11,-12,-12,42,51,7990.5,IT - Product/Platform,Mid Cap,,57.89
+OFSS,TFCore_Low,-39.56,4,12,-12,-12,42,51,7990.5,IT - Product/Platform,Mid Cap,,58.83
 ASIANPAINT,TFCore_Low,-22.81,-5,-1,-1,3,57,55,2754.0,Consumption - Paints,Large Cap,,40.15
 ASTEC,TFCore_Low,-61.02,4,-9,-7,-15,42,37,662.65,Agrichem - Protection,Small Cap,,58.79
 ASTRAL,TFCore_Low,-41.36,-13,-1,-7,-17,51,39,1439.0,Infra - Plastic Pipes,Mid Cap,,51.33
 BALKRISIND,TFCore_Low,-27.95,-1,11,9,-13,55,43,2431.6,Auto - Tyres,Mid Cap,,59.12
 ESABINDIA,TFCore,-17.42,3,-17,10,2,57,54,5780.0,Engineering,Small Cap,,48.92
-DEEPAKNTR,TFCore_Low,-51.54,-25,-10,-2,-13,37,36,1535.6,Chemicals - Specialty,Mid Cap,,30.65
+DEEPAKNTR,TFCore_Low,-51.54,-25,-11,-2,-13,37,36,1535.6,Chemicals - Specialty,Mid Cap,,30.4
 FCL,TFCore_Low,-50.22,-21,-10,-4,-15,40,39,22.84,Chemicals - Specialty,Small Cap,,42.64
 GMMPFAUDLR,TFCore_Low,-46.25,2,-6,-9,-1,38,41,1020.2,Engineering,Small Cap,,31.11
 GUFICBIO,TFCore_Low,-37.94,1,-33,-4,-11,40,45,312.95,Healthcare - Pharma,Small Cap,,37.26
@@ -97,10 +97,10 @@ MOLDTKPAC,TFCore_Low,-49.48,-19,-6,-18,7,34,36,560.75,Packaging,Small Cap,,27.17
 PAGEIND,TFCore_Low,-32.23,1,-10,-25,-5,23,34,34285.0,Textile - Innerwear,Mid Cap,,27.81
 PERSISTENT,TFCore_Low,-5.17,2,2,15,-7,60,65,6438.0,IT - Software/Consulting,Mid Cap,,56.35
 PIIND,TFCore_Low,-32.95,-2,16,-24,-13,36,45,3221.0,Agrichem - Protection,Mid Cap,,42.94
-PIDILITIND,TFCore_Low,-13.63,-13,-2,-18,-13,49,53,1474.8,Chemicals - Specialty,Large Cap,,50.7
+PIDILITIND,TFCore_Low,-13.63,-13,-2,-18,-13,49,53,1474.8,Chemicals - Specialty,Large Cap,,50.17
 RAINBOW,TFCore_Low,-26.36,3,-15,-20,-12,34,46,1259.0,Healthcare - Hospitals,Small Cap,,29.56
 RAJRATAN,TFCore,-45.53,-1,11,14,4,66,45,501.1,Auto - OEM Suppliers,Small Cap,,54.89
-RHIM,TFCore_Low,-48.76,-13,-5,-10,4,44,31,445.75,Metals - Casting/Forging,Small Cap,,41.66
+RHIM,TFCore_Low,-48.76,-13,-6,-10,4,44,31,445.75,Metals - Casting/Forging,Small Cap,,41.23
 SAKSOFT,TFCore_Low,-42.91,-2,-11,-18,-23,42,47,183.7,IT - Software/Consulting,Small Cap,,40.6
 SIEMENS,TFCore_Low,-38.13,-14,-5,-5,-12,43,50,2952.6,Power - Equipment,Large Cap,,37.37
 SBCL,TFCore_Low,-41.97,14,6,-17,-15,41,46,435.25,Electronic - Equipment,Small Cap,,47.94
@@ -110,9 +110,9 @@ SUPREMEIND,TFCore_Low,-46.33,-13,-3,-18,-15,42,46,3467.3,Industrial - Consumable
 TATAELXSI,TFCore_Low,-39.53,-6,-3,5,-21,51,39,5563.0,IT - Services,Mid Cap,,55.66
 TCIEXP,TFCore_Low,-73.24,-18,-8,-16,5,25,21,504.65,Transport - Logistics,Small Cap,,19.56
 TIMKEN,TFCore_Low,-37.93,-3,3,-7,-14,48,45,2990.6,Industrial - Bearings,Mid Cap,,45.37
-TITAN,TFCore,-3.9,-10,-1,15,3,70,64,4144.1,Consumption - Jewelry,Large Cap,,56.1
+TITAN,TFCore,-3.9,-10,-2,15,3,70,64,4144.1,Consumption - Jewelry,Large Cap,,55.39
 TIINDIA,TFCore_Low,-50.45,1,-6,-12,-14,31,40,2383.6,Metals - Pipe & Tube,Large Cap,,26.56
-VGUARD,TFCore_Low,-46.32,-14,-6,-25,-12,31,40,310.0,Consumption - Appliances,Small Cap,,34.52
+VGUARD,TFCore_Low,-46.32,-14,-7,-25,-12,31,40,310.0,Consumption - Appliances,Small Cap,,35.21
 VINATIORGA,TFCore_Low,-32.87,-2,-5,-25,-6,37,44,1564.1,Chemicals - Specialty,Mid Cap,,35.31
 SAREGAMA,TFCore_Low,-49.79,-10,-3,-31,-12,28,37,345.9,Media - Entertainment,Small Cap,,41.86
 LIKHITHA,TFCore_Low,-66.53,-18,-8,-24,-13,24,32,166.49,Infra - Construction,Small Cap,,27.25
@@ -136,7 +136,7 @@ KOTAKBANK,TFCore_Low,-7.27,2,-10,-2,13,53,59,426.9,Financials - Private Bank,Lar
 MASTEK,TFCore_Low,-34.58,4,2,1,-13,49,47,2207.9,IT - Software/Consulting,Small Cap,,59.49
 MGL,TFCore_Low,-44.77,4,1,-26,-15,41,43,1098.0,Utility - Gas,Small Cap,,49.68
 NESTLEIND,TFCore,-5.28,-12,-1,5,3,67,59,1315.6,Consumption - FMCG,Large Cap,,62.49
-NGLFINE,TFCore,-45.14,2,18,2,1,60,45,1549.3,Healthcare - Pharma,Small Cap,,72.3
+NGLFINE,TFCore,-45.14,2,19,2,1,60,45,1549.3,Healthcare - Pharma,Small Cap,,72.72
 RELAXO,TFCore_Low,-61.34,-16,-8,-16,-24,30,21,376.5,Consumption - Footwear,Mid Cap,,23.38
 TCS,TFCore_Low,-31.11,-5,-16,16,-12,47,41,3163.6,IT - Software/Consulting,Large Cap,,41.63
 INDIAMART,TFCore_Low,-34.21,4,2,-21,-3,40,47,2194.4,IT - Product/Platform,Mid Cap,,47.1
@@ -144,20 +144,20 @@ VIPIND,TFCore_Low,-50.69,-2,-30,10,-1,36,38,360.45,Consumption - Luggage,Small C
 ELGIEQUIP,TFCore_Low,-46.23,-18,-7,-6,-14,38,49,429.6,Industrial - Pumps/Engines,Small Cap,,28.94
 CARBORUNIV,TFCore_Low,-56.03,4,-9,-10,-14,37,36,809.5,Engineering,Mid Cap,,37.14
 BLS,TFCore_Low,-43.3,-1,-16,-3,-11,33,43,295.85,Leisure - Misc,Small Cap,,33.62
-TRITURBINE,TFCore_Low,-45.64,-16,-8,-1,-12,38,49,481.1,Power - Equipment,Small Cap,,19.2
+TRITURBINE,TFCore_Low,-45.64,-16,-9,-1,-12,38,49,481.1,Power - Equipment,Small Cap,,18.74
 ANUP,TFCore_Low,-48.52,-16,-7,-2,-8,33,47,1986.9,Engineering,Small Cap,,24.74
 ANGELONE,TFCore_Low,-30.82,7,10,2,-19,56,51,2695.1,Financials - Broking,Small Cap,,62.5
 CDSL,TFCore_Low,-28.89,-2,2,-8,-6,37,53,1414.9,IT - Product/Platform,Small Cap,,39.27
 CAMS,TFCore_Low,-32.54,3,-7,-7,-12,37,50,724.2,IT - Product/Platform,Small Cap,,46.34
 BSE,TFCore_Low,-10.01,-2,12,-1,33,55,68,2726.7,IT - Product/Platform,Small Cap,,48.56
-MOTILALOFS,TFCore_Low,-36.36,6,3,-10,8,41,48,826.4,Financials - Broking,Small Cap,,41.4
-KFINTECH,TFCore_Low,-36.92,-1,-11,-25,-6,41,53,1035.3,IT - Product/Platform,Small Cap,,37.39
+MOTILALOFS,TFCore_Low,-36.36,6,4,-10,8,41,48,826.4,Financials - Broking,Small Cap,,40.95
+KFINTECH,TFCore_Low,-36.92,-1,-12,-25,-6,41,53,1035.3,IT - Product/Platform,Small Cap,,36.8
 TMB,TFWatch,-9.2,-7,13,14,4,69,64,555.1,Financials - Private Bank,Small Cap,IAS-Dec2025,57.58
 MRPL,TFWatch_Low,-50.48,-1,4,-5,-16,48,49,143.25,Petro - Refineries,Small Cap,,42.92
-CEATLTD,TFWatch_Low,-12.5,2,4,-5,10,56,59,3883.1,Auto - Tyres,Small Cap,,53.31
+CEATLTD,TFWatch_Low,-12.5,2,5,-5,10,56,59,3883.1,Auto - Tyres,Small Cap,,53.54
 GPIL,TFWatch_Low,-67.29,-13,-7,-9,8,54,43,250.2,Metals - Iron & Steel,Small Cap,,41.4
 GALLANTT,TFWatch_Low,-28.74,-10,13,-18,31,51,59,571.65,Metals - Iron & Steel,Small Cap,,49.26
-TDPOWERSYS,TFWatch_Low,-22.47,-12,-6,-6,9,53,67,658.95,Power - Equipment,Small Cap,,39.17
+TDPOWERSYS,TFWatch_Low,-22.47,-12,-2,-6,9,53,67,658.95,Power - Equipment,Small Cap,,38.88
 POCL,TFWatch_Low,-12.69,-4,-20,-4,14,53,69,1377.7,Metals - Misc,Small Cap,,40.74
 SANGHVIMOV,TFWatch_Low,-58.63,-17,-8,-10,-17,45,49,309.25,Auto - CV,Small Cap,,37.55
 FORTIS,TFWatch_Low,-19.22,-13,-6,-11,32,50,67,892.05,Healthcare - Hospitals,Mid Cap,,48.4
@@ -165,18 +165,18 @@ ANANDRATHI,TFWatch_Low,-6.73,-12,-5,-11,6,66,74,3097.8,Financials - Misc,Small C
 TI,TFWatch_Low,-25.34,-17,-9,-11,7,41,56,410.4,Beverages - Alcohol,Small Cap,,33.62
 TEGA,TFWatch_Low,-21.39,-2,-14,-15,-1,47,60,1830.7,Engineering,Small Cap,,34.48
 V2RETAIL,TFWatch_Low,-22.34,-20,-10,-3,33,45,63,1991.3,Consumption - Retail,Small Cap,,30.87
-THYROCARE,TFWatch_Low,-11.28,7,25,-8,9,60,62,476.15,Healthcare - Diagnostics,Small Cap,,53.87
-CARTRADE,TFWatch_Low,-18.63,-16,-6,-6,30,56,72,2677.4,IT - Product/Platform,Small Cap,,41.9
-NACLIND,TFWatch_Low,-48.65,-4,18,-21,13,45,52,174.32,Agrichem - Protection,Small Cap,,49.05
-MCLEODRUSS,TFWatch_Low,-35.64,-2,-7,-7,26,47,51,44.07,Agri - Tea/Coffee,Small Cap,,36.76
+THYROCARE,TFWatch_Low,-11.28,7,26,-8,9,60,62,476.15,Healthcare - Diagnostics,Small Cap,,54.2
+CARTRADE,TFWatch_Low,-18.63,-16,-7,-6,30,56,72,2677.4,IT - Product/Platform,Small Cap,,41.8
+NACLIND,TFWatch_Low,-48.65,-4,19,-21,13,45,52,174.32,Agrichem - Protection,Small Cap,,48.62
+MCLEODRUSS,TFWatch_Low,-35.64,-1,-7,-7,26,47,51,44.07,Agri - Tea/Coffee,Small Cap,,36.76
 ETERNAL,TFWatch_Low,-23.64,-2,12,-13,-2,45,62,281.35,IT - Product/Platform,Large Cap,,43.94
 RADICO,TFWatch_Low,-21.0,-15,-11,-7,36,42,62,2837.5,Beverages - Alcohol,Mid Cap,,40.35
-BOSCHLTD,TFWatch_Low,-12.96,-13,-3,-17,-2,47,63,36510.0,Auto - Replacement,Large Cap,,44.82
+BOSCHLTD,TFWatch_Low,-12.96,-13,-4,-17,-2,47,63,36510.0,Auto - Replacement,Large Cap,,44.3
 FORCEMOT,TFWatch,-3.12,18,4,10,20,66,82,21305.0,Auto - PV/Trucks,Small Cap,,68.88
 FOSECOIND,TFWatch_Low,-33.44,-20,-6,-16,-1,37,54,4556.9,Chemicals - Specialty,Small Cap,,20.0
 VIPIND,TFWatch_Low,-50.69,-2,-30,10,-1,36,38,360.45,Consumption - Luggage,Small Cap,,33.24
 IONEXCHANG,TFWatch_Low,-54.5,12,3,12,-28,35,29,349.65,Infra - Construction,Small Cap,SideCar,35.2
-WABAG,TFWatch_Low,-40.61,-2,-9,-22,-10,32,47,1154.5,Infra - Construction,Small Cap,SideCar,32.02
+WABAG,TFWatch_Low,-40.61,-2,-10,-22,-10,32,47,1154.5,Infra - Construction,Small Cap,SideCar,31.66
 KPITTECH,TFWatch_Low,-39.7,-4,-1,-8,5,40,40,1163.1,IT - Services,Mid Cap,SideCar,41.71
 KEC,TFWatch_Low,-47.48,5,-10,-16,-12,39,46,689.75,Railways,Small Cap,IAS-Dec2025,39.84
 MACPOWER,TFWatch_Low,-48.36,-27,-11,11,-12,48,48,897.0,Engineering,Small Cap,IAS-Dec2025,32.2
@@ -187,7 +187,7 @@ DCMSHRIRAM,TFWatch_Low,-24.64,-18,-10,-21,-1,41,49,1132.2,Others,Small Cap,IAS-D
 MTARTECH,TFWatch,-9.36,-3,22,3,5,69,66,2646.9,Defense - Misc,Small Cap,IAS-Dec2025,66.03
 CSBBANK,TFWatch,-12.12,-13,-2,4,8,72,68,504.8,Financials - Private Bank,Small Cap,IAS-Dec2025,60.69
 FEDERALBNK,TFWatch,-0.2,4,1,15,4,75,75,279.7,Financials - Private Bank,Mid Cap,IAS-Dec2025,68.55
-EICHERMOT,TFWatch_Low,-3.81,1,-10,-4,12,62,85,7323.5,Auto - 2W,Large Cap,IAS-Dec2025,39.83
+EICHERMOT,TFWatch_Low,-3.81,1,-12,-4,12,62,85,7323.5,Auto - 2W,Large Cap,IAS-Dec2025,39.36
 PYRAMID,TFWatch_Low,-39.5,-14,-7,-2,-11,45,50,156.69,Packaging,Small Cap,IAS-Dec2025,48.5
 LUMAXTECH,TFWatch_Low,-13.14,-14,-6,-1,9,60,76,1479.3,Auto - Replacement,Small Cap,IAS-Dec2025,42.2
 GREAVESCOT,TFWatch_Low,-46.82,-18,-8,-9,-6,41,43,169.92,Industrial - Pumps/Engines,Small Cap,IAS-Dec2025,29.26
@@ -214,7 +214,7 @@ BHEL,TFWatch_Low,-21.54,-13,-8,-1,-14,52,55,263.1,Power - Equipment,Mid Cap,,34.
 JAMNAAUTO,TFWatch,-18.31,-14,-8,9,3,63,56,122.26,Auto - Replacement,Small Cap,,43.86
 PNB,TFWatch,-10.39,6,5,2,3,63,61,128.05,Financials - PSU Bank,Large Cap,,57.72
 RECLTD,TFWatch,-43.41,12,-16,9,2,54,41,370.1,Financials - NBFC,Mid Cap,,53.48
-BSOFT,TFWatch_Low,-50.59,4,-15,14,-17,54,44,425.85,IT - Software/Consulting,Small Cap,,48.86
+BSOFT,TFWatch_Low,-50.59,4,-16,14,-17,54,44,425.85,IT - Software/Consulting,Small Cap,,49.06
 FORCEMOT,TFWatch,-3.12,18,4,10,20,66,82,21305.0,Auto - PV/Trucks,Small Cap,,68.88
 POCL,TFWatch_Low,-12.69,-4,-20,-4,14,53,69,1377.7,Metals - Misc,Small Cap,,40.74
 JKTYRE,TFWatch,-8.54,1,-10,19,3,71,64,506.65,Auto - Tyres,Small Cap,,61.46
@@ -225,9 +225,9 @@ PRICOLLTD,TFWatch_Low,-15.88,-17,-6,-1,3,53,62,583.95,Auto - OEM Suppliers,Small
 CHOICEIN,TFWatch_Low,-4.89,5,-6,-17,35,57,77,818.45,Financials - Misc,Small Cap,,51.02
 HINDPETRO,TFWatch_Low,-10.87,3,-9,-3,4,53,57,453.2,Petro - Refineries,Mid Cap,,44.12
 BANKINDIA,TFWatch,-0.78,5,24,17,4,75,63,163.05,Financials - PSU Bank,Mid Cap,,76.27
-DYNAMATECH,TFWatch_Low,-13.31,-2,-13,-1,2,54,64,8703.0,Defense - Misc,Small Cap,,38.27
+DYNAMATECH,TFWatch_Low,-13.31,-2,-14,-1,2,54,64,8703.0,Defense - Misc,Small Cap,,37.74
 INFY,TFWatch_Low,-16.21,4,2,20,-11,61,53,1681.2,,,,63.07
-TECHM,TFWatch_Low,-4.95,7,2,9,-11,66,66,1718.3,,,,72.39
+TECHM,TFWatch_Low,-4.95,7,2,9,-11,66,66,1718.3,,,,73.2
 HCLTECH,TFWatch_Low,-14.68,16,8,15,-11,61,56,1716.8,,,,63.99
 SILVERBEES,TFWatch,-0.68,21,6,34,23,91,92,282.95,,,,87.21
 GOLDBEES,TFWatch,-1.46,21,6,21,35,80,93,121.1,,,,77.11
