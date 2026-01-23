@@ -1,44 +1,43 @@
 Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,W_RSI,M_RSI,CurPrice,Sector,MarketCap,Notes,Day_RSI
-NARMADA,Trend,-15.79,1,22,2,7,67.0,65.0,29.43,Agri - Animal Feed,Small Cap,,79.08
-MARICO,Trend,-4.4,-6,-10,6,2,56.0,64.0,745.7,Agri - Edible Oil,Large Cap,,45.25
-GAEL,Trend,-34.06,1,-12,19,2,68.0,50.0,138.88,Agri - Misc,Small Cap,,61.71
-RAJRATAN,Trend,-48.07,-8,-4,14,4,60.0,43.0,477.7,Auto - OEM Suppliers,Small Cap,,51.91
-AUTOAXLES,Trend,-27.32,3,-10,8,8,61.0,40.0,1957.3,Auto - Replacement,Small Cap,,58.3
-AETHER,Trend,-20.35,-16,-4,17,3,66.0,59.0,963.0,Chemicals - Specialty,Small Cap,,51.4
-MIRCELECTR,Trend,-13.25,-7,-5,3,6,61.0,60.0,31.23,Consumption - Electronics,Small Cap,,54.79
-EIFFL,Trend,-13.37,-8,-7,5,2,63.0,67.0,265.0,Consumption - FMCG,Small Cap,,52.78
-VENKEYS,Trend,-41.1,1,-8,6,-15,55.0,37.0,1507.9,Consumption - Misc,Small Cap,,51.8
-DREDGECORP,Trend,-32.49,-7,-3,13,2,60.0,59.0,984.25,Engineering,Small Cap,,47.11
-CSBBANK,Trend,-12.42,-11,-6,4,9,72.0,68.0,503.05,Financials - Private Bank,Small Cap,,57.32
-TMB,Trend,-6.77,1,-4,15,4,74.0,65.0,569.95,Financials - Private Bank,Small Cap,,66.8
-SBIN,Trend,-0.52,3,19,19,4,82.0,72.0,1050.0,Financials - PSU Bank,Large Cap,,73.58
-BLISSGVS,Trend,-16.14,-17,-8,6,7,51.0,61.0,164.2,Healthcare - Pharma,Small Cap,,50.7
-JBCHEPHARM,Trend,-6.67,-6,-3,11,-15,64.0,60.0,1894.6,Healthcare - Pharma,Small Cap,,59.8
-LUPIN,Trend,-10.52,-13,-5,24,-12,59.0,61.0,2150.0,Healthcare - Pharma,Mid Cap,,56.42
-MENONBE,Trend,-25.07,-7,-3,2,0,57.0,52.0,124.68,Industrial - Bearings,Small Cap,,57.82
-BIGBLOC,Trend,-58.75,-6,-15,10,-14,48.0,44.0,61.25,Infra - Cement,Small Cap,,44.99
-ULTRACEMCO,Trend,-4.31,3,2,2,-5,63.0,64.0,12533.0,Infra - Cement,Large Cap,,66.99
-ASIANTILES,Trend,-26.46,1,-14,6,3,59.0,53.0,72.22,Infra - Ceramics,Small Cap,,50.99
-AKASH,Trend,-51.52,-12,-5,3,-15,44.0,47.0,24.53,Infra - Construction,Small Cap,,43.6
-VERANDA,Trend,-41.35,1,-5,1,-12,50.0,40.0,211.3,IT - Services,Small Cap,,53.44
-TECHM,Trend,-5.97,11,6,10,-11,65.0,65.0,1699.7,IT - Software/Consulting,Large Cap,,65.16
-PFOCUS,Trend,-7.18,1,-16,7,7,69.0,74.0,232.05,Media - Films,Small Cap,,55.39
-HINDALCO,Trend,-1.12,15,-5,7,5,74.0,66.0,959.9,Metals - Aluminium,Large Cap,,69.65
+NARMADA,Trend,-15.31,1,22,2,7,68.0,65.0,29.6,Agri - Animal Feed,Small Cap,,79.53
+MARICO,Trend,-3.85,-6,-10,6,2,57.0,64.0,750.0,Agri - Edible Oil,Large Cap,,47.9
+GAEL,Trend,-34.78,-2,-12,19,2,66.0,49.0,137.35,Agri - Misc,Small Cap,,58.74
+RAJRATAN,Trend,-48.42,-8,-4,14,4,60.0,42.0,474.5,Auto - OEM Suppliers,Small Cap,,51.06
+AUTOAXLES,Trend,-27.31,3,-10,8,8,61.0,40.0,1957.8,Auto - Replacement,Small Cap,,58.35
+AETHER,Trend,-20.5,-16,-4,17,3,66.0,59.0,961.2,Chemicals - Specialty,Small Cap,,50.92
+MIRCELECTR,Trend,-13.56,-7,-5,3,6,61.0,60.0,31.12,Consumption - Electronics,Small Cap,,54.3
+EIFFL,Trend,-11.39,-8,-7,5,2,65.0,68.0,271.05,Consumption - FMCG,Small Cap,,54.82
+VENKEYS,Trend,-41.7,-11,-8,6,-15,54.0,37.0,1492.4,Consumption - Misc,Small Cap,,49.51
+DREDGECORP,Trend,-32.99,-7,-3,13,2,60.0,59.0,977.0,Engineering,Small Cap,,46.34
+CSBBANK,Trend,-12.35,-11,-6,4,9,72.0,68.0,503.45,Financials - Private Bank,Small Cap,,57.42
+TMB,Trend,-6.98,1,-4,15,4,74.0,65.0,568.65,Financials - Private Bank,Small Cap,,66.37
+SBIN,Trend,-0.68,3,19,19,4,82.0,72.0,1048.35,Financials - PSU Bank,Large Cap,,73.16
+BLISSGVS,Trend,-16.45,-17,-8,6,7,51.0,60.0,163.6,Healthcare - Pharma,Small Cap,,50.3
+JBCHEPHARM,Trend,-6.55,-6,-3,11,-15,64.0,60.0,1897.0,Healthcare - Pharma,Small Cap,,60.43
+LUPIN,Trend,-10.42,-13,-5,24,-12,59.0,61.0,2152.6,Healthcare - Pharma,Mid Cap,,57.04
+MENONBE,Trend,-25.31,-7,-3,2,-3,56.0,52.0,124.29,Industrial - Bearings,Small Cap,,57.06
+BIGBLOC,Trend,-58.79,-6,-15,10,-14,48.0,44.0,61.19,Infra - Cement,Small Cap,,44.91
+ULTRACEMCO,Trend,-4.83,3,2,2,-5,62.0,64.0,12465.0,Infra - Cement,Large Cap,,65.45
+ASIANTILES,Trend,-26.66,1,-14,6,3,59.0,52.0,72.02,Infra - Ceramics,Small Cap,,50.43
+AKASH,Trend,-50.59,-12,-5,3,-15,45.0,48.0,25.0,Infra - Construction,Small Cap,,45.44
+VERANDA,Trend,-41.43,1,-5,1,-12,50.0,40.0,211.0,IT - Services,Small Cap,,53.23
+TECHM,Trend,-5.63,11,6,10,-11,65.0,65.0,1705.9,IT - Software/Consulting,Large Cap,,65.96
+PFOCUS,Trend,-7.6,1,-16,7,7,68.0,74.0,231.0,Media - Films,Small Cap,,54.87
+HINDALCO,Trend,-1.37,15,-5,7,5,74.0,65.0,957.5,Metals - Aluminium,Large Cap,,69.19
 MANAKALUCO,Trend,-22.4,-3,24,3,2,74.0,71.0,52.86,Metals - Aluminium,Small Cap,,63.37
-AIAENG,Trend,-24.4,-26,-10,17,2,57.0,53.0,3742.2,Metals - Casting/Forging,Mid Cap,,44.6
-BHARATFORG,Trend,-20.83,1,-11,19,3,61.0,55.0,1428.6,Metals - Casting/Forging,Mid Cap,,47.58
-MMFL,Trend,-46.95,-5,-4,11,1,60.0,45.0,387.15,Metals - Casting/Forging,Small Cap,,50.55
-ORIENTCER,Trend,-40.76,0,-11,10,2,52.0,49.0,42.86,Metals - Casting/Forging,Small Cap,,45.18
-BHAGYANGR,Trend,-13.02,1,-9,36,4,73.0,73.0,162.34,Metals - Copper,Small Cap,,53.47
-CUBEXTUB,Trend,-26.2,4,-12,7,1,53.0,56.0,106.04,Metals - Copper,Small Cap,,52.47
-HINDCOPPER,Trend,-3.78,-3,-11,8,4,81.0,73.0,554.2,Metals - Copper,Small Cap,,62.22
+AIAENG,Trend,-24.16,-26,-10,17,2,58.0,53.0,3753.8,Metals - Casting/Forging,Mid Cap,,45.27
+MMFL,Trend,-47.61,-5,-4,11,1,58.0,44.0,382.35,Metals - Casting/Forging,Small Cap,,49.0
+ORIENTCER,Trend,-41.3,-24,-11,10,2,51.0,49.0,42.47,Metals - Casting/Forging,Small Cap,,44.03
+BHAGYANGR,Trend,-12.94,1,-9,36,4,74.0,74.0,162.48,Metals - Copper,Small Cap,,53.6
+CUBEXTUB,Trend,-25.53,4,-12,7,1,53.0,56.0,107.0,Metals - Copper,Small Cap,,53.45
+HINDCOPPER,Trend,-3.97,-3,-11,8,4,81.0,73.0,553.15,Metals - Copper,Small Cap,,62.05
 HINDZINC,Trend,-12.49,16,4,20,2,76.0,68.0,706.8,Metals - Misc,Large Cap,,69.26
-MAITHANALL,Trend,-26.03,-7,-3,2,-3,47.0,42.0,1005.2,Metals - Misc,Small Cap,,49.19
-VEDL,Trend,-0.92,1,8,20,3,82.0,68.0,692.55,Metals - Misc,Large Cap,,81.29
-APLAPOLLO,Trend,-1.72,3,1,6,9,70.0,70.0,2034.9,Metals - Pipe & Tube,Mid Cap,,68.29
-AAATECH,Trend,-35.78,-5,-2,17,2,56.0,53.0,103.3,Others,Small Cap,,50.05
+MAITHANALL,Trend,-26.56,-7,-3,2,-3,47.0,42.0,998.1,Metals - Misc,Small Cap,,48.14
+VEDL,Trend,-0.59,1,8,20,3,82.0,69.0,694.9,Metals - Misc,Large Cap,,81.66
+APLAPOLLO,Trend,-2.01,3,1,6,9,69.0,70.0,2029.0,Metals - Pipe & Tube,Mid Cap,,67.78
+AAATECH,Trend,-36.59,-5,-2,17,2,55.0,52.0,102.0,Others,Small Cap,,48.84
 AUSOMENT,Trend,-28.71,-4,-1,8,3,61.0,64.0,132.84,Others,Small Cap,,53.1
 MCL,Trend,-3.95,13,5,5,2,78.0,67.0,89.52,Power - Wiring,Small Cap,,71.99
-TARC,Trend,-41.53,-20,-9,5,-14,51.0,50.0,157.85,Real Estate,Small Cap,,46.57
-ONEPOINT,Trend,-32.89,-5,-3,16,-15,51.0,52.0,52.01,Tech - BPO,Small Cap,,46.18
-COALINDIA,Trend,-22.68,-7,-6,5,-15,62.0,56.0,420.25,Utility - Misc,Large Cap,,54.12
+TARC,Trend,-41.47,-20,-9,5,-14,51.0,50.0,158.0,Real Estate,Small Cap,,46.71
+ONEPOINT,Trend,-33.48,-5,-3,16,-15,50.0,52.0,51.55,Tech - BPO,Small Cap,,44.96
+COALINDIA,Trend,-23.12,-7,-6,5,-15,61.0,56.0,417.9,Utility - Misc,Large Cap,,52.2
