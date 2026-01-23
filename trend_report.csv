@@ -1,46 +1,121 @@
 Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,W_RSI,M_RSI,CurPrice,Sector,MarketCap,Notes,Day_RSI
-AIAENG,Trend,-24.08,-11.0,-9.0,17.0,2.0,58.0,53.0,3758.2,Metals - Casting/Forging,Mid Cap,,45.53
-APLAPOLLO,Trend,-0.4,1.0,-10.0,6.0,9.0,67.0,68.0,1976.0,Metals - Pipe & Tube,Mid Cap,,62.34
-AUBANK,Trend,-2.85,-2.0,-2.0,14.0,9.0,74.0,67.0,1000.55,Financials - Private Bank,Mid Cap,,57.22
-ASHOKLEY,Trend,-0.79,1.0,-11.0,23.0,7.0,81.0,81.0,190.28,Auto - CV,Mid Cap,,65.77
-AXISBANK,Trend,-3.35,-3.0,18.0,2.0,3.0,68.0,61.0,1294.8,Financials - Private Bank,Large Cap,,56.28
-BANKBARODA,Trend,-0.88,-4.0,-3.0,18.0,4.0,66.0,66.0,305.3,Financials - PSU Bank,Large Cap,,60.86
-BANKINDIA,Trend,-1.18,7.0,18.0,2.0,4.0,76.0,64.0,166.42,Financials - PSU Bank,Mid Cap,,73.41
-MAHABANK,Trend,-10.49,-3.0,-2.0,4.0,2.0,69.0,59.0,65.79,Financials - PSU Bank,Mid Cap,,66.43
-BHARATFORG,Trend,-20.67,-10.0,-10.0,19.0,3.0,62.0,55.0,1431.5,Metals - Casting/Forging,Mid Cap,,48.25
-CRAFTSMAN,Trend,-2.72,-10.0,-8.0,4.0,7.0,62.0,70.0,7623.5,Auto - OEM Suppliers,Small Cap,,59.59
-CREDITACC,Trend,-19.28,2.0,2.0,1.0,7.0,65.0,63.0,1449.8,Financials - MFI,Mid Cap,,68.23
-DABUR,Trend,-21.82,1.0,-5.0,3.0,2.0,56.0,46.0,525.35,Consumption - Personal,Large Cap,,63.43
-DALBHARAT,Trend,-14.12,-1.0,6.0,2.0,9.0,53.0,57.0,2143.7,Infra - Cement,Mid Cap,,53.09
-EMCURE,Trend,-1.72,-4.0,14.0,5.0,7.0,64.0,71.0,1558.4,,,,68.77
-FEDERALBNK,Trend,-1.74,5.0,4.0,15.0,4.0,75.0,76.0,282.2,Financials - Private Bank,Mid Cap,,69.65
-FORCEMOT,Trend,-5.89,-2.0,-9.0,4.0,9.0,62.0,78.0,20695.0,Auto - PV/Trucks,Small Cap,,58.55
-GRAPHITE,Trend,-10.35,-11.0,-9.0,4.0,4.0,61.0,54.0,635.95,Metals - Casting/Forging,Small Cap,,57.45
-HEG,Trend,-18.46,-3.0,-10.0,5.0,4.0,52.0,55.0,547.95,Metals - Casting/Forging,Small Cap,,48.7
-HINDALCO,Trend,-0.73,-5.0,-4.0,7.0,5.0,73.0,65.0,944.45,Metals - Aluminium,Large Cap,,66.38
-HINDCOPPER,Trend,-5.72,-12.0,-10.0,8.0,4.0,76.0,72.0,532.05,Metals - Copper,Small Cap,,58.06
-HINDZINC,Trend,-17.27,7.0,3.0,20.0,2.0,73.0,66.0,668.25,Metals - Misc,Large Cap,,63.16
-INDIACEM,Trend,-5.48,-4.0,-4.0,6.0,7.0,65.0,72.0,459.2,Infra - Cement,Small Cap,,55.9
-IKS,Trend,-23.07,-2.0,-2.0,13.0,3.0,55.0,20.0,1684.1,,,,44.87
-JKTYRE,Trend,-6.09,2.0,-12.0,19.0,4.0,73.0,65.0,520.2,Auto - Tyres,Small Cap,,63.4
-KARURVYSYA,Trend,-5.99,-12.0,-9.0,15.0,7.0,68.0,73.0,263.65,Financials - Private Bank,Small Cap,,54.8
-THELEELA,Trend,-14.54,-3.0,-3.0,4.0,5.0,37.0,69.0,405.4,,,,43.14
-MANAPPURAM,Trend,-6.65,-3.0,-11.0,5.0,11.0,57.0,65.0,300.2,Financials - NBFC,Small Cap,,50.29
-MARICO,Trend,-1.77,-3.0,-9.0,6.0,2.0,58.0,65.0,751.75,Agri - Edible Oil,Large Cap,,49.07
-MCX,Trend,-4.02,-3.0,-1.0,15.0,9.0,71.0,78.0,2314.0,IT - Product/Platform,Small Cap,,56.6
-NMDC,Trend,-18.04,-5.0,-11.0,5.0,2.0,53.0,55.0,78.23,Metals - Misc,Mid Cap,,41.97
-NATIONALUM,Trend,-2.59,-5.0,-3.0,36.0,3.0,87.0,81.0,364.6,Metals - Aluminium,Mid Cap,,68.45
-NESTLEIND,Trend,-5.98,-11.0,-6.0,3.0,4.0,65.0,58.0,1306.0,Consumption - FMCG,Large Cap,,54.61
-PNB,Trend,-12.41,-3.0,-2.0,2.0,4.0,59.0,60.0,125.16,Financials - PSU Bank,Large Cap,,53.65
-RRKABEL,Trend,-25.09,-9.0,-8.0,13.0,4.0,55.0,49.0,1424.7,Power - Wiring,Small Cap,,44.32
-SAGILITY,Trend,-9.41,0.0,1.0,31.0,7.0,59.0,90.0,52.44,,,,56.5
-SHRIRAMFIN,Trend,-0.42,1.0,-11.0,16.0,3.0,79.0,74.0,1005.5,Financials - NBFC,Mid Cap,,65.92
-SBIN,Trend,-0.68,-3.0,18.0,19.0,4.0,82.0,72.0,1048.35,Financials - PSU Bank,Large Cap,,73.16
-SAIL,Trend,-13.52,-11.0,-4.0,4.0,4.0,65.0,60.0,151.65,Metals - Iron & Steel,Mid Cap,,61.93
-TATASTEEL,Trend,-0.99,-3.0,-3.0,2.0,5.0,67.0,57.0,189.1,Metals - Iron & Steel,Large Cap,,65.47
-RAMCOCEM,Trend,-10.45,1.0,-6.0,6.0,9.0,58.0,62.0,1082.6,Infra - Cement,Mid Cap,,57.45
-TITAN,Trend,-2.65,-8.0,-4.0,15.0,4.0,62.0,62.0,4018.6,Consumption - Jewelry,Large Cap,,41.94
-TORNTPHARM,Trend,-0.29,-3.0,-2.0,11.0,1.0,73.0,71.0,4020.5,Healthcare - Pharma,Large Cap,,61.31
-UNIONBANK,Trend,-1.62,-3.0,16.0,14.0,4.0,74.0,64.0,174.78,Financials - PSU Bank,Mid Cap,,67.02
-VEDL,Trend,-2.21,-3.0,7.0,20.0,3.0,80.0,68.0,678.65,Metals - Misc,Large Cap,,78.76
-VENTIVE,Trend,-12.13,-5.0,-4.0,4.0,9.0,53.0,50.0,738.1,,,,54.24
+AIAENG,Trend,-24.08,-11,-9,17,2,58,53,3758.2,Metals - Casting/Forging,Mid Cap,,45.53
+APLAPOLLO,Trend,-0.4,1,-10,6,9,67,68,1976.0,Metals - Pipe & Tube,Mid Cap,,62.34
+AUBANK,Trend,-2.85,-2,-2,14,9,74,67,1000.55,Financials - Private Bank,Mid Cap,,57.22
+ABFRL,Trend,-82.52,-11,-11,24,-13,23,25,63.69,Consumption - Retail,Mid Cap,,19.19
+ABSLAMC,Trend,-15.09,-11,-10,4,-4,48,54,774.25,Financials - AMC,Small Cap,,44.93
+AJANTPHARM,Trend,-22.02,1,-9,11,-12,53,57,2717.6,Healthcare - Pharma,Mid Cap,,49.27
+AKUMS,Trend,-64.24,-15,-10,6,-17,37,22,420.5,,,,42.26
+ANGELONE,Trend,-34.12,-2,12,2,-20,51,49,2566.6,Financials - Broking,Small Cap,,53.13
+ASHOKLEY,Trend,-0.79,1,-11,23,7,81,81,190.28,Auto - CV,Mid Cap,,65.77
+ATUL,Trend,-29.43,-14,-9,7,-6,38,42,5772.5,Chemicals - Specialty,Mid Cap,,41.7
+AXISBANK,Trend,-3.35,-3,18,2,3,68,61,1294.8,Financials - Private Bank,Large Cap,,56.28
+BAJAJ-AUTO,Trend,-26.65,-10,-7,4,-14,64,60,9370.0,Auto - 2W,Large Cap,,51.63
+BALKRISIND,Trend,-28.1,-3,15,11,-13,55,42,2426.5,Auto - Tyres,Mid Cap,,63.47
+BANKBARODA,Trend,-0.88,-4,-3,18,4,66,66,305.3,Financials - PSU Bank,Large Cap,,60.86
+BANKINDIA,Trend,-1.18,7,18,2,4,76,64,166.42,Financials - PSU Bank,Mid Cap,,73.41
+MAHABANK,Trend,-10.49,-3,-2,4,2,69,59,65.79,Financials - PSU Bank,Mid Cap,,66.43
+BAYERCROP,Trend,-39.34,-1,-10,2,-6,38,40,4365.7,Agrichem - Protection,Mid Cap,,44.17
+BDL,Trend,-30.78,-10,-6,3,-5,47,55,1451.2,Defense - Misc,Mid Cap,,42.1
+BHARATFORG,Trend,-20.67,-10,-10,19,3,62,55,1431.5,Metals - Casting/Forging,Mid Cap,,48.25
+BSOFT,Trend,-51.8,-3,-19,14,-19,51,43,415.4,IT - Software/Consulting,Small Cap,,45.53
+CRISIL,Trend,-34.67,-5,-2,3,-6,45,51,4540.1,Financials - Ratings,Mid Cap,,45.34
+CENTRALBK,Trend,-51.63,-3,-3,4,-16,49,37,37.2,Financials - PSU Bank,Mid Cap,,49.64
+CHAMBLFERT,Trend,-42.52,-18,-12,5,-7,34,43,426.65,Agrichem - Fertilizers,Small Cap,,37.89
+CLEAN,Trend,-48.04,8,7,2,-7,32,35,878.2,Chemicals - Bulk,Mid Cap,,44.06
+COALINDIA,Trend,-22.14,-10,-5,5,-15,64,56,423.2,Utility - Misc,Large Cap,,56.75
+COLPAL,Trend,-43.97,9,9,1,-14,48,45,2179.6,Consumption - Personal,Mid Cap,,62.3
+CONCOR,Trend,-58.11,-11,-10,4,-16,41,34,494.35,Transport - Logistics,Mid Cap,,31.48
+COROMANDEL,Trend,-16.14,-4,-4,9,-4,51,62,2280.2,Agrichem - Fertilizers,Mid Cap,,46.5
+CRAFTSMAN,Trend,-2.72,-10,-8,4,7,62,70,7623.5,Auto - OEM Suppliers,Small Cap,,59.59
+CREDITACC,Trend,-19.28,2,2,1,7,65,63,1449.8,Financials - MFI,Mid Cap,,68.23
+CYIENT,Trend,-53.87,-3,-2,8,-21,49,42,1134.4,IT - Services,Small Cap,,43.99
+DABUR,Trend,-21.82,1,-5,3,2,56,46,525.35,Consumption - Personal,Large Cap,,63.43
+DALBHARAT,Trend,-14.12,-1,6,2,9,53,57,2143.7,Infra - Cement,Mid Cap,,53.09
+DEEPAKNTR,Trend,-49.5,3,-14,1,-13,42,37,1600.2,Chemicals - Specialty,Mid Cap,,43.38
+EMCURE,Trend,-1.72,-4,14,5,7,64,71,1558.4,,,,68.77
+FEDERALBNK,Trend,-1.74,5,4,15,4,75,76,282.2,Financials - Private Bank,Mid Cap,,69.65
+FINCABLES,Trend,-57.18,-4,-9,6,-15,36,47,727.95,Power - Wiring,Small Cap,,40.6
+FINPIPE,Trend,-50.77,-10,-7,1,-14,40,40,175.21,Infra - Plastic Pipes,Small Cap,,54.88
+FORCEMOT,Trend,-5.89,-2,-9,4,9,62,78,20695.0,Auto - PV/Trucks,Small Cap,,58.55
+GODREJCP,Trend,-19.19,1,-10,6,-15,61,55,1246.0,Consumption - Personal,Large Cap,,68.77
+GRAPHITE,Trend,-10.35,-11,-9,4,4,61,54,635.95,Metals - Casting/Forging,Small Cap,,57.45
+GUJGASLTD,Trend,-41.05,-10,-7,4,-15,44,49,406.75,Utility - Gas,Mid Cap,,47.69
+GSPL,Trend,-35.7,-10,-7,4,-13,47,50,302.0,Utility - Gas,Mid Cap,,48.29
+HEG,Trend,-18.46,-3,-10,5,4,52,55,547.95,Metals - Casting/Forging,Small Cap,,48.7
+HCLTECH,Trend,-15.36,1,10,15,-12,60,56,1703.1,IT - Software/Consulting,Large Cap,,59.43
+HEXT,Trend,-19.37,1,-22,9,-7,47,18,725.7,,,,46.12
+HSCL,Trend,-33.39,-21,-19,8,-12,46,53,458.75,Chemicals - Specialty,Small Cap,,50.56
+HINDALCO,Trend,-0.73,-5,-4,7,5,73,65,944.45,Metals - Aluminium,Large Cap,,66.38
+HINDCOPPER,Trend,-5.72,-12,-10,8,4,76,72,532.05,Metals - Copper,Small Cap,,58.06
+HINDZINC,Trend,-17.27,7,3,20,2,73,66,668.25,Metals - Misc,Large Cap,,63.16
+ICICIBANK,Trend,-10.3,-7,-4,3,-5,47,61,1345.5,Financials - Private Bank,Large Cap,,37.23
+ICICIPRULI,Trend,-18.03,-11,-8,11,-13,58,51,653.15,Financials - Life,Large Cap,,47.28
+IFCI,Trend,-35.67,-2,9,2,-14,57,54,58.8,Financials - NBFC,Small Cap,,60.29
+IRCON,Trend,-55.11,-14,-11,5,-16,47,45,157.84,Railways,Small Cap,,42.45
+INDIACEM,Trend,-5.48,-4,-4,6,7,65,72,459.2,Infra - Cement,Small Cap,,55.9
+IEX,Trend,-46.37,-9,-6,14,-7,40,43,131.06,IT - Product/Platform,Small Cap,,40.14
+IRFC,Trend,-48.9,-17,-11,5,-15,47,46,117.02,Railways,Mid Cap,,41.97
+INDUSTOWER,Trend,-8.94,-5,-9,14,-14,56,65,419.2,Telecom,Mid Cap,,48.1
+INDUSINDBK,Trend,-46.74,-3,-2,15,2,61,43,902.45,Financials - Private Bank,Large Cap,,53.57
+INFY,Trend,-17.09,5,5,20,-11,59,52,1663.5,IT - Software/Consulting,Large Cap,,55.81
+IKS,Trend,-23.07,-2,-2,13,3,55,20,1684.1,,,,44.87
+IPCALAB,Trend,-15.39,-6,-3,11,-11,53,56,1485.6,Healthcare - Pharma,Mid Cap,,50.35
+JBCHEPHARM,Trend,-6.33,-3,-2,11,-15,65,60,1901.6,Healthcare - Pharma,Small Cap,,61.68
+JKTYRE,Trend,-6.09,2,-12,19,4,73,65,520.2,Auto - Tyres,Small Cap,,63.4
+JSWCEMENT,Trend,-26.89,-11,-10,2,-5,54,3,118.54,,,,45.46
+J&KBANK,Trend,-29.78,1,2,1,-19,59,51,107.09,Financials - Private Bank,Small Cap,,64.7
+JINDALSAW,Trend,-51.03,4,4,4,-14,52,48,187.98,Metals - Pipe & Tube,Small Cap,,67.09
+JWL,Trend,-57.82,-3,-13,5,-15,48,44,315.55,Railways,Small Cap,,52.65
+KARURVYSYA,Trend,-5.99,-12,-9,15,7,68,73,263.65,Financials - Private Bank,Small Cap,,54.8
+THELEELA,Trend,-14.54,-3,-3,4,5,37,69,405.4,,,,43.14
+LINDEINDIA,Trend,-39.79,-3,-2,5,-15,50,51,5981.5,Chemicals - Misc,Mid Cap,,50.43
+LUPIN,Trend,-9.98,-6,-4,24,-12,60,62,2163.2,Healthcare - Pharma,Mid Cap,,59.7
+MMTC,Trend,-50.74,-3,-3,3,-15,51,49,64.93,Others,Small Cap,,50.84
+MANAPPURAM,Trend,-6.65,-3,-11,5,11,57,65,300.2,Financials - NBFC,Small Cap,,50.29
+MARICO,Trend,-1.77,-3,-9,6,2,58,65,751.75,Agri - Edible Oil,Large Cap,,49.07
+MCX,Trend,-4.02,-3,-1,15,9,71,78,2314.0,IT - Product/Platform,Small Cap,,56.6
+NMDC,Trend,-18.04,-5,-11,5,2,53,55,78.23,Metals - Misc,Mid Cap,,41.97
+NTPC,Trend,-23.64,-5,-4,4,-14,55,55,342.45,Power - Misc,Large Cap,,56.71
+NATIONALUM,Trend,-2.59,-5,-3,36,3,87,81,364.6,Metals - Aluminium,Mid Cap,,68.45
+NESTLEIND,Trend,-5.98,-11,-6,3,4,65,58,1306.0,Consumption - FMCG,Large Cap,,54.61
+NIVABUPA,Trend,-29.18,-5,-3,4,-4,50,75,77.43,,,,59.31
+OIL,Trend,-43.16,-4,-2,3,-14,55,56,436.45,Oil and Gas,Mid Cap,,55.85
+PGEL,Trend,-49.69,-10,-8,15,-7,41,51,530.4,Consumption - Electronics,Small Cap,,29.43
+PNBHOUSING,Trend,-28.44,-11,-10,15,-6,44,52,860.25,Financials - Housing,Small Cap,,29.15
+PERSISTENT,Trend,-6.9,-2,-2,15,-10,57,64,6320.5,IT - Software/Consulting,Mid Cap,,49.12
+PETRONET,Trend,-28.41,-11,-9,16,-12,44,49,275.05,Utility - Gas,Mid Cap,,42.43
+PHOENIXLTD,Trend,-14.52,-10,-9,21,-14,58,63,1768.2,Real Estate,Mid Cap,,43.9
+PFC,Trend,-37.12,-11,-3,2,-15,46,49,364.7,Financials - NBFC,Mid Cap,,50.94
+PRAJIND,Trend,-66.38,-4,-19,11,-12,24,36,294.15,Engineering,Small Cap,,32.69
+PNB,Trend,-12.41,-3,-2,2,4,59,60,125.16,Financials - PSU Bank,Large Cap,,53.65
+RRKABEL,Trend,-25.09,-9,-8,13,4,55,49,1424.7,Power - Wiring,Small Cap,,44.32
+RECLTD,Trend,-44.01,-11,-8,4,-15,48,46,366.2,Financials - NBFC,Mid Cap,,50.61
+RVNL,Trend,-49.15,-17,-12,6,-13,51,48,329.0,Railways,Mid Cap,,45.19
+RKFORGE,Trend,-51.79,1,-10,4,-14,42,41,513.0,Metals - Casting/Forging,Small Cap,,55.18
+RELINFRA,Trend,-66.68,-19,-15,3,-5,33,41,141.09,Power - Misc,Small Cap,,24.9
+SAGILITY,Trend,-9.41,0,1,31,7,59,90,52.44,,,,56.5
+SHREECEM,Trend,-15.57,-4,-2,3,-4,51,57,27430.0,Infra - Cement,Large Cap,,57.41
+SHRIRAMFIN,Trend,-0.42,1,-11,16,3,79,74,1005.5,Financials - NBFC,Mid Cap,,65.92
+SBIN,Trend,-0.68,-3,18,19,4,82,72,1048.35,Financials - PSU Bank,Large Cap,,73.16
+SAIL,Trend,-13.52,-11,-4,4,4,65,60,151.65,Metals - Iron & Steel,Mid Cap,,61.93
+SUNTV,Trend,-40.08,1,-12,17,-14,45,42,551.85,Media - TV Broadcast,Mid Cap,,46.33
+SUNDARMFIN,Trend,-8.47,-12,-9,12,-15,57,60,5067.0,Financials - NBFC,Mid Cap,,50.03
+SUPREMEIND,Trend,-46.01,-10,-7,1,-16,43,47,3487.8,Industrial - Consumables,Mid Cap,,54.16
+TCS,Trend,-31.4,-7,-19,20,-13,46,41,3150.4,IT - Software/Consulting,Large Cap,,41.76
+TATAELXSI,Trend,-40.61,-7,-5,6,-22,49,38,5464.0,IT - Services,Mid Cap,,49.91
+TATASTEEL,Trend,-0.99,-3,-3,2,5,67,57,189.1,Metals - Iron & Steel,Large Cap,,65.47
+TECHM,Trend,-6.65,5,5,10,-11,64,65,1687.4,IT - Software/Consulting,Large Cap,,63.45
+RAMCOCEM,Trend,-10.45,1,-6,6,9,58,62,1082.6,Infra - Cement,Mid Cap,,57.45
+THERMAX,Trend,-50.2,-11,-8,4,-14,41,46,2908.3,Power - Equipment,Mid Cap,,43.22
+TITAN,Trend,-2.65,-8,-4,15,4,62,62,4018.6,Consumption - Jewelry,Large Cap,,41.94
+TORNTPHARM,Trend,-0.29,-3,-2,11,1,73,71,4020.5,Healthcare - Pharma,Large Cap,,61.31
+TORNTPOWER,Trend,-35.13,-11,-8,15,-14,50,54,1321.4,Power - Misc,Mid Cap,,47.44
+ULTRACEMCO,Trend,-5.6,-3,1,2,-5,60,63,12364.0,Infra - Cement,Large Cap,,62.88
+UNIONBANK,Trend,-1.62,-3,16,14,4,74,64,174.78,Financials - PSU Bank,Mid Cap,,67.02
+VBL,Trend,-28.49,-10,-5,13,-15,52,54,487.1,Consumption - Misc,Large Cap,,50.31
+VEDL,Trend,-2.21,-3,7,20,3,80,68,678.65,Metals - Misc,Large Cap,,78.76
+VENTIVE,Trend,-12.13,-5,-4,4,9,53,50,738.1,,,,54.24
+WIPRO,Trend,-25.86,-4,-19,36,-11,41,46,240.65,IT - Software/Consulting,Large Cap,,32.08
+WOCKPHARMA,Trend,-27.2,-3,-10,6,-5,48,57,1360.5,Healthcare - Pharma,Small Cap,,42.33
+ZENTEC,Trend,-50.45,5,4,9,-12,35,50,1301.7,Defense - Technology,Small Cap,,46.9
