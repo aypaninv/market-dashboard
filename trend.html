@@ -66,7 +66,7 @@ const CSV_TREND = "trend_report.csv";
 
 const COLS_TREND = [
   "Symbol","Folio","DD_High",
-  "4H_MACD","D_MACD","W_MACD","M_MACD",
+  "D_MACD","W_MACD","M_MACD",
   "W_RSI","M_RSI",
   "CurPrice",
   "Sector","MarketCap","Notes"
@@ -112,8 +112,8 @@ function renderTrend(data) {
 
   // DEFAULT SORT (UNCHANGED)
   curTrend.sort((a, b) => {
-    const x = parseFloat(a["D_MACD"]);
-    const y = parseFloat(b["D_MACD"]);
+    const x = parseFloat(a["W_MACD"]);
+    const y = parseFloat(b["W_MACD"]);
     if (x > 0 && y <= 0) return -1;
     if (x <= 0 && y > 0) return 1;
     return x - y;
