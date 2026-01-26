@@ -38,7 +38,22 @@ th {
   position: sticky;
   top: 0;
   cursor: pointer;
+  z-index: 5;
 }
+
+th.symbol-col,
+td.symbol-col {
+  position: sticky;
+  left: 0;
+  background: #fafafa;
+  z-index: 6;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) td { background: #f9f9f9; }
+
+td.text { text-align: left; }
+td.num  { text-align: right; }
 
 .green { background: #c8f7c5 !important; }
 .red   { background: #f7c5c5 !important; }
@@ -58,8 +73,15 @@ th {
 const SECTOR_CSV = "technical_sector_data.csv";
 const SYMBOL_CSV = "technical_symbol_data.csv";
 
+/* ---------- Sector ---------- */
 let sectorData = [];
+let curSector = [];
+let sectorSortState = {};
+
+/* ---------- Symbol Drilldown ---------- */
 let symbolData = [];
+let curSymbols = [];
+let symbolSortState = {};
 
 /* ---------- CSV Parser ---------- */
 function parseCSV(text) {
@@ -95,39 +117,81 @@ function loadSectorSummary() {
     .then(r => r.text())
     .then(t => {
       sectorData = parseCSV(t);
-      renderSectorTable(sectorData);
+      renderSector(sectorData);
       updateTime(SECTOR_CSV);
     });
 }
 
 /* ---------- Render Sector Table ---------- */
-function renderSectorTable(data) {
+function renderSector(data) {
+  curSector = [...data];
+  sectorSortState = {};
+
+  // ✅ DEFAULT SORT (same logic as trend.html)
+  curSector.sort((a, b) => {
+    const x = parseFloat(a["W_MACD"]);
+    const y = parseFloat(b["W_MACD"]);
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+    return x - y;
+  });
+
+  drawSector(curSector);
+}
+
+function drawSector(data) {
   const table = document.getElementById("sectorTable");
   table.innerHTML = "";
 
   const cols = ["Sector","D_MACD","W_MACD","M_MACD","D_RSI","W_RSI","M_RSI"];
 
-  table.appendChild(buildHeader(cols));
+  const tr = document.createElement("tr");
+  cols.forEach(h => {
+    const th = document.createElement("th");
+    th.innerText = h;
+
+    // ✅ CLICK SORT
+    th.onclick = () => {
+      const asc = !sectorSortState[h];
+      sectorSortState = { [h]: asc };
+
+      curSector.sort((a, b) =>
+        asc
+          ? parseFloat(a[h]) - parseFloat(b[h])
+          : parseFloat(b[h]) - parseFloat(a[h])
+      );
+      drawSector(curSector);
+    };
+
+    if (h === "Sector") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
 
   data.forEach(r => {
-    const tr = document.createElement("tr");
+    const row = document.createElement("tr");
 
-    cols.forEach(c => {
+    cols.forEach(h => {
       const td = document.createElement("td");
-      td.innerText = r[c];
+      const v = r[h];
 
-      if (c === "Sector") {
+      if (h === "Sector") {
+        td.className = "symbol-col text";
+        td.innerText = v;
         td.style.cursor = "pointer";
-        td.onclick = () => showSectorStocks(r[c]);
+        td.onclick = () => showSectorStocks(v);
+      } else {
+        td.innerText = parseInt(v, 10);
+        td.className = "num";
       }
 
-      if (c.includes("MACD")) td.className = r[c] >= 0 ? "green" : "red";
-      if (c.includes("RSI")) td.className = r[c] >= 53 ? "green" : "red";
+      if (h.includes("MACD")) td.classList.add(v >= 0 ? "green" : "red");
+      if (h.includes("RSI")) td.classList.add(v >= 53 ? "green" : "red");
 
-      tr.appendChild(td);
+      row.appendChild(td);
     });
 
-    table.appendChild(tr);
+    table.appendChild(row);
   });
 }
 
@@ -148,6 +212,13 @@ function showSectorStocks(sector) {
 }
 
 function renderSectorStocks(sector) {
+  curSymbols = symbolData.filter(r => r.Sector === sector);
+  symbolSortState = {};
+
+  drawSymbols(curSymbols);
+}
+
+function drawSymbols(data) {
   const table = document.getElementById("sectorTable");
   table.innerHTML = "";
 
@@ -158,32 +229,60 @@ function renderSectorStocks(sector) {
     "Close","MarketCap","Sector"
   ];
 
-  table.appendChild(buildHeader(cols));
+  const tr = document.createElement("tr");
+  cols.forEach(h => {
+    const th = document.createElement("th");
+    th.innerText = h;
 
-  symbolData
-    .filter(r => r.Sector === sector)
-    .forEach(r => {
-      const tr = document.createElement("tr");
-      cols.forEach(c => {
-        const td = document.createElement("td");
-        td.innerText = r[c] ?? "";
-        tr.appendChild(td);
-      });
-      table.appendChild(tr);
+    // ✅ SORT (trend-style)
+    th.onclick = () => {
+      const asc = !symbolSortState[h];
+      symbolSortState = { [h]: asc };
+
+      curSymbols.sort((a, b) =>
+        asc
+          ? parseFloat(a[h]) - parseFloat(b[h])
+          : parseFloat(b[h]) - parseFloat(a[h])
+      );
+      drawSymbols(curSymbols);
+    };
+
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+
+    cols.forEach(h => {
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
+      } else {
+        td.innerText = parseInt(v, 10) || v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
+      if (h.includes("MACD")) td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (h.includes("RSI")) td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
+
+      row.appendChild(td);
     });
+
+    table.appendChild(row);
+  });
+}
+
+function openChart(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
 }
 
 /* ---------- Helpers ---------- */
-function buildHeader(cols) {
-  const tr = document.createElement("tr");
-  cols.forEach(c => {
-    const th = document.createElement("th");
-    th.innerText = c;
-    tr.appendChild(th);
-  });
-  return tr;
-}
-
 function showSectorSummary() {
   loadSectorSummary();
 }
@@ -193,7 +292,9 @@ function updateTime(csv) {
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_sector").innerText =
-        d.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});
+        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
+        + " / " +
+        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
     });
 }
 </script>
