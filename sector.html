@@ -66,17 +66,17 @@ td.num  { text-align: right; }
 <script>
 const CSV_SECTOR = "technical_sector_report.csv";
 
-const COLS = [
+const SECTOR_COLS = [
   "Sector",
   "D_MACD","W_MACD","M_MACD",
   "D_RSI","W_RSI","M_RSI"
 ];
 
 let sectorData = [];
-let sortState = {};
+let sectorSortState = {};
 
-/* ---------- CSV Parser ---------- */
-function parseCSV(text) {
+/* ✅ NAMESPACED CSV PARSER (FIX) */
+function parseCSV_SECTOR(text) {
   const lines = text.trim().split("\n");
   const headers = lines[0].split(",");
   return lines.slice(1).map(row => {
@@ -87,22 +87,17 @@ function parseCSV(text) {
   });
 }
 
-/* ---------- Register SINGLE Tab ---------- */
+/* ---------- Register SINGLE Sector Tab ---------- */
 window.registerTabs(addTab => {
   addTab("Sector", () => {
-    // hide other features
     document.getElementById("portfolioFeature")?.style.setProperty("display","none");
     document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
     document.getElementById("trendFeature")?.style.setProperty("display","none");
 
-    // show sector
     document.getElementById("sectorFeature").style.display = "block";
 
-    if (!sectorData.length) {
-      loadSectorData();
-    } else {
-      renderTable(sectorData);
-    }
+    if (!sectorData.length) loadSectorData();
+    else renderSectorTable(sectorData);
   });
 });
 
@@ -111,36 +106,34 @@ function loadSectorData() {
   fetch(CSV_SECTOR)
     .then(r => r.text())
     .then(t => {
-      sectorData = parseCSV(t);
-      renderTable(sectorData);
-      updateTime();
+      sectorData = parseCSV_SECTOR(t);
+      renderSectorTable(sectorData);
+      updateSectorTime();
     });
 }
 
 /* ---------- Render Table ---------- */
-function renderTable(data) {
+function renderSectorTable(data) {
   const table = document.getElementById("sectorTable");
   table.innerHTML = "";
-  sortState = {};
+  sectorSortState = {};
 
-  // Header
   const tr = document.createElement("tr");
-  COLS.forEach(col => {
+  SECTOR_COLS.forEach(col => {
     if (!(col in data[0])) return;
     const th = document.createElement("th");
     th.innerText = col;
 
     th.onclick = () => {
-      const asc = !sortState[col];
-      sortState = { [col]: asc };
+      const asc = !sectorSortState[col];
+      sectorSortState = { [col]: asc };
 
-      data.sort((a, b) => {
-        const x = parseFloat(a[col]);
-        const y = parseFloat(b[col]);
-        if (isNaN(x) || isNaN(y)) return asc ? 1 : -1;
-        return asc ? x - y : y - x;
-      });
-      renderTable(data);
+      data.sort((a, b) =>
+        asc
+          ? parseFloat(a[col]) - parseFloat(b[col])
+          : parseFloat(b[col]) - parseFloat(a[col])
+      );
+      renderSectorTable(data);
     };
 
     if (col === "Sector") th.classList.add("sector-col");
@@ -148,11 +141,9 @@ function renderTable(data) {
   });
   table.appendChild(tr);
 
-  // Rows
   data.forEach(r => {
     const row = document.createElement("tr");
-
-    COLS.forEach(col => {
+    SECTOR_COLS.forEach(col => {
       if (!(col in r)) return;
       const td = document.createElement("td");
       const v = r[col];
@@ -173,29 +164,19 @@ function renderTable(data) {
 
       row.appendChild(td);
     });
-
     table.appendChild(row);
   });
 }
 
 /* ---------- Update Timestamp ---------- */
-function updateTime() {
+function updateSectorTime() {
   fetch(CSV_SECTOR, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_sector").innerText =
-        d.toLocaleTimeString("en-IN", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false
-        }) + " / " +
-        d.toLocaleDateString("en-IN", {
-          timeZone: "Asia/Kolkata",
-          year: "numeric",
-          month: "short",
-          day: "2-digit"
-        });
+        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
+        + " / " +
+        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
     });
 }
 </script>
