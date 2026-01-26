@@ -73,6 +73,18 @@ td.num  { text-align: right; }
 const SECTOR_CSV = "technical_sector_data.csv";
 const SYMBOL_CSV = "technical_symbol_data.csv";
 
+/* ================= COLUMN ALIAS MAP ================= */
+/* UI HEADER -> CSV COLUMN */
+const SYMBOL_COL_MAP = {
+  "D_MACD": "Day_MACD",
+  "W_MACD": "Week_MACD",
+  "M_MACD": "Month_MACD",
+  "D_RSI":  "Day_RSI",
+  "W_RSI":  "Week_RSI",
+  "M_RSI":  "Month_RSI",
+  "CurPrice": "Close"
+};
+
 /* ---------- Sector ---------- */
 let sectorData = [];
 let curSector = [];
@@ -127,7 +139,7 @@ function renderSector(data) {
   curSector = [...data];
   sectorSortState = {};
 
-  // ✅ DEFAULT SORT (same logic as trend.html)
+  // ✅ DEFAULT SORT: W_MACD positive → negative (trend.html style)
   curSector.sort((a, b) => {
     const x = parseFloat(a["W_MACD"]);
     const y = parseFloat(b["W_MACD"]);
@@ -150,7 +162,7 @@ function drawSector(data) {
     const th = document.createElement("th");
     th.innerText = h;
 
-    // ✅ CLICK SORT
+    // ✅ SORT FOR ALL COLUMNS
     th.onclick = () => {
       const asc = !sectorSortState[h];
       sectorSortState = { [h]: asc };
@@ -185,8 +197,11 @@ function drawSector(data) {
         td.className = "num";
       }
 
-      if (h.includes("MACD")) td.classList.add(v >= 0 ? "green" : "red");
-      if (h.includes("RSI")) td.classList.add(v >= 53 ? "green" : "red");
+      if (h.includes("MACD") && !isNaN(v))
+        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+
+      if (h.includes("RSI") && !isNaN(v))
+        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
       row.appendChild(td);
     });
@@ -214,7 +229,6 @@ function showSectorStocks(sector) {
 function renderSectorStocks(sector) {
   curSymbols = symbolData.filter(r => r.Sector === sector);
   symbolSortState = {};
-
   drawSymbols(curSymbols);
 }
 
@@ -223,10 +237,10 @@ function drawSymbols(data) {
   table.innerHTML = "";
 
   const cols = [
-    "Symbol","DD_High","Close",
+    "Symbol","DD_High",
     "D_MACD","W_MACD","M_MACD",
     "D_RSI","W_RSI","M_RSI",
-    "MarketCap","Sector"
+    "CurPrice","MarketCap","Sector"
   ];
 
   const tr = document.createElement("tr");
@@ -234,15 +248,15 @@ function drawSymbols(data) {
     const th = document.createElement("th");
     th.innerText = h;
 
-    // ✅ SORT (trend-style)
     th.onclick = () => {
       const asc = !symbolSortState[h];
       symbolSortState = { [h]: asc };
 
+      const key = SYMBOL_COL_MAP[h] || h;
       curSymbols.sort((a, b) =>
         asc
-          ? parseFloat(a[h]) - parseFloat(b[h])
-          : parseFloat(b[h]) - parseFloat(a[h])
+          ? parseFloat(a[key]) - parseFloat(b[key])
+          : parseFloat(b[key]) - parseFloat(a[key])
       );
       drawSymbols(curSymbols);
     };
@@ -257,7 +271,8 @@ function drawSymbols(data) {
 
     cols.forEach(h => {
       const td = document.createElement("td");
-      const v = r[h];
+      const key = SYMBOL_COL_MAP[h] || h;
+      const v = r[key];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
@@ -268,8 +283,10 @@ function drawSymbols(data) {
       }
 
       if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
-      if (h.includes("MACD")) td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-      if (h.includes("RSI")) td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
+      if (h.includes("MACD") && !isNaN(v))
+        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (h.includes("RSI") && !isNaN(v))
+        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
       row.appendChild(td);
     });
