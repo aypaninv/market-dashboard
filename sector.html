@@ -1,0 +1,183 @@
+<!-- ===================== SECTOR TECHNICAL FEATURE ===================== -->
+
+<style>
+.update-time {
+  position: fixed;
+  top: 6px;
+  right: 10px;
+  font-size: 11px;
+  color: #bbb;
+  z-index: 999;
+}
+
+.content {
+  height: calc(100vh - 60px);
+  overflow: auto;
+  padding: 8px;
+}
+
+table {
+  border-collapse: collapse;
+  width: max-content;
+  font-size: 13px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  background: white;
+}
+
+th {
+  background: #f0f0f0;
+  position: sticky;
+  top: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+th.sector-col,
+td.sector-col {
+  position: sticky;
+  left: 0;
+  background: #fafafa;
+  z-index: 6;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) td { background: #f9f9f9; }
+
+td.text { text-align: left; }
+td.num  { text-align: right; }
+
+.green { background: #c8f7c5 !important; }
+.red   { background: #f7c5c5 !important; }
+</style>
+
+<div id="sectorFeature" style="display:none">
+  <div class="update-time" id="updateTime_sector"></div>
+  <div class="content">
+    <table id="dataTable_sector"></table>
+  </div>
+</div>
+
+<script>
+const CSV_SECTOR = "technical_sector_report.csv";
+
+const COLS_SECTOR = [
+  "Sector",
+  "D_MACD","W_MACD","M_MACD",
+  "D_RSI","W_RSI","M_RSI"
+];
+
+let rawSector = [];
+let curSector = [];
+let sectorSortState = {};
+
+/* ---------- CSV Parser ---------- */
+function parseCSV_SECTOR(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+/* ---------- Register Tabs ---------- */
+window.registerTabs(addTab => {
+  fetch(CSV_SECTOR)
+    .then(r => r.text())
+    .then(t => {
+      rawSector = parseCSV_SECTOR(t);
+
+      rawSector.forEach(row => {
+        addTab(row.Sector, () => {
+          document.getElementById("portfolioFeature")?.style.setProperty("display","none");
+          document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
+          document.getElementById("trendFeature")?.style.setProperty("display","none");
+          document.getElementById("sectorFeature").style.display = "block";
+          renderSector([row]);
+        });
+      });
+
+      updateSectorTime();
+    });
+});
+
+/* ---------- Render ---------- */
+function renderSector(data) {
+  curSector = [...data];
+  sectorSortState = {};
+  drawSector(curSector);
+}
+
+function drawSector(data) {
+  const table = document.getElementById("dataTable_sector");
+  table.innerHTML = "";
+  if (!data.length) return;
+
+  const tr = document.createElement("tr");
+  COLS_SECTOR.forEach(h => {
+    if (!(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+
+    th.onclick = () => {
+      const asc = !sectorSortState[h];
+      sectorSortState = { [h]: asc };
+
+      curSector.sort((a, b) =>
+        asc
+          ? parseFloat(a[h]) - parseFloat(b[h])
+          : parseFloat(b[h]) - parseFloat(a[h])
+      );
+      drawSector(curSector);
+    };
+
+    if (h === "Sector") th.classList.add("sector-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_SECTOR.forEach(h => {
+      if (!(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Sector") {
+        td.className = "sector-col text";
+        td.innerText = v;
+      } else {
+        td.innerText = v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h.includes("MACD") && v !== "")
+        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+
+      if (h.includes("RSI") && v !== "")
+        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+/* ---------- Update time ---------- */
+function updateSectorTime() {
+  fetch(CSV_SECTOR, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_sector").innerText =
+        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
+        + " / " +
+        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>
