@@ -2,166 +2,150 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market Dashboard</title>
+<title>Technical Dashboard</title>
 
 <style>
-/* ---------- GLOBAL FONT FIX ---------- */
-* {
-  font-family: "Courier New", monospace !important;
-}
-
-/* ---------- Base ---------- */
 body {
   margin: 0;
-  background: #f4f4f4;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-/* ---------- Header ---------- */
-.header {
+header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #1e1e1e;
-  padding: 6px 8px;
-}
-
-/* ---------- Tabs ---------- */
-#globalTabs {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 6px;
-  overflow-x: auto;
-}
-
-.tab {
-  padding: 6px 12px;
-  cursor: pointer;
-  background: #333;
-  border-radius: 4px;
-  white-space: nowrap;
+  padding: 6px 10px;
+  background: #222;
   color: white;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+#tabs {
+  margin-left: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+#tabs button {
+  background: #444;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+#tabs button.active {
+  background: #1e90ff;
+}
+
+#searchBox {
+  margin-left: auto;
+  padding: 4px 6px;
   font-size: 13px;
 }
 
-.tab.active {
-  background: #007acc;
-}
+/* ================= FIX #2: HARD SCROLL ISOLATION ================= */
 
-/* ---------- Search ---------- */
-.search-wrapper {
-  margin-left: auto;
+#app {
+  height: calc(100vh - 40px);
   position: relative;
 }
 
-.search-icon {
-  cursor: pointer;
-  font-size: 16px;
-  color: #ccc;
-  user-select: none;
-}
-
-.search-input {
-  position: absolute;
-  right: 0;
-  top: 24px;
+/* ALL feature containers */
+#app > div {
   display: none;
+  height: 100%;
 }
 
-.search-input input {
-  padding: 4px 8px;
-  font-size: 12px;
-  width: 180px;
-  border-radius: 4px;
-  border: none;
-  outline: none;
-}
-
-/* ---------- App ---------- */
-#app {
-  padding: 0;
+/* ONLY active feature participates in layout */
+#app > div[style*="display: block"] {
+  display: block;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <div id="globalTabs"></div>
-
-  <div class="search-wrapper">
-    <span class="search-icon" onclick="toggleSearch()">🔍</span>
-    <div class="search-input" id="searchBox">
-      <input
-        type="text"
-        id="globalSearch"
-        placeholder="Search…"
-        onkeyup="applyGlobalSearch(this.value)"
-      />
-    </div>
-  </div>
-</div>
+<header>
+  <h1>Market Technicals</h1>
+  <div id="tabs"></div>
+  <input
+    id="searchBox"
+    type="text"
+    placeholder="Search…"
+    oninput="applyGlobalSearch(this.value)"
+  />
+</header>
 
 <div id="app"></div>
 
 <script>
-const globalTabs = document.getElementById("globalTabs");
-let firstTabActivated = false;
+const app = document.getElementById("app");
+const tabsDiv = document.getElementById("tabs");
 
-/* ---------- Global tab registration ---------- */
-window.registerTabs = function (tabBuilderFn) {
-  tabBuilderFn(addGlobalTab);
+/* ---------------- TAB REGISTRATION SYSTEM ---------------- */
+
+let tabRegistry = [];
+
+window.registerTabs = function (fn) {
+  tabRegistry.push(fn);
 };
 
-function addGlobalTab(label, onClick) {
-  const div = document.createElement("div");
-  div.className = "tab";
-  div.innerText = label;
+function activateTab(btn, showFn) {
+  document.querySelectorAll("#tabs button")
+    .forEach(b => b.classList.remove("active"));
 
-  div.onclick = () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    div.classList.add("active");
+  btn.classList.add("active");
 
-    clearSearch();
-    onClick();
-  };
+  // hide all features
+  Array.from(app.children).forEach(d => d.style.display = "none");
 
-  globalTabs.appendChild(div);
-
-  if (!firstTabActivated) {
-    firstTabActivated = true;
-    div.click();
-  }
+  showFn();
 }
 
-/* ---------- Feature loader ---------- */
+/* ---------------- LOAD FEATURE HTML ---------------- */
+
 function loadFeature(file) {
   return fetch(file)
     .then(r => r.text())
     .then(html => {
-      const app = document.getElementById("app");
-      app.insertAdjacentHTML("beforeend", html);
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html;
+      app.appendChild(wrapper);
 
-      app.querySelectorAll("script").forEach(oldScript => {
-        const s = document.createElement("script");
-        s.textContent = oldScript.textContent;
-        document.body.appendChild(s);
-        oldScript.remove();
-      });
+      // allow feature to register tabs
+      tabRegistry.forEach(fn => fn((name, showFn) => {
+        const btn = document.createElement("button");
+        btn.textContent = name;
+        btn.onclick = () => activateTab(btn, showFn);
+        tabsDiv.appendChild(btn);
+      }));
+      tabRegistry = [];
     });
 }
 
-/* ---------- Smart Search ---------- */
+/* ================= FIX #1: CORRECT GLOBAL SEARCH ================= */
+
 function applyGlobalSearch(text) {
   const q = text.toLowerCase();
 
-  let activeTable = null;
-  document.querySelectorAll("table").forEach(t => {
-    if (t.offsetParent !== null) activeTable = t;
-  });
-  if (!activeTable) return;
+  const activeFeature = document.querySelector(
+    "#portfolioFeature:not([style*='display: none'])," +
+    "#tfwatchFeature:not([style*='display: none'])," +
+    "#trendFeature:not([style*='display: none'])," +
+    "#sectorFeature:not([style*='display: none'])"
+  );
 
-  const rows = activeTable.querySelectorAll("tr");
+  if (!activeFeature) return;
+
+  const table = activeFeature.querySelector("table");
+  if (!table) return;
+
+  const rows = table.querySelectorAll("tr");
   rows.forEach((row, i) => {
     if (i === 0) return;
     row.style.display =
@@ -169,38 +153,12 @@ function applyGlobalSearch(text) {
   });
 }
 
-/* ---------- Search toggle ---------- */
-function toggleSearch() {
-  const box = document.getElementById("searchBox");
-  const input = document.getElementById("globalSearch");
+/* ---------------- INITIAL LOAD ORDER ---------------- */
 
-  box.style.display = box.style.display === "block" ? "none" : "block";
-  if (box.style.display === "block") input.focus();
-}
-
-function clearSearch() {
-  document.getElementById("globalSearch").value = "";
-  applyGlobalSearch("");
-  document.getElementById("searchBox").style.display = "none";
-}
-
-/* Close search */
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") clearSearch();
-});
-
-document.addEventListener("click", e => {
-  if (!e.target.closest(".search-wrapper")) {
-    document.getElementById("searchBox").style.display = "none";
-  }
-});
-
-/* ---------- Load features in order ---------- */
 loadFeature("portfolio.html")
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("trend.html"))
   .then(() => loadFeature("sector.html"));
-
 </script>
 
 </body>
