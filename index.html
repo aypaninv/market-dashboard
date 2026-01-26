@@ -48,23 +48,18 @@ header h1 {
   font-size: 13px;
 }
 
-/* ================= FIX #2: HARD SCROLL ISOLATION ================= */
+/* ===== FIX #2: isolate scroll per feature ===== */
 
 #app {
   height: calc(100vh - 40px);
   position: relative;
 }
 
-/* ALL feature containers */
 #app > div {
   display: none;
   height: 100%;
 }
 
-/* ONLY active feature participates in layout */
-#app > div[style*="display: block"] {
-  display: block;
-}
 </style>
 </head>
 
@@ -87,25 +82,33 @@ header h1 {
 const app = document.getElementById("app");
 const tabsDiv = document.getElementById("tabs");
 
-/* ---------------- TAB REGISTRATION SYSTEM ---------------- */
+/* ---------------- TAB REGISTRATION (ORIGINAL SAFE FLOW) ---------------- */
 
-let tabRegistry = [];
+window.registerTabs = function (registerFn) {
+  registerFn(function addTab(name, showFn) {
+    const btn = document.createElement("button");
+    btn.textContent = name;
 
-window.registerTabs = function (fn) {
-  tabRegistry.push(fn);
+    btn.onclick = () => {
+      // activate tab
+      document.querySelectorAll("#tabs button")
+        .forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      // hide all features
+      Array.from(app.children).forEach(d => d.style.display = "none");
+
+      showFn();
+    };
+
+    tabsDiv.appendChild(btn);
+
+    // auto-click first tab
+    if (tabsDiv.children.length === 1) {
+      btn.click();
+    }
+  });
 };
-
-function activateTab(btn, showFn) {
-  document.querySelectorAll("#tabs button")
-    .forEach(b => b.classList.remove("active"));
-
-  btn.classList.add("active");
-
-  // hide all features
-  Array.from(app.children).forEach(d => d.style.display = "none");
-
-  showFn();
-}
 
 /* ---------------- LOAD FEATURE HTML ---------------- */
 
@@ -116,19 +119,10 @@ function loadFeature(file) {
       const wrapper = document.createElement("div");
       wrapper.innerHTML = html;
       app.appendChild(wrapper);
-
-      // allow feature to register tabs
-      tabRegistry.forEach(fn => fn((name, showFn) => {
-        const btn = document.createElement("button");
-        btn.textContent = name;
-        btn.onclick = () => activateTab(btn, showFn);
-        tabsDiv.appendChild(btn);
-      }));
-      tabRegistry = [];
     });
 }
 
-/* ================= FIX #1: CORRECT GLOBAL SEARCH ================= */
+/* ================= FIX #1: WORKING GLOBAL SEARCH ================= */
 
 function applyGlobalSearch(text) {
   const q = text.toLowerCase();
