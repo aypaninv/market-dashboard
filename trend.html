@@ -1,4 +1,4 @@
-<!-- ===================== TREND FEATURE ===================== -->
+<!-- ===================== SECTOR TECHNICAL REPORT ===================== -->
 
 <style>
 .update-time {
@@ -36,8 +36,8 @@ th {
   z-index: 5;
 }
 
-th.symbol-col,
-td.symbol-col {
+th.sector-col,
+td.sector-col {
   position: sticky;
   left: 0;
   background: #fafafa;
@@ -45,7 +45,9 @@ td.symbol-col {
   font-weight: bold;
 }
 
-tbody tr:nth-child(even) td { background: #f9f9f9; }
+tbody tr:nth-child(even) td {
+  background: #f9f9f9;
+}
 
 td.text { text-align: left; }
 td.num  { text-align: right; }
@@ -54,141 +56,140 @@ td.num  { text-align: right; }
 .red   { background: #f7c5c5 !important; }
 </style>
 
-<div id="trendFeature" style="display:none">
-  <div class="update-time" id="updateTime_trend"></div>
+<div id="sectorFeature" style="display:none">
+  <div class="update-time" id="updateTime_sector"></div>
   <div class="content">
-    <table id="dataTable_trend"></table>
+    <table id="sectorTable"></table>
   </div>
 </div>
 
 <script>
-const CSV_TREND = "trend_report.csv";
+const CSV_SECTOR = "technical_sector_report.csv";
 
-const COLS_TREND = [
-  "Symbol","Folio","DD_High",
+const COLS = [
+  "Sector",
   "D_MACD","W_MACD","M_MACD",
-  "W_RSI","M_RSI",
-  "CurPrice",
-  "Sector","MarketCap","Notes"
+  "D_RSI","W_RSI","M_RSI"
 ];
 
-let rawTrend = [];
-let curTrend = [];
-let trendSortState = {};   // ✅ FIX: persistent sort state
+let sectorData = [];
+let sortState = {};
 
-function parseCSV_TREND(text) {
+/* ---------- CSV Parser ---------- */
+function parseCSV(text) {
   const lines = text.trim().split("\n");
-  const h = lines[0].split(",");
-  return lines.slice(1).map(r => {
-    const v = r.split(",");
-    let o = {};
-    h.forEach((k, i) => o[k] = v[i] ?? "");
-    return o;
+  const headers = lines[0].split(",");
+  return lines.slice(1).map(row => {
+    const values = row.split(",");
+    let obj = {};
+    headers.forEach((h, i) => obj[h] = values[i] ?? "");
+    return obj;
   });
 }
 
-/* ---------- Register Tabs ---------- */
+/* ---------- Register Feature ---------- */
 window.registerTabs(addTab => {
-  fetch(CSV_TREND)
-    .then(r => r.text())
-    .then(t => {
-      rawTrend = parseCSV_TREND(t);
-      [...new Set(rawTrend.map(d => d.Folio).filter(Boolean))].sort()
-        .forEach(folio =>
-          addTab(folio, () => {
-            document.getElementById("portfolioFeature")?.style.setProperty("display","none");
-            document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
-            document.getElementById("trendFeature").style.display = "block";
-            renderTrend(rawTrend.filter(d => d.Folio === folio));
-          })
-        );
-      updateTrendTime();
-    });
+  addTab("Sector", () => {
+    document.getElementById("portfolioFeature")?.style.setProperty("display","none");
+    document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
+    document.getElementById("trendFeature")?.style.setProperty("display","none");
+    document.getElementById("sectorFeature").style.display = "block";
+
+    if (!sectorData.length) loadSectorData();
+    else renderTable(sectorData);
+  });
 });
 
-function renderTrend(data) {
-  curTrend = [...data];
-  trendSortState = {}; // reset manual sort on tab change
-
-  // DEFAULT SORT (UNCHANGED)
-  curTrend.sort((a, b) => {
-    const x = parseFloat(a["W_MACD"]);
-    const y = parseFloat(b["W_MACD"]);
-    if (x > 0 && y <= 0) return -1;
-    if (x <= 0 && y > 0) return 1;
-    return x - y;
-  });
-
-  drawTrend(curTrend);
+/* ---------- Load Data ---------- */
+function loadSectorData() {
+  fetch(CSV_SECTOR)
+    .then(r => r.text())
+    .then(t => {
+      sectorData = parseCSV(t);
+      renderTable(sectorData);
+      updateTime();
+    });
 }
 
-function drawTrend(data) {
-  const table = document.getElementById("dataTable_trend");
+/* ---------- Render Table ---------- */
+function renderTable(data) {
+  const table = document.getElementById("sectorTable");
   table.innerHTML = "";
-  if (!data.length) return;
+  sortState = {};
 
+  // Header
   const tr = document.createElement("tr");
-  COLS_TREND.forEach(h => {
-    if (!(h in data[0])) return;
+  COLS.forEach(col => {
+    if (!(col in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h;
+    th.innerText = col;
 
-    // ✅ FIXED MANUAL SORT
     th.onclick = () => {
-      const asc = !trendSortState[h];
-      trendSortState = { [h]: asc };
+      const asc = !sortState[col];
+      sortState = { [col]: asc };
 
-      curTrend.sort((a, b) =>
-        asc
-          ? parseFloat(a[h]) - parseFloat(b[h])
-          : parseFloat(b[h]) - parseFloat(a[h])
-      );
-
-      drawTrend(curTrend);
+      data.sort((a, b) => {
+        const x = parseFloat(a[col]);
+        const y = parseFloat(b[col]);
+        if (isNaN(x) || isNaN(y)) return asc ? 1 : -1;
+        return asc ? x - y : y - x;
+      });
+      renderTable(data);
     };
 
-    if (h === "Symbol") th.classList.add("symbol-col");
+    if (col === "Sector") th.classList.add("sector-col");
     tr.appendChild(th);
   });
   table.appendChild(tr);
 
+  // Rows
   data.forEach(r => {
     const row = document.createElement("tr");
-    COLS_TREND.forEach(h => {
-      if (!(h in r)) return;
-      const td = document.createElement("td");
-      const v = r[h];
 
-      if (h === "Symbol") {
-        td.className = "symbol-col text";
-        td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
+    COLS.forEach(col => {
+      if (!(col in r)) return;
+      const td = document.createElement("td");
+      const v = r[col];
+
+      if (col === "Sector") {
+        td.className = "sector-col text";
+        td.innerText = v;
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
-      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-      if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
+      if (col.includes("MACD") && v !== "")
+        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+
+      if (col.includes("RSI") && v !== "")
+        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
       row.appendChild(td);
     });
+
     table.appendChild(row);
   });
 }
 
-function openChart(symbol) {
-  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
-}
-
-function updateTrendTime() {
-  fetch(CSV_TREND, { method: "HEAD" })
+/* ---------- Update Timestamp ---------- */
+function updateTime() {
+  fetch(CSV_SECTOR, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
-      document.getElementById("updateTime_trend").innerText =
-        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
-        + " / " +
-        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+      document.getElementById("updateTime_sector").innerText =
+        d.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false
+        }) + " / " +
+        d.toLocaleDateString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          year: "numeric",
+          month: "short",
+          day: "2-digit"
+        });
     });
 }
 </script>
