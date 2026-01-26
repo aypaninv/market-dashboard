@@ -16,6 +16,11 @@
   padding: 8px;
 }
 
+button {
+  margin-bottom: 6px;
+  padding: 4px 8px;
+}
+
 table {
   border-collapse: collapse;
   width: max-content;
@@ -33,24 +38,7 @@ th {
   position: sticky;
   top: 0;
   cursor: pointer;
-  z-index: 5;
 }
-
-th.sector-col,
-td.sector-col {
-  position: sticky;
-  left: 0;
-  background: #fafafa;
-  z-index: 6;
-  font-weight: bold;
-}
-
-tbody tr:nth-child(even) td {
-  background: #f9f9f9;
-}
-
-td.text { text-align: left; }
-td.num  { text-align: right; }
 
 .green { background: #c8f7c5 !important; }
 .red   { background: #f7c5c5 !important; }
@@ -59,124 +47,153 @@ td.num  { text-align: right; }
 <div id="sectorFeature" style="display:none">
   <div class="update-time" id="updateTime_sector"></div>
   <div class="content">
+
+    <button id="backBtn" style="display:none" onclick="showSectorSummary()">⬅ Back</button>
+
     <table id="sectorTable"></table>
   </div>
 </div>
 
 <script>
-const CSV_SECTOR = "technical_sector_report.csv";
-
-const SECTOR_COLS = [
-  "Sector",
-  "D_MACD","W_MACD","M_MACD",
-  "D_RSI","W_RSI","M_RSI"
-];
+const SECTOR_CSV = "technical_sector_data.csv";
+const SYMBOL_CSV = "technical_symbol_data.csv";
 
 let sectorData = [];
-let sectorSortState = {};
+let symbolData = [];
 
-/* ✅ NAMESPACED CSV PARSER (FIX) */
-function parseCSV_SECTOR(text) {
+/* ---------- CSV Parser ---------- */
+function parseCSV(text) {
   const lines = text.trim().split("\n");
   const headers = lines[0].split(",");
   return lines.slice(1).map(row => {
-    const values = row.split(",");
-    let obj = {};
-    headers.forEach((h, i) => obj[h] = values[i] ?? "");
-    return obj;
+    const v = row.split(",");
+    let o = {};
+    headers.forEach((h, i) => o[h] = v[i] ?? "");
+    return o;
   });
 }
 
-/* ---------- Register SINGLE Sector Tab ---------- */
+/* ---------- Register Tab ---------- */
 window.registerTabs(addTab => {
   addTab("Sector", () => {
-    document.getElementById("portfolioFeature")?.style.setProperty("display","none");
-    document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
-    document.getElementById("trendFeature")?.style.setProperty("display","none");
-
+    hideOthers();
     document.getElementById("sectorFeature").style.display = "block";
-
-    if (!sectorData.length) loadSectorData();
-    else renderSectorTable(sectorData);
+    loadSectorSummary();
   });
 });
 
-/* ---------- Load CSV ---------- */
-function loadSectorData() {
-  fetch(CSV_SECTOR)
+function hideOthers() {
+  ["portfolioFeature","tfwatchFeature","trendFeature"]
+    .forEach(id => document.getElementById(id)?.style.setProperty("display","none"));
+}
+
+/* ---------- Load Sector Summary ---------- */
+function loadSectorSummary() {
+  document.getElementById("backBtn").style.display = "none";
+
+  fetch(SECTOR_CSV)
     .then(r => r.text())
     .then(t => {
-      sectorData = parseCSV_SECTOR(t);
+      sectorData = parseCSV(t);
       renderSectorTable(sectorData);
-      updateSectorTime();
+      updateTime(SECTOR_CSV);
     });
 }
 
-/* ---------- Render Table ---------- */
+/* ---------- Render Sector Table ---------- */
 function renderSectorTable(data) {
   const table = document.getElementById("sectorTable");
   table.innerHTML = "";
-  sectorSortState = {};
 
-  const tr = document.createElement("tr");
-  SECTOR_COLS.forEach(col => {
-    if (!(col in data[0])) return;
-    const th = document.createElement("th");
-    th.innerText = col;
+  const cols = ["Sector","D_MACD","W_MACD","M_MACD","D_RSI","W_RSI","M_RSI"];
 
-    th.onclick = () => {
-      const asc = !sectorSortState[col];
-      sectorSortState = { [col]: asc };
-
-      data.sort((a, b) =>
-        asc
-          ? parseFloat(a[col]) - parseFloat(b[col])
-          : parseFloat(b[col]) - parseFloat(a[col])
-      );
-      renderSectorTable(data);
-    };
-
-    if (col === "Sector") th.classList.add("sector-col");
-    tr.appendChild(th);
-  });
-  table.appendChild(tr);
+  table.appendChild(buildHeader(cols));
 
   data.forEach(r => {
-    const row = document.createElement("tr");
-    SECTOR_COLS.forEach(col => {
-      if (!(col in r)) return;
-      const td = document.createElement("td");
-      const v = r[col];
+    const tr = document.createElement("tr");
 
-      if (col === "Sector") {
-        td.className = "sector-col text";
-        td.innerText = v;
-      } else {
-        td.innerText = v;
-        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+    cols.forEach(c => {
+      const td = document.createElement("td");
+      td.innerText = r[c];
+
+      if (c === "Sector") {
+        td.style.cursor = "pointer";
+        td.onclick = () => showSectorStocks(r[c]);
       }
 
-      if (col.includes("MACD") && v !== "")
-        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (c.includes("MACD")) td.className = r[c] >= 0 ? "green" : "red";
+      if (c.includes("RSI")) td.className = r[c] >= 53 ? "green" : "red";
 
-      if (col.includes("RSI") && v !== "")
-        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
-
-      row.appendChild(td);
+      tr.appendChild(td);
     });
-    table.appendChild(row);
+
+    table.appendChild(tr);
   });
 }
 
-/* ---------- Update Timestamp ---------- */
-function updateSectorTime() {
-  fetch(CSV_SECTOR, { method: "HEAD" })
+/* ---------- Drilldown ---------- */
+function showSectorStocks(sector) {
+  document.getElementById("backBtn").style.display = "inline";
+
+  if (!symbolData.length) {
+    fetch(SYMBOL_CSV)
+      .then(r => r.text())
+      .then(t => {
+        symbolData = parseCSV(t);
+        renderSectorStocks(sector);
+      });
+  } else {
+    renderSectorStocks(sector);
+  }
+}
+
+function renderSectorStocks(sector) {
+  const table = document.getElementById("sectorTable");
+  table.innerHTML = "";
+
+  const cols = [
+    "Symbol","Folio","DD_High",
+    "Day_MACD","Week_MACD","Month_MACD",
+    "Day_RSI","Week_RSI","Month_RSI",
+    "Close","MarketCap","Sector"
+  ];
+
+  table.appendChild(buildHeader(cols));
+
+  symbolData
+    .filter(r => r.Sector === sector)
+    .forEach(r => {
+      const tr = document.createElement("tr");
+      cols.forEach(c => {
+        const td = document.createElement("td");
+        td.innerText = r[c] ?? "";
+        tr.appendChild(td);
+      });
+      table.appendChild(tr);
+    });
+}
+
+/* ---------- Helpers ---------- */
+function buildHeader(cols) {
+  const tr = document.createElement("tr");
+  cols.forEach(c => {
+    const th = document.createElement("th");
+    th.innerText = c;
+    tr.appendChild(th);
+  });
+  return tr;
+}
+
+function showSectorSummary() {
+  loadSectorSummary();
+}
+
+function updateTime(csv) {
+  fetch(csv, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_sector").innerText =
-        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
-        + " / " +
-        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+        d.toLocaleString("en-IN",{timeZone:"Asia/Kolkata"});
     });
 }
 </script>
