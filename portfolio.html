@@ -202,7 +202,7 @@ function renderTable(data) {
       if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
       if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
-      if ((h === "PnL" || h === "LT_Pert") && v !== "" && !isNaN(parseFloat(v))) {
+      if ((h === "PnL" || h === "SL_Pert" || h === "LT_Pert") && v !== "" && !isNaN(parseFloat(v))) {
         const val = parseFloat(v);
         if (val < -8) td.classList.add("red");
         else if (val >= -8 && val <= 0) td.classList.add("orange");
