@@ -155,7 +155,7 @@ function drawSector(data) {
   const table = document.getElementById("sectorTable");
   table.innerHTML = "";
 
-  const cols = ["Sector","D_MACD","W_MACD","M_MACD","D_RSI","W_RSI","M_RSI"];
+  const cols = ["Sector","4H_MACD","D_MACD","W_MACD","M_MACD"];
 
   const tr = document.createElement("tr");
   cols.forEach(h => {
@@ -238,8 +238,7 @@ function drawSymbols(data) {
 
   const cols = [
     "Symbol","DD_High",
-    "D_MACD","W_MACD","M_MACD",
-    "D_RSI","W_RSI","M_RSI",
+    "4H_MACD","D_MACD","W_MACD","M_MACD",
     "CurPrice","MarketCap","Sector"
   ];
 
