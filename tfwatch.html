@@ -40,7 +40,6 @@ window.registerTabs(addTab => {
       [...new Set(rawTF.map(d => d.Folio).filter(Boolean))]
         .forEach(folio =>
           addTab(folio, () => {
-            hideAllFeatures();
             document.getElementById("tfwatchFeature").style.display = "block";
             renderTF(rawTF.filter(d => d.Folio === folio));
           })
