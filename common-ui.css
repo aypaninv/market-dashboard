@@ -1,0 +1,126 @@
+/* =========================================================
+   COMMON UI STYLES – SHARED ACROSS ALL FEATURES
+   ========================================================= */
+
+/* ---------- Base table ---------- */
+table {
+  border-collapse: collapse;
+  width: max-content;
+  font-size: 13px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  background: white;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background-color 0.12s ease;
+}
+
+th {
+  background: #f0f0f0;
+  position: sticky;
+  top: 0;
+  cursor: pointer;
+  z-index: 5;
+}
+
+th.symbol-col,
+td.symbol-col {
+  position: sticky;
+  left: 0;
+  background: #fafafa;
+  z-index: 6;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) td {
+  background: #f9f9f9;
+}
+
+td.text { text-align: left; }
+td.num  { text-align: right; }
+
+/* ---------- Heat colors (original logic) ---------- */
+.green {
+  background: linear-gradient(90deg, #c8f7c5, #eaffea) !important;
+}
+
+.red {
+  background: linear-gradient(90deg, #f7c5c5, #ffecec) !important;
+}
+
+.orange {
+  background: linear-gradient(90deg, #ffe0b2, #fff3e0) !important;
+}
+
+td.red {
+  font-weight: bold;
+}
+
+/* ---------- Row hover bulge ---------- */
+tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  background-color: #eef6ff;
+  position: relative;
+  z-index: 10;
+}
+
+/* ---------- Sticky column sync ---------- */
+tbody tr:hover td.symbol-col {
+  background-color: #dbeaff !important;
+}
+
+/* ---------- Cell hover ---------- */
+td:hover {
+  background-color: #f0f7ff !important;
+}
+
+/* ---------- Header hover ---------- */
+th:hover {
+  background-color: #d0e7ff;
+}
+
+/* ---------- Sector separator ---------- */
+tr.sector-break td {
+  border-top: 3px solid #555 !important;
+}
+
+/* ---------- Keyboard-selected row ---------- */
+tr.kb-selected td {
+  outline: 2px solid #007acc;
+  background-color: #e6f2ff !important;
+}
+
+tr.kb-selected td.symbol-col {
+  background-color: #cfe6ff !important;
+}
+
+/* ---------- Scroll container ---------- */
+.content {
+  height: calc(100vh - 60px);
+  overflow: auto;
+  padding: 8px;
+  scroll-behavior: smooth;
+}
+
+/* ---------- Update time ---------- */
+.update-time {
+  position: fixed;
+  top: 6px;
+  right: 10px;
+  font-size: 11px;
+  color: #bbb;
+  z-index: 999;
+}
+
+/* ---------- Touch devices ---------- */
+@media (hover: none) {
+  tbody tr:active {
+    background-color: #e0efff;
+    transform: scale(1.01);
+  }
+}
