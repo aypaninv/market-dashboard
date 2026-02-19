@@ -1,20 +1,21 @@
 /* =========================================================
-   COMMON UI LOGIC – SAFE SHARED BEHAVIOR
+   COMMON UI LOGIC
+   - Keyboard navigation
+   - Sector separators
+   - Dark theme toggle
    ========================================================= */
 
 let kbIndex = -1;
 
-/* ---------- Find active visible table ---------- */
+/* ---------- Active table ---------- */
 function getActiveTable() {
-  const activeFeature = document.querySelector(
+  const active = document.querySelector(
     "#portfolioFeature:not([style*='display: none'])," +
     "#tfwatchFeature:not([style*='display: none'])," +
     "#trendFeature:not([style*='display: none'])," +
     "#sectorFeature:not([style*='display: none'])"
   );
-
-  if (!activeFeature) return null;
-  return activeFeature.querySelector("table");
+  return active ? active.querySelector("table") : null;
 }
 
 /* ---------- Keyboard navigation ---------- */
@@ -29,15 +30,8 @@ document.addEventListener("keydown", e => {
 
   rows.forEach(r => r.classList.remove("kb-selected"));
 
-  if (e.key === "ArrowDown") {
-    kbIndex = Math.min(kbIndex + 1, rows.length - 1);
-    e.preventDefault();
-  }
-
-  if (e.key === "ArrowUp") {
-    kbIndex = Math.max(kbIndex - 1, 0);
-    e.preventDefault();
-  }
+  if (e.key === "ArrowDown") kbIndex = Math.min(kbIndex + 1, rows.length - 1);
+  if (e.key === "ArrowUp") kbIndex = Math.max(kbIndex - 1, 0);
 
   const row = rows[kbIndex];
   if (!row) return;
@@ -49,39 +43,44 @@ document.addEventListener("keydown", e => {
     const link = row.querySelector("a");
     if (link) link.click();
   }
+
+  e.preventDefault();
 });
 
 /* ---------- Sector separators ---------- */
 function applySectorSeparators(table) {
-  if (!table) return;
-
   const rows = [...table.querySelectorAll("tr")].slice(1);
-  let lastSector = null;
+  let last = null;
 
-  rows.forEach(row => {
-    row.classList.remove("sector-break");
+  rows.forEach(r => {
+    r.classList.remove("sector-break");
+    const cells = [...r.children];
+    const sector = cells.find(td => td.innerText.length > 2 && td.innerText.length < 40);
+    if (!sector) return;
 
-    const cells = [...row.children];
-    const sectorCell =
-      cells.find(td => td.innerText.length > 2 && td.innerText.length < 40);
-
-    if (!sectorCell) return;
-
-    const sector = sectorCell.innerText.trim();
-    if (lastSector !== null && sector !== lastSector) {
-      row.classList.add("sector-break");
-    }
-    lastSector = sector;
+    if (last && sector.innerText !== last) r.classList.add("sector-break");
+    last = sector.innerText;
   });
 }
 
-/* ---------- Auto apply after table updates ---------- */
-const observer = new MutationObserver(() => {
+/* ---------- Auto apply ---------- */
+new MutationObserver(() => {
   const table = getActiveTable();
   if (table) applySectorSeparators(table);
-});
+}).observe(document.body, { childList: true, subtree: true });
 
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
+/* ---------- Dark theme toggle ---------- */
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem(
+    "theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+}
+
+/* ---------- Load theme ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+  }
 });

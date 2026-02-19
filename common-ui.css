@@ -1,110 +1,128 @@
 /* =========================================================
-   COMMON UI STYLES – SHARED ACROSS ALL FEATURES
+   COMMON UI – LIGHT + DARK TERMINAL THEME
    ========================================================= */
 
-/* ---------- Base table ---------- */
+/* ---------- CSS VARIABLES ---------- */
+:root {
+  --bg: #f4f4f4;
+  --panel: #ffffff;
+  --text: #111;
+  --muted: #666;
+  --grid: #e5e5e5;
+  --header-bg: linear-gradient(180deg, #f5f7fa, #e9edf2);
+  --header-border: #cfd6de;
+  --row-hover: #eef6ff;
+  --accent: #007acc;
+}
+
+/* ---------- DARK TERMINAL ---------- */
+body.dark {
+  --bg: #0e1117;
+  --panel: #161b22;
+  --text: #e6edf3;
+  --muted: #9da7b3;
+  --grid: #2b313a;
+  --header-bg: linear-gradient(180deg, #1f2933, #161b22);
+  --header-border: #30363d;
+  --row-hover: #1f2a36;
+  --accent: #58a6ff;
+}
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Table ---------- */
 table {
   border-collapse: collapse;
   width: max-content;
   font-size: 13px;
+  background: var(--panel);
 }
 
 th, td {
-  border: 1px solid #ccc;
   padding: 6px 8px;
-  background: white;
+  border-left: 1px solid var(--grid);
+  border-right: 1px solid var(--grid);
+  border-top: none;
+  border-bottom: none;
+  background: var(--panel);
+  color: var(--text);
   transition:
+    background-color 0.12s ease,
     transform 0.12s ease,
-    box-shadow 0.12s ease,
-    background-color 0.12s ease;
+    box-shadow 0.12s ease;
 }
 
+/* ---------- Header ---------- */
 th {
-  background: #f0f0f0;
+  background: var(--header-bg);
+  color: var(--text);
+  font-weight: 600;
   position: sticky;
   top: 0;
   cursor: pointer;
   z-index: 5;
+  border-bottom: 2px solid var(--header-border);
+  letter-spacing: 0.3px;
 }
 
+th:hover {
+  background: linear-gradient(180deg, var(--accent), transparent);
+}
+
+/* ---------- Sticky Symbol ---------- */
 th.symbol-col,
 td.symbol-col {
   position: sticky;
   left: 0;
-  background: #fafafa;
   z-index: 6;
   font-weight: bold;
+  background: var(--panel);
 }
 
-tbody tr:nth-child(even) td {
-  background: #f9f9f9;
-}
-
+/* ---------- Alignment ---------- */
 td.text { text-align: left; }
 td.num  { text-align: right; }
 
-/* ---------- Heat colors (original logic) ---------- */
-.green {
-  background: linear-gradient(90deg, #c8f7c5, #eaffea) !important;
+/* ---------- Heat colors ---------- */
+.green  { background: rgba(46, 204, 113, 0.25) !important; }
+.red    { background: rgba(231, 76, 60, 0.25) !important; }
+.orange { background: rgba(243, 156, 18, 0.25) !important; }
+
+td.red { font-weight: bold; }
+
+/* ---------- Row hover (entire row) ---------- */
+tbody tr:hover td {
+  background: var(--row-hover) !important;
 }
 
-.red {
-  background: linear-gradient(90deg, #f7c5c5, #ffecec) !important;
-}
-
-.orange {
-  background: linear-gradient(90deg, #ffe0b2, #fff3e0) !important;
-}
-
-td.red {
-  font-weight: bold;
-}
-
-/* ---------- Row hover bulge ---------- */
 tbody tr:hover {
   transform: scale(1.01);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-  background-color: #eef6ff;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
   position: relative;
   z-index: 10;
 }
 
-/* ---------- Sticky column sync ---------- */
-tbody tr:hover td.symbol-col {
-  background-color: #dbeaff !important;
-}
-
-/* ---------- Cell hover ---------- */
-td:hover {
-  background-color: #f0f7ff !important;
-}
-
-/* ---------- Header hover ---------- */
-th:hover {
-  background-color: #d0e7ff;
+/* ---------- Keyboard selection ---------- */
+tr.kb-selected td {
+  outline: 2px solid var(--accent);
+  background: rgba(88,166,255,0.15) !important;
 }
 
 /* ---------- Sector separator ---------- */
 tr.sector-break td {
-  border-top: 3px solid #555 !important;
+  border-top: 2px solid var(--header-border) !important;
 }
 
-/* ---------- Keyboard-selected row ---------- */
-tr.kb-selected td {
-  outline: 2px solid #007acc;
-  background-color: #e6f2ff !important;
-}
-
-tr.kb-selected td.symbol-col {
-  background-color: #cfe6ff !important;
-}
-
-/* ---------- Scroll container ---------- */
+/* ---------- Containers ---------- */
 .content {
   height: calc(100vh - 60px);
   overflow: auto;
   padding: 8px;
-  scroll-behavior: smooth;
 }
 
 /* ---------- Update time ---------- */
@@ -113,14 +131,16 @@ tr.kb-selected td.symbol-col {
   top: 6px;
   right: 10px;
   font-size: 11px;
-  color: #bbb;
+  color: var(--muted);
   z-index: 999;
 }
 
-/* ---------- Touch devices ---------- */
-@media (hover: none) {
-  tbody tr:active {
-    background-color: #e0efff;
-    transform: scale(1.01);
-  }
+/* ---------- Links ---------- */
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
