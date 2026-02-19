@@ -7,7 +7,7 @@ LT,TFCore,-1.23,-1,17,2,6,4261.9,-1.05,76,70,4280.5,Infra - Construction,Large C
 MANORAMA,TFCore,-18.09,1,-6,3,-7,1420.1,1.51,43,71,1441.6,Agri - Misc,Small Cap,,35.85
 CONTROLPR,TFCore_Low,-40.59,-4,3,-12,-3,622.0,-2.62,21,46,633.05,IT - Equipments,Small Cap,,31.67
 SYRMA,TFCore,-7.56,-12,-6,4,1,831.0,-3.12,70,68,841.15,Electronic - Equipment,Small Cap,,39.23
-KEI,TFCore,-9.35,-1,-4,3,7,4551.0,-1.63,50,64,4568.6,Power - Wiring,Mid Cap,,34.02
+KEI,TFCore,-9.35,3,-4,3,7,4551.0,-1.63,50,64,4568.6,Power - Wiring,Mid Cap,,34.02
 POLYCAB,TFCore,-1.58,4,-5,3,1,7720.0,-0.66,68,61,7778.0,Power - Wiring,Mid Cap,,36.91
 PSPPROJECT,TFCore_Low,-24.23,-12,-4,-12,-2,776.1,-1.28,76,54,780.4,Infra - Construction,Small Cap,,35.75
 SIRCA,TFCore_Low,-13.54,-11,-3,-12,-1,463.0,-0.96,61,62,466.0,Consumption - Paints,Small Cap,,28.37
@@ -114,7 +114,7 @@ TIINDIA,TFCore,-48.28,-6,-2,2,-3,2458.0,1.23,21,37,2488.3,Metals - Pipe & Tube,L
 VGUARD,TFCore,-44.11,-1,-11,4,-16,320.1,-2.05,28,45,322.75,Consumption - Appliances,Small Cap,,46.1
 VINATIORGA,TFCore_Low,-36.37,-1,-5,-5,-5,1478.6,-1.62,11,37,1482.6,Chemicals - Specialty,Mid Cap,,28.77
 SAREGAMA,TFCore,-50.44,-11,-4,7,-16,339.5,-1.57,27,38,341.4,Media - Entertainment,Small Cap,,35.15
-LIKHITHA,TFCore,-68.31,3,-5,2,-17,157.0,-3.29,25,33,157.64,Infra - Construction,Small Cap,,34.83
+LIKHITHA,TFCore,-68.31,-1,-5,2,-17,157.0,-3.29,25,33,157.64,Infra - Construction,Small Cap,,34.83
 3MINDIA,TFCore,-9.7,7,-5,1,8,36385.0,0.22,62,62,36895.0,Others,Mid Cap,,43.35
 AARTIIND,TFCore,-40.92,8,-5,4,5,451.4,-1.95,72,48,454.45,Chemicals - Specialty,Mid Cap,,57.97
 ALKYLAMINE,TFCore,-45.65,1,-6,6,-5,1515.7,-0.7,18,32,1520.5,Chemicals - Specialty,Small Cap,,26.58
@@ -133,7 +133,7 @@ IRCTC,TFCore,-44.76,4,1,1,-20,619.3,1.14,39,35,629.1,IT - Product/Platform,Mid C
 KAJARIACER,TFCore,-36.75,5,13,2,-3,983.0,-0.2,38,44,998.55,Infra - Ceramics,Mid Cap,,48.83
 KOTAKBANK,TFCore_Low,-9.55,-12,-1,-6,-2,415.9,-2.18,21,56,416.4,Financials - Private Bank,Large Cap,,38.33
 MASTEK,TFCore_Low,-49.26,6,-9,-11,-6,1707.0,-0.55,32,35,1712.6,IT - Software/Consulting,Small Cap,,26.08
-MGL,TFCore,-43.71,-1,-5,3,-17,1106.0,-1.05,31,48,1119.0,Utility - Gas,Small Cap,,52.36
+MGL,TFCore,-43.71,3,-5,3,-17,1106.0,-1.05,31,48,1119.0,Utility - Gas,Small Cap,,52.36
 NESTLEIND,TFCore_Low,-7.96,-1,-5,-2,5,1271.9,-1.64,39,60,1278.5,Consumption - FMCG,Large Cap,,30.94
 NGLFINE,TFCore,-20.07,-17,-6,8,7,2240.0,-5.55,88,62,2257.1,Healthcare - Pharma,Small Cap,,66.81
 RELAXO,TFCore_Low,-62.49,5,2,-6,8,362.6,-1.96,24,35,365.35,Consumption - Footwear,Mid Cap,,32.43
@@ -211,7 +211,7 @@ GAEL,TFWatch_Low,-32.75,1,8,-3,10,137.1,1.53,69,59,141.63,Agri - Misc,Small Cap,
 ICICIPRULI,TFWatch_Low,-18.59,10,2,-5,3,646.0,-0.38,42,58,648.65,Financials - Life,Large Cap,,36.33
 AJANTPHARM,TFWatch,-15.07,3,-1,3,3,2950.1,-0.55,78,65,2959.7,Healthcare - Pharma,Mid Cap,,74.92
 INDUSTOWER,TFWatch,-1.79,-9,-1,2,3,469.2,-1.27,79,63,472.9,Telecom,Mid Cap,,45.0
-MAANALU,TFWatch_Low,-43.31,-1,-6,-7,8,146.1,-0.09,46,54,147.12,Metals - Aluminium,Small Cap,,47.17
+MAANALU,TFWatch_Low,-43.31,4,-6,-7,8,146.1,-0.09,46,54,147.12,Metals - Aluminium,Small Cap,,47.17
 MOTHERSON,TFWatch,-10.22,-9,-1,2,6,129.5,-3.02,64,61,129.88,Auto - Replacement,Large Cap,,45.85
 RVNL,TFWatch_Low,-52.57,4,-14,-5,-16,305.0,-1.3,42,49,306.85,Railways,Mid Cap,,19.87
 SAIL,TFWatch,-11.15,-12,-5,8,10,154.9,-2.93,81,66,155.8,Metals - Iron & Steel,Mid Cap,,35.64
@@ -267,7 +267,7 @@ DIVISLAB,TFWatch,-10.95,2,2,1,-7,6251.0,0.68,63,60,6297.5,Healthcare - Pharma,La
 LUPIN,TFWatch,-7.25,-1,13,1,3,2205.1,-0.24,86,67,2228.7,Healthcare - Pharma,Mid Cap,IND-US,53.8
 AUROPHARMA,TFWatch_Low,-26.42,1,1,-9,4,1156.4,1.3,71,56,1171.4,Healthcare - Pharma,Mid Cap,IND-US,40.46
 ZYDUSLIFE,TFWatch,-31.86,-6,-3,3,-5,900.3,-1.89,17,53,902.4,Healthcare - Pharma,Mid Cap,IND-US,45.44
-WELSPUNLIV,TFWatch,-35.31,-1,-8,3,4,137.0,-0.51,61,51,137.75,Textile - Misc,Small Cap,IND-US,40.58
+WELSPUNLIV,TFWatch,-35.31,2,-8,3,4,137.0,-0.51,61,51,137.75,Textile - Misc,Small Cap,IND-US,40.58
 TRIDENT,TFWatch,-51.02,0,-8,3,-2,25.6,-1.41,38,36,25.91,Textile - Misc,Mid Cap,IND-US,36.45
 ARVIND,TFWatch,-18.83,8,-7,3,1,363.0,-2.52,56,59,365.25,Textile - Apparels,Small Cap,IND-US,57.49
 KPRMILL,TFWatch,-34.36,10,-8,3,-7,899.7,-0.13,54,49,911.8,Textile - Apparels,Mid Cap,IND-US,43.28
