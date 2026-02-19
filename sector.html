@@ -43,6 +43,7 @@ function parseCSV(text) {
 
 window.registerTabs(addTab => {
   addTab("Sector", () => {
+    hideAllFeatures();
     document.getElementById("sectorFeature").style.display = "block";
     loadSectorSummary();
   });

@@ -41,6 +41,7 @@ window.registerTabs(addTab => {
       [...new Set(rawTrend.map(d => d.Folio).filter(Boolean))]
         .forEach(folio =>
           addTab(folio, () => {
+            hideAllFeatures();
             document.getElementById("trendFeature").style.display = "block";
             renderTrend(rawTrend.filter(d => d.Folio === folio));
           })
