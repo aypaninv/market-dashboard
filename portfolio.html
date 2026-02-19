@@ -1,60 +1,5 @@
 <!-- ===================== PORTFOLIO FEATURE ===================== -->
 
-<style>
-.update-time {
-  position: fixed;
-  top: 6px;
-  right: 10px;
-  font-size: 11px;
-  color: #bbb;
-  z-index: 999;
-}
-
-.content {
-  height: calc(100vh - 60px);
-  overflow: auto;
-  padding: 8px;
-}
-
-table {
-  border-collapse: collapse;
-  width: max-content;
-  font-size: 13px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 6px 8px;
-  background: white;
-}
-
-th {
-  background: #f0f0f0;
-  position: sticky;
-  top: 0;
-  cursor: pointer;
-  z-index: 5;
-}
-
-th.symbol-col,
-td.symbol-col {
-  position: sticky;
-  left: 0;
-  background: #fafafa;
-  z-index: 6;
-  font-weight: bold;
-}
-
-tbody tr:nth-child(even) td { background: #f9f9f9; }
-
-td.text { text-align: left; }
-td.num  { text-align: right; }
-
-.green  { background: #c8f7c5 !important; }
-.red    { background: #f7c5c5 !important; }
-.orange { background: #ffe0b2 !important; }
-</style>
-
 <div id="portfolioFeature">
   <div class="update-time" id="updateTime"></div>
   <div class="content">
@@ -69,7 +14,7 @@ const COLUMN_ORDER = [
   "Symbol","Folio","DD_High","PnL","SL_Pert",
   "LT_days","LT_Pert",
   "4H_MACD","D_MACD","W_MACD","M_MACD",
-  "W_Low", "W_Return",
+  "W_Low","W_Return",
   "AvgPrice","StopLoss","CurPrice",
   "IC","CC",
   "Sector","MarketCap","Notes"
@@ -97,62 +42,39 @@ function folioPriority(name) {
   return 4;
 }
 
-/* ---------- Register Portfolio Tabs ---------- */
 window.registerTabs(addTab => {
   fetch(CSV_FILE)
     .then(r => r.text())
     .then(t => {
       rawData = parseCSV(t);
 
-      /* ===== EXIT TAB ===== */
       addTab("Exit", () => {
-        document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
         document.getElementById("portfolioFeature").style.display = "block";
         renderAndDefaultSort(
           rawData.filter(d =>
-            !isNaN(parseFloat(d.CurPrice)) &&
-            (
-              (
-                d.StopLoss &&
-                !isNaN(parseFloat(d.StopLoss)) &&
-                parseFloat(d.CurPrice) < parseFloat(d.StopLoss)
-              )
-            )
+            d.StopLoss &&
+            !isNaN(d.CurPrice) &&
+            parseFloat(d.CurPrice) < parseFloat(d.StopLoss)
           )
         );
       });
 
-      /* ===== FOLIO TABS ===== */
+      const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean))];
 
-      const uniqueFolios =
-        [...new Set(rawData.map(d => d.Folio).filter(Boolean))];
-
-      /* ---- Trade tab (combined) ---- */
       if (uniqueFolios.some(f => f.startsWith("Trade"))) {
         addTab("Trade", () => {
-          document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
           document.getElementById("portfolioFeature").style.display = "block";
-          renderAndDefaultSort(
-            rawData.filter(d => d.Folio.startsWith("Trade"))
-          );
+          renderAndDefaultSort(rawData.filter(d => d.Folio.startsWith("Trade")));
         });
       }
 
-      /* ---- Other folios (unchanged behavior) ---- */
       uniqueFolios
         .filter(f => !f.startsWith("Trade"))
-        .sort((a, b) => {
-          const pa = folioPriority(a);
-          const pb = folioPriority(b);
-          return pa !== pb ? pa - pb : a.localeCompare(b);
-        })
+        .sort((a, b) => folioPriority(a) - folioPriority(b))
         .forEach(folio => {
           addTab(folio, () => {
-            document.getElementById("tfwatchFeature")?.style.setProperty("display","none");
             document.getElementById("portfolioFeature").style.display = "block";
-            renderAndDefaultSort(
-              rawData.filter(d => d.Folio === folio)
-            );
+            renderAndDefaultSort(rawData.filter(d => d.Folio === folio));
           });
         });
 
@@ -163,14 +85,23 @@ window.registerTabs(addTab => {
 function renderAndDefaultSort(data) {
   currentData = [...data];
   sortState = {};
-  defaultSortByDMACD();
+  defaultSort();
   renderTable(currentData);
+}
+
+function defaultSort() {
+  currentData.sort((a, b) => {
+    const x = parseFloat(a.D_MACD);
+    const y = parseFloat(b.D_MACD);
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+    return x - y;
+  });
 }
 
 function renderTable(data) {
   const table = document.getElementById("dataTable");
   table.innerHTML = "";
-  if (!data.length) return;
 
   const tr = document.createElement("tr");
   COLUMN_ORDER.forEach(h => {
@@ -200,28 +131,15 @@ function renderTable(data) {
 
       if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
       if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-      if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
-
-      if ((h === "PnL" || h === "SL_Pert" || h === "LT_Pert") && v !== "" && !isNaN(parseFloat(v))) {
-        const val = parseFloat(v);
-        if (val < -8) td.classList.add("red");
-        else if (val >= -8 && val <= 0) td.classList.add("orange");
+      if ((h === "PnL" || h === "SL_Pert" || h === "LT_Pert") && !isNaN(v)) {
+        if (v < -8) td.classList.add("red");
+        else if (v <= 0) td.classList.add("orange");
         else td.classList.add("green");
       }
 
       row.appendChild(td);
     });
     table.appendChild(row);
-  });
-}
-
-function defaultSortByDMACD() {
-  currentData.sort((a, b) => {
-    const x = parseFloat(a["D_MACD"]);
-    const y = parseFloat(b["D_MACD"]);
-    if (x > 0 && y <= 0) return -1;
-    if (x <= 0 && y > 0) return 1;
-    return x - y;
   });
 }
 
@@ -236,10 +154,7 @@ function sortBy(col) {
 }
 
 function openChart(symbol) {
-  window.open(
-    `https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`,
-    "_blank"
-  );
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
 }
 
 function updateLastRunTime() {
@@ -247,9 +162,9 @@ function updateLastRunTime() {
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime").innerText =
-        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
-        + " / " +
-        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
     });
 }
 </script>

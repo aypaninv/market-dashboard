@@ -1,70 +1,9 @@
-<!-- ===================== SECTOR TECHNICAL REPORT ===================== -->
-
-<style>
-.update-time {
-  position: fixed;
-  top: 6px;
-  right: 10px;
-  font-size: 11px;
-  color: #bbb;
-  z-index: 999;
-}
-
-.content {
-  height: calc(100vh - 60px);
-  overflow: auto;
-  padding: 8px;
-}
-
-button {
-  margin-bottom: 6px;
-  padding: 4px 8px;
-}
-
-table {
-  border-collapse: collapse;
-  width: max-content;
-  font-size: 13px;
-}
-
-th, td {
-  border: 1px solid #ccc;
-  padding: 6px 8px;
-  background: white;
-}
-
-th {
-  background: #f0f0f0;
-  position: sticky;
-  top: 0;
-  cursor: pointer;
-  z-index: 5;
-}
-
-th.symbol-col,
-td.symbol-col {
-  position: sticky;
-  left: 0;
-  background: #fafafa;
-  z-index: 6;
-  font-weight: bold;
-}
-
-tbody tr:nth-child(even) td { background: #f9f9f9; }
-
-td.text { text-align: left; }
-td.num  { text-align: right; }
-
-.green { background: #c8f7c5 !important; }
-.red   { background: #f7c5c5 !important; }
-</style>
+<!-- ===================== SECTOR FEATURE ===================== -->
 
 <div id="sectorFeature" style="display:none">
   <div class="update-time" id="updateTime_sector"></div>
   <div class="content">
-
     <button id="backBtn" style="display:none" onclick="showSectorSummary()">⬅ Back</button>
-
     <table id="sectorTable"></table>
   </div>
 </div>
@@ -73,29 +12,24 @@ td.num  { text-align: right; }
 const SECTOR_CSV = "technical_sector_data.csv";
 const SYMBOL_CSV = "technical_symbol_data.csv";
 
-/* ================= COLUMN ALIAS MAP ================= */
-/* UI HEADER -> CSV COLUMN */
 const SYMBOL_COL_MAP = {
   "D_MACD": "Day_MACD",
   "W_MACD": "Week_MACD",
   "M_MACD": "Month_MACD",
-  "D_RSI":  "Day_RSI",
-  "W_RSI":  "Week_RSI",
-  "M_RSI":  "Month_RSI",
+  "D_RSI": "Day_RSI",
+  "W_RSI": "Week_RSI",
+  "M_RSI": "Month_RSI",
   "CurPrice": "Close"
 };
 
-/* ---------- Sector ---------- */
 let sectorData = [];
 let curSector = [];
 let sectorSortState = {};
 
-/* ---------- Symbol Drilldown ---------- */
 let symbolData = [];
 let curSymbols = [];
 let symbolSortState = {};
 
-/* ---------- CSV Parser ---------- */
 function parseCSV(text) {
   const lines = text.trim().split("\n");
   const headers = lines[0].split(",");
@@ -107,21 +41,13 @@ function parseCSV(text) {
   });
 }
 
-/* ---------- Register Tab ---------- */
 window.registerTabs(addTab => {
   addTab("Sector", () => {
-    hideOthers();
     document.getElementById("sectorFeature").style.display = "block";
     loadSectorSummary();
   });
 });
 
-function hideOthers() {
-  ["portfolioFeature","tfwatchFeature","trendFeature"]
-    .forEach(id => document.getElementById(id)?.style.setProperty("display","none"));
-}
-
-/* ---------- Load Sector Summary ---------- */
 function loadSectorSummary() {
   document.getElementById("backBtn").style.display = "none";
 
@@ -130,19 +56,17 @@ function loadSectorSummary() {
     .then(t => {
       sectorData = parseCSV(t);
       renderSector(sectorData);
-      updateTime(SECTOR_CSV);
+      updateSectorTime();
     });
 }
 
-/* ---------- Render Sector Table ---------- */
 function renderSector(data) {
   curSector = [...data];
   sectorSortState = {};
 
-  // ✅ DEFAULT SORT: W_MACD positive → negative (trend.html style)
   curSector.sort((a, b) => {
-    const x = parseFloat(a["W_MACD"]);
-    const y = parseFloat(b["W_MACD"]);
+    const x = parseFloat(a.W_MACD);
+    const y = parseFloat(b.W_MACD);
     if (x > 0 && y <= 0) return -1;
     if (x <= 0 && y > 0) return 1;
     return x - y;
@@ -161,20 +85,7 @@ function drawSector(data) {
   cols.forEach(h => {
     const th = document.createElement("th");
     th.innerText = h;
-
-    // ✅ SORT FOR ALL COLUMNS
-    th.onclick = () => {
-      const asc = !sectorSortState[h];
-      sectorSortState = { [h]: asc };
-
-      curSector.sort((a, b) =>
-        asc
-          ? parseFloat(a[h]) - parseFloat(b[h])
-          : parseFloat(b[h]) - parseFloat(a[h])
-      );
-      drawSector(curSector);
-    };
-
+    th.onclick = () => sortSector(h);
     if (h === "Sector") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -190,18 +101,15 @@ function drawSector(data) {
       if (h === "Sector") {
         td.className = "symbol-col text";
         td.innerText = v;
-        td.style.cursor = "pointer";
         td.onclick = () => showSectorStocks(v);
+        td.style.cursor = "pointer";
       } else {
         td.innerText = parseInt(v, 10);
         td.className = "num";
       }
 
-      if (h.includes("MACD") && !isNaN(v))
+      if (h.includes("MACD"))
         td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-
-      if (h.includes("RSI") && !isNaN(v))
-        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
       row.appendChild(td);
     });
@@ -210,7 +118,18 @@ function drawSector(data) {
   });
 }
 
-/* ---------- Drilldown ---------- */
+function sortSector(col) {
+  const asc = !sectorSortState[col];
+  sectorSortState = { [col]: asc };
+
+  curSector.sort((a, b) =>
+    asc ? parseFloat(a[col]) - parseFloat(b[col])
+        : parseFloat(b[col]) - parseFloat(a[col])
+  );
+
+  drawSector(curSector);
+}
+
 function showSectorStocks(sector) {
   document.getElementById("backBtn").style.display = "inline";
 
@@ -246,20 +165,7 @@ function drawSymbols(data) {
   cols.forEach(h => {
     const th = document.createElement("th");
     th.innerText = h;
-
-    th.onclick = () => {
-      const asc = !symbolSortState[h];
-      symbolSortState = { [h]: asc };
-
-      const key = SYMBOL_COL_MAP[h] || h;
-      curSymbols.sort((a, b) =>
-        asc
-          ? parseFloat(a[key]) - parseFloat(b[key])
-          : parseFloat(b[key]) - parseFloat(a[key])
-      );
-      drawSymbols(curSymbols);
-    };
-
+    th.onclick = () => sortSymbols(h);
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -277,15 +183,13 @@ function drawSymbols(data) {
         td.className = "symbol-col text";
         td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
       } else {
-        td.innerText = parseInt(v, 10) || v;
+        td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
       if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
-      if (h.includes("MACD") && !isNaN(v))
+      if (h.includes("MACD"))
         td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-      if (h.includes("RSI") && !isNaN(v))
-        td.classList.add(parseFloat(v) >= 53 ? "green" : "red");
 
       row.appendChild(td);
     });
@@ -294,23 +198,38 @@ function drawSymbols(data) {
   });
 }
 
-function openChart(symbol) {
-  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+function sortSymbols(col) {
+  const asc = !symbolSortState[col];
+  symbolSortState = { [col]: asc };
+  const key = SYMBOL_COL_MAP[col] || col;
+
+  curSymbols.sort((a, b) =>
+    asc ? parseFloat(a[key]) - parseFloat(b[key])
+        : parseFloat(b[key]) - parseFloat(a[key])
+  );
+
+  drawSymbols(curSymbols);
 }
 
-/* ---------- Helpers ---------- */
+function openChart(symbol) {
+  window.open(
+    `https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`,
+    "_blank"
+  );
+}
+
 function showSectorSummary() {
   loadSectorSummary();
 }
 
-function updateTime(csv) {
-  fetch(csv, { method: "HEAD" })
+function updateSectorTime() {
+  fetch(SECTOR_CSV, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_sector").innerText =
-        d.toLocaleTimeString("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:false})
-        + " / " +
-        d.toLocaleDateString("en-IN",{timeZone:"Asia/Kolkata",year:"numeric",month:"short",day:"2-digit"});
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
     });
 }
 </script>

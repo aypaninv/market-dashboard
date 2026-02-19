@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Market Dashboard</title>
 
+<link rel="stylesheet" href="common-ui.css">
+<script src="common-ui.js" defer></script>
+
 <style>
-/* ---------- GLOBAL FONT FIX ---------- */
 * {
   font-family: "Courier New", monospace !important;
 }
 
-/* ---------- Base ---------- */
 body {
   margin: 0;
   background: #f4f4f4;
 }
 
-/* ---------- Header ---------- */
 .header {
   display: flex;
   align-items: center;
@@ -26,10 +26,8 @@ body {
   padding: 6px 8px;
 }
 
-/* ---------- Tabs ---------- */
 #globalTabs {
   display: flex;
-  flex-wrap: nowrap;
   gap: 6px;
   overflow-x: auto;
 }
@@ -39,7 +37,6 @@ body {
   cursor: pointer;
   background: #333;
   border-radius: 4px;
-  white-space: nowrap;
   color: white;
   font-size: 13px;
 }
@@ -48,7 +45,6 @@ body {
   background: #007acc;
 }
 
-/* ---------- Search ---------- */
 .search-wrapper {
   margin-left: auto;
   position: relative;
@@ -56,9 +52,7 @@ body {
 
 .search-icon {
   cursor: pointer;
-  font-size: 16px;
   color: #ccc;
-  user-select: none;
 }
 
 .search-input {
@@ -70,28 +64,8 @@ body {
 
 .search-input input {
   padding: 4px 8px;
-  font-size: 12px;
   width: 180px;
-  border-radius: 4px;
-  border: none;
-  outline: none;
 }
-
-/* ---------- App ---------- */
-#app {
-  padding: 0;
-}
-
-/* ---------- FIX: isolate feature scrolling ---------- */
-#app > div {
-  display: none;
-  height: calc(100vh - 40px);
-}
-
-#app > div[style*="display: block"] {
-  display: block;
-}
-
 </style>
 </head>
 
@@ -103,12 +77,7 @@ body {
   <div class="search-wrapper">
     <span class="search-icon" onclick="toggleSearch()">🔍</span>
     <div class="search-input" id="searchBox">
-      <input
-        type="text"
-        id="globalSearch"
-        placeholder="Search…"
-        onkeyup="applyGlobalSearch(this.value)"
-      />
+      <input id="globalSearch" placeholder="Search…" onkeyup="applyGlobalSearch(this.value)">
     </div>
   </div>
 </div>
@@ -116,15 +85,13 @@ body {
 <div id="app"></div>
 
 <script>
-const globalTabs = document.getElementById("globalTabs");
 let firstTabActivated = false;
 
-/* ---------- Global tab registration ---------- */
-window.registerTabs = function (tabBuilderFn) {
-  tabBuilderFn(addGlobalTab);
+window.registerTabs = function (fn) {
+  fn(addTab);
 };
 
-function addGlobalTab(label, onClick) {
+function addTab(label, onClick) {
   const div = document.createElement("div");
   div.className = "tab";
   div.innerText = label;
@@ -132,12 +99,11 @@ function addGlobalTab(label, onClick) {
   div.onclick = () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     div.classList.add("active");
-
     clearSearch();
     onClick();
   };
 
-  globalTabs.appendChild(div);
+  document.getElementById("globalTabs").appendChild(div);
 
   if (!firstTabActivated) {
     firstTabActivated = true;
@@ -145,55 +111,33 @@ function addGlobalTab(label, onClick) {
   }
 }
 
-/* ---------- Feature loader ---------- */
 function loadFeature(file) {
   return fetch(file)
     .then(r => r.text())
     .then(html => {
-      const app = document.getElementById("app");
-      app.insertAdjacentHTML("beforeend", html);
-
-      app.querySelectorAll("script").forEach(oldScript => {
-        const s = document.createElement("script");
-        s.textContent = oldScript.textContent;
-        document.body.appendChild(s);
-        oldScript.remove();
+      document.getElementById("app").insertAdjacentHTML("beforeend", html);
+      document.querySelectorAll("#app script").forEach(s => {
+        const n = document.createElement("script");
+        n.textContent = s.textContent;
+        document.body.appendChild(n);
+        s.remove();
       });
     });
 }
 
-/* ---------- Smart Search ---------- */
 function applyGlobalSearch(text) {
   const q = text.toLowerCase();
-
-  const activeFeature = document.querySelector(
-    "#portfolioFeature:not([style*='display: none'])," +
-    "#tfwatchFeature:not([style*='display: none'])," +
-    "#trendFeature:not([style*='display: none'])," +
-    "#sectorFeature:not([style*='display: none'])"
-  );
-
-  if (!activeFeature) return;
-
-  const table = activeFeature.querySelector("table");
+  const table = document.querySelector("#app table");
   if (!table) return;
 
-  const rows = table.querySelectorAll("tr");
-  rows.forEach((row, i) => {
-    if (i === 0) return;
-    row.style.display =
-      row.innerText.toLowerCase().includes(q) ? "" : "none";
+  [...table.rows].slice(1).forEach(r => {
+    r.style.display = r.innerText.toLowerCase().includes(q) ? "" : "none";
   });
 }
 
-
-/* ---------- Search toggle ---------- */
 function toggleSearch() {
   const box = document.getElementById("searchBox");
-  const input = document.getElementById("globalSearch");
-
   box.style.display = box.style.display === "block" ? "none" : "block";
-  if (box.style.display === "block") input.focus();
 }
 
 function clearSearch() {
@@ -202,23 +146,10 @@ function clearSearch() {
   document.getElementById("searchBox").style.display = "none";
 }
 
-/* Close search */
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") clearSearch();
-});
-
-document.addEventListener("click", e => {
-  if (!e.target.closest(".search-wrapper")) {
-    document.getElementById("searchBox").style.display = "none";
-  }
-});
-
-/* ---------- Load features in order ---------- */
 loadFeature("portfolio.html")
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("trend.html"))
   .then(() => loadFeature("sector.html"));
-
 </script>
 
 </body>
