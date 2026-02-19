@@ -40,6 +40,7 @@ window.registerTabs(addTab => {
       [...new Set(rawTF.map(d => d.Folio).filter(Boolean))]
         .forEach(folio =>
           addTab(folio, () => {
+            hideAllFeatures();
             document.getElementById("tfwatchFeature").style.display = "block";
             renderTF(rawTF.filter(d => d.Folio === folio));
           })
@@ -51,9 +52,29 @@ window.registerTabs(addTab => {
 function renderTF(data) {
   curTF = [...data];
   tfSortState = {};
-  curTF.sort((a,b)=>parseFloat(a.D_MACD)-parseFloat(b.D_MACD));
+
+  // ✅ DEFAULT SORT:
+  // Positive D_MACD first → zero → negative (-1,-2,-3…)
+  curTF.sort((a, b) => {
+    const x = parseFloat(a.D_MACD);
+    const y = parseFloat(b.D_MACD);
+
+    // handle empty / NaN safely
+    if (isNaN(x) && isNaN(y)) return 0;
+    if (isNaN(x)) return 1;
+    if (isNaN(y)) return -1;
+
+    // positives first
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+
+    // same sign → numeric sort
+    return x - y;
+  });
+
   drawTF(curTF);
 }
+
 
 function drawTF(data) {
   const table = document.getElementById("dataTable_tf");
