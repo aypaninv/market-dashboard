@@ -97,7 +97,7 @@ function drawTrend(data) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("red");
+      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("orange");
       if (h.includes("MACD") && v !== "")
         td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
 

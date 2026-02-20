@@ -106,7 +106,7 @@ function drawTF(data) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && v < -16) td.classList.add("red");
+      if (h === "DD_High" && v < -16) td.classList.add("orange");
       if (h.includes("MACD") && v !== "") td.classList.add(v >= 0 ? "green" : "red");
 
       row.appendChild(td);
