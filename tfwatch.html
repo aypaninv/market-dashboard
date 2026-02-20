@@ -53,11 +53,10 @@ function renderTF(data) {
   curTF = [...data];
   tfSortState = {};
 
-  // ✅ DEFAULT SORT:
-  // Positive D_MACD first → zero → negative (-1,-2,-3…)
+  // ✅ DEFAULT SORT: positives first, then by W_MACD value
   curTF.sort((a, b) => {
-    const x = parseFloat(a.D_MACD);
-    const y = parseFloat(b.D_MACD);
+    const x = parseFloat(a.W_MACD);
+    const y = parseFloat(b.W_MACD);
 
     // handle empty / NaN safely
     if (isNaN(x) && isNaN(y)) return 0;
