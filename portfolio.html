@@ -91,8 +91,8 @@ function renderAndDefaultSort(data) {
 
 function defaultSort() {
   currentData.sort((a, b) => {
-    const x = parseFloat(a.D_MACD);
-    const y = parseFloat(b.D_MACD);
+    const x = parseFloat(a["4H_MACD"]);
+    const y = parseFloat(b["4H_MACD"]);
     if (x > 0 && y <= 0) return -1;
     if (x <= 0 && y > 0) return 1;
     return x - y;
