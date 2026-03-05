@@ -1,14 +1,14 @@
 Sector,4H_MACD,D_MACD,W_MACD,M_MACD,D_RSI,W_RSI,M_RSI
 Agri - Animal Feed,-10,-10,5,2,65.63,58.28,61.69
 Agri - Edible Oil,-9,-9,3,-8,53.37,40.8,47.53
-Agri - Misc,-3,-3,5,-8,49.29,36.02,51.51
+Agri - Misc,-3,-3,5,-8,49.31,36.04,51.52
 Agri - Rice,-13,-13,-1,-7,64.2,59.15,56.01
 Agri - Seeds,-14,-14,-15,-9,39.77,33.5,39.46
 Agri - Sugar,5,5,4,-9,64.28,43.61,45.83
-Agri - Tea/Coffee,-10,-10,4,-5,54.33,49.23,54.1
+Agri - Tea/Coffee,-10,-10,4,-5,54.32,49.22,54.1
 Agrichem - Fertilizers,-10,-10,-9,-6,42.92,36.49,51.14
 Agrichem - Protection,-14,-14,-1,-7,50.9,29.43,44.29
-Auto - 2W,-3,-3,4,8,61.7,56.7,69.97
+Auto - 2W,-3,-3,4,8,62.78,57.73,70.52
 Auto - CV,-9,-9,4,6,47.5,48.15,58.02
 Auto - Misc,-15,-15,-1,-2,51.44,36.1,47.43
 Auto - OEM Suppliers,-13,-13,-1,10,58.17,44.78,53.1
@@ -17,23 +17,23 @@ Auto - Replacement,-3,-3,-1,-3,56.43,46.83,54.94
 Auto - Tyres,-13,-13,-1,-3,53.1,37.45,53.47
 Batteries,-15,-15,-17,-5,51.77,18.71,44.24
 Beverages - Alcohol,-13,-13,-8,-3,45.03,26.8,48.57
-Chemicals - Bulk,-14,-14,5,-5,53.68,33.38,46.32
+Chemicals - Bulk,-14,-14,5,-5,53.69,33.39,46.32
 Chemicals - Dyes,-14,-14,-17,-7,51.5,32.98,46.25
 Chemicals - Misc,-9,-9,5,2,39.34,31.03,43.62
 Chemicals - Petro,-3,-3,-1,-17,43.18,27.55,46.26
-Chemicals - Specialty,-14,-14,5,-7,56.18,30.55,46.62
+Chemicals - Specialty,-14,-14,5,-7,56.19,30.55,46.62
 Consumption - Appliances,-12,-12,5,-5,54.85,36.35,43.36
 Consumption - Dairy,-12,-12,4,-8,51.09,48.69,48.59
 Consumption - Electronics,-14,-14,4,-14,54.22,38.69,44.32
 Consumption - FMCG,-11,-11,-1,-6,47.88,28.44,47.43
 Consumption - Footwear,-14,-14,-17,-6,27.71,22.02,37.84
-Consumption - Jewelry,-3,-3,3,5,59.7,39.44,52.03
+Consumption - Jewelry,-3,-3,3,5,59.76,39.52,52.06
 Consumption - Luggage,-3,-3,-12,-3,52.04,55.34,44.01
 Consumption - Misc,-8,-8,-1,-5,51.99,32.11,46.48
 Consumption - Paints,-6,-6,-12,-3,40.4,54.35,42.54
-Consumption - Personal,-15,-15,-3,-6,43.88,43.42,49.8
+Consumption - Personal,-15,-15,-3,-6,43.86,43.39,49.79
 Consumption - Retail,-13,-13,-1,-17,51.07,30.85,39.29
-Defense - Misc,3,3,6,1,62.25,57.3,55.35
+Defense - Misc,3,3,6,1,62.1,57.15,55.25
 Defense - Ship Building,-8,-8,-2,-8,38.3,54.42,52.39
 Defense - Technology,11,11,5,1,63.49,57.53,51.61
 Electronic - Equipment,-3,-3,5,-5,60.68,39.58,47.97
@@ -44,24 +44,24 @@ Financials - Housing,-4,-4,-9,-8,48.54,34.74,45.72
 Financials - Life,-6,-6,-1,-3,54.25,54.9,58.1
 Financials - MFI,-3,-3,-1,12,65.23,56.41,49.62
 Financials - Misc,-10,-10,-11,-8,54.78,35.67,50.35
-Financials - NBFC,-14,-14,-16,-9,52.62,35.26,49.81
+Financials - NBFC,-14,-14,-16,-9,52.61,35.26,49.81
 Financials - Non-Life,-10,-10,4,-3,44.03,47.51,51.58
-Financials - PSU Bank,-5,-5,10,7,57.27,50.77,63.45
-Financials - Private Bank,-10,-10,-1,11,59.62,49.08,58.34
+Financials - PSU Bank,-5,-5,10,7,57.29,50.8,63.46
+Financials - Private Bank,-10,-10,-1,11,59.61,49.08,58.33
 Financials - Ratings,-5,-5,-4,-8,40.2,34.87,53.61
 Healthcare - Biotech,-16,-16,-3,-15,53.11,46.12,50.66
 Healthcare - Diagnostics,-14,-14,-1,-5,37.81,61.16,51.05
 Healthcare - Equipments,7,7,-16,-15,59.72,29.79,42.42
 Healthcare - Hospitals,-10,-10,4,-5,51.87,28.74,54.67
-Healthcare - Pharma,-4,-4,2,-8,60.32,41.63,50.31
+Healthcare - Pharma,-4,-4,2,-8,60.33,41.63,50.3
 Human Resources,-18,-18,-17,-18,45.53,37.77,40.26
 IT - Education,-19,-19,-9,-1,45.03,32.81,35.03
-IT - Equipments,-2,-2,3,-1,50.47,44.77,47.56
+IT - Equipments,-2,-2,3,-1,50.54,44.79,47.57
 IT - Product/Platform,-16,-16,-15,-4,48.03,34.43,47.67
 IT - Services,-15,-15,-13,-18,46.33,36.78,43.19
 IT - Software/Consulting,-21,-21,-11,-3,43.04,33.6,43.7
 Industrial - Bearings,-2,-2,5,-6,67.83,56.54,49.44
-Industrial - Consumables,-14,-14,5,-15,65.42,37.06,50.24
+Industrial - Consumables,-14,-14,5,-15,65.44,37.08,50.25
 Industrial - Pumps/Engines,-4,-4,5,-8,63.78,49.38,51.11
 Infra - Cement,-4,-4,-2,-6,46.51,31.97,45.77
 Infra - Ceramics,-7,-7,4,-4,61.75,40.24,49.47
@@ -74,7 +74,7 @@ Leather Products,-15,-15,-1,-4,52.64,49.11,55.76
 Leisure - Hotels,-14,-14,-17,-6,46.78,26.18,48.32
 Leisure - Misc,-15,-15,-17,-6,34.33,25.99,41.1
 Leisure - Restaurants,-14,-14,-1,-7,43.16,26.81,41.61
-Media - Entertainment,-13,-13,-1,-16,43.55,25.82,43.96
+Media - Entertainment,-13,-13,-1,-16,43.6,25.85,43.98
 Media - Films,-14,-14,4,9,62.0,33.87,49.18
 Media - Misc,-16,-16,-10,8,45.91,19.46,39.6
 Media - Publishing,-8,-8,-17,-18,45.45,24.71,42.59
@@ -84,18 +84,18 @@ Metals - Casting/Forging,-13,-13,4,6,58.46,52.38,52.99
 Metals - Copper,6,6,-3,7,52.7,69.06,69.17
 Metals - Iron & Steel,-3,-3,5,-3,54.12,43.41,51.55
 Metals - Misc,-15,-15,-8,-2,50.36,41.83,52.58
-Metals - Pipe & Tube,-7,-7,5,2,62.79,45.38,51.27
-NA,-6,-6,4,-4,61.11,51.14,64.1
-Oil and Gas,2,2,6,-18,59.69,43.25,51.71
+Metals - Pipe & Tube,-7,-7,5,2,62.78,45.37,51.26
+NA,-6,-6,4,-4,60.98,50.95,64.02
+Oil and Gas,2,2,6,-18,59.67,43.22,51.7
 Others,-3,-3,5,9,46.72,38.27,47.47
 Packaging,-13,-13,4,-15,54.71,32.39,49.11
 Paper,-13,-13,-1,-3,47.68,31.75,47.38
 Petro - Lubricants,-3,-3,-9,-18,53.93,42.65,45.61
-Petro - Refineries,2,2,5,11,50.15,55.91,59.77
-Power - Equipment,-3,-3,5,2,64.23,51.31,52.64
+Petro - Refineries,2,2,5,11,49.81,55.75,59.7
+Power - Equipment,-3,-3,5,2,64.22,51.29,52.63
 Power - Green,-14,-14,-2,-4,53.62,27.31,46.04
-Power - Misc,-4,-4,5,-18,63.24,44.11,50.77
-Power - Wiring,-1,-1,4,9,61.17,45.88,51.77
+Power - Misc,-4,-4,5,-18,63.27,44.17,50.78
+Power - Wiring,-1,-1,4,9,61.16,45.86,51.76
 Railways,-15,-15,-7,-3,23.47,36.76,45.02
 Real Estate,-14,-14,-2,-5,52.0,32.43,46.6
 Tech - BPO,-15,-15,-4,-8,47.72,31.84,36.65
@@ -107,6 +107,6 @@ Textile - Spinning/Yarn,-15,-15,5,1,66.31,45.79,49.97
 Textiles - Polyester,-15,-15,-1,-3,50.56,17.61,49.86
 Textiles - Processing,-13,-13,5,-7,67.42,35.62,48.17
 Transport - Logistics,-14,-14,-1,-5,53.58,36.54,45.79
-Transport - Shipping,2,2,7,7,61.57,54.44,59.43
+Transport - Shipping,2,2,7,7,61.31,54.41,59.37
 Utility - Gas,-3,-3,-1,-18,44.12,45.74,48.23
 Utility - Misc,8,8,-4,6,62.28,52.04,51.75
