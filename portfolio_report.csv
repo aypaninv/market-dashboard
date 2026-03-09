@@ -1,51 +1,51 @@
 Symbol,Folio,IC,CC,PnL,DD_High,LT_days,LT_Pert,4H_MACD,D_MACD,W_MACD,M_MACD,W_Low,W_Return,AvgPrice,CurPrice,StopLoss,SL_Avg,SL_Cmp,Qty,LT_Date,LT_Price,MarketCap_x,Sector_x,Sector_y,MarketCap_y,D_RSI,W_RSI,M_RSI
-BANKINDIA,Sate,3.3,3.1,-0.9,-15.58,14,-11.0,10,-5,-2,7,147.9,-5.64,151.88,150.58,159.0,4.7,-5.3,470,2026-02-17,169.2,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,48,53,62
-HEROMOTOCO,Sate_Low,4.4,4.3,3.0,-14.61,25,-3.4,-10,-4,-12,-1,5337.5,-1.04,5296.95,5455.0,5298.0,0.0,3.0,18,2026-02-02,5647.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,40,63,61
-ICICIAMC,Sate,3.0,3.1,8.1,-6.85,9,-6.9,-14,-5,-1,3,2855.1,-2.8,2695.03,2913.5,2992.0,11.0,-2.6,24,2026-02-24,3130.0,,,,,26,69,95
-KTKBANK,Sate,2.6,2.5,2.2,-27.9,1,-6.8,-1,3,5,5,203.3,-5.65,201.0,205.49,199.0,-1.0,3.3,280,2026-03-06,220.45,Small Cap,Financials - Private Bank,Financials - Private Bank,Small Cap,67,44,53
-CUB,Core_Low,5.5,5.7,7.3,-18.64,13,-13.2,-3,-5,-5,-1,245.9,-4.56,231.05,247.9,260.0,12.5,-4.7,520,2026-02-18,285.5,Small Cap,Financials - Private Bank,Financials - Private Bank,Small Cap,23,60,63
-ACUTAAS,Core,3.6,4.3,26.0,-3.25,13,-1.0,5,-1,7,9,2120.8,-4.85,1699.72,2141.6,1817.0,6.9,17.9,46,2026-02-18,2164.1,Small Cap,Healthcare - Pharma,Healthcare - Pharma,Small Cap,58,54,93
-APLAPOLLO,Core,2.7,2.7,4.6,-7.57,5,-6.9,10,-4,-1,7,2051.6,-3.28,1990.7,2082.2,2039.0,2.4,2.1,30,2026-02-28,2235.6,Mid Cap,Metals - Pipe & Tube,Metals - Pipe & Tube,Mid Cap,50,49,65
-BAJAJ-AUTO,Core,2.9,2.9,2.6,-26.32,8,-7.1,2,-5,-1,6,9354.5,-4.12,9174.64,9412.0,8735.0,-4.8,7.8,7,2026-02-25,10126.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,46,64,62
-MON100,Core_Low,5.8,6.3,11.6,-15.27,20,-4.7,4,-14,-7,-2,213.0,-0.95,196.43,219.27,227.0,15.6,-3.4,650,2026-02-09,229.99,,,,,63,49,63
-NAVINFLUOR,Core,3.3,3.6,13.6,-1.97,1,-3.6,6,3,9,22,6323.5,-3.26,5597.77,6358.0,5659.0,1.1,12.4,13,2026-03-06,6593.0,Mid Cap,Chemicals - Bulk,Chemicals - Bulk,Mid Cap,62,59,75
-TITAN,Core,3.1,3.1,3.1,-5.16,8,-4.9,-2,-5,-1,11,4112.7,-2.76,4004.72,4127.4,3751.0,-6.3,10.0,17,2026-02-25,4339.0,Large Cap,Consumption - Jewelry,Consumption - Jewelry,Large Cap,65,66,63
-TORNTPHARM,Core,2.6,2.9,14.8,-1.92,19,7.4,-12,-6,5,4,4259.2,0.51,3781.48,4340.0,3903.0,3.2,11.2,15,2026-02-10,4040.0,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,77,92,78
-PRIVISCL,Core,2.5,2.6,6.4,-14.82,14,3.7,1,-4,6,-1,2820.0,1.04,2754.25,2930.6,2582.0,-6.3,13.5,20,2026-02-17,2824.9,Small Cap,Chemicals - Specialty,Chemicals - Specialty,Small Cap,55,30,66
-SUPREMEIND,Core,1.7,1.7,2.1,-41.36,8,-6.3,-12,-6,11,2,3780.2,-4.04,3711.8,3788.3,3378.0,-9.0,12.1,10,2026-02-25,4043.3,Mid Cap,Industrial - Consumables,Industrial - Consumables,Mid Cap,51,38,50
-BEL,Sate_Low,2.5,2.5,3.5,-3.36,1,-3.1,2,7,10,-2,450.0,-3.04,439.01,454.2,441.0,0.5,3.0,125,2026-03-06,468.76,Large Cap,Defense - Misc,Defense - Misc,Large Cap,67,73,72
-MRPL,Sate,2.5,2.6,6.5,-34.04,1,-7.4,-2,-1,8,7,188.6,-7.63,179.17,190.78,189.0,5.5,0.9,310,2026-03-06,206.0,Small Cap,Petro - Refineries,Petro - Refineries,Small Cap,66,60,63
-SOLARINDS,Core_Low,1.2,1.3,9.8,-16.23,13,12.6,-1,8,10,-7,14689.0,-1.48,13594.0,14927.0,12374.0,-9.0,20.6,2,2026-02-18,13261.0,Mid Cap,Defense - Misc,Defense - Misc,Mid Cap,84,73,63
-AXISBANK,Sate,2.0,1.8,-5.1,-7.97,9,-7.7,11,-5,-2,6,1260.8,-2.39,1353.59,1284.3,1324.0,-2.2,-3.0,32,2026-02-24,1391.4,Large Cap,Financials - Private Bank,Financials - Private Bank,Large Cap,28,59,59
-GESHIP,Sate,2.0,2.1,6.5,-13.24,2,-4.4,-2,8,9,7,1338.6,-5.37,1257.91,1339.3,1261.0,0.2,6.2,35,2026-03-05,1400.45,Small Cap,Transport - Shipping,Transport - Shipping,Small Cap,68,78,69
-TORNTPOWER,Sate,1.5,1.5,4.3,-30.63,24,4.0,-11,-5,-1,3,1333.2,-4.6,1355.0,1413.1,1439.0,6.2,-1.8,25,2026-02-03,1358.2,Mid Cap,Power - Misc,Power - Misc,Mid Cap,37,60,55
-SCHNEIDER,Sate,2.3,2.6,17.0,-14.93,1,-1.5,4,-8,7,1,860.6,-1.2,765.0,894.95,848.0,10.8,5.5,65,2026-03-06,908.9,Small Cap,Power - Equipment,Power - Equipment,Small Cap,59,39,61
-NTPC,Sate,1.7,1.7,3.4,-16.43,9,-0.3,-2,-5,11,3,372.2,-1.54,362.44,374.75,362.0,-0.1,3.5,105,2026-02-24,375.9,Large Cap,Power - Misc,Power - Misc,Large Cap,44,71,61
-MTARTECH,Sate,2.0,2.0,6.6,-7.57,14,-4.8,-2,-11,10,11,3491.0,-6.4,3321.4,3540.0,3438.0,3.5,3.0,13,2026-02-17,3719.0,Small Cap,Defense - Misc,Defense - Misc,Small Cap,62,79,74
-CCL,Core,1.8,1.8,-0.1,-6.12,14,-3.3,8,-6,7,11,985.0,-0.7,1009.48,1008.7,904.0,-10.4,11.6,40,2026-02-17,1043.3,Small Cap,Agri - Tea/Coffee,Agri - Tea/Coffee,Small Cap,68,66,69
-POWERGRID,Core,1.1,1.0,-0.2,-19.6,2,-1.5,-2,-6,6,2,285.5,-1.57,294.96,294.45,264.96,-10.2,11.1,80,2026-03-05,298.8,Large Cap,Power - Misc,Power - Misc,Large Cap,38,62,56
-MAHABANK,Sate,1.5,1.4,-1.6,-14.83,14,-2.9,-11,-4,-1,10,63.6,-6.49,66.67,65.58,69.0,3.5,-5.0,500,2026-02-17,67.55,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,48,44,64
-LUPIN,Sate,2.4,2.3,2.7,-4.21,1,-1.9,-2,-1,5,4,2284.4,-1.79,2240.84,2301.8,2261.0,0.9,1.8,23,2026-03-06,2346.0,Mid Cap,Healthcare - Pharma,Healthcare - Pharma,Mid Cap,73,87,71
-TIPSMUSIC,Core_Low,0.5,0.4,-9.2,-47.74,23,-9.2,-14,-14,-3,-15,491.4,-2.71,547.0,496.5,503.24,-8.0,-1.3,20,2026-02-04,547.0,Small Cap,Media - Entertainment,Media - Entertainment,Small Cap,47,39,46
-MANORAMA,Core_Low,0.4,0.3,-4.5,-25.15,22,-4.5,-12,-5,-1,-8,1278.6,-2.57,1379.5,1317.3,1269.14,-8.0,3.8,6,2026-02-05,1379.5,Small Cap,Agri - Misc,Agri - Misc,Small Cap,55,54,63
-ONGC,Sate,1.5,1.4,0.8,-21.38,21,0.8,-8,-4,9,6,268.8,-2.76,269.0,271.25,265.0,-1.5,2.4,120,2026-02-06,269.0,Large Cap,Oil and Gas,Oil and Gas,Large Cap,38,49,60
-CHENNPETRO,Sate,2.1,2.1,2.0,-25.73,1,-5.9,6,9,7,10,935.0,-6.0,928.82,947.0,930.0,0.1,1.8,50,2026-03-06,1006.0,Small Cap,Petro - Refineries,Petro - Refineries,Small Cap,62,56,65
-BANKBARODA,Sate,1.5,1.4,-1.9,-11.32,20,-1.9,9,-5,-1,7,277.0,-2.42,293.8,288.2,296.0,0.7,-2.6,110,2026-02-09,293.8,Large Cap,Financials - PSU Bank,Financials - PSU Bank,Large Cap,43,43,63
-INDIANB,Sate,2.1,2.0,-0.4,-10.59,14,-1.7,-15,-5,11,11,878.7,-4.82,898.08,894.1,921.0,2.6,-2.9,50,2026-02-17,909.25,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,61,49,70
-COLPAL,Core,0.7,0.7,-0.3,-44.57,13,-1.1,6,-5,8,2,2140.7,-2.19,2163.1,2156.4,2083.0,-3.7,3.5,7,2026-02-18,2180.1,Mid Cap,Consumption - Personal,Consumption - Personal,Mid Cap,56,53,47
-CARBORUNIV,Core,0.6,0.5,-4.9,-57.09,20,-4.9,2,-10,5,2,778.2,-1.78,830.6,789.95,770.0,-7.3,2.6,15,2026-02-09,830.6,Mid Cap,Engineering,Engineering,Mid Cap,77,25,42
-NETWEB,Sate,1.5,1.4,-2.3,-29.57,19,-2.3,-10,-4,-1,-1,3030.1,-2.1,3227.4,3154.5,3210.0,-0.5,-1.7,10,2026-02-10,3227.4,Small Cap,IT - Equipments,IT - Equipments,Small Cap,49,46,57
-TVSMOTOR,Core,1.6,1.4,-7.5,-8.88,8,-7.9,-2,-5,-2,-1,3582.5,-4.44,3910.6,3616.0,3569.6,-8.7,1.3,9,2026-02-25,3925.9,Large Cap,Auto - 2W,Auto - 2W,Large Cap,36,38,71
-SIEMENS,Core,1.5,1.4,-0.2,-33.0,14,-0.2,-2,-4,6,5,3130.0,-2.18,3203.8,3197.6,2947.5,-8.0,8.5,10,2026-02-17,3203.8,Large Cap,Power - Equipment,Power - Equipment,Large Cap,36,61,52
-PFC,Sate,0.9,0.8,-6.5,-33.2,9,-6.8,-2,-5,-1,2,384.2,-5.0,414.45,387.45,397.0,-4.2,-2.4,50,2026-02-24,415.5,Mid Cap,Financials - NBFC,Financials - NBFC,Mid Cap,31,45,53
-SUNPHARMA,Core,1.8,1.8,4.5,-7.68,1,0.7,6,3,4,1,1770.0,0.57,1731.83,1809.7,1634.0,-5.6,10.8,23,2026-03-06,1797.4,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,77,79,58
-DIVISLAB,Core_Low,1.2,1.1,0.1,-10.71,11,0.1,2,-4,4,-8,6173.5,-0.24,6305.0,6314.0,5940.0,-5.8,6.3,4,2026-02-20,6305.0,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,70,31,63
-APARINDS,Core,1.4,1.3,-3.7,-14.91,3,-0.7,9,-4,6,2,9891.0,-3.57,10411.67,10023.0,9360.0,-10.1,7.1,3,2026-03-04,10096.0,Small Cap,Power - Equipment,Power - Equipment,Small Cap,53,74,61
-KEI,Core,1.5,1.4,-2.1,-8.11,9,-2.1,-8,-3,5,8,4670.5,-4.58,4798.3,4695.5,4450.0,-7.3,5.5,7,2026-02-24,4798.3,Mid Cap,Power - Wiring,Power - Wiring,Mid Cap,63,69,63
-POLYCAB,Core,1.5,1.5,1.7,-5.24,9,1.7,-9,-1,6,2,8185.0,-3.36,8127.5,8265.0,7536.0,-7.3,9.7,4,2026-02-24,8127.5,Mid Cap,Power - Wiring,Power - Wiring,Mid Cap,68,65,66
-NEULANDLAB,Core_Low,1.2,1.1,-5.6,-36.1,9,-5.6,-2,-7,3,-3,12510.0,-3.18,13362.0,12619.0,12447.0,-6.8,1.4,2,2026-02-24,13362.0,Small Cap,Healthcare - Pharma,Healthcare - Pharma,Small Cap,68,14,54
-EICHERMOT,Core,0.7,0.6,-9.5,-11.49,8,-9.5,-11,-11,-1,8,7242.0,-4.42,8045.5,7284.0,7401.86,-8.0,-1.6,2,2026-02-25,8045.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,40,39,70
-AUROPHARMA,Sate,0.9,0.9,1.5,-21.77,7,1.5,2,9,3,5,1182.1,1.1,1227.4,1245.5,1143.0,-6.9,9.0,16,2026-02-26,1227.4,Mid Cap,Healthcare - Pharma,Healthcare - Pharma,Mid Cap,71,82,62
-TDPOWERSYS,Core,0.4,0.4,-6.0,-8.79,4,-6.0,-10,-8,7,11,829.0,-4.3,895.0,841.0,823.4,-8.0,2.1,10,2026-03-03,895.0,Small Cap,Power - Equipment,Power - Equipment,Small Cap,59,61,73
-BLUESTARCO,Core_Low,1.4,1.3,-4.0,-22.79,2,-4.0,7,-12,-1,-15,1856.8,-4.23,1943.3,1866.1,1787.84,-8.0,4.4,16,2026-03-05,1943.3,Small Cap,Consumption - Appliances,Consumption - Appliances,Small Cap,60,59,58
-COALINDIA,Sate_Low,1.4,1.3,-3.1,-19.4,2,-3.1,7,11,-5,4,434.8,-0.53,451.9,438.1,415.75,-8.0,5.4,70,2026-03-05,451.9,Large Cap,Utility - Misc,Utility - Misc,Large Cap,53,73,63
+BANKINDIA,Sate,3.3,3.1,-1.8,-16.35,14,-11.8,10,-5,-2,7,147.9,-6.5,151.88,149.2,159.0,4.7,-6.2,470,2026-02-17,169.2,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,47,52,61
+HEROMOTOCO,Sate_Low,4.4,4.3,2.9,-14.67,25,-3.5,-10,-4,-12,-1,5337.5,-1.11,5296.95,5451.5,5298.0,0.0,2.9,18,2026-02-02,5647.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,40,63,61
+ICICIAMC,Sate,3.0,3.1,7.7,-7.19,9,-7.3,-14,-5,-1,3,2855.1,-3.15,2695.03,2903.0,2992.0,11.0,-3.0,24,2026-02-24,3130.0,,,,,26,68,95
+KTKBANK,Sate,2.6,2.5,1.8,-28.17,1,-7.1,-1,3,5,5,203.3,-6.01,201.0,204.71,199.0,-1.0,2.9,280,2026-03-06,220.45,Small Cap,Financials - Private Bank,Financials - Private Bank,Small Cap,66,43,53
+CUB,Core_Low,5.5,5.7,7.2,-18.72,13,-13.3,-3,-5,-5,-1,245.9,-4.66,231.05,247.65,260.0,12.5,-4.7,520,2026-02-18,285.5,Small Cap,Financials - Private Bank,Financials - Private Bank,Small Cap,23,60,63
+ACUTAAS,Core,3.6,4.3,25.8,-3.44,13,-1.2,5,-1,7,9,2120.8,-5.03,1699.72,2137.4,1817.0,6.9,17.6,46,2026-02-18,2164.1,Small Cap,Healthcare - Pharma,Healthcare - Pharma,Small Cap,57,54,92
+APLAPOLLO,Core,2.7,2.7,4.5,-7.68,5,-7.0,10,-4,-1,7,2051.6,-3.4,1990.7,2079.7,2039.0,2.4,2.0,30,2026-02-28,2235.6,Mid Cap,Metals - Pipe & Tube,Metals - Pipe & Tube,Mid Cap,49,49,65
+BAJAJ-AUTO,Core,2.9,2.9,2.2,-26.63,8,-7.5,2,-5,-1,6,9354.5,-4.52,9174.64,9372.0,8735.0,-4.8,7.3,7,2026-02-25,10126.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,45,63,62
+MON100,Core_Low,5.8,6.3,11.4,-15.46,20,-4.9,4,-14,-7,-2,213.0,-1.17,196.43,218.79,227.0,15.6,-3.6,650,2026-02-09,229.99,,,,,62,49,62
+NAVINFLUOR,Core,3.3,3.6,13.7,-1.84,1,-3.4,6,3,9,22,6323.5,-3.13,5597.77,6366.0,5659.0,1.1,12.5,13,2026-03-06,6593.0,Mid Cap,Chemicals - Bulk,Chemicals - Bulk,Mid Cap,62,59,75
+TITAN,Core,3.1,3.1,3.1,-5.17,8,-4.9,-2,-5,-1,11,4112.7,-2.77,4004.72,4127.1,3751.0,-6.3,10.0,17,2026-02-25,4339.0,Large Cap,Consumption - Jewelry,Consumption - Jewelry,Large Cap,65,66,63
+TORNTPHARM,Core,2.6,2.9,14.8,-1.86,19,7.5,-12,-6,5,4,4259.2,0.58,3781.48,4342.7,3903.0,3.2,11.3,15,2026-02-10,4040.0,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,77,92,78
+PRIVISCL,Core,2.5,2.6,6.3,-14.94,14,3.6,1,-4,6,-1,2820.0,0.9,2754.25,2926.5,2582.0,-6.3,13.3,20,2026-02-17,2824.9,Small Cap,Chemicals - Specialty,Chemicals - Specialty,Small Cap,55,30,66
+SUPREMEIND,Core,1.7,1.7,2.0,-41.37,8,-6.3,-12,-6,11,2,3780.2,-4.05,3711.8,3787.8,3378.0,-9.0,12.1,10,2026-02-25,4043.3,Mid Cap,Industrial - Consumables,Industrial - Consumables,Mid Cap,51,38,50
+BEL,Sate_Low,2.5,2.5,3.2,-3.61,1,-3.4,2,7,10,-2,450.0,-3.29,439.01,453.05,441.0,0.5,2.7,125,2026-03-06,468.76,Large Cap,Defense - Misc,Defense - Misc,Large Cap,66,73,72
+MRPL,Sate,2.5,2.6,5.8,-34.47,1,-8.0,-2,-1,8,7,188.6,-8.24,179.17,189.54,189.0,5.5,0.3,310,2026-03-06,206.0,Small Cap,Petro - Refineries,Petro - Refineries,Small Cap,65,59,63
+SOLARINDS,Core_Low,1.2,1.3,9.7,-16.33,13,12.4,-1,8,10,-7,14689.0,-1.6,13594.0,14910.0,12374.0,-9.0,20.5,2,2026-02-18,13261.0,Mid Cap,Defense - Misc,Defense - Misc,Mid Cap,83,73,63
+AXISBANK,Sate,2.0,1.8,-5.3,-8.19,9,-7.9,11,-5,-2,6,1260.8,-2.63,1353.59,1281.2,1324.0,-2.2,-3.2,32,2026-02-24,1391.4,Large Cap,Financials - Private Bank,Financials - Private Bank,Large Cap,27,58,58
+GESHIP,Sate,2.0,2.1,6.3,-13.39,2,-4.5,-2,8,9,7,1335.6,-5.53,1257.91,1337.0,1261.0,0.2,6.0,35,2026-03-05,1400.45,Small Cap,Transport - Shipping,Transport - Shipping,Small Cap,68,78,69
+TORNTPOWER,Sate,1.5,1.6,4.5,-30.49,24,4.3,-11,-5,-1,3,1333.2,-4.41,1355.0,1416.0,1439.0,6.2,-1.6,25,2026-02-03,1358.2,Mid Cap,Power - Misc,Power - Misc,Mid Cap,37,60,55
+SCHNEIDER,Sate,2.3,2.6,17.6,-14.45,1,-1.0,4,-8,7,1,860.6,-0.65,765.0,900.0,848.0,10.8,6.1,65,2026-03-06,908.9,Small Cap,Power - Equipment,Power - Equipment,Small Cap,61,39,61
+NTPC,Sate,1.7,1.7,3.1,-16.67,9,-0.6,-2,-5,11,3,372.2,-1.81,362.44,373.7,362.0,-0.1,3.2,105,2026-02-24,375.9,Large Cap,Power - Misc,Power - Misc,Large Cap,43,70,60
+MTARTECH,Sate,2.0,2.0,5.6,-8.4,14,-5.7,-2,-11,10,11,3491.0,-7.24,3321.4,3508.3,3438.0,3.5,2.0,13,2026-02-17,3719.0,Small Cap,Defense - Misc,Defense - Misc,Small Cap,61,78,74
+CCL,Core,1.8,1.8,-0.2,-6.27,14,-3.5,8,-6,7,11,985.0,-0.87,1009.48,1007.0,904.0,-10.4,11.4,40,2026-02-17,1043.3,Small Cap,Agri - Tea/Coffee,Agri - Tea/Coffee,Small Cap,68,66,68
+POWERGRID,Core,1.1,1.0,-0.6,-19.96,2,-1.9,-2,-6,6,2,285.5,-2.01,294.96,293.15,264.96,-10.2,10.6,80,2026-03-05,298.8,Large Cap,Power - Misc,Power - Misc,Large Cap,37,61,56
+MAHABANK,Sate,1.5,1.4,-2.2,-15.35,14,-3.5,-11,-4,-1,10,63.6,-7.06,66.67,65.18,69.0,3.5,-5.5,500,2026-02-17,67.55,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,47,44,63
+LUPIN,Sate,2.4,2.3,2.5,-4.44,1,-2.1,-2,-1,5,4,2284.4,-2.03,2240.84,2296.3,2261.0,0.9,1.6,23,2026-03-06,2346.0,Mid Cap,Healthcare - Pharma,Healthcare - Pharma,Mid Cap,71,86,71
+TIPSMUSIC,Core_Low,0.5,0.4,-9.5,-47.91,23,-9.5,-14,-14,-3,-15,491.4,-3.03,547.0,494.9,503.24,-8.0,-1.7,20,2026-02-04,547.0,Small Cap,Media - Entertainment,Media - Entertainment,Small Cap,46,38,46
+MANORAMA,Core_Low,0.4,0.3,-5.5,-25.94,22,-5.5,-12,-5,-1,-8,1278.6,-3.59,1379.5,1303.5,1269.14,-8.0,2.7,6,2026-02-05,1379.5,Small Cap,Agri - Misc,Agri - Misc,Small Cap,53,53,62
+ONGC,Sate,1.5,1.4,0.6,-21.59,21,0.6,-8,-4,9,6,268.8,-3.03,269.0,270.5,265.0,-1.5,2.1,120,2026-02-06,269.0,Large Cap,Oil and Gas,Oil and Gas,Large Cap,38,48,59
+CHENNPETRO,Sate,2.1,2.1,1.4,-26.13,1,-6.4,6,9,7,10,935.0,-6.51,928.82,941.9,930.0,0.1,1.3,50,2026-03-06,1006.0,Small Cap,Petro - Refineries,Petro - Refineries,Small Cap,61,56,64
+BANKBARODA,Sate,1.5,1.4,-2.5,-11.88,20,-2.5,9,-5,-1,7,277.0,-3.03,293.8,286.4,296.0,0.7,-3.2,110,2026-02-09,293.8,Large Cap,Financials - PSU Bank,Financials - PSU Bank,Large Cap,41,42,63
+INDIANB,Sate,2.1,2.0,-0.9,-10.96,14,-2.1,-15,-5,11,11,878.7,-5.22,898.08,890.4,921.0,2.6,-3.3,50,2026-02-17,909.25,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,60,49,70
+COLPAL,Core,0.7,0.7,-0.3,-44.56,13,-1.1,6,-5,8,2,2140.7,-2.17,2163.1,2156.7,2083.0,-3.7,3.5,7,2026-02-18,2180.1,Mid Cap,Consumption - Personal,Consumption - Personal,Mid Cap,56,53,47
+CARBORUNIV,Core,0.6,0.5,-5.2,-57.23,20,-5.2,2,-10,5,2,778.2,-2.08,830.6,787.55,770.0,-7.3,2.3,15,2026-02-09,830.6,Mid Cap,Engineering,Engineering,Mid Cap,76,24,41
+NETWEB,Sate,1.5,1.4,-2.3,-29.59,19,-2.3,-10,-4,-1,-1,3030.1,-2.14,3227.4,3153.5,3210.0,-0.5,-1.8,10,2026-02-10,3227.4,Small Cap,IT - Equipments,IT - Equipments,Small Cap,49,46,57
+TVSMOTOR,Core,1.6,1.4,-7.6,-8.93,8,-8.0,-2,-5,-2,-1,3582.5,-4.5,3910.6,3613.7,3569.6,-8.7,1.2,9,2026-02-25,3925.9,Large Cap,Auto - 2W,Auto - 2W,Large Cap,36,38,71
+SIEMENS,Core,1.5,1.4,0.0,-32.86,14,0.0,-2,-4,6,5,3130.0,-1.99,3203.8,3204.0,2947.5,-8.0,8.7,10,2026-02-17,3203.8,Large Cap,Power - Equipment,Power - Equipment,Large Cap,37,62,52
+PFC,Sate,0.9,0.8,-7.1,-33.6,9,-7.3,-2,-5,-1,2,384.2,-5.58,414.45,385.1,397.0,-4.2,-3.0,50,2026-02-24,415.5,Mid Cap,Financials - NBFC,Financials - NBFC,Mid Cap,30,45,52
+SUNPHARMA,Core,1.8,1.8,4.5,-7.69,1,0.7,6,3,4,1,1770.0,0.57,1731.83,1809.6,1634.0,-5.6,10.7,23,2026-03-06,1797.4,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,77,79,58
+DIVISLAB,Core_Low,1.2,1.1,0.1,-10.79,11,0.1,2,-4,4,-8,6173.5,-0.32,6305.0,6308.5,5940.0,-5.8,6.2,4,2026-02-20,6305.0,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,70,31,63
+APARINDS,Core,1.4,1.3,-4.0,-15.13,3,-1.0,9,-4,6,2,9891.0,-3.81,10411.67,9998.0,9360.0,-10.1,6.8,3,2026-03-04,10096.0,Small Cap,Power - Equipment,Power - Equipment,Small Cap,52,73,61
+KEI,Core,1.5,1.4,-2.3,-8.3,9,-2.3,-8,-3,5,8,4670.5,-4.78,4798.3,4686.0,4450.0,-7.3,5.3,7,2026-02-24,4798.3,Mid Cap,Power - Wiring,Power - Wiring,Mid Cap,63,69,63
+POLYCAB,Core,1.5,1.4,1.3,-5.62,9,1.3,-9,-1,6,2,8185.0,-3.75,8127.5,8231.5,7536.0,-7.3,9.2,4,2026-02-24,8127.5,Mid Cap,Power - Wiring,Power - Wiring,Mid Cap,67,65,66
+NEULANDLAB,Core_Low,1.2,1.1,-5.6,-36.1,9,-5.6,-2,-7,3,-3,12510.0,-3.18,13362.0,12619.0,12447.0,-6.8,1.4,2,2026-02-24,13362.0,Small Cap,Healthcare - Pharma,Healthcare - Pharma,Small Cap,68,14,55
+EICHERMOT,Core,0.7,0.6,-9.7,-11.74,8,-9.7,-11,-11,-1,8,7242.0,-4.68,8045.5,7263.5,7401.86,-8.0,-1.9,2,2026-02-25,8045.5,Large Cap,Auto - 2W,Auto - 2W,Large Cap,39,38,70
+AUROPHARMA,Sate,0.9,0.9,1.7,-21.58,7,1.7,2,9,3,5,1182.1,1.35,1227.4,1248.5,1143.0,-6.9,9.2,16,2026-02-26,1227.4,Mid Cap,Healthcare - Pharma,Healthcare - Pharma,Mid Cap,71,82,62
+TDPOWERSYS,Core,0.4,0.4,-6.1,-8.88,4,-6.1,-10,-8,7,11,829.0,-4.39,895.0,840.15,823.4,-8.0,2.0,10,2026-03-03,895.0,Small Cap,Power - Equipment,Power - Equipment,Small Cap,59,60,73
+BLUESTARCO,Core_Low,1.4,1.3,-4.2,-22.96,2,-4.2,7,-12,-1,-15,1856.8,-4.43,1943.3,1862.1,1787.84,-8.0,4.2,16,2026-03-05,1943.3,Small Cap,Consumption - Appliances,Consumption - Appliances,Small Cap,60,59,58
+COALINDIA,Sate_Low,1.4,1.3,-3.2,-19.54,2,-3.2,7,11,-5,4,434.8,-0.7,451.9,437.35,415.75,-8.0,5.2,70,2026-03-05,451.9,Large Cap,Utility - Misc,Utility - Misc,Large Cap,52,73,63
