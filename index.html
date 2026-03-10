@@ -33,22 +33,60 @@ body {
 /* ---------- Tabs ---------- */
 #globalTabs {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 2px;
+}
+
+#globalTabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab {
-  padding: 6px 12px;
+  padding: 8px 14px;
   cursor: pointer;
   background: #333;
   border-radius: 4px;
   white-space: nowrap;
   color: white;
   font-size: 13px;
+  scroll-snap-align: start;
+  min-width: 44px;
+  text-align: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tab.active {
   background: #007acc;
+}
+
+/* ---------- Mobile Header ---------- */
+@media (max-width: 768px) {
+  .header {
+    padding: 4px;
+    flex-wrap: nowrap;
+  }
+  
+  .tab {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  
+  .search-input input {
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab {
+    padding: 10px 10px;
+    font-size: 11px;
+  }
 }
 
 /* ---------- Search ---------- */
@@ -95,7 +133,7 @@ body {
         type="text"
         id="globalSearch"
         placeholder="Search…"
-        onkeyup="applyGlobalSearch(this.value)"
+        onkeyup="debouncedSearch(this.value)"
       />
     </div>
   </div>
@@ -105,6 +143,20 @@ body {
 <div id="app"></div>
 
 <script>
+/* =========================================================
+   DEBOUNCE UTILITY
+   ========================================================= */
+
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+
+const debouncedSearch = debounce(applyGlobalSearch, 150);
+
 /* =========================================================
    GLOBAL TAB MANAGEMENT
    ========================================================= */

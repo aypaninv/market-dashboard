@@ -3,6 +3,7 @@
    - Keyboard navigation
    - Sector separators
    - Dark theme toggle
+   - Mobile optimizations
    ========================================================= */
 
 let kbIndex = -1;
@@ -45,7 +46,7 @@ document.addEventListener("keydown", e => {
   }
 
   e.preventDefault();
-});
+}, { passive: false });
 
 /* ---------- Sector separators ---------- */
 function applySectorSeparators(table) {
@@ -63,10 +64,14 @@ function applySectorSeparators(table) {
   });
 }
 
-/* ---------- Auto apply ---------- */
+/* ---------- Auto apply (debounced for performance) ---------- */
+let sectorTimeout;
 new MutationObserver(() => {
-  const table = getActiveTable();
-  if (table) applySectorSeparators(table);
+  clearTimeout(sectorTimeout);
+  sectorTimeout = setTimeout(() => {
+    const table = getActiveTable();
+    if (table) applySectorSeparators(table);
+  }, 50);
 }).observe(document.body, { childList: true, subtree: true });
 
 /* ---------- Dark theme toggle ---------- */
@@ -84,3 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("dark");
   }
 });
+
+/* ---------- Touch scroll optimization ---------- */
+document.addEventListener("touchstart", () => {}, { passive: true });
+document.addEventListener("touchmove", () => {}, { passive: true });
