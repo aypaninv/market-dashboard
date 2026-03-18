@@ -14,7 +14,6 @@ const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC",
   "DD_High","PnL","LT_days","LT_Pert",
   "4H_MACD","D_MACD","W_MACD","M_MACD",
-  "W_RSI", "M_RSI",
   "W_Low","W_Return",
   "AvgPrice","SL_Avg","StopLoss","SL_Cmp","CurPrice",
   "Sector","MarketCap","Notes"
@@ -131,7 +130,6 @@ function renderTable(data) {
 
       if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("orange");
       if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
-      if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 54 ? "green" : "red");
       if (h === "SL_Cmp" && !isNaN(v)) {
         if (parseFloat(v) > 9) {
           td.classList.add("orange");
