@@ -131,6 +131,7 @@ function renderTable(data) {
 
       if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("orange");
       if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (h.includes("RSI") && v !== "") td.classList.add(parseFloat(v) >= 54 ? "green" : "red");
       if (h === "SL_Cmp" && !isNaN(v)) {
         if (parseFloat(v) > 9) {
           td.classList.add("orange");
