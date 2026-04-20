@@ -8,7 +8,7 @@ MON100,Core,4.9,6.3,45.2,-0.8,50,24.0,-1,16,5,1,279.0,-0.56,196.43,285.16,210.0,
 NAVINFLUOR,Core,3.0,3.1,14.5,-0.44,0,1.6,6,7,1,24,6221.0,2.98,5652.82,6471.5,5659.0,0.1,14.4,14,2026-04-20,6368.5,Mid Cap,Chemicals - Bulk,Chemicals - Bulk,Mid Cap,60,59,68
 TITAN,Core,2.6,2.6,12.7,-0.79,38,4.0,5,-1,3,12,4467.7,-0.29,4004.72,4513.0,3751.0,-6.3,20.3,17,2026-02-25,4339.0,Large Cap,Consumption - Jewelry,Consumption - Jewelry,Large Cap,63,67,65
 TORNTPHARM,Core,2.7,2.6,7.7,-5.28,27,-5.8,5,6,-5,5,4145.2,0.28,3892.47,4191.2,3903.0,0.3,7.4,18,2026-03-12,4447.4,Large Cap,Healthcare - Pharma,Healthcare - Pharma,Large Cap,45,64,72
-PRIVISCL,Core,2.1,2.1,12.1,-10.28,44,9.3,7,3,10,-2,3071.0,-1.47,2754.25,3086.9,2582.0,-6.3,19.6,20,2026-02-17,2824.9,Small Cap,Chemicals - Specialty,Chemicals - Specialty,Small Cap,62,51,68
+PRIVISCL,Core,2.1,2.1,12.1,-10.28,44,9.3,-1,3,10,-2,3071.0,-1.47,2754.25,3086.9,2582.0,-6.3,19.6,20,2026-02-17,2824.9,Small Cap,Chemicals - Specialty,Chemicals - Specialty,Small Cap,62,51,68
 SOLARINDS,Core_Low,1.6,1.5,5.7,-16.35,1,-1.5,-3,11,2,-8,14848.0,-1.21,14105.33,14907.0,12374.0,-12.3,20.5,3,2026-04-17,15128.0,Mid Cap,Defense - Misc,Defense - Misc,Mid Cap,69,65,62
 GESHIP,Sate,1.9,1.9,11.5,-7.78,28,-1.0,10,2,-3,8,1415.5,-0.05,1276.33,1423.6,1332.0,4.4,6.9,39,2026-03-11,1437.5,Small Cap,Transport - Shipping,Transport - Shipping,Small Cap,50,74,71
 TORNTPOWER,Sate_Low,1.9,2.0,15.5,-21.14,28,9.2,10,10,2,4,1551.8,2.64,1390.38,1606.3,1411.0,1.5,13.8,36,2026-03-11,1470.8,Mid Cap,Power - Misc,Power - Misc,Mid Cap,66,66,60
@@ -47,12 +47,12 @@ KRISHANA,Core,1.0,0.9,-0.2,-0.82,1,-0.2,-1,12,4,1,616.0,2.04,640.0,638.75,588.8,
 SYRMA,Core,1.3,1.2,2.0,-2.59,1,2.0,-2,12,3,1,958.0,-1.51,944.1,963.35,868.57,-8.0,10.9,36,2026-04-17,944.1,Small Cap,Electronic - Equipment,Electronic - Equipment,Small Cap,70,68,74
 COFORGE,Core_Low,0.6,0.6,-2.0,-35.77,1,-2.0,-3,4,4,-9,1280.0,-2.18,1314.6,1288.1,1209.43,-8.0,6.5,13,2026-04-17,1314.6,Mid Cap,IT - Software/Consulting,IT - Software/Consulting,Mid Cap,71,28,47
 CARYSIL,Core_Low,0.9,0.7,-8.1,-24.98,1,-8.1,-2,11,2,-4,856.8,-4.32,939.1,863.4,863.97,-8.0,-0.1,25,2026-04-17,939.1,Small Cap,Consumption - Appliances,Consumption - Appliances,Small Cap,58,49,54
-M&M,Core,1.2,1.1,-1.6,-15.11,1,-1.6,1,-1,3,-4,3162.6,0.67,3274.77,3221.6,3012.79,-8.0,6.9,10,2026-04-17,3274.77,Large Cap,Auto - PV/Trucks,Auto - PV/Trucks,Large Cap,56,39,59
+M&M,Core,1.2,1.1,-1.6,-15.11,1,-1.6,2,-1,3,-4,3162.6,0.67,3274.77,3221.6,3012.79,-8.0,6.9,10,2026-04-17,3274.77,Large Cap,Auto - PV/Trucks,Auto - PV/Trucks,Large Cap,56,39,59
 SCHAEFFLER,Core_Low,0.9,0.8,0.1,-17.46,1,0.1,10,7,-5,-2,3954.5,2.1,4083.9,4086.7,3665.83,-10.2,11.5,6,2026-04-17,4083.9,Mid Cap,Industrial - Bearings,Industrial - Bearings,Mid Cap,52,56,56
 PRICOLLTD,Sate,1.1,1.0,3.2,-15.12,1,3.2,10,11,3,-2,575.1,0.28,570.25,588.45,524.63,-8.0,12.2,50,2026-04-17,570.25,Small Cap,Auto - OEM Suppliers,Auto - OEM Suppliers,Small Cap,62,44,60
 MCX,Sate,1.0,1.0,6.5,-1.24,1,6.5,-2,12,3,11,2845.7,0.11,2684.7,2859.1,2469.92,-8.0,15.8,10,2026-04-17,2684.7,Small Cap,IT - Product/Platform,IT - Product/Platform,Small Cap,75,73,81
 JINDALSTEL,Sate,1.2,1.1,4.2,-0.76,1,4.2,7,11,2,10,1250.0,1.39,1235.5,1287.7,1136.66,-8.0,13.3,25,2026-04-17,1235.5,Large Cap,Metals - Iron & Steel,Metals - Iron & Steel,Large Cap,65,71,69
-GOODLUCK,Sate,1.2,1.1,4.6,-9.04,1,4.6,-1,12,2,-5,1222.2,-0.16,1172.9,1227.05,1079.07,-8.0,13.7,26,2026-04-17,1172.9,Small Cap,Metals - Pipe & Tube,Metals - Pipe & Tube,Small Cap,68,61,60
+GOODLUCK,Sate,1.2,1.1,4.6,-9.04,1,4.6,10,12,2,-5,1222.2,-0.16,1172.9,1227.05,1079.07,-8.0,13.7,26,2026-04-17,1172.9,Small Cap,Metals - Pipe & Tube,Metals - Pipe & Tube,Small Cap,68,61,60
 BANKINDIA,Sate_Low,1.1,1.0,-1.1,-16.85,1,-1.1,-2,8,-8,-1,146.0,0.14,149.89,148.31,137.9,-8.0,7.5,200,2026-04-17,149.89,Mid Cap,Financials - PSU Bank,Financials - PSU Bank,Mid Cap,48,53,58
 TMB,Sate,1.3,1.1,-3.7,-4.48,1,-3.7,-2,11,2,7,661.0,-2.91,689.0,663.85,633.88,-8.0,4.7,50,2026-04-17,689.0,Small Cap,Financials - Private Bank,Financials - Private Bank,Small Cap,58,69,71
 BHARATFORG,Sate,1.1,1.0,-0.2,-3.12,1,-0.2,9,8,-5,7,1831.7,0.31,1870.4,1866.2,1720.77,-8.0,8.5,16,2026-04-17,1870.4,Mid Cap,Metals - Casting/Forging,Metals - Casting/Forging,Mid Cap,60,72,67
