@@ -55,8 +55,8 @@ function renderTF(data) {
 
   // ✅ DEFAULT SORT: positives first, then by W_MACD value
   curTF.sort((a, b) => {
-    const x = parseFloat(a.W_MACD);
-    const y = parseFloat(b.W_MACD);
+    const x = parseFloat(a["4H_MACD"]);
+    const y = parseFloat(b["4H_MACD"]);
 
     // handle empty / NaN safely
     if (isNaN(x) && isNaN(y)) return 0;
