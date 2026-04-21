@@ -56,8 +56,8 @@ function renderTrend(data) {
   trendSortState = {};
 
   curTrend.sort((a, b) => {
-    const x = parseFloat(a.W_MACD);
-    const y = parseFloat(b.W_MACD);
+    const x = parseFloat(a["4H_MACD"]);
+    const y = parseFloat(b["4H_MACD"]);
     if (x > 0 && y <= 0) return -1;
     if (x <= 0 && y > 0) return 1;
     return x - y;
