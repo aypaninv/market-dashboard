@@ -35,10 +35,19 @@ function parseCSV(text) {
 }
 
 function folioPriority(name) {
-  if (name === "Trade") return 1;
-  if (name.startsWith("Sate")) return 2;
-  if (name.startsWith("Core")) return 3;
-  return 4;
+  if (name === "Sate") return 1;
+  if (name === "Sate_Low") return 2;
+  if (name === "Core") return 3;
+  if (name === "Core_Low") return 4;
+  if (name === "Trade") return 5;
+  if (name.startsWith("Sate")) return 6;
+  if (name.startsWith("Core")) return 7;
+  return 8;
+}
+
+function toNumber(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
 }
 
 window.registerTabs(addTab => {
@@ -46,6 +55,26 @@ window.registerTabs(addTab => {
     .then(r => r.text())
     .then(t => {
       rawData = parseCSV(t);
+
+      addTab("Add", () => {
+        document.getElementById("portfolioFeature").style.display = "block";
+        renderAndDefaultSort(
+          rawData.filter(d => {
+            const pnl = toNumber(d.PnL);
+            const ltPert = toNumber(d.LT_Pert);
+            const macd4h = toNumber(d["4H_MACD"]);
+            const wMacd = toNumber(d.W_MACD);
+
+            return (
+              pnl > 5 &&
+              ltPert > 5 &&
+              macd4h > 0 &&
+              macd4h < 5 &&
+              wMacd > 0
+            );
+          })
+        );
+      });
 
       addTab("Exit", () => {
         document.getElementById("portfolioFeature").style.display = "block";
@@ -60,16 +89,11 @@ window.registerTabs(addTab => {
 
       const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean))];
 
-      if (uniqueFolios.some(f => f.startsWith("Trade"))) {
-        addTab("Trade", () => {
-          document.getElementById("portfolioFeature").style.display = "block";
-          renderAndDefaultSort(rawData.filter(d => d.Folio.startsWith("Trade")));
-        });
-      }
-
       uniqueFolios
-        .filter(f => !f.startsWith("Trade"))
-        .sort((a, b) => folioPriority(a) - folioPriority(b))
+        .sort((a, b) => {
+          const priorityDiff = folioPriority(a) - folioPriority(b);
+          return priorityDiff !== 0 ? priorityDiff : a.localeCompare(b);
+        })
         .forEach(folio => {
           addTab(folio, () => {
             document.getElementById("portfolioFeature").style.display = "block";
@@ -101,6 +125,17 @@ function defaultSort() {
 function renderTable(data) {
   const table = document.getElementById("dataTable");
   table.innerHTML = "";
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLUMN_ORDER.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
 
   const tr = document.createElement("tr");
   COLUMN_ORDER.forEach(h => {
