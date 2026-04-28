@@ -63,12 +63,13 @@ window.registerTabs(addTab => {
             const pnl = toNumber(d.PnL);
             const ltPert = toNumber(d.LT_Pert);
             const macd4h = toNumber(d["4H_MACD"]);
-            const wMacd = toNumber(d.W_MACD);
+            const slCmp = toNumber(d.SL_Cmp);
 
             return (
               pnl > 5 &&
-              ltPert > 0 &&
-              macd4h > 0
+              ltPert > 5 &&
+              slCmp > 0 &&
+              slCmp < 12
             );
           })
         );
