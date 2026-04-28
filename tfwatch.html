@@ -107,6 +107,13 @@ function drawTF(data) {
 
       if (h === "DD_High" && v < -16) td.classList.add("orange");
       if (h.includes("MACD") && v !== "") td.classList.add(v >= 0 ? "green" : "red");
+      if (h === "SL_Cmp" && !isNaN(v)) {
+        if (parseFloat(v) > 9) {
+          td.classList.add("orange");
+        } else if (parseFloat(v) < 0) {
+          td.classList.add("red");
+        }
+      }
 
       row.appendChild(td);
     });
