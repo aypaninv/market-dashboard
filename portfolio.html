@@ -169,10 +169,10 @@ function renderTable(data) {
         else if (rsi < 54) td.classList.add("red");
       }
       if (h === "SL_Cmp" && !isNaN(v)) {
-        if (parseFloat(v) > 9) {
-          td.classList.add("orange");
-        } else if (parseFloat(v) > 15) {
+        if (parseFloat(v) > 16) {
           td.classList.add("red");
+        } else if (parseFloat(v) > 9) {
+          td.classList.add("orange");
         } else if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
