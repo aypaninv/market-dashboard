@@ -68,9 +68,7 @@ window.registerTabs(addTab => {
 
             return (
               pnl > 5 &&
-              ltPert > 4 &&
-              slCmp > 0 &&
-              slCmp < 12
+              ltPert > 4 
             );
           })
         );
@@ -173,6 +171,8 @@ function renderTable(data) {
       if (h === "SL_Cmp" && !isNaN(v)) {
         if (parseFloat(v) > 9) {
           td.classList.add("orange");
+        } else if (parseFloat(v) > 15) {
+          td.classList.add("red");
         } else if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
