@@ -11,11 +11,11 @@
 const CSV_TFW = "tfwatch_report.csv";
 
 const COLS_TFW = [
-  "Symbol","Folio","DD_High","SL_Cmp",
+  "Symbol","Folio","DD_High","W_EMA",
   "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
-  "W_Return","M_Return",
-  "CurPrice","W_EMA","Sector","MarketCap","Notes"
+  "D_CHG","W_CHG","M_CHG",
+  "CurPrice","Sector","MarketCap","Notes"
 ];
 
 let rawTF = [];
@@ -113,7 +113,7 @@ function drawTF(data) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (h === "SL_Cmp" && !isNaN(v)) {
+      if (h === "W_EMA" && !isNaN(v)) {
         if (parseFloat(v) > 9) {
           td.classList.add("orange");
         } else if (parseFloat(v) < 0) {

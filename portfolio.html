@@ -12,11 +12,11 @@ const CSV_FILE = "portfolio_report.csv";
 
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC",
-  "DD_High","PnL","SL_Cmp","LT_days","LT_Pert",
+  "DD_High","PnL","W_EMA","LT_days","LT_Pert",
   "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
-  "W_Return","M_Return",
-  "AvgPrice","SL_Avg","W_EMA","CurPrice",
+  "D_CHG","W_CHG","M_CHG",
+  "AvgPrice","SL_Avg","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
@@ -64,7 +64,7 @@ window.registerTabs(addTab => {
             const pnl = toNumber(d.PnL);
             const ltPert = toNumber(d.LT_Pert);
             const macd4h = toNumber(d["4H_MACD"]);
-            const slCmp = toNumber(d.SL_Cmp);
+            const slCmp = toNumber(d.W_EMA);
 
             return (
               pnl > 5 &&
@@ -78,9 +78,9 @@ window.registerTabs(addTab => {
         document.getElementById("portfolioFeature").style.display = "block";
         renderAndDefaultSort(
           rawData.filter(d =>
-            d.W_EMA &&
+            d.W_EMA_VAL &&
             !isNaN(d.CurPrice) &&
-            parseFloat(d.CurPrice) < parseFloat(d.W_EMA)
+            parseFloat(d.CurPrice) < parseFloat(d.W_EMA_VAL)
           )
         );
       });
@@ -168,7 +168,7 @@ function renderTable(data) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (h === "SL_Cmp" && !isNaN(v)) {
+      if (h === "W_EMA" && !isNaN(v)) {
         if (parseFloat(v) > 16) {
           td.classList.add("red");
         } else if (parseFloat(v) > 9) {
