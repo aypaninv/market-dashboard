@@ -1,0 +1,147 @@
+<!-- ===================== TFCORE FEATURE ===================== -->
+
+<div id="tfcoreFeature" style="display:none">
+  <div class="update-time" id="updateTime_tfc"></div>
+  <div class="content">
+    <table id="dataTable_tfc"></table>
+  </div>
+</div>
+
+<script>
+const CSV_TFC = "tfcore_report.csv";
+
+const COLS_TFC = [
+  "Symbol","Folio","DD_High","W_EMA",
+  "4H_MACD","D_MACD","W_MACD","M_MACD",
+  // "W_RSI","M_RSI",
+  "D_CHG","W_CHG","M_CHG",
+  "CurPrice","Sector","MarketCap","Notes"
+];
+
+let rawTFC = [];
+let curTFC = [];
+let tfcSortState = {};
+
+function parseCSVCore(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  fetch(CSV_TFC)
+    .then(r => r.text())
+    .then(t => {
+      rawTFC = parseCSVCore(t);
+      [...new Set(rawTFC.map(d => d.Folio).filter(Boolean))]
+        .forEach(folio =>
+          addTab(folio, () => {
+            hideAllFeatures();
+            document.getElementById("tfcoreFeature").style.display = "block";
+            renderTFC(rawTFC.filter(d => d.Folio === folio));
+          })
+        );
+      updateTFCTime();
+    });
+});
+
+function renderTFC(data) {
+  curTFC = [...data];
+  tfcSortState = {};
+
+  curTFC.sort((a, b) => {
+    const x = parseFloat(a["4H_MACD"]);
+    const y = parseFloat(b["4H_MACD"]);
+
+    if (isNaN(x) && isNaN(y)) return 0;
+    if (isNaN(x)) return 1;
+    if (isNaN(y)) return -1;
+
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+
+    return x - y;
+  });
+
+  drawTFC(curTFC);
+}
+
+
+function drawTFC(data) {
+  const table = document.getElementById("dataTable_tfc");
+  table.innerHTML = "";
+
+  const tr = document.createElement("tr");
+  COLS_TFC.forEach(h => {
+    if (!(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+    th.onclick = () => sortTFC(h);
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_TFC.forEach(h => {
+      if (!(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChartCore('${v}')">${v}</a>`;
+      } else {
+        td.innerText = v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h === "DD_High" && v < -16) td.classList.add("orange");
+      if (h.includes("MACD") && v !== "") td.classList.add(v >= 0 ? "green" : "red");
+      if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
+        const rsi = parseFloat(v);
+        if (rsi > 54) td.classList.add("green");
+        else if (rsi < 54) td.classList.add("red");
+      }
+      if (h === "W_EMA" && !isNaN(v)) {
+        if (parseFloat(v) > 9) {
+          td.classList.add("orange");
+        } else if (parseFloat(v) < 0) {
+          td.classList.add("red");
+        }
+      }
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function sortTFC(col) {
+  const asc = !tfcSortState[col];
+  tfcSortState = { [col]: asc };
+  curTFC.sort((a,b)=>asc?parseFloat(a[col])-parseFloat(b[col]):parseFloat(b[col])-parseFloat(a[col]));
+  drawTFC(curTFC);
+}
+
+function openChartCore(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
+
+function updateTFCTime() {
+  fetch(CSV_TFC, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_tfc").innerText =
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>

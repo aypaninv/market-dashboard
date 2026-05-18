@@ -169,6 +169,7 @@ function hideAllFeatures() {
   [
     "portfolioFeature",
     "tfwatchFeature",
+    "tfcoreFeature",
     "trendFeature",
     "sectorFeature"
   ].forEach(id => {
@@ -235,6 +236,7 @@ function applyGlobalSearch(text) {
   const activeFeature = document.querySelector(
     "#portfolioFeature:not([style*='display: none'])," +
     "#tfwatchFeature:not([style*='display: none'])," +
+    "#tfcoreFeature:not([style*='display: none'])," +
     "#trendFeature:not([style*='display: none'])," +
     "#sectorFeature:not([style*='display: none'])"
   );
@@ -284,6 +286,7 @@ document.addEventListener("click", e => {
 
 loadFeature("portfolio.html")
   .then(() => loadFeature("tfwatch.html"))
+  .then(() => loadFeature("tfcore.html"))
   .then(() => loadFeature("trend.html"))
   .then(() => loadFeature("sector.html"));
 </script>
