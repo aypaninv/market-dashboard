@@ -61,14 +61,13 @@ window.registerTabs(addTab => {
         document.getElementById("portfolioFeature").style.display = "block";
         renderAndDefaultSort(
           rawData.filter(d => {
-            const pnl = toNumber(d.PnL);
             const ltPert = toNumber(d.LT_Pert);
-            const macd4h = toNumber(d["4H_MACD"]);
-            const slCmp = toNumber(d.W_EMA);
+            const wChg = toNumber(d.W_CHG);
+            const dChg = toNumber(d.D_CHG);
 
             return (
-              pnl > 5 &&
-              ltPert > 4 
+              ltPert > 4 &&
+              (wChg > 0 || dChg > 0)
             );
           })
         );
@@ -77,11 +76,7 @@ window.registerTabs(addTab => {
       addTab("Exit", () => {
         document.getElementById("portfolioFeature").style.display = "block";
         renderAndDefaultSort(
-          rawData.filter(d =>
-            d.W_EMA_VAL &&
-            !isNaN(d.CurPrice) &&
-            parseFloat(d.CurPrice) < parseFloat(d.W_EMA_VAL)
-          )
+          rawData.filter(d => toNumber(d.W_CHG) < -8)
         );
       });
 
