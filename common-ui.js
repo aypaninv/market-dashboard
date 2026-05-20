@@ -14,8 +14,7 @@ function getActiveTable() {
     "#portfolioFeature:not([style*='display: none'])," +
     "#tfwatchFeature:not([style*='display: none'])," +
     "#tfcoreFeature:not([style*='display: none'])," +
-    "#trendFeature:not([style*='display: none'])," +
-    "#sectorFeature:not([style*='display: none'])"
+    "#trendFeature:not([style*='display: none'])"
   );
   return active ? active.querySelector("table") : null;
 }
