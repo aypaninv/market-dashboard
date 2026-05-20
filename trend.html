@@ -98,9 +98,12 @@ function drawTrend(data) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("orange");
+      if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
       if (h.includes("MACD") && v !== "")
-        td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+        td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
+      if (["D_CHG", "W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
+        td.classList.add("orange");
+      }
       if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
         const rsi = parseFloat(v);
         if (rsi > 54) td.classList.add("green");

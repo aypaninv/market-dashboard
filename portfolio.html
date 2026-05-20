@@ -16,7 +16,7 @@ const COLUMN_ORDER = [
   "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
   "D_CHG","W_CHG","M_CHG",
-  "AvgPrice","SL_Avg","CurPrice",
+  "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
@@ -189,23 +189,24 @@ function renderTable(data) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -16) td.classList.add("orange");
-      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "red");
+      if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
+      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
+      if (["D_CHG", "W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
+        td.classList.add("orange");
+      }
       if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
         const rsi = parseFloat(v);
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
       if (h === "W_EMA" && !isNaN(v)) {
-        if (parseFloat(v) > 16) {
-          td.classList.add("red");
-        } else if (parseFloat(v) > 9) {
+        if (parseFloat(v) > 9) {
           td.classList.add("orange");
         } else if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
       }
-      if ((h === "PnL" || h === "SL_Avg" || h === "LT_Pert") && !isNaN(v)) {
+      if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
         if (v < -8) td.classList.add("red");
         else if (v <= 0) td.classList.add("orange");
         else td.classList.add("green");
