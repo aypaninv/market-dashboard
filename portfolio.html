@@ -3,7 +3,7 @@
 <div id="portfolioFeature">
   <div class="update-time" id="updateTime"></div>
   <div class="content">
-    <table id="dataTable"></table>
+    <div id="folioSections"></div>
   </div>
 </div>
 
@@ -21,8 +21,7 @@ const COLUMN_ORDER = [
 ];
 
 let rawData = [];
-let currentData = [];
-let sortState = {};
+let sectionSortState = {};
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
@@ -54,7 +53,6 @@ function toNumber(value) {
 function defaultAddCondition(d) {
   const ltPert = toNumber(d.LT_Pert);
   const wChg = toNumber(d.W_CHG);
-  const dChg = toNumber(d.D_CHG);
 
   return (
     ltPert > 4 && wChg > -4 
@@ -106,25 +104,9 @@ window.registerTabs(addTab => {
           return priorityDiff !== 0 ? priorityDiff : a.localeCompare(b);
         })
         .forEach(folio => {
-          addTab(`Add_${folio}`, () => {
-            document.getElementById("portfolioFeature").style.display = "block";
-            const addCondition = getAddCondition(folio);
-            renderAndDefaultSort(
-              rawData.filter(d => d.Folio === folio && addCondition(d))
-            );
-          });
-
-          addTab(`Sell_${folio}`, () => {
-            document.getElementById("portfolioFeature").style.display = "block";
-            const sellCondition = getSellCondition(folio);
-            renderAndDefaultSort(
-              rawData.filter(d => d.Folio === folio && sellCondition(d))
-            );
-          });
-
           addTab(folio, () => {
             document.getElementById("portfolioFeature").style.display = "block";
-            renderAndDefaultSort(rawData.filter(d => d.Folio === folio));
+            renderFolioSections(folio, rawData.filter(d => d.Folio === folio));
           });
         });
 
@@ -132,15 +114,8 @@ window.registerTabs(addTab => {
     });
 });
 
-function renderAndDefaultSort(data) {
-  currentData = [...data];
-  sortState = {};
-  defaultSort();
-  renderTable(currentData);
-}
-
-function defaultSort() {
-  currentData.sort((a, b) => {
+function sortByDefault(data) {
+  return [...data].sort((a, b) => {
     const x = parseFloat(a["4H_MACD"]);
     const y = parseFloat(b["4H_MACD"]);
     if (x > 0 && y <= 0) return -1;
@@ -149,9 +124,70 @@ function defaultSort() {
   });
 }
 
-function renderTable(data) {
-  const table = document.getElementById("dataTable");
+function compareCellValues(aVal, bVal, asc) {
+  const aNum = parseFloat(aVal);
+  const bNum = parseFloat(bVal);
+  const bothNumeric = Number.isFinite(aNum) && Number.isFinite(bNum);
+
+  if (bothNumeric) {
+    return asc ? aNum - bNum : bNum - aNum;
+  }
+
+  const aText = String(aVal ?? "");
+  const bText = String(bVal ?? "");
+  return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+}
+
+function getSortedSectionRows(rows, sectionKey) {
+  const sortInfo = sectionSortState[sectionKey];
+  if (!sortInfo) {
+    return rows;
+  }
+
+  const { col, asc } = sortInfo;
+  return [...rows].sort((a, b) => compareCellValues(a[col], b[col], asc));
+}
+
+function renderFolioSections(folio, folioRows) {
+  const addCondition = getAddCondition(folio);
+  const sellCondition = getSellCondition(folio);
+
+  const addRows = sortByDefault(folioRows.filter(d => addCondition(d)));
+  const sellRows = sortByDefault(folioRows.filter(d => sellCondition(d)));
+  const otherRows = sortByDefault(folioRows.filter(d => !addCondition(d) && !sellCondition(d)));
+
+  const container = document.getElementById("folioSections");
+  container.innerHTML = "";
+
+  container.appendChild(createSection("Add", addRows, `${folio}__Add`, true));
+  container.appendChild(createSection("Sell", sellRows, `${folio}__Sell`, true));
+  container.appendChild(createSection("Others", otherRows, `${folio}__Others`, false));
+}
+
+function createSection(title, rows, sectionKey, isOpenByDefault) {
+  const details = document.createElement("details");
+  details.className = "portfolio-dropdown";
+  details.open = isOpenByDefault;
+
+  const summary = document.createElement("summary");
+  summary.textContent = `${title} (${rows.length})`;
+  details.appendChild(summary);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+
+  const table = document.createElement("table");
+  table.className = "portfolio-section-table";
+  renderTable(table, rows, sectionKey);
+
+  wrapper.appendChild(table);
+  details.appendChild(wrapper);
+  return details;
+}
+
+function renderTable(table, baseRows, sectionKey) {
   table.innerHTML = "";
+  const data = getSortedSectionRows(baseRows, sectionKey);
 
   if (!data.length) {
     const tr = document.createElement("tr");
@@ -169,7 +205,12 @@ function renderTable(data) {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = h;
-    th.onclick = () => sortBy(h);
+    th.onclick = () => {
+      const existing = sectionSortState[sectionKey];
+      const asc = existing && existing.col === h ? !existing.asc : true;
+      sectionSortState[sectionKey] = { col: h, asc };
+      renderTable(table, baseRows, sectionKey);
+    };
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -217,16 +258,6 @@ function renderTable(data) {
     });
     table.appendChild(row);
   });
-}
-
-function sortBy(col) {
-  const asc = !sortState[col];
-  sortState = { [col]: asc };
-  currentData.sort((a, b) =>
-    asc ? parseFloat(a[col]) - parseFloat(b[col])
-        : parseFloat(b[col]) - parseFloat(a[col])
-  );
-  renderTable(currentData);
 }
 
 function openChart(symbol) {
