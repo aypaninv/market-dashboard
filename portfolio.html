@@ -73,14 +73,15 @@ const addConditionsByFolio = {
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
+    const wChg = toNumber(d.W_CHG);
     const mChg = toNumber(d.M_CHG);
-    return ltPert > 4 && mChg > 0;
+    return ltPert > 4 && wChg > 0 && mChg > 0;
   },
 };
 
 const sellConditionsByFolio = {
   Sate: d => toNumber(d.W_CHG) < -8,
-  Core: d => toNumber(d.M_CHG) < -15,
+  Core: d => toNumber(d.M_CHG) < -10,
 };
 
 function getAddCondition(folio) {
