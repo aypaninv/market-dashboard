@@ -1,0 +1,151 @@
+<!-- ===================== TFSTUDY FEATURE ===================== -->
+
+<div id="tfstudyFeature" style="display:none">
+  <div class="update-time" id="updateTime_tfs"></div>
+  <div class="content">
+    <table id="dataTable_tfs"></table>
+  </div>
+</div>
+
+<script>
+const CSV_TFS = "tfstudy_report.csv";
+
+const COLS_TFS = [
+  "Symbol","Folio","DD_High","W_EMA",
+  "4H_MACD","D_MACD","W_MACD","M_MACD",
+  // "W_RSI","M_RSI",
+  "D_CHG","W_CHG","M_CHG",
+  "CurPrice","Sector","MarketCap","Notes"
+];
+
+let rawTFS = [];
+let curTFS = [];
+let tfsSortState = {};
+
+function parseCSVStudy(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  fetch(CSV_TFS)
+    .then(r => r.text())
+    .then(t => {
+      rawTFS = parseCSVStudy(t);
+      [...new Set(rawTFS.map(d => d.Folio).filter(Boolean))]
+        .forEach(folio =>
+          addTab(folio, () => {
+            hideAllFeatures();
+            document.getElementById("tfstudyFeature").style.display = "block";
+            renderTFS(rawTFS.filter(d => d.Folio === folio));
+          })
+        );
+      updateTFSTime();
+    });
+});
+
+function renderTFS(data) {
+  curTFS = [...data];
+  tfsSortState = {};
+
+  // DEFAULT SORT: positives first, then by 4H_MACD value
+  curTFS.sort((a, b) => {
+    const x = parseFloat(a["4H_MACD"]);
+    const y = parseFloat(b["4H_MACD"]);
+
+    if (isNaN(x) && isNaN(y)) return 0;
+    if (isNaN(x)) return 1;
+    if (isNaN(y)) return -1;
+
+    if (x > 0 && y <= 0) return -1;
+    if (x <= 0 && y > 0) return 1;
+
+    return x - y;
+  });
+
+  drawTFS(curTFS);
+}
+
+
+function drawTFS(data) {
+  const table = document.getElementById("dataTable_tfs");
+  table.innerHTML = "";
+
+  const tr = document.createElement("tr");
+  COLS_TFS.forEach(h => {
+    if (!(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+    th.onclick = () => sortTFS(h);
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_TFS.forEach(h => {
+      if (!(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChartStudy('${v}')">${v}</a>`;
+      } else {
+        td.innerText = v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
+      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
+      if (["D_CHG", "W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
+        td.classList.add("orange");
+      }
+      if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
+        const rsi = parseFloat(v);
+        if (rsi > 54) td.classList.add("green");
+        else if (rsi < 54) td.classList.add("red");
+      }
+      if (h === "W_EMA" && !isNaN(v)) {
+        if (parseFloat(v) > 9) {
+          td.classList.add("orange");
+        } else if (parseFloat(v) < 0) {
+          td.classList.add("red");
+        }
+      }
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function sortTFS(col) {
+  const asc = !tfsSortState[col];
+  tfsSortState = { [col]: asc };
+  curTFS.sort((a,b)=>asc?parseFloat(a[col])-parseFloat(b[col]):parseFloat(b[col])-parseFloat(a[col]));
+  drawTFS(curTFS);
+}
+
+function openChartStudy(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
+
+function updateTFSTime() {
+  fetch(CSV_TFS, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_tfs").innerText =
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>

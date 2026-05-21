@@ -170,6 +170,7 @@ function hideAllFeatures() {
     "portfolioFeature",
     "tfwatchFeature",
     "tfcoreFeature",
+    "tfstudyFeature",
     "trendFeature"
   ].forEach(id => {
     const el = document.getElementById(id);
@@ -236,6 +237,7 @@ function applyGlobalSearch(text) {
     "#portfolioFeature:not([style*='display: none'])," +
     "#tfwatchFeature:not([style*='display: none'])," +
     "#tfcoreFeature:not([style*='display: none'])," +
+    "#tfstudyFeature:not([style*='display: none'])," +
     "#trendFeature:not([style*='display: none'])"
   );
 
@@ -285,6 +287,7 @@ document.addEventListener("click", e => {
 loadFeature("portfolio.html")
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("tfcore.html"))
+  .then(() => loadFeature("tfstudy.html"))
   .then(() => loadFeature("trend.html"));
 </script>
 
