@@ -6,6 +6,7 @@
 :root {
   --bg: #f4f4f4;
   --panel: #ffffff;
+  --panel-alt: #f8fafc;
   --text: #111;
   --muted: #666;
   --grid: #e5e5e5;
@@ -13,12 +14,16 @@
   --header-border: #cfd6de;
   --row-hover: #eef6ff;
   --accent: #007acc;
+  --table-shadow: 0 10px 30px rgba(20, 35, 55, 0.1);
+  --row-pop-shadow: 0 6px 18px rgba(18, 28, 45, 0.16);
+  --focus-ring: rgba(0, 122, 204, 0.28);
 }
 
 /* ---------- DARK TERMINAL ---------- */
 body.dark {
   --bg: #0e1117;
   --panel: #161b22;
+  --panel-alt: #1a212b;
   --text: #e6edf3;
   --muted: #9da7b3;
   --grid: #2b313a;
@@ -26,11 +31,17 @@ body.dark {
   --header-border: #30363d;
   --row-hover: #1f2a36;
   --accent: #58a6ff;
+  --table-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --row-pop-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --focus-ring: rgba(88, 166, 255, 0.35);
 }
 
 /* ---------- Base ---------- */
 body {
   margin: 0;
+  background-image:
+    radial-gradient(circle at 8% -10%, rgba(0, 122, 204, 0.08), transparent 40%),
+    radial-gradient(circle at 100% 100%, rgba(46, 204, 113, 0.06), transparent 42%);
   background: var(--bg);
   color: var(--text);
 }
@@ -41,6 +52,10 @@ table {
   width: max-content;
   font-size: 13px;
   background: var(--panel);
+  border: 1px solid var(--grid);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--table-shadow);
 }
 
 th, td {
@@ -52,9 +67,10 @@ th, td {
   background: var(--panel);
   color: var(--text);
   transition:
-    background-color 0.12s ease,
-    transform 0.12s ease,
-    box-shadow 0.12s ease;
+    background-color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
 }
 
 /* ---------- Header ---------- */
@@ -67,11 +83,15 @@ th {
   cursor: pointer;
   z-index: 5;
   border-bottom: 2px solid var(--header-border);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+  font-size: 11px;
 }
 
 th:hover {
-  background: linear-gradient(180deg, var(--accent), transparent);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent),
+    var(--header-bg);
 }
 
 /* ---------- Sticky Symbol ---------- */
@@ -88,6 +108,10 @@ td.symbol-col {
 td.text { text-align: left; }
 td.num  { text-align: right; }
 
+tbody tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--panel) 82%, var(--panel-alt));
+}
+
 /* ---------- Heat colors ---------- */
 .green  { background: rgba(46, 204, 113, 0.25) !important; }
 .red    { background: rgba(231, 76, 60, 0.25) !important; }
@@ -100,10 +124,26 @@ tbody tr:hover td {
   background: var(--row-hover) !important;
 }
 
+tbody tr {
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+
+tbody tr:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(var(--row-pop-shadow));
+}
+
+tbody tr:hover td {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}
+
 /* ---------- Keyboard selection ---------- */
 tr.kb-selected td {
   outline: 2px solid var(--accent);
-  background: rgba(88,166,255,0.15) !important;
+  outline-offset: -1px;
+  box-shadow: 0 0 0 2px var(--focus-ring) inset;
+  background: color-mix(in srgb, var(--accent) 20%, var(--panel)) !important;
 }
 
 /* ---------- Sector separator ---------- */
@@ -115,7 +155,7 @@ tr.sector-break td {
 .content {
   height: calc(100vh - 60px);
   overflow: auto;
-  padding: 8px;
+  padding: 10px;
 }
 
 /* ---------- Update time ---------- */
@@ -126,6 +166,10 @@ tr.sector-break td {
   font-size: 11px;
   color: var(--muted);
   z-index: 999;
+  background: color-mix(in srgb, var(--panel) 90%, transparent);
+  border: 1px solid var(--grid);
+  border-radius: 999px;
+  padding: 4px 8px;
 }
 
 /* ---------- Links ---------- */
@@ -178,12 +222,6 @@ tbody tr {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Reduce paint on hover - simpler effect */
-tbody tr:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
 /* ---------- MOBILE RESPONSIVE ---------- */
 @media (max-width: 768px) {
   /* Larger touch targets */
@@ -209,6 +247,11 @@ tbody tr:hover {
   
   .update-time {
     font-size: 10px;
+  }
+
+  tbody tr:hover {
+    transform: none;
+    filter: none;
   }
 }
 
