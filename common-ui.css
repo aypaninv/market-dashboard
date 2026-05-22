@@ -124,26 +124,38 @@ tbody tr:nth-child(even) td {
 td.red { font-weight: bold; }
 
 /* ---------- Row hover (entire row) ---------- */
-tbody tr:hover td {
-  background: var(--row-hover) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
-  position: relative;
-  z-index: 2;
-}
-
-tbody tr {
+table tr {
   transition: transform 0.16s ease, filter 0.16s ease;
 }
 
-tbody tr:hover {
+table tr:hover {
   transform: none;
   filter: none;
 }
 
-tbody tr:hover td {
+table tr:hover td {
   border-top-color: transparent;
   border-bottom-color: transparent;
+}
+
+/* Desktop/laptop row pop-up */
+@media (hover: hover) and (pointer: fine) {
+  table tr:not(:first-child):hover td {
+    background: var(--row-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* Touch feedback on mobile */
+@media (hover: none) {
+  table tr:not(:first-child):active td {
+    background: var(--row-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(18, 28, 45, 0.14);
+  }
 }
 
 /* ---------- Keyboard selection ---------- */
@@ -161,19 +173,20 @@ tr.sector-break td {
 
 /* ---------- Containers ---------- */
 .content {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 110px);
   overflow: auto;
   padding: 10px;
 }
 
 /* ---------- Update time ---------- */
 .update-time {
-  position: fixed;
-  top: 50px;
-  right: 10px;
+  position: sticky;
+  top: 54px;
+  float: right;
+  margin: 6px 10px 2px 0;
   font-size: 11px;
   color: var(--muted);
-  z-index: 999;
+  z-index: 15;
   background: color-mix(in srgb, var(--panel) 90%, transparent);
   border: 1px solid var(--grid);
   border-radius: 999px;
@@ -253,14 +266,19 @@ tbody tr {
     background: var(--row-hover) !important;
   }
   
-  .update-time {
-    font-size: 10px;
-    top: 46px;
+  .content {
+    height: calc(100vh - 120px);
+    padding: 8px 6px;
   }
 
-  tbody tr:hover {
-    transform: none;
-    filter: none;
+  .update-time {
+    font-size: 10px;
+    top: 50px;
+    margin-right: 6px;
+    max-width: calc(100vw - 16px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -272,6 +290,7 @@ tbody tr {
   
   .update-time {
     font-size: 9px;
-    right: 5px;
+    top: 48px;
+    margin-right: 4px;
   }
 }
