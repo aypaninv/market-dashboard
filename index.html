@@ -18,7 +18,7 @@
 /* ---------- Base ---------- */
 body {
   margin: 0;
-  background: var(--bg);
+  background: #f4f4f4;
 }
 
 /* ---------- Header ---------- */
@@ -26,15 +26,8 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--panel) 92%, #0a2036), color-mix(in srgb, var(--panel) 85%, #0f2c4a));
-  border-bottom: 1px solid var(--grid);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
-  padding: 7px 8px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(8px);
+  background: #1e1e1e;
+  padding: 6px 8px;
 }
 
 /* ---------- Tabs ---------- */
@@ -56,31 +49,20 @@ body {
 .tab {
   padding: 8px 14px;
   cursor: pointer;
-  background: color-mix(in srgb, var(--panel) 65%, #1d3348);
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--grid) 68%, transparent);
+  background: #333;
+  border-radius: 4px;
   white-space: nowrap;
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.25px;
+  color: white;
+  font-size: 13px;
   scroll-snap-align: start;
   min-width: 44px;
   text-align: center;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
 }
 
 .tab.active {
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #ffffff 40%));
-  color: #ffffff;
-  box-shadow: 0 6px 14px color-mix(in srgb, var(--accent) 35%, transparent);
-}
-
-.tab:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+  background: #007acc;
 }
 
 /* ---------- Mobile Header ---------- */
@@ -115,23 +97,9 @@ body {
 
 .search-icon {
   cursor: pointer;
-  font-size: 14px;
-  color: var(--text);
+  font-size: 16px;
+  color: #ccc;
   user-select: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid var(--grid);
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
-  transition: transform 0.16s ease, background-color 0.16s ease;
-}
-
-.search-icon:hover {
-  transform: scale(1.05);
-  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
 }
 
 .search-input {
@@ -142,35 +110,12 @@ body {
 }
 
 .search-input input {
-  padding: 7px 10px;
+  padding: 4px 8px;
   font-size: 12px;
-  width: 200px;
-  border-radius: 8px;
-  border: 1px solid var(--grid);
-  background: var(--panel);
-  color: var(--text);
+  width: 180px;
+  border-radius: 4px;
+  border: none;
   outline: none;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
-}
-
-.search-input input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
-}
-
-#app {
-  animation: appFade 0.35s ease;
-}
-
-@keyframes appFade {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 </head>
