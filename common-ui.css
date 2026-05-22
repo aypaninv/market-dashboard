@@ -46,6 +46,10 @@ body {
   color: var(--text);
 }
 
+* {
+  font-family: "Courier New", monospace !important;
+}
+
 /* ---------- Table ---------- */
 table {
   border-collapse: collapse;
@@ -122,6 +126,10 @@ td.red { font-weight: bold; }
 /* ---------- Row hover (entire row) ---------- */
 tbody tr:hover td {
   background: var(--row-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
+  position: relative;
+  z-index: 2;
 }
 
 tbody tr {
@@ -129,8 +137,8 @@ tbody tr {
 }
 
 tbody tr:hover {
-  transform: translateY(-2px);
-  filter: drop-shadow(var(--row-pop-shadow));
+  transform: none;
+  filter: none;
 }
 
 tbody tr:hover td {
@@ -161,7 +169,7 @@ tr.sector-break td {
 /* ---------- Update time ---------- */
 .update-time {
   position: fixed;
-  top: 6px;
+  top: 50px;
   right: 10px;
   font-size: 11px;
   color: var(--muted);
@@ -247,6 +255,7 @@ tbody tr {
   
   .update-time {
     font-size: 10px;
+    top: 46px;
   }
 
   tbody tr:hover {
