@@ -141,9 +141,10 @@ table tr:hover td {
 /* Desktop/laptop row pop-up */
 @media (hover: hover) and (pointer: fine) {
   table tr:not(:first-child):hover td {
-    background: var(--row-hover) !important;
     transform: translateY(-2px);
     box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
+    outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    outline-offset: -1px;
     position: relative;
     z-index: 2;
   }
@@ -152,9 +153,10 @@ table tr:hover td {
 /* Touch feedback on mobile */
 @media (hover: none) {
   table tr:not(:first-child):active td {
-    background: var(--row-hover) !important;
     transform: translateY(-1px);
     box-shadow: 0 3px 10px rgba(18, 28, 45, 0.14);
+    outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    outline-offset: -1px;
   }
 }
 
