@@ -1,47 +1,37 @@
 Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,D_CHG,W_CHG,M_CHG,W_RSI,M_RSI,CurPrice,W_EMA_VAL,W_EMA,Sector,MarketCap,Notes,Day_RSI
-TMB,TFStudy_Low,-7.79,12,4,-2,8,-0.2,-6.1,-6.1,63,68,691.05,676.5,2.2,Financials - Private Bank,Small Cap,IAS-Dec2025,52.91
-TDPOWERSYS,TFStudy,-0.15,6,8,7,12,1.4,2.7,15.9,89,87,1347.0,1130.86,19.1,Power - Equipment,Small Cap,QIC 2025,71.28
-ANANDRATHI,TFStudy_Low,-0.72,6,3,-1,2,1.0,-1.0,2.0,71,85,3653.3,3491.23,4.6,Financials - Misc,Small Cap,QIC 2025,62.21
-INTELLECT,TFStudy_Low,-42.51,11,2,8,-5,-0.3,-10.6,-36.4,35,46,721.45,713.07,1.2,IT - Software/Consulting,Small Cap, QIC 2026,54.41
+ANANDRATHI,TFStudy_Low,-2.18,6,3,-1,2,-0.5,-2.4,0.5,70,85,3599.5,3487.08,3.2,Financials - Misc,Small Cap,QIC 2025,59.01
+INTELLECT,TFStudy_Low,-42.96,11,2,8,-5,-1.1,-11.3,-36.8,35,46,715.85,712.82,0.4,IT - Software/Consulting,Small Cap, QIC 2026,54.08
 JSLL,TFStudy_Low,-74.42,10,-10,-1,2,-13.4,-14.6,-20.0,45,44,639.05,656.46,-2.7,,,QIC 2026,45.33
-CANTABIL,TFStudy_Low,-34.51,3,2,-2,-3,-3.6,-11.5,-25.4,29,44,218.73,235.22,-7.0,Textile - Apparels,Small Cap,QIC 2026,20.62
-SHRIPISTON,TFStudy_Low,-5.89,11,-11,-3,12,-5.5,-11.7,-5.8,59,72,3298.5,3321.68,-0.7,Auto - OEM Suppliers,Small Cap,QIC 2026,24.61
-BEL,TFStudy_Low,-6.34,6,2,-5,-3,-1.3,-8.5,-5.7,51,68,423.3,431.09,-1.8,Defense - Misc,Large Cap,QIC 2026,40.95
-SHAILY,TFStudy_Low,-2.28,8,-7,5,1,-2.1,-1.2,5.2,67,74,2736.2,2475.02,10.6,Industrial - Consumables,Small Cap,QIC 2026,71.36
-MUTHOOTFIN,TFStudy_Low,-16.29,7,2,8,-3,-5.2,-6.3,-12.6,37,68,3348.3,3410.74,-1.8,Financials - NBFC,Mid Cap,QIC 2026,43.25
-SAKSOFT,TFStudy_Low,-54.07,11,2,7,-5,2.6,-0.7,-30.3,43,43,147.78,141.32,4.6,IT - Software/Consulting,Small Cap,QIC 2026,57.49
-NETWEB,TFStudy_Low,-12.86,12,1,-1,2,-2.8,-11.7,-4.1,60,64,3903.0,3775.73,3.4,IT - Equipments,Small Cap,QIC 2026,49.02
-IONEXCHANG,TFStudy_Low,-46.77,11,3,7,2,0.2,-2.4,-12.1,60,47,409.05,391.05,4.6,Infra - Construction,Small Cap,SideCar,56.0
-WABAG,TFStudy,-22.42,11,4,1,2,3.8,0.2,-4.9,72,61,1508.1,1401.78,7.6,Infra - Construction,Small Cap,SideCar,53.04
-KPITTECH,TFStudy_Low,-60.71,-1,6,8,-5,0.1,-0.4,-38.2,25,33,757.85,747.04,1.4,IT - Services,Mid Cap,SideCar,60.06
-KEC,TFStudy_Low,-61.39,6,1,-2,-16,-8.8,-15.2,-41.9,33,36,507.05,547.98,-7.5,Railways,Small Cap,IAS-Dec2025,37.27
-MACPOWER,TFStudy_Low,-32.65,10,4,7,6,-1.2,-3.8,4.5,68,60,1169.9,1083.91,7.9,Engineering,Small Cap,IAS-Dec2025,57.99
-JAYNECOIND,TFStudy_Low,-8.92,8,3,8,11,-2.9,-9.1,-6.5,72,77,104.2,98.89,5.4,Metals - Iron & Steel,Small Cap,IAS-Dec2025,50.16
-GHCL,TFStudy_Low,-41.17,8,1,-2,-15,-3.0,-10.8,-28.4,34,40,458.25,477.84,-4.1,Chemicals - Bulk,Small Cap,IAS-Dec2025,34.34
-DCMSHRIRAM,TFStudy_Low,-26.83,9,1,-2,-6,-7.9,-10.8,-23.1,47,50,1099.3,1141.1,-3.7,Others,Small Cap,IAS-Dec2025,37.26
-MTARTECH,TFStudy_Low,-1.5,-1,4,7,12,-3.6,-3.6,19.2,91,90,7964.0,6189.41,28.7,Defense - Misc,Small Cap,IAS-Dec2025,79.03
-CSBBANK,TFStudy_Low,-20.38,16,7,8,-4,0.5,-9.3,-20.0,30,52,367.3,374.95,-2.0,Financials - Private Bank,Small Cap,IAS-Dec2025,39.03
-FEDERALBNK,TFStudy_Low,-3.26,15,5,7,7,0.8,-1.7,-2.3,54,73,292.15,285.83,2.2,Financials - Private Bank,Mid Cap,IAS-Dec2025,49.61
-EICHERMOT,TFStudy_Low,-10.36,7,2,1,-3,-0.5,-0.6,-7.9,56,68,7377.5,7153.69,3.1,Auto - 2W,Large Cap,IAS-Dec2025,62.74
-PYRAMID,TFStudy_Low,-34.15,-1,4,7,2,-2.7,-4.3,-2.8,59,51,170.55,163.32,4.4,Packaging,Small Cap,IAS-Dec2025,47.69
-LUMAXTECH,TFStudy_Low,-8.55,2,4,-5,-1,0.4,-9.1,-5.7,57,75,1657.0,1643.66,0.8,Auto - Replacement,Small Cap,IAS-Dec2025,39.53
-GREAVESCOT,TFStudy,-45.62,10,3,7,-14,1.2,1.4,-23.8,55,48,173.73,162.07,7.2,Industrial - Pumps/Engines,Small Cap,IAS-Dec2025,66.35
-GRAVITA,TFStudy_Low,-36.86,7,1,7,-17,-0.9,-3.3,-9.0,57,55,1704.7,1626.83,4.8,Metals - Misc,Small Cap,IAS-Dec2025,61.28
-GANECOS,TFStudy_Low,-61.33,-4,-2,-3,2,-13.8,-13.8,-35.3,60,42,960.6,989.24,-2.9,Textile - Misc,Small Cap,IAS-Dec2025,38.36
-RECLTD,TFStudy_Low,-47.68,7,3,-2,2,-1.8,-8.5,-13.4,44,49,342.2,348.04,-1.7,Financials - NBFC,Mid Cap,IAS-Dec2025,29.34
-PRICOLLTD,TFStudy_Low,-16.8,6,1,-1,-3,-6.2,-7.3,-12.8,48,61,576.8,580.11,-0.6,Auto - OEM Suppliers,Small Cap,QIC 2025,46.67
-ANANTRAJ,TFStudy_Low,-45.74,10,3,7,-6,0.2,-8.3,-26.3,49,52,514.35,502.07,2.4,Real Estate,Small Cap,DataCentre,57.26
-TECHNOE,TFStudy_Low,-34.23,-1,4,-1,1,-12.7,-9.6,-20.8,64,53,1198.3,1204.72,-0.5,Engineering,Small Cap,DataCentre,45.03
-AURIONPRO,TFStudy_Low,-58.41,11,4,-3,-19,0.4,-10.2,-39.2,42,41,828.3,840.97,-1.5,IT - Software/Consulting,Small Cap,DataCentre,48.05
-SCHNEIDER,TFStudy,-2.22,10,4,7,3,1.2,2.7,10.9,90,77,1380.6,1178.54,17.1,Power - Equipment,Small Cap,DataCentre,68.39
-VOLTAMP,TFStudy_Low,-36.97,7,7,-3,4,-1.8,-20.3,-20.3,61,55,9329.0,9462.07,-1.4,Power - Equipment,Small Cap,DataCentre,30.55
-BBOX,TFStudy,-1.87,1,-2,7,2,4.3,5.6,58.5,86,79,1018.0,746.09,36.4,IT - Services,Small Cap,DataCentre,
+CANTABIL,TFStudy_Low,-34.43,3,2,-2,-3,-3.5,-11.4,-25.3,29,44,219.0,235.23,-6.9,Textile - Apparels,Small Cap,QIC 2026,20.8
+SHRIPISTON,TFStudy_Low,-5.74,11,-11,-3,12,-5.3,-11.6,-5.7,59,72,3303.8,3322.35,-0.6,Auto - OEM Suppliers,Small Cap,QIC 2026,25.32
+BEL,TFStudy_Low,-6.58,6,2,-5,-3,-1.6,-8.8,-6.0,51,68,422.2,431.03,-2.0,Defense - Misc,Large Cap,QIC 2026,40.6
+MUTHOOTFIN,TFStudy_Low,-16.33,7,2,8,-3,-5.2,-6.4,-12.6,37,68,3346.6,3410.76,-1.9,Financials - NBFC,Mid Cap,QIC 2026,43.28
+SAKSOFT,TFStudy_Low,-54.22,11,2,7,-5,2.3,-1.0,-30.5,43,42,147.3,141.29,4.3,IT - Software/Consulting,Small Cap,QIC 2026,57.37
+IONEXCHANG,TFStudy_Low,-46.33,11,3,7,2,1.0,-1.6,-11.3,61,47,412.4,391.35,5.4,Infra - Construction,Small Cap,SideCar,56.86
+WABAG,TFStudy_Low,-22.79,11,4,-2,2,3.3,-0.3,-5.3,72,60,1501.0,1401.5,7.1,Infra - Construction,Small Cap,SideCar,52.75
+KPITTECH,TFStudy,-60.28,11,6,8,-5,1.1,0.7,-37.5,25,34,766.0,747.82,2.4,IT - Services,Mid Cap,SideCar,61.65
+KEC,TFStudy_Low,-61.6,6,1,-2,-16,-9.3,-15.7,-42.2,32,36,504.25,547.87,-8.0,Railways,Small Cap,IAS-Dec2025,37.06
+MACPOWER,TFStudy_Low,-34.41,10,4,7,6,-3.8,-6.3,1.7,67,59,1139.3,1081.73,5.3,Engineering,Small Cap,IAS-Dec2025,55.88
+JAYNECOIND,TFStudy_Low,-9.87,8,3,8,11,-3.9,-10.1,-7.4,71,76,103.11,98.79,4.4,Metals - Iron & Steel,Small Cap,IAS-Dec2025,49.0
+GHCL,TFStudy_Low,-41.57,8,1,-2,-15,-3.7,-11.4,-28.9,33,40,455.15,477.72,-4.7,Chemicals - Bulk,Small Cap,IAS-Dec2025,33.86
+DCMSHRIRAM,TFStudy_Low,-26.45,9,1,-2,-6,-7.4,-10.3,-22.7,47,50,1104.9,1141.48,-3.2,Others,Small Cap,IAS-Dec2025,37.58
+MTARTECH,TFStudy_Low,-1.93,-1,4,7,12,-4.1,-4.0,18.7,91,90,7929.0,6187.57,28.1,Defense - Misc,Small Cap,IAS-Dec2025,78.78
+CSBBANK,TFStudy_Low,-20.97,16,7,8,-4,-0.3,-10.0,-20.6,30,52,364.55,374.78,-2.7,Financials - Private Bank,Small Cap,IAS-Dec2025,38.17
+EICHERMOT,TFStudy,-9.78,7,2,1,-3,0.2,0.0,-7.3,56,68,7425.5,7154.83,3.8,Auto - 2W,Large Cap,IAS-Dec2025,62.93
+PYRAMID,TFStudy_Low,-33.75,-1,4,7,2,-2.1,-3.7,-2.2,59,51,171.59,163.37,5.0,Packaging,Small Cap,IAS-Dec2025,47.97
+LUMAXTECH,TFStudy_Low,-9.24,2,4,-5,-1,-0.3,-9.8,-6.4,57,75,1644.6,1643.14,0.1,Auto - Replacement,Small Cap,IAS-Dec2025,39.04
+GREAVESCOT,TFStudy,-44.88,10,3,7,-14,2.6,2.8,-22.8,56,48,176.12,162.38,8.5,Industrial - Pumps/Engines,Small Cap,IAS-Dec2025,68.18
+GRAVITA,TFStudy_Low,-37.54,7,1,7,-17,-1.9,-4.3,-10.0,56,55,1686.4,1626.0,3.7,Metals - Misc,Small Cap,IAS-Dec2025,60.8
+GANECOS,TFStudy_Low,-61.48,-4,-2,-3,2,-14.2,-14.2,-35.6,60,42,956.8,989.53,-3.3,Textile - Misc,Small Cap,IAS-Dec2025,38.6
+RECLTD,TFStudy_Low,-48.02,7,3,-2,2,-2.4,-9.1,-14.0,43,49,339.95,347.88,-2.3,Financials - NBFC,Mid Cap,IAS-Dec2025,28.02
+PRICOLLTD,TFStudy_Low,-17.97,6,1,-1,-3,-7.5,-8.6,-14.0,47,60,568.7,579.74,-1.9,Auto - OEM Suppliers,Small Cap,QIC 2025,46.02
+ANANTRAJ,TFStudy_Low,-46.34,10,3,7,-6,-0.9,-9.3,-27.1,49,52,508.65,501.81,1.4,Real Estate,Small Cap,DataCentre,56.71
+TECHNOE,TFStudy_Low,-33.79,-1,4,-1,1,-12.1,-9.0,-20.3,64,53,1206.3,1205.08,0.1,Engineering,Small Cap,DataCentre,45.24
+AURIONPRO,TFStudy_Low,-58.83,11,4,-3,-19,-0.6,-11.1,-39.8,42,41,820.1,840.6,-2.4,IT - Software/Consulting,Small Cap,DataCentre,47.59
+VOLTAMP,TFStudy_Low,-37.72,7,7,-3,4,-3.0,-21.2,-21.2,61,55,9218.0,9457.25,-2.5,Power - Equipment,Small Cap,DataCentre,29.96
+BBOX,TFStudy,-2.74,1,-2,7,2,3.4,4.7,57.1,86,79,1008.95,745.7,35.3,IT - Services,Small Cap,DataCentre,
 KRN,TFStudy_Low,-17.05,6,2,-2,2,-10.1,-16.2,-16.0,65,65,1089.9,1098.64,-0.8,,,DataCentre,36.94
-TARIL,TFStudy_Low,-50.49,9,4,-3,-16,2.3,-3.5,-37.2,67,49,321.25,306.75,4.7,Power - Equipment,Small Cap,DataCentre,43.38
-BLUESTARCO,TFStudy_Low,-32.33,-4,6,-3,-17,-2.8,-12.4,-15.7,46,51,1635.5,1716.0,-4.7,Consumption - Appliances,Small Cap,DataCentre,24.56
-E2E,TFStudy,-29.17,10,4,7,2,5.0,10.1,21.3,74,63,3886.8,3061.81,26.9,IT - Software/Consulting,Small Cap,DataCentre,72.52
-HONAUT,TFStudy,-40.77,15,6,7,1,0.5,0.5,-8.3,59,47,35535.0,31835.62,11.6,Electronic - Equipment,Mid Cap,DataCentre,69.35
-TDPOWERSYS,TFStudy,-0.15,6,8,7,12,1.4,2.7,15.9,89,87,1347.0,1130.86,19.1,Power - Equipment,Small Cap,DataCentre,71.28
-APARINDS,TFStudy_Low,-1.95,-3,-1,-1,4,-2.0,-1.6,2.0,73,69,12600.0,11825.02,6.6,Power - Equipment,Small Cap,DataCentre,59.74
-NETWEB,TFStudy_Low,-12.86,12,1,-1,2,-2.8,-11.7,-4.1,60,64,3903.0,3775.73,3.4,IT - Equipments,Small Cap,DataCentre,49.02
-KEI,TFStudy,-0.54,17,4,7,10,0.2,0.2,4.2,72,66,5296.2,4917.53,7.7,Power - Wiring,Mid Cap,DataCentre,67.51
+TARIL,TFStudy_Low,-50.61,9,4,-3,-16,2.1,-3.8,-37.3,68,49,320.5,306.92,4.4,Power - Equipment,Small Cap,DataCentre,44.09
+BLUESTARCO,TFStudy_Low,-32.07,-4,6,-3,-17,-2.4,-12.0,-15.4,46,51,1641.9,1716.29,-4.3,Consumption - Appliances,Small Cap,DataCentre,24.68
+E2E,TFStudy,-29.17,10,4,7,2,5.0,10.1,21.3,74,63,3886.8,3067.35,26.7,IT - Software/Consulting,Small Cap,DataCentre,72.52
+HONAUT,TFStudy,-40.85,15,6,7,1,0.3,0.3,-8.5,59,47,35485.0,31832.89,11.5,Electronic - Equipment,Mid Cap,DataCentre,69.38
