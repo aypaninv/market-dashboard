@@ -11,7 +11,7 @@
 const CSV_TFS = "tfstudy_report.csv";
 
 const COLS_TFS = [
-  "Symbol","Folio","DD_High","W_EMA10","W_EMA20","D_EMA10","D_EMA20","D_EMA50",
+  "Symbol","Folio","DD_High","W_EMA10","W_EMA20","D_EMA10","D_EMA20","D_EMA_CROSS","D_EMA50",
   "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
   "D_CHG","W_CHG","M_CHG",
@@ -119,6 +119,9 @@ function drawTFS(data) {
         } else if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
+      }
+      if (h === "D_EMA_CROSS" && !isNaN(v) && parseFloat(v) < 0) {
+        td.classList.add("red");
       }
 
       row.appendChild(td);
