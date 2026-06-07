@@ -1,32 +1,32 @@
-Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,D_CHG,W_CHG,M_CHG,W_RSI,M_RSI,CurPrice,W_EMA10,W_EMA20,D_EMA10,D_EMA20,D_CO10v20,D_EMA50,Sector,MarketCap,Notes,Day_RSI
-POCL,TFWatch,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
-NYKAA,TFWatch,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
-GRASIM,TFWatch,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
-BAJAJCON,TFWatch,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
-SEAMECLTD,TFWatch,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
-BALAMINES,TFWatch,-23.22,6,2,9,3,-1.1,11.1,11.1,90,58,2099.9,34.3,49.8,10.8,18.1,43.0,38.2,Chemicals - Specialty,Small Cap,BLUE-MAY-23,78.68
-IDEAFORGE,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-OIL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-TRITURBINE,TFWatch_Low,-21.65,-7,-4,8,3,-6.5,-1.6,-0.1,79,65,693.4,13.6,22.7,0.8,5.0,37.0,16.3,Power - Equipment,Small Cap,BLUE-MAY-23,60.78
-NIBE,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-VBL,TFWatch_Low,-22.42,-1,-4,8,3,-2.0,-1.8,-1.2,68,58,528.4,6.1,10.8,-0.0,1.6,38.0,6.8,Consumption - Misc,Large Cap,BLUE-MAY-23,62.79
-GRINDWELL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-GLAND,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-CONFIPET,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-ONGC,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-APOLLOPIPE,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-HFCL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-DEEPAKFERT,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-SFL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-PREMEXPLN,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-SANGHVIMOV,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-SANDHAR,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-JINDRILL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-RATEGAIN,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-SUPRIYA,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-SPARC,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-JSWENERGY,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-TIMKEN,TFWatch_Low,-25.87,1,-7,15,13,-4.8,-5.0,-1.5,60,57,3571.3,1.2,3.4,-0.2,0.1,41.0,1.6,Industrial - Bearings,Mid Cap,BLUE-MAY-23,47.69
-SUVEN,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
-TIPSMUSIC,TFWatch,-29.25,2,-5,9,3,-1.3,0.1,2.8,69,62,672.1,7.5,11.8,1.5,2.7,44.0,8.4,Media - Entertainment,Small Cap,BLUE-MAY-23,61.51
-ADANIENSOL,TFWatch,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+Symbol,Folio,DD_High,4H_MACD,D_MACD,W_MACD,M_MACD,D_CHG,W_CHG,M_CHG,W_RSI,M_RSI,CurPrice,W_EMA10,W_EMA20,D_EMA10,D_EMA20,D_10V20,D_10V50,D_EMA50,Sector,MarketCap,Notes,Day_RSI
+POCL,TFWatch,,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
+NYKAA,TFWatch,,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
+GRASIM,TFWatch,,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
+BAJAJCON,TFWatch,,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
+SEAMECLTD,TFWatch,,,,,,,,,,,,,,,,,,,,,GREEN-MAY-23,
+BALAMINES,TFWatch,-23.22,6,2,9,3,-1.1,11.1,11.1,90,58,2099.9,34.3,49.8,10.8,18.1,43.0,41.0,38.2,Chemicals - Specialty,Small Cap,BLUE-MAY-23,78.68
+IDEAFORGE,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+OIL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+TRITURBINE,TFWatch_Low,-21.65,-7,-4,8,3,-6.5,-1.6,-0.1,79,65,693.4,13.6,22.7,0.8,5.0,37.0,35.0,16.3,Power - Equipment,Small Cap,BLUE-MAY-23,60.78
+NIBE,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+VBL,TFWatch_Low,-22.42,-1,-4,8,3,-2.0,-1.8,-1.2,68,58,528.4,6.1,10.8,-0.0,1.6,38.0,36.0,6.8,Consumption - Misc,Large Cap,BLUE-MAY-23,62.79
+GRINDWELL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+GLAND,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+CONFIPET,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+ONGC,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+APOLLOPIPE,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+HFCL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+DEEPAKFERT,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+SFL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+PREMEXPLN,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+SANGHVIMOV,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+SANDHAR,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+JINDRILL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+RATEGAIN,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+SUPRIYA,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+SPARC,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+JSWENERGY,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+TIMKEN,TFWatch_Low,-25.87,1,-7,15,13,-4.8,-5.0,-1.5,60,57,3571.3,1.2,3.4,-0.2,0.1,41.0,39.0,1.6,Industrial - Bearings,Mid Cap,BLUE-MAY-23,47.69
+SUVEN,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,
+TIPSMUSIC,TFWatch,-29.25,2,-5,9,3,-1.3,0.1,2.8,69,62,672.1,7.5,11.8,1.5,2.7,44.0,44.0,8.4,Media - Entertainment,Small Cap,BLUE-MAY-23,61.51
+ADANIENSOL,TFWatch,,,,,,,,,,,,,,,,,,,,,BLUE-MAY-23,

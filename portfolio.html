@@ -13,10 +13,10 @@ const CSV_FILE = "portfolio_report.csv";
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC",
   "DD_High","PnL","LT_days","LT_Pert",
-  "D_CO10v20","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
+  "D_10V20","D_10V50","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
   // "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
-  "D_CHG","W_CHG","M_CHG",
+  "W_CHG","M_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
@@ -117,11 +117,14 @@ window.registerTabs(addTab => {
 
 function sortByDefault(data) {
   return [...data].sort((a, b) => {
-    const x = parseFloat(a["4H_MACD"]);
-    const y = parseFloat(b["4H_MACD"]);
-    if (x > 0 && y <= 0) return -1;
-    if (x <= 0 && y > 0) return 1;
-    return x - y;
+    const x = parseFloat(a["W_CHG"]);
+    const y = parseFloat(b["W_CHG"]);
+
+    if (isNaN(x) && isNaN(y)) return 0;
+    if (isNaN(x)) return 1;
+    if (isNaN(y)) return -1;
+
+    return y - x;
   });
 }
 
@@ -243,18 +246,15 @@ function renderTable(table, baseRows, sectionKey) {
         else if (rsi < 54) td.classList.add("red");
       }
       if (["W_EMA10", "W_EMA20", "D_EMA10", "D_EMA20", "D_EMA50"].includes(h) && !isNaN(v)) {
-        if (parseFloat(v) > 9) {
-          td.classList.add("orange");
-        } else if (parseFloat(v) < 0) {
+        if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
       }
-      if (h === "D_CO10v20" && !isNaN(v) && parseFloat(v) < 0) {
+      if ((h === "D_10V20" || h === "D_10V50") && !isNaN(v) && parseFloat(v) < 0) {
         td.classList.add("red");
       }
       if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
         if (v < -8) td.classList.add("red");
-        else if (v <= 0) td.classList.add("orange");
         else td.classList.add("green");
       }
 

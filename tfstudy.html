@@ -12,10 +12,10 @@ const CSV_TFS = "tfstudy_report.csv";
 
 const COLS_TFS = [
   "Symbol","Folio","DD_High",
-  "D_CO10v20","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
+  "D_10V20","D_10V50","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
   // "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
-  "D_CHG","W_CHG","M_CHG",
+  "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
@@ -55,19 +55,16 @@ function renderTFS(data) {
   curTFS = [...data];
   tfsSortState = {};
 
-  // DEFAULT SORT: positives first, then by 4H_MACD value
+  // DEFAULT SORT: highest W_CHG first
   curTFS.sort((a, b) => {
-    const x = parseFloat(a["4H_MACD"]);
-    const y = parseFloat(b["4H_MACD"]);
+    const x = parseFloat(a["W_CHG"]);
+    const y = parseFloat(b["W_CHG"]);
 
     if (isNaN(x) && isNaN(y)) return 0;
     if (isNaN(x)) return 1;
     if (isNaN(y)) return -1;
 
-    if (x > 0 && y <= 0) return -1;
-    if (x <= 0 && y > 0) return 1;
-
-    return x - y;
+    return y - x;
   });
 
   drawTFS(curTFS);
@@ -106,7 +103,7 @@ function drawTFS(data) {
 
       if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
       if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
-      if (["D_CHG", "W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
+      if (["W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
         td.classList.add("orange");
       }
       if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
@@ -115,13 +112,11 @@ function drawTFS(data) {
         else if (rsi < 54) td.classList.add("red");
       }
       if (["W_EMA10", "W_EMA20", "D_EMA10", "D_EMA20", "D_EMA50"].includes(h) && !isNaN(v)) {
-        if (parseFloat(v) > 9) {
-          td.classList.add("orange");
-        } else if (parseFloat(v) < 0) {
+        if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
       }
-      if (h === "D_CO10v20" && !isNaN(v) && parseFloat(v) < 0) {
+      if ((h === "D_10V20" || h === "D_10V50") && !isNaN(v) && parseFloat(v) < 0) {
         td.classList.add("red");
       }
 
