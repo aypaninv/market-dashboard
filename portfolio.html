@@ -255,7 +255,7 @@ function renderTable(table, baseRows, sectionKey) {
       }
       if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
         if (v < -8) td.classList.add("red");
-        else td.classList.add("green");
+        else if (v > 0) td.classList.add("green");
       }
 
       row.appendChild(td);
