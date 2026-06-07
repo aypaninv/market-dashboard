@@ -12,9 +12,9 @@ const CSV_FILE = "portfolio_report.csv";
 
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC",
-  "DD_High","PnL","W_EMA10","W_EMA20","D_EMA10","D_EMA20","D_EMA50","LT_days","LT_Pert",
-  "D_EMA_CROSS",
-  "4H_MACD","D_MACD","W_MACD","M_MACD",
+  "DD_High","PnL","LT_days","LT_Pert",
+  "D_CO10v20","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
+  // "4H_MACD","D_MACD","W_MACD","M_MACD",
   // "W_RSI","M_RSI",
   "D_CHG","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
@@ -249,7 +249,7 @@ function renderTable(table, baseRows, sectionKey) {
           td.classList.add("red");
         }
       }
-      if (h === "D_EMA_CROSS" && !isNaN(v) && parseFloat(v) < 0) {
+      if (h === "D_CO10v20" && !isNaN(v) && parseFloat(v) < 0) {
         td.classList.add("red");
       }
       if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
