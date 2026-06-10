@@ -12,8 +12,7 @@ const CSV_TREND = "trend_report.csv";
 
 const COLS_TREND = [
   "Symbol","Folio","DD_High",
-  "D_10V20","D_10V50","D_EMA10","D_EMA20","D_EMA50","W_EMA10","W_EMA20",
-  // "4H_MACD","D_MACD","W_MACD","M_MACD",
+  "D_MACD","W_MACD","M_MACD","W_EMA10","W_EMA20",
   // "W_RSI","M_RSI",
   "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -113,13 +112,10 @@ function drawTrend(data) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (["W_EMA10", "W_EMA20", "D_EMA10", "D_EMA20", "D_EMA50"].includes(h) && !isNaN(v)) {
+      if (["W_EMA10", "W_EMA20"].includes(h) && !isNaN(v)) {
         if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
-      }
-      if ((h === "D_10V20" || h === "D_10V50") && !isNaN(v) && parseFloat(v) < 0) {
-        td.classList.add("red");
       }
 
       row.appendChild(td);
