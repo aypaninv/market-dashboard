@@ -12,7 +12,7 @@ const CSV_TFC = "tfcore_report.csv";
 
 const COLS_TFC = [
   "Symbol","Folio","DD_High",
-  "D_MACD","W_MACD","M_MACD","W_EMA10","W_EMA20",
+  "D_MACD","W_MACD","M_MACD","D_EMA10","D_EMA20","W_EMA10","W_EMA20",
   // "W_RSI","M_RSI",
   "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -109,7 +109,7 @@ function drawTFC(data) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (["W_EMA10", "W_EMA20"].includes(h) && !isNaN(v)) {
+      if (["D_EMA10", "D_EMA20", "W_EMA10", "W_EMA20"].includes(h) && !isNaN(v)) {
         if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
