@@ -66,23 +66,34 @@ function defaultSellCondition(d) {
 const addConditionsByFolio = {
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const wema10 = toNumber(d.W_EMA10);
+    const dema20 = toNumber(d.D_EMA20);
     const d10v20 = toNumber(d.D_10V20);
     const w10v20 = toNumber(d.W_10V20);
-    return ltPert > 4 && wema10 < 15 && d10v20 > 0 && w10v20 > 0;
+    const dmacd = toNumber(d.D_MACD);
+    return ltPert > 4 && dema20 < 12 && d10v20 > 0 && w10v20 > 0 && dmacd > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const wema10 = toNumber(d.W_EMA10);
     const d10v20 = toNumber(d.D_10V20);
     const w10v20 = toNumber(d.W_10V20);
-    return ltPert > 4 && wema10 < 15 && d10v20 > 0 && w10v20 > 0;
+    const dmacd = toNumber(d.D_MACD);
+    return ltPert > 4 && wema10 < 12 && d10v20 > 0 && w10v20 > 0 && dmacd > 0;
   },
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d.W_CHG) < -8,
-  Core: d => toNumber(d.M_CHG) < -10,
+  Sate: d => toNumber(d.D_EMA20) < 0,
+  Core: d => toNumber(d.W_EMA10) < 0,
+};
+
+const holdConditionsByFolio = {
+  Sate: d => d.LT_Type === "Sell" && toNumber(d.LT_Pert) < 4,
+  Core: d => d.LT_Type === "Sell" && toNumber(d.LT_Pert) < 4,
+};
+
+const exitConditionsByFolio = {
+  Sate: d => toNumber(d.D_10V20) < 0,
 };
 
 function getAddCondition(folio) {
@@ -91,6 +102,14 @@ function getAddCondition(folio) {
 
 function getSellCondition(folio) {
   return sellConditionsByFolio[folio] || defaultSellCondition;
+}
+
+function getHoldCondition(folio) {
+  return holdConditionsByFolio[folio] || (() => false);
+}
+
+function getExitCondition(folio) {
+  return exitConditionsByFolio[folio] || (() => false);
 }
 
 window.registerTabs(addTab => {
@@ -157,16 +176,22 @@ function getSortedSectionRows(rows, sectionKey) {
 function renderFolioSections(folio, folioRows) {
   const addCondition = getAddCondition(folio);
   const sellCondition = getSellCondition(folio);
+  const holdCondition = getHoldCondition(folio);
+  const exitCondition = getExitCondition(folio);
 
   const addRows = sortByDefault(folioRows.filter(d => addCondition(d)));
   const sellRows = sortByDefault(folioRows.filter(d => sellCondition(d)));
-  const otherRows = sortByDefault(folioRows.filter(d => !addCondition(d) && !sellCondition(d)));
+  const holdRows = sortByDefault(folioRows.filter(d => holdCondition(d)));
+  const exitRows = sortByDefault(folioRows.filter(d => exitCondition(d)));
+  const otherRows = sortByDefault(folioRows.filter(d => !addCondition(d) && !sellCondition(d) && !holdCondition(d) && !exitCondition(d)));
 
   const container = document.getElementById("folioSections");
   container.innerHTML = "";
 
   container.appendChild(createSection("Add", addRows, `${folio}__Add`, true));
   container.appendChild(createSection("Sell", sellRows, `${folio}__Sell`, true));
+  container.appendChild(createSection("Hold", holdRows, `${folio}__Hold`, true));
+  container.appendChild(createSection("Exit", exitRows, `${folio}__Exit`, true));
   container.appendChild(createSection("Others", otherRows, `${folio}__Others`, false));
 }
 
