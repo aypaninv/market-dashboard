@@ -94,6 +94,7 @@ const holdConditionsByFolio = {
 
 const exitConditionsByFolio = {
   Sate: d => toNumber(d.D_10V20) < 0,
+  Core: d => toNumber(d.W_10V20) < 0,
 };
 
 function getAddCondition(folio) {
