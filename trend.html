@@ -112,7 +112,7 @@ function drawTrend(data) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (["D_EMA10", "D_EMA20", "W_EMA10", "W_EMA20"].includes(h) && !isNaN(v)) {
+      if (["D_EMA10", "D_EMA20", "D_10V20", "W_EMA10", "W_EMA20", "W_10V20"].includes(h) && !isNaN(v)) {
         if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
