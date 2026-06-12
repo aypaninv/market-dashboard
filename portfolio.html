@@ -94,12 +94,12 @@ const sellConditionsByFolio = {
 };
 
 const holdConditionsByFolio = {
-  Sate: d => d.LT_Type === "Sell" && toNumber(d.W_CHG) < -9,
-  Core: d => d.LT_Type === "Sell" && toNumber(d.M_CHG) < -9,
+  Sate: d => d.LT_Type === "Sell" && toNumber(d.W_CHG) < -8,
+  Core: d => d.LT_Type === "Sell" && toNumber(d.M_CHG) < -8,
 };
 
 const exitConditionsByFolio = {
-  Sate: d => toNumber(d.D_10V20) < 0 || toNumber(d.W_10V20) < 0,
+  Sate: d => toNumber(d.D_10V20) < 0 && toNumber(d.W_CHG) < -8,
   Core: d => toNumber(d.W_10V20) < 0 && toNumber(d.D_10V20) < 0,
 };
 
