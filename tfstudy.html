@@ -50,21 +50,30 @@ window.registerTabs(addTab => {
     });
 });
 
+function sortByDMACDDefault(a, b) {
+  const x = parseFloat(a["D_MACD"]);
+  const y = parseFloat(b["D_MACD"]);
+
+  if (isNaN(x) && isNaN(y)) return 0;
+  if (isNaN(x)) return 1;
+  if (isNaN(y)) return -1;
+
+  if (x > 0 && y > 0) return x - y;
+  if (x > 0) return -1;
+  if (y > 0) return 1;
+
+  if (x === 0 && y === 0) return 0;
+  if (x === 0) return -1;
+  if (y === 0) return 1;
+
+  return x - y;
+}
+
 function renderTFS(data) {
   curTFS = [...data];
   tfsSortState = {};
 
-  // DEFAULT SORT: highest W_CHG first
-  curTFS.sort((a, b) => {
-    const x = parseFloat(a["W_CHG"]);
-    const y = parseFloat(b["W_CHG"]);
-
-    if (isNaN(x) && isNaN(y)) return 0;
-    if (isNaN(x)) return 1;
-    if (isNaN(y)) return -1;
-
-    return y - x;
-  });
+  curTFS.sort(sortByDMACDDefault);
 
   drawTFS(curTFS);
 }

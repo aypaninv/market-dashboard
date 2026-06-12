@@ -89,17 +89,17 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d.D_EMA20) < 0,
-  Core: d => toNumber(d.W_EMA10) < 0,
+  Sate: d => toNumber(d.W_CHG) < -9,
+  Core: d => toNumber(d.M_CHG) < -9,
 };
 
 const holdConditionsByFolio = {
-  Sate: d => d.LT_Type === "Sell" && toNumber(d.LT_Pert) < 4,
-  Core: d => d.LT_Type === "Sell" && toNumber(d.LT_Pert) < 4,
+  Sate: d => d.LT_Type === "Sell" && toNumber(d.W_CHG) < -9,
+  Core: d => d.LT_Type === "Sell" && toNumber(d.M_CHG) < -9,
 };
 
 const exitConditionsByFolio = {
-  Sate: d => toNumber(d.D_10V20) < 0,
+  Sate: d => toNumber(d.D_10V20) < 0 || toNumber(d.W_10V20) < 0,
   Core: d => toNumber(d.W_10V20) < 0,
 };
 
@@ -143,17 +143,30 @@ window.registerTabs(addTab => {
     });
 });
 
+function sortByDMACDDefault(a, b) {
+  const x = parseFloat(a["D_MACD"]);
+  const y = parseFloat(b["D_MACD"]);
+
+  if (isNaN(x) && isNaN(y)) return 0;
+  if (isNaN(x)) return 1;
+  if (isNaN(y)) return -1;
+
+  // Positive values first (ascending)
+  if (x > 0 && y > 0) return x - y;
+  if (x > 0) return -1;
+  if (y > 0) return 1;
+
+  // Then 0
+  if (x === 0 && y === 0) return 0;
+  if (x === 0) return -1;
+  if (y === 0) return 1;
+
+  // Then negative values (ascending)
+  return x - y;
+}
+
 function sortByDefault(data) {
-  return [...data].sort((a, b) => {
-    const x = parseFloat(a["W_CHG"]);
-    const y = parseFloat(b["W_CHG"]);
-
-    if (isNaN(x) && isNaN(y)) return 0;
-    if (isNaN(x)) return 1;
-    if (isNaN(y)) return -1;
-
-    return y - x;
-  });
+  return [...data].sort(sortByDMACDDefault);
 }
 
 function compareCellValues(aVal, bVal, asc) {
@@ -186,20 +199,35 @@ function renderFolioSections(folio, folioRows) {
   const holdCondition = getHoldCondition(folio);
   const exitCondition = getExitCondition(folio);
 
-  const addRows = sortByDefault(folioRows.filter(d => addCondition(d)));
-  const sellRows = sortByDefault(folioRows.filter(d => sellCondition(d)));
-  const holdRows = sortByDefault(folioRows.filter(d => holdCondition(d)));
-  const exitRows = sortByDefault(folioRows.filter(d => exitCondition(d)));
-  const otherRows = sortByDefault(folioRows.filter(d => !addCondition(d) && !sellCondition(d) && !holdCondition(d) && !exitCondition(d)));
+  // Prioritize conditions: Add > Exit > Hold > Sell > Others
+  const addRows = [];
+  const exitRows = [];
+  const holdRows = [];
+  const sellRows = [];
+  const otherRows = [];
+
+  folioRows.forEach(d => {
+    if (addCondition(d)) {
+      addRows.push(d);
+    } else if (exitCondition(d)) {
+      exitRows.push(d);
+    } else if (holdCondition(d)) {
+      holdRows.push(d);
+    } else if (sellCondition(d)) {
+      sellRows.push(d);
+    } else {
+      otherRows.push(d);
+    }
+  });
 
   const container = document.getElementById("folioSections");
   container.innerHTML = "";
 
-  container.appendChild(createSection("Add", addRows, `${folio}__Add`, true));
-  container.appendChild(createSection("Sell", sellRows, `${folio}__Sell`, true));
-  container.appendChild(createSection("Hold", holdRows, `${folio}__Hold`, true));
-  container.appendChild(createSection("Exit", exitRows, `${folio}__Exit`, true));
-  container.appendChild(createSection("Others", otherRows, `${folio}__Others`, false));
+  container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true));
+  container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true));
+  container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true));
+  container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true));
+  container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false));
 }
 
 function createSection(title, rows, sectionKey, isOpenByDefault) {
