@@ -20,6 +20,12 @@ const COLUMN_ORDER = [
   "Sector","MarketCap","Notes"
 ];
 
+const HEADER_LABELS = {
+  LT_Type: "LT_T",
+  LT_days: "LT_D",
+  LT_Pert: "LT_P",
+};
+
 let rawData = [];
 let sectionSortState = {};
 
@@ -236,7 +242,7 @@ function renderTable(table, baseRows, sectionKey) {
   COLUMN_ORDER.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h;
+    th.innerText = HEADER_LABELS[h] || h;
     th.onclick = () => {
       const existing = sectionSortState[sectionKey];
       const asc = existing && existing.col === h ? !existing.asc : true;

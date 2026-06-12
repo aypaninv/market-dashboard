@@ -85,7 +85,7 @@ th {
   position: sticky;
   top: 0;
   cursor: pointer;
-  z-index: 5;
+  z-index: 20;
   border-bottom: 2px solid var(--header-border);
   letter-spacing: 0.45px;
   text-transform: uppercase;
@@ -103,9 +103,17 @@ th.symbol-col,
 td.symbol-col {
   position: sticky;
   left: 0;
-  z-index: 6;
   font-weight: bold;
   background: var(--panel);
+  box-shadow: 2px 0 0 var(--grid);
+}
+
+th.symbol-col {
+  z-index: 30;
+}
+
+td.symbol-col {
+  z-index: 10;
 }
 
 /* ---------- Alignment ---------- */
