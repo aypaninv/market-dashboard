@@ -72,35 +72,29 @@ function defaultSellCondition(d) {
 const addConditionsByFolio = {
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const dema20 = toNumber(d.D_EMA20);
-    const d10v20 = toNumber(d.D_10V20);
-    const w10v20 = toNumber(d.W_10V20);
-    const dmacd = toNumber(d.D_MACD);
-    return ltPert > 4 && dema20 < 12 && d10v20 > 0 && w10v20 > 0 && dmacd > 0;
+    const wmacd = toNumber(d.W_MACD);
+    return ltPert > 4 && wmacd > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const wema10 = toNumber(d.W_EMA10);
-    const d10v20 = toNumber(d.D_10V20);
-    const w10v20 = toNumber(d.W_10V20);
-    const dmacd = toNumber(d.D_MACD);
-    return ltPert > 4 && wema10 < 12 && d10v20 > 0 && w10v20 > 0 && dmacd > 0;
+    const wmacd = toNumber(d.W_MACD);
+    return ltPert > 4 && wmacd > 0;
   },
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d.W_CHG) < -9,
-  Core: d => toNumber(d.M_CHG) < -9,
+  Sate: d => toNumber(d.W_CHG) < -8 || toNumber(d.W_MACD) < 0,
+  Core: d => toNumber(d.M_CHG) < -8 || toNumber(d.W_MACD) < 0,
 };
 
 const holdConditionsByFolio = {
-  Sate: d => d.LT_Type === "Sell" && toNumber(d.W_CHG) < -8,
-  Core: d => d.LT_Type === "Sell" && toNumber(d.M_CHG) < -8,
+  Sate: d => d.LT_Type === "Sell",
+  Core: d => d.LT_Type === "Sell",
 };
 
 const exitConditionsByFolio = {
-  Sate: d => toNumber(d.D_10V20) < 0 && toNumber(d.W_CHG) < -8,
-  Core: d => toNumber(d.W_10V20) < 0 && toNumber(d.D_10V20) < 0,
+  Sate: d => toNumber(d.W_MACD) < 0 && toNumber(d.D_10V20) < 0,
+  Core: d => toNumber(d.M_MACD) < 0 && toNumber(d.W_10V20) < 0,
 };
 
 function getAddCondition(folio) {
