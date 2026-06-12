@@ -83,8 +83,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d.W_CHG) < -8 || toNumber(d.W_MACD) < 0,
-  Core: d => toNumber(d.M_CHG) < -8 || toNumber(d.W_MACD) < 0,
+  Sate: d => toNumber(d.W_CHG) < -8 || toNumber(d.W_MACD) < -1,
+  Core: d => toNumber(d.M_CHG) < -8 || toNumber(d.W_MACD) < -1,
 };
 
 const holdConditionsByFolio = {
@@ -96,7 +96,7 @@ const exitConditionsByFolio = {
   Sate: d => toNumber(d.W_MACD) < 0 && toNumber(d.D_10V20) < 0,
   Core: d => toNumber(d.M_MACD) < 0 && toNumber(d.W_10V20) < 0,
 };
-
+  
 function getAddCondition(folio) {
   return addConditionsByFolio[folio] || defaultAddCondition;
 }
@@ -187,6 +187,52 @@ function getSortedSectionRows(rows, sectionKey) {
   return [...rows].sort((a, b) => compareCellValues(a[col], b[col], asc));
 }
 
+function computeSharedColWidths(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLUMN_ORDER.filter(h => h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
 function renderFolioSections(folio, folioRows) {
   const addCondition = getAddCondition(folio);
   const sellCondition = getSellCondition(folio);
@@ -214,17 +260,18 @@ function renderFolioSections(folio, folioRows) {
     }
   });
 
+  const colWidths = computeSharedColWidths(folioRows);
   const container = document.getElementById("folioSections");
   container.innerHTML = "";
 
-  container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true));
-  container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true));
-  container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true));
-  container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true));
-  container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false));
+  container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths));
+  container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true, colWidths));
+  container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true, colWidths));
+  container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths));
+  container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false, colWidths));
 }
 
-function createSection(title, rows, sectionKey, isOpenByDefault) {
+function createSection(title, rows, sectionKey, isOpenByDefault, colWidths) {
   const details = document.createElement("details");
   details.className = "portfolio-dropdown";
   details.open = isOpenByDefault;
@@ -238,14 +285,14 @@ function createSection(title, rows, sectionKey, isOpenByDefault) {
 
   const table = document.createElement("table");
   table.className = "portfolio-section-table";
-  renderTable(table, rows, sectionKey);
+  renderTable(table, rows, sectionKey, colWidths);
 
   wrapper.appendChild(table);
   details.appendChild(wrapper);
   return details;
 }
 
-function renderTable(table, baseRows, sectionKey) {
+function renderTable(table, baseRows, sectionKey, colWidths) {
   table.innerHTML = "";
   const data = getSortedSectionRows(baseRows, sectionKey);
 
@@ -260,16 +307,30 @@ function renderTable(table, baseRows, sectionKey) {
     return;
   }
 
+  if (colWidths && Object.keys(colWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLUMN_ORDER.forEach(h => {
+      if (!(h in data[0]) || !colWidths[h]) return;
+      const col = document.createElement("col");
+      col.style.width = colWidths[h] + "px";
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
+  }
+
   const tr = document.createElement("tr");
   COLUMN_ORDER.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS[h] || h;
+    th.style.whiteSpace = "nowrap";
     th.onclick = () => {
       const existing = sectionSortState[sectionKey];
       const asc = existing && existing.col === h ? !existing.asc : true;
       sectionSortState[sectionKey] = { col: h, asc };
-      renderTable(table, baseRows, sectionKey);
+      renderTable(table, baseRows, sectionKey, colWidths);
     };
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
