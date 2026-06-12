@@ -312,6 +312,11 @@ function renderTable(table, baseRows, sectionKey) {
           td.classList.add("red");
         }
       }
+      if (["W_EMA10", "D_EMA20"].includes(h) && !isNaN(v)) {
+        if (parseFloat(v) >= 12) {
+          td.classList.add("orange");
+        }
+      }
       if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
         if (v < -8) td.classList.add("red");
         else if (v > 0) td.classList.add("green");

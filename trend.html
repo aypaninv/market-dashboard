@@ -127,7 +127,11 @@ function drawTrend(data) {
           td.classList.add("red");
         }
       }
-
+      if (["W_EMA10", "D_EMA20"].includes(h) && !isNaN(v)) {
+        if (parseFloat(v) >= 12) {
+          td.classList.add("orange");
+        }
+      }
       row.appendChild(td);
     });
 
