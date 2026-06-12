@@ -100,7 +100,7 @@ const holdConditionsByFolio = {
 
 const exitConditionsByFolio = {
   Sate: d => toNumber(d.D_10V20) < 0 || toNumber(d.W_10V20) < 0,
-  Core: d => toNumber(d.W_10V20) < 0,
+  Core: d => toNumber(d.W_10V20) < 0 && toNumber(d.D_10V20) < 0,
 };
 
 function getAddCondition(folio) {
@@ -224,9 +224,9 @@ function renderFolioSections(folio, folioRows) {
   container.innerHTML = "";
 
   container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true));
-  container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true));
-  container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true));
   container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true));
+  container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true));
+  container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true));
   container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false));
 }
 
