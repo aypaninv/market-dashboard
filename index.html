@@ -213,6 +213,88 @@ function debounce(fn, delay) {
 window.debouncedSearch = debounce(applyGlobalSearch, 150);
 
 /* =========================================================
+   SHARED TABLE UTILITIES
+   ========================================================= */
+
+window.createCustomSorter = function (column = "4H_10V20") {
+  return (a, b) => {
+    const x = parseFloat(a?.[column]);
+    const y = parseFloat(b?.[column]);
+
+    if (isNaN(x) && isNaN(y)) return 0;
+    if (isNaN(x)) return 1;
+    if (isNaN(y)) return -1;
+
+    if (x > 0 && y > 0) return x - y;
+    if (x > 0) return -1;
+    if (y > 0) return 1;
+
+    if (x === 0 && y === 0) return 0;
+    if (x === 0) return -1;
+    if (y === 0) return 1;
+
+    // Negative values after zero, closest to zero first.
+    return y - x;
+  };
+};
+
+window.sortRowsByCustomDefault = function (rows, column = "4H_10V20") {
+  return [...rows].sort(window.createCustomSorter(column));
+};
+
+window.compareCellValues = function (aVal, bVal, asc) {
+  const aNum = parseFloat(aVal);
+  const bNum = parseFloat(bVal);
+  const bothNumeric = Number.isFinite(aNum) && Number.isFinite(bNum);
+
+  if (bothNumeric) {
+    return asc ? aNum - bNum : bNum - aNum;
+  }
+
+  const aText = String(aVal ?? "");
+  const bText = String(bVal ?? "");
+  return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+};
+
+window.sortRowsByColumn = function (rows, column, asc) {
+  return [...rows].sort((a, b) => window.compareCellValues(a?.[column], b?.[column], asc));
+};
+
+window.applyCommonCellClasses = function (td, column, value, options = {}) {
+  const num = parseFloat(value);
+  const isNum = !isNaN(num);
+
+  const chgColumns = options.chgColumns || ["D_CHG", "W_CHG", "M_CHG"];
+  const rsiColumns = options.rsiColumns || ["W_RSI", "M_RSI"];
+  const crossColumns = options.crossColumns || ["D_10V20", "W_10V20", "4H_10V20", "M_10V20"];
+  const profitColumns = options.profitColumns || [];
+
+  if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
+
+  if (column.includes("MACD") && value !== "" && isNum) {
+    td.classList.add(num >= 0 ? "green" : "orange");
+  }
+
+  if (chgColumns.includes(column) && isNum && num < -8) {
+    td.classList.add("orange");
+  }
+
+  if (rsiColumns.includes(column) && value !== "" && isNum) {
+    if (num > 54) td.classList.add("green");
+    else if (num < 54) td.classList.add("red");
+  }
+
+  if (crossColumns.includes(column) && isNum && num < 0) {
+    td.classList.add("red");
+  }
+
+  if (profitColumns.includes(column) && isNum) {
+    if (num < -8) td.classList.add("red");
+    else if (num > 0) td.classList.add("green");
+  }
+};
+
+/* =========================================================
    GLOBAL TAB MANAGEMENT
    ========================================================= */
 

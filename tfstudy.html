@@ -15,7 +15,7 @@ const COLS_TFS = [
   "4H_10V20","D_10V20","W_10V20","M_10V20",
   // "W_RSI","M_RSI",
   "W_CHG","M_CHG",
-  "4H_MACD","CurPrice","Sector","MarketCap","Notes"
+  "CurPrice","Sector","MarketCap","Notes"
 ];
 
 let rawTFS = [];
@@ -50,30 +50,11 @@ window.registerTabs(addTab => {
     });
 });
 
-function sortByCustomDefault(a, b) {
-  const x = parseFloat(a["4H_10V20"]);
-  const y = parseFloat(b["4H_10V20"]);
-
-  if (isNaN(x) && isNaN(y)) return 0;
-  if (isNaN(x)) return 1;
-  if (isNaN(y)) return -1;
-
-  if (x > 0 && y > 0) return x - y;
-  if (x > 0) return -1;
-  if (y > 0) return 1;
-
-  if (x === 0 && y === 0) return 0;
-  if (x === 0) return -1;
-  if (y === 0) return 1;
-
-  return y - x;
-}
-
 function renderTFS(data) {
   curTFS = [...data];
   tfsSortState = {};
 
-  curTFS.sort(sortByCustomDefault);
+  curTFS = window.sortRowsByCustomDefault(curTFS, "4H_10V20");
 
   drawTFS(curTFS);
 }
@@ -109,21 +90,9 @@ function drawTFS(data) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
-      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
-      if (["W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
-        td.classList.add("orange");
-      }
-      if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
-        const rsi = parseFloat(v);
-        if (rsi > 54) td.classList.add("green");
-        else if (rsi < 54) td.classList.add("red");
-      }
-      if (["D_10V20", "W_10V20", "4H_10V20", "M_10V20"].includes(h) && !isNaN(v)) {
-        if (parseFloat(v) < 0) {
-          td.classList.add("red");
-        }
-      }
+      window.applyCommonCellClasses(td, h, v, {
+        chgColumns: ["W_CHG", "M_CHG"],
+      });
       row.appendChild(td);
     });
     table.appendChild(row);
@@ -133,7 +102,7 @@ function drawTFS(data) {
 function sortTFS(col) {
   const asc = !tfsSortState[col];
   tfsSortState = { [col]: asc };
-  curTFS.sort((a,b)=>asc?parseFloat(a[col])-parseFloat(b[col]):parseFloat(b[col])-parseFloat(a[col]));
+  curTFS = window.sortRowsByColumn(curTFS, col, asc);
   drawTFS(curTFS);
 }
 

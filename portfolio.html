@@ -12,10 +12,9 @@ const CSV_FILE = "portfolio_report.csv";
 
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
-  "DD_High","4H_10V20","D_10V20","W_10V20","M_10V20",
+  "DD_High","LT_Type","LT_days","LT_Pert","4H_10V20","D_10V20","W_10V20","M_10V20",
   // "W_RSI","M_RSI",
   "W_CHG","M_CHG","D_CHG",
-  "LT_Type","LT_days","LT_Pert",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
@@ -139,44 +138,8 @@ window.registerTabs(addTab => {
     });
 });
 
-function sortByCustomDefault(a, b) {
-  const x = parseFloat(a["4H_10V20"]);
-  const y = parseFloat(b["4H_10V20"]);
-
-  if (isNaN(x) && isNaN(y)) return 0;
-  if (isNaN(x)) return 1;
-  if (isNaN(y)) return -1;
-
-  // Positive values first (ascending)
-  if (x > 0 && y > 0) return x - y;
-  if (x > 0) return -1;
-  if (y > 0) return 1;
-
-  // Then 0
-  if (x === 0 && y === 0) return 0;
-  if (x === 0) return -1;
-  if (y === 0) return 1;
-
-  // Then negative values (closest to zero first)
-  return y - x;
-}
-
 function sortByDefault(data) {
-  return [...data].sort(sortByCustomDefault);
-}
-
-function compareCellValues(aVal, bVal, asc) {
-  const aNum = parseFloat(aVal);
-  const bNum = parseFloat(bVal);
-  const bothNumeric = Number.isFinite(aNum) && Number.isFinite(bNum);
-
-  if (bothNumeric) {
-    return asc ? aNum - bNum : bNum - aNum;
-  }
-
-  const aText = String(aVal ?? "");
-  const bText = String(bVal ?? "");
-  return asc ? aText.localeCompare(bText) : bText.localeCompare(aText);
+  return window.sortRowsByCustomDefault(data, "4H_10V20");
 }
 
 function getSortedSectionRows(rows, sectionKey) {
@@ -186,7 +149,7 @@ function getSortedSectionRows(rows, sectionKey) {
   }
 
   const { col, asc } = sortInfo;
-  return [...rows].sort((a, b) => compareCellValues(a[col], b[col], asc));
+  return window.sortRowsByColumn(rows, col, asc);
 }
 
 function computeSharedColWidths(allRows) {
@@ -354,25 +317,10 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h === "DD_High" && parseFloat(v) < -15) td.classList.add("orange");
-      if (h.includes("MACD") && v !== "") td.classList.add(parseFloat(v) >= 0 ? "green" : "orange");
-      if (["D_CHG", "W_CHG", "M_CHG"].includes(h) && !isNaN(v) && parseFloat(v) < -8) {
-        td.classList.add("orange");
-      }
-      if ((h === "W_RSI" || h === "M_RSI") && v !== "") {
-        const rsi = parseFloat(v);
-        if (rsi > 54) td.classList.add("green");
-        else if (rsi < 54) td.classList.add("red");
-      }
-      if (["D_10V20", "W_10V20", "4H_10V20", "M_10V20"].includes(h) && !isNaN(v)) {
-        if (parseFloat(v) < 0) {
-          td.classList.add("red");
-        }
-      }
-      if ((h === "PnL" || h === "LT_Pert") && !isNaN(v)) {
-        if (v < -8) td.classList.add("red");
-        else if (v > 0) td.classList.add("green");
-      }
+      window.applyCommonCellClasses(td, h, v, {
+        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+        profitColumns: ["PnL", "LT_Pert"],
+      });
 
       row.appendChild(td);
     });
