@@ -13,7 +13,7 @@ const CSV_FILE = "portfolio_report.csv";
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC",
   "DD_High","PnL","LT_Type","LT_days","LT_Pert",
-  "D_MACD","W_MACD","M_MACD","D_EMA20","W_EMA10","D_10V20","W_10V20",
+  "D_MACD","W_MACD","M_MACD","D_EMA20","W_EMA10","D_10V20","W_10V20","4H_10V20","M_10V20",
   // "W_RSI","M_RSI",
   "W_CHG","M_CHG",
   "AvgPrice","CurPrice",
@@ -362,7 +362,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
         if (rsi > 54) td.classList.add("green");
         else if (rsi < 54) td.classList.add("red");
       }
-      if (["D_10V20", "W_EMA10", "D_EMA20", "W_10V20"].includes(h) && !isNaN(v)) {
+      if (["D_10V20", "W_EMA10", "D_EMA20", "W_10V20", "4H_10V20", "M_10V20"].includes(h) && !isNaN(v)) {
         if (parseFloat(v) < 0) {
           td.classList.add("red");
         }
