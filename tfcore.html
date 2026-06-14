@@ -29,6 +29,7 @@ let rawTFC = [];
 let tfcSections = { High: [], Low: [] };
 let tfcSortState = {};
 let tfcSectionOpenState = { High: true, Low: false };
+let tfcColWidths = {};
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -48,6 +49,52 @@ function splitHighLow(rows) {
   });
 
   return { highRows, lowRows };
+}
+
+function computeSharedColWidths(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_TFC.filter(h => h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_TFC[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
 }
 
 function parseCSVCore(text) {
@@ -84,6 +131,7 @@ function renderTFC(data) {
     High: window.sortRowsByCustomDefault(highRows, "4H_10V20"),
     Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
   };
+  tfcColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfcSortState = {};
   tfcSectionOpenState = { High: true, Low: false };
   drawTFCSections();
@@ -136,6 +184,19 @@ function drawTFCTable(table, rows, sectionKey) {
     tr.appendChild(td);
     table.appendChild(tr);
     return;
+  }
+
+  if (tfcColWidths && Object.keys(tfcColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_TFC.forEach(h => {
+      if (!(h in data[0]) || !tfcColWidths[h]) return;
+      const col = document.createElement("col");
+      col.style.width = tfcColWidths[h] + "px";
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
   }
 
   const tr = document.createElement("tr");

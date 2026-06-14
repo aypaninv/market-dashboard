@@ -29,6 +29,7 @@ let rawTF = [];
 let tfSections = { High: [], Low: [] };
 let tfSortState = {};
 let tfSectionOpenState = { High: true, Low: false };
+let tfColWidths = {};
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -48,6 +49,52 @@ function splitHighLow(rows) {
   });
 
   return { highRows, lowRows };
+}
+
+function computeSharedColWidths(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_TFW.filter(h => h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_TFW[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
 }
 
 function parseCSV(text) {
@@ -84,6 +131,7 @@ function renderTF(data) {
     High: window.sortRowsByCustomDefault(highRows, "4H_10V20"),
     Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
   };
+  tfColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfSortState = {};
   tfSectionOpenState = { High: true, Low: false };
   drawTFSections();
@@ -136,6 +184,19 @@ function drawTFTable(table, rows, sectionKey) {
     tr.appendChild(td);
     table.appendChild(tr);
     return;
+  }
+
+  if (tfColWidths && Object.keys(tfColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_TFW.forEach(h => {
+      if (!(h in data[0]) || !tfColWidths[h]) return;
+      const col = document.createElement("col");
+      col.style.width = tfColWidths[h] + "px";
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
   }
 
   const tr = document.createElement("tr");
