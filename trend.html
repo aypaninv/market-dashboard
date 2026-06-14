@@ -18,9 +18,37 @@ const COLS_TREND = [
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
+const HEADER_LABELS_TREND = {
+  "4H_10V20": "4H_XC",
+  "D_10V20": "D_XC",
+  "W_10V20": "W_XC",
+  "M_10V20": "M_XC",
+};
+
 let rawTrend = [];
 let curTrend = [];
 let trendSortState = {};
+let csvPathTrend = CSV_TREND;
+
+function fetchCsvTrendWithFallback(fileName) {
+  const candidates = [fileName, `output/${fileName}`, `../output/${fileName}`];
+
+  const tryFetch = index => {
+    if (index >= candidates.length) {
+      return Promise.reject(new Error(`Unable to load ${fileName} from runtime paths`));
+    }
+
+    return fetch(candidates[index], { cache: "no-store" })
+      .then(res => {
+        if (!res.ok) throw new Error("Not found");
+        csvPathTrend = candidates[index];
+        return res.text();
+      })
+      .catch(() => tryFetch(index + 1));
+  };
+
+  return tryFetch(0);
+}
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
@@ -34,8 +62,7 @@ function parseCSV(text) {
 }
 
 window.registerTabs(addTab => {
-  fetch(CSV_TREND)
-    .then(r => r.text())
+  fetchCsvTrendWithFallback(CSV_TREND)
     .then(t => {
       rawTrend = parseCSV(t);
 
@@ -49,6 +76,9 @@ window.registerTabs(addTab => {
         );
 
       updateTrendTime();
+    })
+    .catch(err => {
+      console.error(err.message);
     });
 });
 
@@ -69,7 +99,7 @@ function drawTrend(data) {
   COLS_TREND.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h;
+    th.innerText = HEADER_LABELS_TREND[h] || h;
     th.onclick = () => sortTrend(h);
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
@@ -118,13 +148,14 @@ function openChart(symbol) {
 }
 
 function updateTrendTime() {
-  fetch(CSV_TREND, { method: "HEAD" })
+  fetch(csvPathTrend, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_trend").innerText =
         d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
         " / " +
         d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
-    });
+    })
+    .catch(() => {});
 }
 </script>
