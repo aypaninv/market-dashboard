@@ -3,7 +3,7 @@
 <div id="tfwatchFeature" style="display:none">
   <div class="update-time" id="updateTime_tf"></div>
   <div class="content">
-    <table id="dataTable_tf"></table>
+    <div id="tfwatchSections"></div>
   </div>
 </div>
 
@@ -26,8 +26,28 @@ const HEADER_LABELS_TFW = {
 };
 
 let rawTF = [];
-let curTF = [];
+let tfSections = { High: [], Low: [] };
 let tfSortState = {};
+
+function toNumber(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function splitHighLow(rows) {
+  const highRows = [];
+  const lowRows = [];
+
+  rows.forEach(r => {
+    const w10v20 = toNumber(r.W_10V20);
+    const h4_10v20 = toNumber(r["4H_10V20"]);
+
+    if (w10v20 > 0 && h4_10v20 > 0) highRows.push(r);
+    else lowRows.push(r);
+  });
+
+  return { highRows, lowRows };
+}
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
@@ -58,25 +78,72 @@ window.registerTabs(addTab => {
 });
 
 function renderTF(data) {
-  curTF = [...data];
+  const { highRows, lowRows } = splitHighLow([...data]);
+  tfSections = {
+    High: window.sortRowsByCustomDefault(highRows, "4H_10V20"),
+    Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
+  };
   tfSortState = {};
-
-  curTF = window.sortRowsByCustomDefault(curTF, "4H_10V20");
-
-  drawTF(curTF);
+  drawTFSections();
 }
 
+function drawTFSections() {
+  const container = document.getElementById("tfwatchSections");
+  container.innerHTML = "";
 
-function drawTF(data) {
-  const table = document.getElementById("dataTable_tf");
+  container.appendChild(createTFSection("High", tfSections.High, "High", true));
+  container.appendChild(createTFSection("Low", tfSections.Low, "Low", false));
+}
+
+function createTFSection(title, rows, sectionKey, isOpenByDefault) {
+  const details = document.createElement("details");
+  details.className = "portfolio-dropdown";
+  details.open = isOpenByDefault;
+
+  const summary = document.createElement("summary");
+  summary.textContent = `${title} (${rows.length})`;
+  details.appendChild(summary);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+
+  const table = document.createElement("table");
+  drawTFTable(table, rows, sectionKey);
+
+  wrapper.appendChild(table);
+  details.appendChild(wrapper);
+  return details;
+}
+
+function drawTFTable(table, rows, sectionKey) {
   table.innerHTML = "";
+  const sortInfo = tfSortState[sectionKey];
+  const data = sortInfo
+    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
+    : rows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLS_TFW.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
 
   const tr = document.createElement("tr");
   COLS_TFW.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS_TFW[h] || h;
-    th.onclick = () => sortTF(h);
+    th.onclick = () => {
+      const existing = tfSortState[sectionKey];
+      const asc = existing && existing.col === h ? !existing.asc : true;
+      tfSortState[sectionKey] = { col: h, asc };
+      drawTFSections();
+    };
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -104,13 +171,6 @@ function drawTF(data) {
     });
     table.appendChild(row);
   });
-}
-
-function sortTF(col) {
-  const asc = !tfSortState[col];
-  tfSortState = { [col]: asc };
-  curTF = window.sortRowsByColumn(curTF, col, asc);
-  drawTF(curTF);
 }
 
 function openChart(symbol) {

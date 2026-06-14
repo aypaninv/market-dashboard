@@ -3,7 +3,7 @@
 <div id="tfstudyFeature" style="display:none">
   <div class="update-time" id="updateTime_tfs"></div>
   <div class="content">
-    <table id="dataTable_tfs"></table>
+    <div id="tfstudySections"></div>
   </div>
 </div>
 
@@ -26,8 +26,28 @@ const HEADER_LABELS_TFS = {
 };
 
 let rawTFS = [];
-let curTFS = [];
+let tfsSections = { High: [], Low: [] };
 let tfsSortState = {};
+
+function toNumber(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function splitHighLow(rows) {
+  const highRows = [];
+  const lowRows = [];
+
+  rows.forEach(r => {
+    const w10v20 = toNumber(r.W_10V20);
+    const h4_10v20 = toNumber(r["4H_10V20"]);
+
+    if (w10v20 > 0 && h4_10v20 > 0) highRows.push(r);
+    else lowRows.push(r);
+  });
+
+  return { highRows, lowRows };
+}
 
 function parseCSVStudy(text) {
   const lines = text.trim().split("\n");
@@ -58,25 +78,72 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  curTFS = [...data];
+  const { highRows, lowRows } = splitHighLow([...data]);
+  tfsSections = {
+    High: window.sortRowsByCustomDefault(highRows, "4H_10V20"),
+    Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
+  };
   tfsSortState = {};
-
-  curTFS = window.sortRowsByCustomDefault(curTFS, "4H_10V20");
-
-  drawTFS(curTFS);
+  drawTFSSections();
 }
 
+function drawTFSSections() {
+  const container = document.getElementById("tfstudySections");
+  container.innerHTML = "";
 
-function drawTFS(data) {
-  const table = document.getElementById("dataTable_tfs");
+  container.appendChild(createTFSSection("High", tfsSections.High, "High", true));
+  container.appendChild(createTFSSection("Low", tfsSections.Low, "Low", false));
+}
+
+function createTFSSection(title, rows, sectionKey, isOpenByDefault) {
+  const details = document.createElement("details");
+  details.className = "portfolio-dropdown";
+  details.open = isOpenByDefault;
+
+  const summary = document.createElement("summary");
+  summary.textContent = `${title} (${rows.length})`;
+  details.appendChild(summary);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+
+  const table = document.createElement("table");
+  drawTFSTable(table, rows, sectionKey);
+
+  wrapper.appendChild(table);
+  details.appendChild(wrapper);
+  return details;
+}
+
+function drawTFSTable(table, rows, sectionKey) {
   table.innerHTML = "";
+  const sortInfo = tfsSortState[sectionKey];
+  const data = sortInfo
+    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
+    : rows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLS_TFS.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
 
   const tr = document.createElement("tr");
   COLS_TFS.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS_TFS[h] || h;
-    th.onclick = () => sortTFS(h);
+    th.onclick = () => {
+      const existing = tfsSortState[sectionKey];
+      const asc = existing && existing.col === h ? !existing.asc : true;
+      tfsSortState[sectionKey] = { col: h, asc };
+      drawTFSSections();
+    };
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -104,13 +171,6 @@ function drawTFS(data) {
     });
     table.appendChild(row);
   });
-}
-
-function sortTFS(col) {
-  const asc = !tfsSortState[col];
-  tfsSortState = { [col]: asc };
-  curTFS = window.sortRowsByColumn(curTFS, col, asc);
-  drawTFS(curTFS);
 }
 
 function openChartStudy(symbol) {
