@@ -44,9 +44,24 @@ function parseCSV(text) {
 }
 
 function folioPriority(name) {
-  if (name === "Sate") return 1;
-  if (name === "Core") return 2;
-  return 3;
+  const folio = String(name || "").trim();
+
+  if (folio === "Sate") return 1;
+  if (folio === "Core") return 2;
+  if (folio === "TFWatch") return 3;
+  if (folio === "TFWatch_Low") return 4;
+  if (folio === "TFCore") return 5;
+  if (folio === "TFCore_Low") return 6;
+  if (folio === "TFStudy") return 7;
+  if (folio === "TFStudy_Low") return 8;
+
+  if (folio.startsWith("Sate")) return 9;
+  if (folio.startsWith("Core")) return 10;
+  if (folio.startsWith("TFWatch")) return 11;
+  if (folio.startsWith("TFCore")) return 12;
+  if (folio.startsWith("TFStudy")) return 13;
+
+  return 99;
 }
 
 function toNumber(value) {
