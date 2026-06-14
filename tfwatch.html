@@ -18,6 +18,13 @@ const COLS_TFW = [
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
+const HEADER_LABELS = {
+  "4H_10V20": "4H_XC",
+  "D_10V20": "D_XC",
+  "W_10V20": "W_XC",
+  "M_10V20": "M_XC",
+};
+
 let rawTF = [];
 let curTF = [];
 let tfSortState = {};
@@ -68,7 +75,7 @@ function drawTF(data) {
   COLS_TFW.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h;
+    th.innerText = HEADER_LABELS[h] || h;
     th.onclick = () => sortTF(h);
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);

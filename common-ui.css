@@ -52,7 +52,8 @@ body {
 
 /* ---------- Table ---------- */
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: max-content;
   font-size: 13px;
   background: var(--panel);
@@ -98,6 +99,13 @@ th:hover {
     var(--header-bg);
 }
 
+/* Keep header frozen for vertical scroll across all tables */
+table th {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
 /* ---------- Sticky Symbol ---------- */
 th.symbol-col,
 td.symbol-col {
@@ -113,6 +121,22 @@ th.symbol-col {
 }
 
 td.symbol-col {
+  z-index: 10;
+}
+
+/* Fallback: keep first column frozen if symbol class is not applied */
+table th:first-child,
+table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--panel);
+}
+
+table th:first-child {
+  z-index: 30;
+}
+
+table td:first-child {
   z-index: 10;
 }
 
