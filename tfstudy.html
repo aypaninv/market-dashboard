@@ -28,6 +28,7 @@ const HEADER_LABELS_TFS = {
 let rawTFS = [];
 let tfsSections = { High: [], Low: [] };
 let tfsSortState = {};
+let tfsSectionOpenState = { High: true, Low: false };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -84,6 +85,7 @@ function renderTFS(data) {
     Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
   };
   tfsSortState = {};
+  tfsSectionOpenState = { High: true, Low: false };
   drawTFSSections();
 }
 
@@ -91,14 +93,17 @@ function drawTFSSections() {
   const container = document.getElementById("tfstudySections");
   container.innerHTML = "";
 
-  container.appendChild(createTFSSection("High", tfsSections.High, "High", true));
-  container.appendChild(createTFSSection("Low", tfsSections.Low, "Low", false));
+  container.appendChild(createTFSSection("High", tfsSections.High, "High"));
+  container.appendChild(createTFSSection("Low", tfsSections.Low, "Low"));
 }
 
-function createTFSSection(title, rows, sectionKey, isOpenByDefault) {
+function createTFSSection(title, rows, sectionKey) {
   const details = document.createElement("details");
   details.className = "portfolio-dropdown";
-  details.open = isOpenByDefault;
+  details.open = Boolean(tfsSectionOpenState[sectionKey]);
+  details.addEventListener("toggle", () => {
+    tfsSectionOpenState[sectionKey] = details.open;
+  });
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
@@ -142,6 +147,7 @@ function drawTFSTable(table, rows, sectionKey) {
       const existing = tfsSortState[sectionKey];
       const asc = existing && existing.col === h ? !existing.asc : true;
       tfsSortState[sectionKey] = { col: h, asc };
+      tfsSectionOpenState[sectionKey] = true;
       drawTFSSections();
     };
     if (h === "Symbol") th.classList.add("symbol-col");
