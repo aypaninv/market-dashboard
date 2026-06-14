@@ -28,27 +28,6 @@ const HEADER_LABELS_TFS = {
 let rawTFS = [];
 let curTFS = [];
 let tfsSortState = {};
-let csvPathTFS = CSV_TFS;
-
-function fetchCsvStudyWithFallback(fileName) {
-  const candidates = [fileName, `output/${fileName}`, `../output/${fileName}`];
-
-  const tryFetch = index => {
-    if (index >= candidates.length) {
-      return Promise.reject(new Error(`Unable to load ${fileName} from runtime paths`));
-    }
-
-    return fetch(candidates[index], { cache: "no-store" })
-      .then(res => {
-        if (!res.ok) throw new Error("Not found");
-        csvPathTFS = candidates[index];
-        return res.text();
-      })
-      .catch(() => tryFetch(index + 1));
-  };
-
-  return tryFetch(0);
-}
 
 function parseCSVStudy(text) {
   const lines = text.trim().split("\n");
@@ -62,7 +41,8 @@ function parseCSVStudy(text) {
 }
 
 window.registerTabs(addTab => {
-  fetchCsvStudyWithFallback(CSV_TFS)
+  fetch(CSV_TFS)
+    .then(r => r.text())
     .then(t => {
       rawTFS = parseCSVStudy(t);
       [...new Set(rawTFS.map(d => d.Folio).filter(Boolean))]
@@ -74,9 +54,6 @@ window.registerTabs(addTab => {
           })
         );
       updateTFSTime();
-    })
-    .catch(err => {
-      console.error(err.message);
     });
 });
 
@@ -141,14 +118,13 @@ function openChartStudy(symbol) {
 }
 
 function updateTFSTime() {
-  fetch(csvPathTFS, { method: "HEAD" })
+  fetch(CSV_TFS, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_tfs").innerText =
         d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
         " / " +
         d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
-    })
-    .catch(() => {});
+    });
 }
 </script>
