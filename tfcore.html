@@ -18,37 +18,9 @@ const COLS_TFC = [
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
-const HEADER_LABELS = {
-  "4H_10V20": "4H_XC",
-  "D_10V20": "D_XC",
-  "W_10V20": "W_XC",
-  "M_10V20": "M_XC",
-};
-
 let rawTFC = [];
 let curTFC = [];
 let tfcSortState = {};
-let csvPathTFC = CSV_TFC;
-
-function fetchCsvCoreWithFallback(fileName) {
-  const candidates = [fileName, `output/${fileName}`, `../output/${fileName}`];
-
-  const tryFetch = index => {
-    if (index >= candidates.length) {
-      return Promise.reject(new Error(`Unable to load ${fileName} from runtime paths`));
-    }
-
-    return fetch(candidates[index], { cache: "no-store" })
-      .then(res => {
-        if (!res.ok) throw new Error("Not found");
-        csvPathTFC = candidates[index];
-        return res.text();
-      })
-      .catch(() => tryFetch(index + 1));
-  };
-
-  return tryFetch(0);
-}
 
 function parseCSVCore(text) {
   const lines = text.trim().split("\n");
@@ -62,7 +34,8 @@ function parseCSVCore(text) {
 }
 
 window.registerTabs(addTab => {
-  fetchCsvCoreWithFallback(CSV_TFC)
+  fetch(CSV_TFC)
+    .then(r => r.text())
     .then(t => {
       rawTFC = parseCSVCore(t);
       [...new Set(rawTFC.map(d => d.Folio).filter(Boolean))]
@@ -74,9 +47,6 @@ window.registerTabs(addTab => {
           })
         );
       updateTFCTime();
-    })
-    .catch(err => {
-      console.error(err.message);
     });
 });
 
@@ -98,7 +68,7 @@ function drawTFC(data) {
   COLS_TFC.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = HEADER_LABELS[h] || h;
+    th.innerText = h;
     th.onclick = () => sortTFC(h);
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
@@ -141,14 +111,13 @@ function openChartCore(symbol) {
 }
 
 function updateTFCTime() {
-  fetch(csvPathTFC, { method: "HEAD" })
+  fetch(CSV_TFC, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       document.getElementById("updateTime_tfc").innerText =
         d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
         " / " +
         d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
-    })
-    .catch(() => {});
+    });
 }
 </script>

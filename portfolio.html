@@ -23,10 +23,6 @@ const HEADER_LABELS = {
   LT_Type: "LT_T",
   LT_days: "LT_D",
   LT_Pert: "LT_P",
-  "4H_10V20": "4H_XC",
-  "D_10V20": "D_XC",
-  "W_10V20": "W_XC",
-  "M_10V20": "M_XC",
 };
 
 let rawData = [];
@@ -61,10 +57,10 @@ function toNumber(value) {
 
 function defaultAddCondition(d) {
   const ltPert = toNumber(d.LT_Pert);
-  const co_d = toNumber(d["D_10V20"]);
+  const d10v20 = toNumber(d.D_10V20);
 
   return (
-    ltPert > 4 && co_d > 0
+    ltPert > 4 && d10v20 > 0
   );
 }
 
@@ -88,17 +84,13 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.W_CHG) < -8 || toNumber(d["4H_10V20"]) < -1),
-  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.M_CHG) < -8 || toNumber(d["D_10V20"]) < -1),
+  Sate: d => toNumber(d.W_CHG) < -8 || toNumber(d["4H_10V20"]) < -1,
+  Core: d => toNumber(d.M_CHG) < -8 || toNumber(d["D_10V20"]) < -1,
 };
 
 const holdConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && d.LT_Type === "Sell",
-  Core: d => toNumber(d["IC"]) > 0.5 && d.LT_Type === "Sell",
-};
-
-const trackConditionsByFolio = {
-  // Track if IC < 0.5 (default for all folios)
+  Sate: d => d.LT_Type === "Sell",
+  Core: d => d.LT_Type === "Sell",
 };
 
 const exitConditionsByFolio = {
@@ -120,14 +112,6 @@ function getHoldCondition(folio) {
 
 function getExitCondition(folio) {
   return exitConditionsByFolio[folio] || (() => false);
-}
-
-function defaultTrackCondition(d) {
-  return toNumber(d.IC) < 0.5;
-}
-
-function getTrackCondition(folio) {
-  return trackConditionsByFolio[folio] || defaultTrackCondition;
 }
 
 window.registerTabs(addTab => {
@@ -219,21 +203,17 @@ function renderFolioSections(folio, folioRows) {
   const sellCondition = getSellCondition(folio);
   const holdCondition = getHoldCondition(folio);
   const exitCondition = getExitCondition(folio);
-  const trackCondition = getTrackCondition(folio);
 
-  // Prioritize conditions: Add > Track > Exit > Hold > Sell > Others
+  // Prioritize conditions: Add > Exit > Hold > Sell > Others
   const addRows = [];
   const exitRows = [];
   const holdRows = [];
   const sellRows = [];
-  const trackRows = [];
   const otherRows = [];
 
   folioRows.forEach(d => {
     if (addCondition(d)) {
       addRows.push(d);
-    } else if (trackCondition(d)) {
-      trackRows.push(d);
     } else if (exitCondition(d)) {
       exitRows.push(d);
     } else if (holdCondition(d)) {
@@ -254,7 +234,6 @@ function renderFolioSections(folio, folioRows) {
   container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true, colWidths));
   container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths));
   container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false, colWidths));
-  container.appendChild(createSection("Track", sortByDefault(trackRows), `${folio}__Track`, false, colWidths));
 }
 
 function createSection(title, rows, sectionKey, isOpenByDefault, colWidths) {
