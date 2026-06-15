@@ -12,17 +12,17 @@ const CSV_FILE = "portfolio_report.csv";
 
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
-  "DD_High","LT_Type","LT_days","LT_Pert","4H_10V20","D_10V20","W_10V20","M_10V20",
-  // "W_RSI","M_RSI",
+  "DD_High","LT_Type","LT_days","LT_Pert",
+  "4H_10V20","D_10V20","W_10V20","M_10V20",
   "D_EMA20","W_EMA10","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
 const HEADER_LABELS = {
-  LT_Type: "LT_T",
-  LT_days: "LT_D",
-  LT_Pert: "LT_P",
+  "LT_Type": "LT_T",
+  "LT_days": "LT_D",
+  "LT_Pert": "LT_P",
   "4H_10V20": "4H_XC",
   "D_10V20": "D_XC",
   "W_10V20": "W_XC",
@@ -79,13 +79,15 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d.LT_Pert);
     const co_4h = toNumber(d["4H_10V20"]);
     const co_d = toNumber(d.D_10V20);
-    return ltPert > 4 && co_4h > 1 && co_d > 0;
+    const dema20 = toNumber(d.D_EMA20);
+    return ltPert > 4 && co_4h > 1 && co_d > 0 && dema20 < 15;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const co_4h = toNumber(d["4H_10V20"]);
     const co_W = toNumber(d.W_10V20);
-    return ltPert > 4 && co_4h > 1 && co_W > 0;
+    const wema10 = toNumber(d.W_EMA10);
+    return ltPert > 4 && co_4h > 1 && co_W > 0 && wema10 < 15;
   },
 };
 
