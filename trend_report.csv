@@ -1,21 +1,21 @@
-Symbol,Folio,DD_High,4H_10V20,D_10V20,W_10V20,M_10V20,W_CHG,M_CHG,D_RSI,W_RSI,M_RSI,CurPrice,Sector,MarketCap,Notes,D_CHG,4H_MACD,W_EMA20
-AETHER,Trend,-10.37,16,1,24,5,-5.8,-2.5,54,62,68,1142.9,Chemicals - Specialty,Small Cap,,-8.7,1,1083.55
-AJANTPHARM,Trend,-10.16,6,2,25,36,-1.5,4.6,63,60,70,3131.0,Healthcare - Pharma,Mid Cap,,-3.9,14,2924.0
-AXISBANK,Trend,-4.37,6,3,1,34,-0.7,-2.0,66,54,62,1356.3,Financials - Private Bank,Large Cap,,-1.7,12,1291.78
-AXISCADES,Trend,-11.91,6,-11,17,19,-10.4,-3.0,53,61,72,1947.6,IT - Services,Small Cap,,-10.4,14,1734.25
-DCBBANK,Trend,-12.65,1,-31,9,14,-7.0,-9.9,48,50,63,179.86,Financials - Private Bank,Small Cap,,-8.2,2,179.88
-DIVISLAB,Trend,-6.01,7,-9,7,27,-3.5,-1.4,52,57,67,6646.5,Healthcare - Pharma,Large Cap,,-4.0,-1,6472.37
-EICHERMOT,Trend,-8.48,2,4,1,31,1.5,-6.0,62,56,80,7532.0,Auto - 2W,Large Cap,,1.5,13,7218.03
-IPCALAB,Trend,-9.85,13,7,16,36,-3.6,-1.1,56,60,73,1583.0,Healthcare - Pharma,Mid Cap,,-4.4,-5,1538.78
-LOTUSEYE,Trend,-8.1,11,6,1,11,8.4,-0.1,83,58,63,135.1,Healthcare - Hospitals,Small Cap,,0.6,17,116.64
-LT,Trend,-5.18,1,1,4,36,2.8,-1.6,66,57,69,4209.8,Infra - Construction,Large Cap,,2.2,3,3982.37
-MANINDS,Trend,-9.97,1,-11,9,34,-4.4,3.7,53,58,67,545.95,Metals - Pipe & Tube,Small Cap,,-7.9,2,482.29
-MBAPL,Trend,-3.71,12,7,19,14,-1.9,6.3,60,72,82,563.3,Agrichem - Fertilizers,Small Cap,,-2.3,8,503.94
-NYKAA,Trend,-4.24,1,-12,9,32,-1.4,2.3,54,55,75,273.5,IT - Product/Platform,Mid Cap,,-1.4,2,261.99
-SHRIPISTON,Trend,-1.6,6,2,11,36,-0.8,6.1,68,62,84,3704.6,Auto - OEM Suppliers,Small Cap,,-0.8,6,3338.93
-SMSPHARMA,Trend,-14.37,8,-41,18,36,-10.6,-5.0,47,54,71,383.45,Healthcare - Pharma,Small Cap,,-12.5,12,377.21
-STEELCAS,Trend,-10.78,2,-25,17,36,-3.5,-1.4,50,66,77,285.5,Metals - Casting/Forging,Small Cap,,-7.9,-4,261.89
-TFCILTD,Trend,-11.74,1,-3,10,36,-10.5,1.8,53,57,73,74.68,Financials - Misc,Small Cap,,-10.8,1,71.44
-TITAN,Trend,-7.65,1,-43,27,14,-6.0,-3.0,54,57,72,4252.9,Consumption - Jewelry,Large Cap,,-6.0,1,4203.97
-YATHARTH,Trend,-5.64,14,4,10,32,-2.6,2.4,58,61,70,839.75,Healthcare - Hospitals,Small Cap,,-2.6,2,757.28
-ZYDUSWELL,Trend,-8.4,22,5,10,35,-2.2,-0.5,51,64,67,506.0,Consumption - FMCG,Small Cap,,-3.3,-6,472.68
+Symbol,Folio,DD_High,4H_10V20,D_10V20,W_10V20,M_10V20,D_EMA20,W_EMA10,W_CHG,M_CHG,D_RSI,W_RSI,M_RSI,CurPrice,Sector,MarketCap,Notes,D_CHG,4H_MACD,W_EMA20
+AETHER,Trend,-10.37,16,1,24,5,1.4,2.0,-5.8,-2.5,54,62,68,1142.9,Chemicals - Specialty,Small Cap,,-8.7,1,1083.55
+AJANTPHARM,Trend,-10.16,6,2,25,36,3.2,5.2,-1.5,4.6,63,60,70,3131.0,Healthcare - Pharma,Mid Cap,,-3.9,14,2924.0
+AXISBANK,Trend,-4.37,6,3,1,34,5.1,5.5,-0.7,-2.0,66,54,62,1356.3,Financials - Private Bank,Large Cap,,-1.7,12,1291.78
+AXISCADES,Trend,-11.91,6,-11,17,19,2.5,5.0,-10.4,-3.0,53,61,72,1947.6,IT - Services,Small Cap,,-10.4,14,1734.25
+DCBBANK,Trend,-12.65,1,-31,9,14,1.1,0.1,-7.0,-9.9,48,50,63,179.86,Financials - Private Bank,Small Cap,,-8.2,2,179.88
+DIVISLAB,Trend,-6.01,7,-9,7,27,-0.1,1.3,-3.5,-1.4,52,57,67,6646.5,Healthcare - Pharma,Large Cap,,-4.0,-1,6472.37
+EICHERMOT,Trend,-8.48,2,4,1,31,4.6,4.8,1.5,-6.0,62,56,80,7532.0,Auto - 2W,Large Cap,,1.5,13,7218.03
+IPCALAB,Trend,-9.85,13,7,16,36,-0.4,1.4,-3.6,-1.1,56,60,73,1583.0,Healthcare - Pharma,Mid Cap,,-4.4,-5,1538.78
+LOTUSEYE,Trend,-8.1,11,6,1,11,14.9,17.3,8.4,-0.1,83,58,63,135.1,Healthcare - Hospitals,Small Cap,,0.6,17,116.64
+LT,Trend,-5.18,1,1,4,36,5.6,5.4,2.8,-1.6,66,57,69,4209.8,Infra - Construction,Large Cap,,2.2,3,3982.37
+MANINDS,Trend,-9.97,1,-11,9,34,4.0,6.9,-4.4,3.7,53,58,67,545.95,Metals - Pipe & Tube,Small Cap,,-7.9,2,482.29
+MBAPL,Trend,-3.71,12,7,19,14,3.0,6.5,-1.9,6.3,60,72,82,563.3,Agrichem - Fertilizers,Small Cap,,-2.3,8,503.94
+NYKAA,Trend,-4.24,1,-12,9,32,2.6,3.2,-1.4,2.3,54,55,75,273.5,IT - Product/Platform,Mid Cap,,-1.4,2,261.99
+SHRIPISTON,Trend,-1.6,6,2,11,36,7.8,8.1,-0.8,6.1,68,62,84,3704.6,Auto - OEM Suppliers,Small Cap,,-0.8,6,3338.93
+SMSPHARMA,Trend,-14.37,8,-41,18,36,0.7,-0.8,-10.6,-5.0,47,54,71,383.45,Healthcare - Pharma,Small Cap,,-12.5,12,377.21
+STEELCAS,Trend,-10.78,2,-25,17,36,0.4,3.3,-3.5,-1.4,50,66,77,285.5,Metals - Casting/Forging,Small Cap,,-7.9,-4,261.89
+TFCILTD,Trend,-11.74,1,-3,10,36,0.2,1.9,-10.5,1.8,53,57,73,74.68,Financials - Misc,Small Cap,,-10.8,1,71.44
+TITAN,Trend,-7.65,1,-43,27,14,2.3,1.0,-6.0,-3.0,54,57,72,4252.9,Consumption - Jewelry,Large Cap,,-6.0,1,4203.97
+YATHARTH,Trend,-5.64,14,4,10,32,2.3,6.2,-2.6,2.4,58,61,70,839.75,Healthcare - Hospitals,Small Cap,,-2.6,2,757.28
+ZYDUSWELL,Trend,-8.4,22,5,10,35,0.8,2.8,-2.2,-0.5,51,64,67,506.0,Consumption - FMCG,Small Cap,,-3.3,-6,472.68
