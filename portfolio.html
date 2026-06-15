@@ -14,7 +14,7 @@ const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
   "DD_High","LT_Type","LT_days","LT_Pert","4H_10V20","D_10V20","W_10V20","M_10V20",
   // "W_RSI","M_RSI",
-  "W_CHG","M_CHG","D_CHG",
+  "D_EMA20","W_CHG","M_CHG","D_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
@@ -27,6 +27,7 @@ const HEADER_LABELS = {
   "D_10V20": "D_XC",
   "W_10V20": "W_XC",
   "M_10V20": "M_XC",
+  "D_EMA20": "D_E20",
 };
 
 let rawData = [];
@@ -102,8 +103,8 @@ const trackConditionsByFolio = {
 };
 
 const exitConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && toNumber(d["4H_10V20"]) < 0 && toNumber(d.D_10V20) < -1,
-  Core: d => toNumber(d["IC"]) > 0.5 && toNumber(d["4H_10V20"]) < 0 && toNumber(d.W_10V20) < -1,
+  Sate: d => toNumber(d["PNL"]) < -4 || (toNumber(d["IC"]) > 0.5 && toNumber(d["4H_10V20"]) < 0 && toNumber(d.D_10V20) < -1),
+  Core: d => toNumber(d["PNL"]) < -4 || (toNumber(d["IC"]) > 0.5 && toNumber(d["4H_10V20"]) < 0 && toNumber(d.W_10V20) < -1),
 };
   
 function getAddCondition(folio) {
