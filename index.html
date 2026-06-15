@@ -266,8 +266,9 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
 
   const chgColumns = options.chgColumns || ["W_CHG", "M_CHG"];
   const rsiColumns = options.rsiColumns || ["W_RSI", "M_RSI"];
+  const emaColumns = options.emaColumns || ["D_EMA20", "W_EMA10"];
   const crossColumns = options.crossColumns || ["D_10V20", "W_10V20", "4H_10V20", "M_10V20"];
-  const profitColumns = options.profitColumns || [];
+  const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
 
@@ -284,13 +285,20 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     else if (num < 54) td.classList.add("red");
   }
 
-  if (crossColumns.includes(column) && isNum && num < 0) {
-    td.classList.add("red");
+  if (emaColumns.includes(column) && isNum && num > 15) {
+    td.classList.add("orange");
   }
 
-  if (profitColumns.includes(column) && isNum) {
-    if (num < -8) td.classList.add("red");
-    else if (num > 0) td.classList.add("green");
+  if (crossColumns.includes(column) && isNum && num < 0) {
+    td.classList.add("red");
+  } else if (crossColumns.includes(column) && isNum) {
+    td.classList.add("green");
+  }
+
+  if (profitColumns.includes(column) && isNum && num < 0) {
+    td.classList.add("red");
+  } else if (profitColumns.includes(column) && isNum) {
+    td.classList.add("green");
   }
 };
 
