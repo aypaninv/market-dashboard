@@ -216,7 +216,7 @@ window.debouncedSearch = debounce(applyGlobalSearch, 150);
    SHARED TABLE UTILITIES
    ========================================================= */
 
-window.createCustomSorter = function (column = "4H_10V20") {
+window.createCustomSorter = function (column = "D_10V20") {
   return (a, b) => {
     const x = parseFloat(a?.[column]);
     const y = parseFloat(b?.[column]);
