@@ -238,7 +238,7 @@ window.createCustomSorter = function (column = "D_10V20") {
   };
 };
 
-window.sortRowsByCustomDefault = function (rows, column = "4H_10V20") {
+window.sortRowsByCustomDefault = function (rows, column = "D_10V20") {
   return [...rows].sort(window.createCustomSorter(column));
 };
 
