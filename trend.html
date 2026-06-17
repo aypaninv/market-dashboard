@@ -64,7 +64,7 @@ function renderTrend(data) {
   curTrend = [...data];
   trendSortState = {};
 
-  curTrend = window.sortRowsByCustomDefault(curTrend, "4H_10V20");
+  curTrend = window.sortRowsByCustomDefault(curTrend, "D_10V20");
 
   drawTrend(curTrend);
 }

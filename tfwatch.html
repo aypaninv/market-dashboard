@@ -129,8 +129,8 @@ window.registerTabs(addTab => {
 function renderTF(data) {
   const { highRows, lowRows } = splitHighLow([...data]);
   tfSections = {
-    High: window.sortRowsByCustomDefault(highRows, "4H_10V20"),
-    Low: window.sortRowsByCustomDefault(lowRows, "4H_10V20"),
+    High: window.sortRowsByCustomDefault(highRows, "D_10V20"),
+    Low: window.sortRowsByCustomDefault(lowRows, "D_10V20"),
   };
   tfColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfSortState = {};
