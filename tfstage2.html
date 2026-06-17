@@ -1,0 +1,258 @@
+<!-- ===================== TFSTAGE2 FEATURE ===================== -->
+
+<div id="tfstage2Feature" style="display:none">
+  <div class="update-time" id="updateTime_tfs2"></div>
+  <div class="content">
+    <div id="tfstage2Sections"></div>
+  </div>
+</div>
+
+<script>
+const CSV_TFS2 = "tfstage2_report.csv";
+
+const COLS_TFS2 = [
+  "Symbol","Folio","DD_High",
+  "4H_10V20","D_10V20","W_10V20","M_10V20",
+  "D_EMA20","W_EMA10","W_CHG","M_CHG",
+  "CurPrice","Sector","MarketCap","Notes"
+];
+
+const HEADER_LABELS_TFS2 = {
+  "4H_10V20": "4H_XC",
+  "D_10V20": "D_XC",
+  "W_10V20": "W_XC",
+  "M_10V20": "M_XC",
+  "D_EMA20": "D_E20",
+  "W_EMA10": "W_E10",
+};
+
+let rawTFS2 = [];
+let tfs2Sections = { High: [], Low: [] };
+let tfs2SortState = {};
+let tfs2SectionOpenState = { High: true, Low: false };
+let tfs2ColWidths = {};
+
+function toNumberTFS2(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function splitHighLowTFS2(rows) {
+  const highRows = [];
+  const lowRows = [];
+
+  rows.forEach(r => {
+    const w10v20 = toNumberTFS2(r.W_10V20);
+    const h4_10v20 = toNumberTFS2(r["4H_10V20"]);
+
+    if (w10v20 > 0 && h4_10v20 > 0) highRows.push(r);
+    else lowRows.push(r);
+  });
+
+  return { highRows, lowRows };
+}
+
+function computeSharedColWidthsTFS2(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_TFS2.filter(h => h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_TFS2[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
+function parseCSVStage2(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  fetch(CSV_TFS2)
+    .then(r => r.text())
+    .then(t => {
+      rawTFS2 = parseCSVStage2(t);
+      [...new Set(rawTFS2.map(d => d.Folio).filter(Boolean))]
+        .forEach(folio =>
+          addTab(folio, () => {
+            hideAllFeatures();
+            document.getElementById("tfstage2Feature").style.display = "block";
+            renderTFS2(rawTFS2.filter(d => d.Folio === folio));
+          })
+        );
+      updateTFS2Time();
+    });
+});
+
+function renderTFS2(data) {
+  const { highRows, lowRows } = splitHighLowTFS2([...data]);
+  tfs2Sections = {
+    High: window.sortRowsByCustomDefault(highRows, "D_10V20"),
+    Low: window.sortRowsByCustomDefault(lowRows, "D_10V20"),
+  };
+  tfs2ColWidths = computeSharedColWidthsTFS2([...highRows, ...lowRows]);
+  tfs2SortState = {};
+  tfs2SectionOpenState = { High: true, Low: false };
+  drawTFS2Sections();
+}
+
+function drawTFS2Sections() {
+  const container = document.getElementById("tfstage2Sections");
+  container.innerHTML = "";
+
+  container.appendChild(createTFS2Section("High", tfs2Sections.High, "High"));
+  container.appendChild(createTFS2Section("Low", tfs2Sections.Low, "Low"));
+}
+
+function createTFS2Section(title, rows, sectionKey) {
+  const details = document.createElement("details");
+  details.className = "portfolio-dropdown";
+  details.open = Boolean(tfs2SectionOpenState[sectionKey]);
+  details.addEventListener("toggle", () => {
+    tfs2SectionOpenState[sectionKey] = details.open;
+  });
+
+  const summary = document.createElement("summary");
+  summary.textContent = `${title} (${rows.length})`;
+  details.appendChild(summary);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+
+  const table = document.createElement("table");
+  drawTFS2Table(table, rows, sectionKey);
+
+  wrapper.appendChild(table);
+  details.appendChild(wrapper);
+  return details;
+}
+
+function drawTFS2Table(table, rows, sectionKey) {
+  table.innerHTML = "";
+  const sortInfo = tfs2SortState[sectionKey];
+  const data = sortInfo
+    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
+    : rows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLS_TFS2.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  if (tfs2ColWidths && Object.keys(tfs2ColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_TFS2.forEach(h => {
+      if (!(h in data[0]) || !tfs2ColWidths[h]) return;
+      const col = document.createElement("col");
+      col.style.width = tfs2ColWidths[h] + "px";
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
+  }
+
+  const tr = document.createElement("tr");
+  COLS_TFS2.forEach(h => {
+    if (!(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = HEADER_LABELS_TFS2[h] || h;
+    th.onclick = () => {
+      const existing = tfs2SortState[sectionKey];
+      const asc = existing && existing.col === h ? !existing.asc : true;
+      tfs2SortState[sectionKey] = { col: h, asc };
+      tfs2SectionOpenState[sectionKey] = true;
+      drawTFS2Sections();
+    };
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_TFS2.forEach(h => {
+      if (!(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChartTFS2('${v}')">${v}</a>`;
+      } else {
+        td.innerText = v;
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      window.applyCommonCellClasses(td, h, v, {
+        chgColumns: ["W_CHG", "M_CHG"],
+      });
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function openChartTFS2(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
+
+function updateTFS2Time() {
+  fetch(CSV_TFS2, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_tfs2").innerText =
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>
