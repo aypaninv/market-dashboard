@@ -110,15 +110,19 @@ const exitConditionsByFolio = {
                 toNumber(d["PNL"]) < -8
               ) || (
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d["4H_10V20"]) < -2 && 
-                toNumber(d.W_10V20) < -1
+                toNumber(d.D_10V20) < -1
+              ) || (
+                toNumber(d["IC"]) > 0.5 && 
+                toNumber(d.W_CHG) < -12
               ), 
   Core: d => (
                 toNumber(d["PNL"]) < -8
               ) || (
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d["4H_10V20"]) < -2 && 
                 toNumber(d.W_10V20) < -1
+              ) || (
+                toNumber(d["IC"]) > 0.5 && 
+                toNumber(d.M_CHG) < -15
               ),
 };
   
