@@ -269,7 +269,6 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const emaColumns = options.emaColumns || ["D_EMA20", "W_EMA10"];
   const crossColumns = options.crossColumns || ["D_10V20", "W_10V20", "4H_10V20", "M_10V20"];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
-  const velocityColumns = options.velocityColumns || ["D_VC", "W_VC"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
 
@@ -302,11 +301,6 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("green");
   }
 
-  if (velocityColumns.includes(column) && isNum) {
-    if (num >= 70) td.classList.add("green");
-    else if (num < 35) td.classList.add("red");
-    else td.classList.add("orange");
-  }
 };
 
 /* =========================================================
