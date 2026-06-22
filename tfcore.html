@@ -116,12 +116,13 @@ window.registerTabs(addTab => {
     .then(r => r.text())
     .then(t => {
       rawTFC = parseCSVCore(t);
-      [...new Set(rawTFC.map(d => d.Folio).filter(Boolean))]
+      [...new Set(rawTFC.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {
             hideAllFeatures();
             document.getElementById("tfcoreFeature").style.display = "block";
-            renderTFC(rawTFC.filter(d => d.Folio === folio));
+            const folioBase = folio.replace(/_Low$/, '');
+            renderTFC(rawTFC.filter(d => d.Folio === folioBase || d.Folio === folioBase + "_Low"));
           })
         );
       updateTFCTime();

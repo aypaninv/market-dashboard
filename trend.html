@@ -49,12 +49,13 @@ window.registerTabs(addTab => {
     .then(t => {
       rawTrend = parseCSV(t);
 
-      [...new Set(rawTrend.map(d => d.Folio).filter(Boolean))]
+      [...new Set(rawTrend.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {
             hideAllFeatures();
             document.getElementById("trendFeature").style.display = "block";
-            renderTrend(rawTrend.filter(d => d.Folio === folio));
+            const folioBase = folio.replace(/_Low$/, '');
+            renderTrend(rawTrend.filter(d => d.Folio === folioBase || d.Folio === folioBase + "_Low"));
           })
         );
 

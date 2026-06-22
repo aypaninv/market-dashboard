@@ -116,12 +116,13 @@ window.registerTabs(addTab => {
     .then(r => r.text())
     .then(t => {
       rawTFS2 = parseCSVStage2(t);
-      [...new Set(rawTFS2.map(d => d.Folio).filter(Boolean))]
+      [...new Set(rawTFS2.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {
             hideAllFeatures();
             document.getElementById("tfstage2Feature").style.display = "block";
-            renderTFS2(rawTFS2.filter(d => d.Folio === folio));
+            const folioBase = folio.replace(/_Low$/, '');
+            renderTFS2(rawTFS2.filter(d => d.Folio === folioBase || d.Folio === folioBase + "_Low"));
           })
         );
       updateTFS2Time();

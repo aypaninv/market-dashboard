@@ -111,6 +111,9 @@ const exitConditionsByFolio = {
   Sate: d => (
                 toNumber(d["PNL"]) < -8
               ) || (
+                toNumber(d["PNL"]) < 0 &&
+                toNumber(d["4H_XC"]) < -2
+              ) || (  
                 toNumber(d["IC"]) > 0.5 && 
                 toNumber(d.D_XC) < -1
               ) || (
@@ -120,6 +123,9 @@ const exitConditionsByFolio = {
   Core: d => (
                 toNumber(d["PNL"]) < -8
               ) || (
+                toNumber(d["PNL"]) < 0 &&
+                toNumber(d.D_XC) < -1
+              ) || (  
                 toNumber(d["IC"]) > 0.5 && 
                 toNumber(d.W_XC) < -1
               ) || (
@@ -127,11 +133,7 @@ const exitConditionsByFolio = {
                 toNumber(d.M_CHG) < -15
               ),
   Trade: d => (
-                toNumber(d["PnL"]) < -5
-              ) || (
                 toNumber(d["4H_XC"]) < 0
-              ) || (
-                toNumber(d.D_XC) < -2
               ),
 };
   
@@ -165,7 +167,7 @@ window.registerTabs(addTab => {
     .then(t => {
       rawData = parseCSV(t);
 
-      const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean))];
+      const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))];
 
       uniqueFolios
         .sort((a, b) => {
@@ -175,7 +177,8 @@ window.registerTabs(addTab => {
         .forEach(folio => {
           addTab(folio, () => {
             document.getElementById("portfolioFeature").style.display = "block";
-            renderFolioSections(folio, rawData.filter(d => d.Folio === folio));
+            const folioBase = folio.replace(/_Low$/, '');
+            renderFolioSections(folio, rawData.filter(d => d.Folio === folioBase || d.Folio === folioBase + "_Low"));
           });
         });
 
