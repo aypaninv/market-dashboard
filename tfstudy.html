@@ -13,7 +13,7 @@ const CSV_TFS = "tfstudy_report.csv";
 const COLS_TFS = [
   "Symbol","Folio","DD_High",
   "4H_MACD","D_MACD",
-  "4H_10V20","D_10V20","W_10V20","M_10V20",
+  "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
 ];
@@ -21,10 +21,10 @@ const COLS_TFS = [
 const HEADER_LABELS_TFS = {
   "4H_MACD": "4H_MC",
   "D_MACD": "D_MC",
-  "4H_10V20": "4H_XC",
-  "D_10V20": "D_XC",
-  "W_10V20": "W_XC",
-  "M_10V20": "M_XC",
+  "4H_XC": "4H_XC",
+  "D_XC": "D_XC",
+  "W_XC": "W_XC",
+  "M_XC": "M_XC",
   "D_EMA20": "D_E20",
   "W_EMA10": "W_E10",
 };
@@ -45,10 +45,10 @@ function splitHighLow(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const w10v20 = toNumber(r.W_10V20);
-    const h4_10v20 = toNumber(r["4H_10V20"]);
+    const wXC = toNumber(r.W_XC);
+    const h4XC = toNumber(r["4H_XC"]);
 
-    if (w10v20 > 0 && h4_10v20 > 0) highRows.push(r);
+    if (wXC > 0 && h4XC > 0) highRows.push(r);
     else lowRows.push(r);
   });
 
@@ -132,8 +132,8 @@ window.registerTabs(addTab => {
 function renderTFS(data) {
   const { highRows, lowRows } = splitHighLow([...data]);
   tfsSections = {
-    High: window.sortRowsByCustomDefault(highRows, "D_10V20"),
-    Low: window.sortRowsByCustomDefault(lowRows, "D_10V20"),
+    High: window.sortRowsByCustomDefault(highRows, "D_XC"),
+    Low: window.sortRowsByCustomDefault(lowRows, "D_XC"),
   };
   tfsColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfsSortState = {};

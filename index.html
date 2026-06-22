@@ -216,7 +216,7 @@ window.debouncedSearch = debounce(applyGlobalSearch, 150);
    SHARED TABLE UTILITIES
    ========================================================= */
 
-window.createCustomSorter = function (column = "D_10V20") {
+window.createCustomSorter = function (column = "D_XC") {
   return (a, b) => {
     const x = parseFloat(a?.[column]);
     const y = parseFloat(b?.[column]);
@@ -238,7 +238,7 @@ window.createCustomSorter = function (column = "D_10V20") {
   };
 };
 
-window.sortRowsByCustomDefault = function (rows, column = "D_10V20") {
+window.sortRowsByCustomDefault = function (rows, column = "D_XC") {
   return [...rows].sort(window.createCustomSorter(column));
 };
 
@@ -266,7 +266,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
 
   const chgColumns = options.chgColumns || ["W_CHG", "M_CHG"];
   const emaColumns = options.emaColumns || ["D_EMA20", "W_EMA10"];
-  const crossColumns = options.crossColumns || ["D_10V20", "W_10V20", "4H_10V20", "M_10V20"];
+  const crossColumns = options.crossColumns || ["D_XC", "W_XC", "4H_XC", "M_XC"];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");

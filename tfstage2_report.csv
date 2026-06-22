@@ -1,477 +1,477 @@
-Symbol,Folio,DD_High,4H_MACD,D_MACD,4H_10V20,D_10V20,W_10V20,M_10V20,D_EMA20,W_EMA10,W_CHG,M_CHG,CurPrice,Sector,MarketCap,Notes,D_CHG,W_EMA20
-CUPID,TFStage2,-0.05,2,19,24,60,10,36,18.7,31.4,10.6,37.1,176.92,Consumption - Personal,Small Cap,,4.6,117.96
-BAJAJCON,TFStage2,-1.16,12,6,19,60,26,10,8.4,16.7,5.7,13.1,625.25,Consumption - Personal,Small Cap,,0.8,471.31
-SANSERA,TFStage2,-1.55,2,-15,1,60,25,36,3.4,9.0,0.0,3.0,2945.8,Auto - OEM Suppliers,Small Cap,,-0.5,2475.76
+Symbol,Folio,DD_High,4H_MACD,D_MACD,4H_XC,D_XC,W_XC,M_XC,D_EMA20,W_EMA10,W_CHG,M_CHG,CurPrice,Sector,MarketCap,Notes,D_CHG,W_EMA20
+CUPID,TFStage2,-0.05,2,19,24,20,10,36,14.1,31.4,10.6,37.1,176.92,Consumption - Personal,Small Cap,,4.6,117.96
+BAJAJCON,TFStage2,-1.16,12,6,19,60,26,10,6.4,16.7,5.7,13.1,625.25,Consumption - Personal,Small Cap,,0.8,471.31
+SANSERA,TFStage2,-1.55,2,-15,1,22,25,36,2.2,9.0,0.0,3.0,2945.8,Auto - OEM Suppliers,Small Cap,,-0.5,2475.76
 NHIT,TFStage2,,,,,,,,,,,,,,,,,
-MTARTECH,TFStage2,-3.9,11,4,6,60,26,9,11.4,21.7,3.7,6.3,8374.5,Defense - Misc,Small Cap,,0.7,5726.27
-STYLAMIND,TFStage2,-0.63,-3,5,29,52,26,8,8.5,18.1,4.7,17.5,3327.8,Paper,Small Cap,,0.4,2587.22
-THANGAMAYL,TFStage2,-0.86,-16,-6,31,16,24,36,8.1,18.9,-0.4,29.7,5454.6,Consumption - Jewelry,Small Cap,,-3.2,4194.43
+MTARTECH,TFStage2,-3.9,11,4,8,4,26,9,9.3,21.7,3.7,6.3,8374.5,Defense - Misc,Small Cap,,0.7,5726.27
+STYLAMIND,TFStage2,-0.63,-3,5,30,53,26,8,5.7,18.1,4.7,17.5,3327.8,Paper,Small Cap,,0.4,2587.22
+THANGAMAYL,TFStage2,-0.86,-16,-6,31,18,24,36,4.2,18.9,-0.4,29.7,5454.6,Consumption - Jewelry,Small Cap,,-3.2,4194.43
 ANZEN,TFStage2,,,,,,,,,,,,,,,,,
-GAEL,TFStage2,-24.04,3,10,3,-15,26,4,1.3,2.7,-3.9,2.7,159.98,Agri - Misc,Small Cap,,-4.3,149.77
-SEAMECLTD,TFStage2,-20.03,-7,-13,-22,-3,26,6,-10.6,-9.5,-15.3,-15.3,1366.8,Transport - Shipping,Small Cap,,-16.8,1442.34
-BLISSGVS,TFStage2,-1.51,14,2,13,60,20,36,15.2,32.9,10.9,14.3,486.3,Healthcare - Pharma,Small Cap,,0.7,306.44
-MBAPL,TFStage2,-3.76,-7,-1,27,14,26,14,1.8,4.9,-2.0,6.3,563.0,Agrichem - Fertilizers,Small Cap,,-2.4,509.08
-PRECWIRE,TFStage2,-12.67,-1,4,5,3,20,36,-1.0,4.4,-3.3,-3.3,408.25,Metals - Copper,Small Cap,,-10.7,357.76
-ANANDRATHI,TFStage2,-1.03,14,6,11,2,17,36,4.9,5.9,1.2,3.7,1867.5,Financials - Misc,Small Cap,,1.2,1702.34
-NLCINDIA,TFStage2,-17.04,11,2,-31,-8,26,36,-1.3,0.5,-8.8,-7.4,321.7,Power - Misc,Small Cap,,-13.3,302.54
-HAPPYFORGE,TFStage2,-2.42,8,2,3,1,20,7,5.2,6.4,0.7,4.8,1453.9,Metals - Casting/Forging,Small Cap,,0.3,1310.6
-CHENNPETRO,TFStage2,-13.9,-6,-7,-3,16,17,10,-3.0,2.1,-7.1,-2.7,1097.8,Petro - Refineries,Small Cap,,-10.5,1028.84
-CUMMINSIND,TFStage2,-3.85,12,3,5,60,18,30,3.3,6.8,-0.3,-0.3,5865.0,Industrial - Pumps/Engines,Large Cap,,-2.7,5193.73
-STLTECH,TFStage2,-3.49,10,1,30,60,20,5,14.4,38.2,5.7,22.0,654.35,Telecom,Small Cap,,0.4,361.97
-VTL,TFStage2,-1.88,3,6,30,14,19,5,5.2,8.7,4.1,7.4,657.45,Textile - Spinning/Yarn,Small Cap,,-0.6,570.34
-ARVIND,TFStage2,-0.54,4,2,27,60,20,36,5.4,12.6,4.5,9.1,516.6,Textile - Apparels,Small Cap,,1.2,420.0
-ABB,TFStage2,-20.79,10,3,4,4,20,3,3.6,5.1,-1.1,-0.1,7248.0,Power - Equipment,Large Cap,,-4.5,6573.9
-STEELCAS,TFStage2,-8.31,-3,12,22,9,19,36,2.2,4.5,-0.8,1.4,293.4,Metals - Casting/Forging,Small Cap,,-5.3,264.46
-NITINSPIN,TFStage2,-0.91,3,2,30,60,21,3,7.0,14.1,1.7,16.2,568.7,Textile - Spinning/Yarn,Small Cap,,1.4,449.79
-TIMKEN,TFStage2,-23.42,10,4,6,4,20,3,3.0,3.4,-1.6,1.6,3689.4,Industrial - Bearings,Small Cap,,-1.6,3455.67
-LINCOLN,TFStage2,-37.25,-6,-2,-4,-14,19,2,-4.0,-2.7,-16.3,-4.8,614.65,Healthcare - Pharma,Small Cap,,-18.9,608.62
-AEROFLEX,TFStage2,-2.23,12,6,27,60,18,22,15.4,28.0,13.2,26.4,507.25,Metals - Iron & Steel,Small Cap,,-0.7,336.94
-SPORTKING,TFStage2,-2.34,4,-12,11,60,19,5,4.3,12.8,0.2,7.4,183.07,Textile - Spinning/Yarn,Small Cap,,-4.0,144.02
-GVPIL,TFStage2,0.0,-3,5,24,53,19,36,16.5,34.5,13.2,21.7,1052.55,Power - Equipment,Small Cap,,-0.3,645.37
-J&KBANK,TFStage2,-1.61,-4,13,26,60,26,36,7.4,14.7,3.9,16.5,163.56,Financials - Private Bank,Small Cap,,0.4,131.36
-CENTUM,TFStage2,-0.82,-4,-2,11,49,26,36,3.5,8.6,-1.2,1.6,3539.0,Electronic - Equipment,Small Cap,,-2.4,3008.51
-AUROPHARMA,TFStage2,-5.92,4,1,1,-5,15,36,3.4,4.1,-0.9,5.0,1497.8,Healthcare - Pharma,Mid Cap,,-3.2,1381.21
-APOLLOPIPE,TFStage2,-38.11,-5,6,-2,5,18,-35,0.2,2.8,-5.4,-2.9,494.25,Infra - Plastic Pipes,Small Cap,,-9.8,442.54
-ASTERDM,TFStage2,-1.18,2,-4,21,60,17,36,4.8,8.0,-0.7,11.1,809.4,Healthcare - Hospitals,Small Cap,,-0.7,709.16
-BALRAMCHIN,TFStage2,-23.16,-6,-1,29,60,19,2,-1.5,2.0,-1.5,-0.9,531.6,Agri - Sugar,Small Cap,,-4.9,502.58
-ADANIPOWER,TFStage2,-8.83,11,2,1,1,15,36,2.5,6.8,-4.8,-4.8,231.76,Power - Misc,Large Cap,,-6.9,196.94
-JINDALSAW,TFStage2,-32.04,11,4,8,18,26,-11,6.8,10.8,4.1,5.6,260.88,Metals - Pipe & Tube,Small Cap,,-1.2,218.49
-LUMAXTECH,TFStage2,-13.26,12,3,-22,-8,18,36,-0.6,-0.8,-9.7,-6.3,1646.4,Auto - Replacement,Small Cap,,-10.9,1640.44
-PIXTRANS,TFStage2,-41.41,2,1,10,59,16,1,2.9,4.7,1.1,5.5,1640.6,Industrial - Consumables,Small Cap,,-0.1,1523.03
-HONASA,TFStage2,-25.69,1,-13,-6,59,25,1,1.6,7.0,-2.3,0.0,406.5,Others,Small Cap,,-3.2,350.8
-GPIL,TFStage2,-64.82,-6,-3,-21,-20,26,2,-3.7,-4.1,-11.9,-9.2,269.1,Metals - Iron & Steel,Small Cap,,-12.0,275.44
-GRANULES,TFStage2,-2.16,4,2,1,60,13,36,3.1,6.6,-0.4,1.7,786.9,Healthcare - Pharma,Small Cap,,-0.9,692.72
-AXISCADES,TFStage2,-12.11,4,11,18,1,18,19,2.1,3.1,-10.6,-3.3,1943.2,IT - Services,Small Cap,,-10.6,1754.89
-SHRIPISTON,TFStage2,-3.12,-2,8,14,7,11,36,5.8,8.2,0.1,7.1,3739.7,Auto - OEM Suppliers,Small Cap,,-1.8,3341.67
-INOXINDIA,TFStage2,-6.91,-9,-1,19,59,19,14,7.9,16.2,0.2,21.3,1812.4,Engineering,Small Cap,,-5.4,1430.47
-ALIVUS,TFStage2,-19.83,18,6,6,1,21,36,2.0,2.7,-4.5,1.4,1070.3,Healthcare - Pharma,Small Cap,,-4.9,1012.93
-STAR,TFStage2,-33.68,-1,6,7,1,12,36,2.7,3.8,-4.0,-0.1,1110.9,Healthcare - Pharma,Small Cap,,-6.5,1026.78
-SKYGOLD,TFStage2,-7.36,-3,-10,-4,60,19,34,-0.0,6.8,-5.9,-2.2,509.4,Consumption - Jewelry,Small Cap,,-10.9,434.48
-VMARCIND,TFStage2,-4.84,3,3,14,58,11,36,14.4,29.5,5.6,15.3,1598.75,Industrial - Consumables,Small Cap,,-3.9,1042.0
-SONACOMS,TFStage2,-20.15,11,4,4,60,19,1,2.6,4.8,1.0,1.0,613.8,Auto - OEM Suppliers,Small Cap,,-0.8,561.86
-ASHIANA,TFStage2,-18.16,-3,6,9,5,19,3,4.2,7.8,2.4,5.3,383.85,Real Estate,Small Cap,,-1.3,340.28
-DYNAMATECH,TFStage2,-15.16,12,5,5,-25,17,36,3.1,1.6,-12.8,-5.6,10923.0,Defense - Misc,Small Cap,,-12.8,10455.32
-RPTECH,TFStage2,-2.01,10,4,8,59,12,5,26.2,34.3,30.7,34.4,730.0,Others,Small Cap,,6.4,481.33
-MMFL,TFStage2,-35.63,-1,6,10,4,25,1,2.2,3.0,-5.8,-5.0,469.8,Metals - Casting/Forging,Small Cap,,-6.6,445.21
-GULPOLY,TFStage2,-23.83,-15,-3,29,11,19,-36,4.3,10.3,1.5,15.6,209.47,Chemicals - Bulk,Small Cap,,-2.5,176.63
-UNIPARTS,TFStage2,-6.64,-5,-2,25,60,11,3,7.0,14.1,2.3,12.3,674.7,Engineering,Small Cap,,0.7,549.06
-MAHSEAMLES,TFStage2,-42.51,3,6,9,-19,14,-10,1.4,1.3,-3.0,-1.7,630.65,Metals - Pipe & Tube,Small Cap,,-5.1,605.37
-UFBL,TFStage2,-21.11,-5,9,18,50,26,-32,17.7,34.6,5.2,26.6,624.55,Leisure - Restaurants,Small Cap,,0.9,378.37
-RBLBANK,TFStage2,-0.28,1,9,25,60,11,12,6.0,9.4,3.6,9.8,378.85,Financials - Private Bank,Small Cap,,1.7,332.36
-WELCORP,TFStage2,-0.76,5,1,12,60,19,36,3.8,11.2,1.5,3.4,1423.4,Metals - Pipe & Tube,Small Cap,,0.7,1137.79
-JAYNECOIND,TFStage2,-23.35,0,5,-31,-15,10,12,-5.0,-5.6,-21.8,-19.1,89.68,Metals - Iron & Steel,Small Cap,,-22.2,91.07
-INDIGRID,TFStage2,-3.21,3,3,3,11,10,23,0.3,0.7,-0.9,0.1,172.15,Financials - Misc,Small Cap,,-1.4,169.88
-GUJALKALI,TFStage2,-29.04,-3,5,-31,-25,13,-17,-2.7,-3.0,-20.3,-20.3,638.65,Chemicals - Bulk,Small Cap,,-20.3,625.16
-KRISHNADEF,TFStage2,-4.0,4,11,26,59,26,36,10.4,15.6,9.0,19.8,1320.0,Defense - Misc,Small Cap,,1.1,1064.29
-HIRECT,TFStage2,-4.93,-3,-1,9,50,15,35,4.8,13.1,1.9,3.5,1152.4,Electronic - Equipment,Small Cap,,-3.3,919.01
-RAMRAT,TFStage2,-21.7,14,5,4,-13,18,27,1.7,2.9,-8.5,-8.4,407.15,Power - Wiring,Small Cap,,-13.5,373.93
-LLOYDSME,TFStage2,-6.48,12,5,1,4,12,27,0.8,4.2,-2.0,-2.0,1766.2,Metals - Iron & Steel,Mid Cap,,-5.0,1574.85
-IMFA,TFStage2,-14.93,-1,4,-2,-9,10,36,-0.8,-0.4,-8.7,-4.9,1429.1,Metals - Misc,Small Cap,,-13.6,1406.87
-NMDC,TFStage2,-7.37,4,-10,-17,-5,26,36,-1.4,-0.1,-4.8,-2.2,88.42,Metals - Misc,Mid Cap,,-7.9,86.07
-RPSGVENT,TFStage2,-35.94,11,4,-31,-10,12,2,-2.7,-2.3,-19.6,-5.2,871.2,Tech - BPO,Small Cap,,-19.6,855.39
-ADANIENSOL,TFStage2,-4.5,6,-8,-13,60,11,8,1.4,8.0,-4.5,-0.4,1507.4,Power - Misc,Large Cap,,-4.5,1272.65
-BANDHANBNK,TFStage2,-22.01,-2,5,8,54,20,1,1.3,6.0,-0.1,-0.1,208.09,Financials - Private Bank,Small Cap,,-4.0,184.62
-GOKULAGRO,TFStage2,-11.26,-1,-5,-10,-5,11,36,-3.0,-0.2,-7.6,-4.7,221.77,Agri - Edible Oil,Small Cap,,-8.7,210.43
-SIGNPOST,TFStage2,-47.2,-2,-6,-29,-11,18,-28,-7.6,-6.7,-17.0,-17.0,246.05,Others,Small Cap,,-19.7,254.98
-CONFIPET,TFStage2,-41.3,2,-8,-9,60,13,-20,2.2,12.2,-9.2,3.9,70.44,Utility - Misc,Small Cap,,-9.2,54.56
-APOLLOHOSP,TFStage2,-0.37,1,-4,20,60,26,32,1.8,4.2,-0.1,3.8,8489.5,Healthcare - Hospitals,Large Cap,,-0.4,7874.82
-NEOGEN,TFStage2,-20.17,-6,-3,-1,51,26,1,1.4,9.4,-5.0,4.0,1932.0,Chemicals - Specialty,Small Cap,,-7.2,1597.85
-XPROINDIA,TFStage2,-19.81,-3,6,24,60,12,1,10.3,16.5,11.4,18.2,1344.8,Packaging,Small Cap,,-3.5,1090.23
-LUXIND,TFStage2,-50.01,-4,-3,-22,-12,10,-15,-5.4,-4.2,-24.7,-10.9,1246.2,Textile - Innerwear,Small Cap,,-28.7,1239.45
-VISHNU,TFStage2,-4.75,-1,4,6,5,10,25,0.7,3.4,-0.4,1.2,601.0,Chemicals - Misc,Small Cap,,-4.1,562.55
-MANINDS,TFStage2,-4.14,-2,11,21,5,11,34,7.4,11.2,2.9,11.6,587.6,Metals - Pipe & Tube,Small Cap,,-0.8,489.96
-STARHEALTH,TFStage2,-14.04,10,3,6,60,12,1,9.0,10.9,9.9,9.9,580.25,Financials - Non-Life,Small Cap,,2.6,503.32
-RISHABH,TFStage2,-8.93,5,8,16,59,20,3,7.3,12.9,4.0,9.3,578.65,Electronic - Equipment,Small Cap,,0.8,475.11
-SCI,TFStage2,-18.75,-1,6,9,1,26,36,2.4,4.7,-7.9,2.5,312.15,Transport - Shipping,Small Cap,,-9.4,279.88
-YATHARTH,TFStage2,-5.64,4,2,18,60,11,32,1.8,4.5,-2.6,2.4,839.75,Healthcare - Hospitals,Small Cap,,-2.6,763.48
-PAISALO,TFStage2,-40.97,-15,-6,30,56,11,2,5.1,14.0,-0.8,14.0,58.81,Financials - NBFC,Small Cap,,-2.3,46.31
-ELGIEQUIP,TFStage2,-23.31,2,-9,25,23,19,1,3.4,7.4,0.4,6.9,612.75,Industrial - Pumps/Engines,Small Cap,,-1.5,541.98
-BHEL,TFStage2,-2.48,11,3,3,1,10,36,5.2,10.5,-0.6,-0.6,414.35,Power - Equipment,Mid Cap,,-1.9,342.89
-DEEPINDS,TFStage2,-22.0,-2,-8,-11,21,11,36,-1.5,2.3,-8.5,-9.3,487.05,Oil and Gas,Small Cap,,-8.5,455.98
-AVALON,TFStage2,-3.01,-5,5,27,60,20,21,8.9,20.5,3.4,14.7,1744.6,Electronic - Equipment,Small Cap,,-0.9,1270.83
-WSTCSTPAPR,TFStage2,-37.01,-1,4,6,20,14,-18,1.5,5.1,-2.0,2.9,513.35,Paper,Small Cap,,-2.9,467.67
-SPAL,TFStage2,-9.24,4,5,31,13,14,3,22.4,24.6,26.5,26.8,1028.4,Textile - Apparels,Small Cap,,11.7,784.27
-CARBORUNIV,TFStage2,-32.56,11,6,10,60,10,-17,15.4,19.2,12.6,20.7,1241.7,Engineering,Small Cap,,4.2,971.03
-PTC,TFStage2,-26.69,-5,11,11,-20,26,3,-1.8,-0.9,-16.2,-10.1,186.65,Power - Misc,Small Cap,,-17.9,182.44
-SANGAMIND,TFStage2,-14.12,3,1,30,20,10,36,2.9,5.8,-0.2,4.5,541.0,Textile - Spinning/Yarn,Small Cap,,-0.2,490.47
-SURYODAY,TFStage2,-19.57,1,2,30,53,9,1,3.5,8.0,-2.7,7.0,175.09,Financials - Private Bank,Small Cap,,-2.7,152.95
-ADANIPORTS,TFStage2,-0.74,7,3,10,60,9,36,1.7,5.7,0.6,1.7,1835.3,Infra - Construction,Large Cap,,-0.4,1648.43
-AUBANK,TFStage2,-4.31,-3,6,11,5,9,13,3.3,3.5,-3.1,1.7,1033.05,Financials - Private Bank,Mid Cap,,-3.1,988.54
-MSPL,TFStage2,-31.31,2,5,9,55,8,36,6.8,10.5,3.7,3.7,44.32,Metals - Iron & Steel,Small Cap,,2.9,37.74
-JPPOWER,TFStage2,-34.44,10,2,-29,-9,9,35,-2.6,-2.6,-17.0,-17.0,18.16,Power - Misc,Small Cap,,-20.6,18.02
-BAJAJ-AUTO,TFStage2,-21.2,6,2,-31,-8,11,36,-1.1,-0.4,-6.0,-3.8,10066.0,Auto - 2W,Large Cap,,-6.9,9883.82
-NOVARTIND,TFStage2,-13.38,19,2,-28,44,9,2,2.3,12.7,-12.4,-12.4,1364.3,Healthcare - Pharma,Small Cap,,-12.4,1038.38
-ROLEXRINGS,TFStage2,-48.74,10,9,9,-17,10,-19,1.7,2.1,-7.8,-1.8,143.23,Auto - OEM Suppliers,Small Cap,,-11.5,136.75
-MARICO,TFStage2,-3.74,4,2,2,-7,26,26,0.3,1.2,-2.9,-0.6,817.05,Agri - Edible Oil,Mid Cap,,-3.0,791.28
-AZAD,TFStage2,-12.01,-1,-6,-1,12,10,30,-2.2,1.4,-10.7,-4.5,2067.7,Engineering,Small Cap,,-10.7,1915.68
-SOMANYCERA,TFStage2,-40.82,-4,5,11,59,9,-19,1.7,6.5,-2.4,4.8,516.4,Infra - Ceramics,Small Cap,,-2.4,458.67
-JBMA,TFStage2,-40.1,11,5,29,60,10,-17,8.0,11.3,6.4,8.5,727.3,Auto - Misc,Small Cap,,2.9,625.1
-DSSL,TFStage2,-24.7,18,3,1,-10,10,2,3.8,8.8,-17.0,-17.0,1449.3,IT - Services,Small Cap,,-23.5,1212.49
-SATIN,TFStage2,-16.97,8,-8,10,56,26,1,3.2,11.8,-2.5,8.1,235.43,Financials - MFI,Small Cap,,-2.8,190.38
-CGCL,TFStage2,-74.78,-1,6,31,60,9,-30,7.5,11.7,6.0,8.8,220.96,Financials - NBFC,Small Cap,,0.1,189.48
-IPCALAB,TFStage2,-9.69,2,-6,-9,-3,24,36,0.5,1.1,-3.4,-1.0,1585.8,Healthcare - Pharma,Mid Cap,,-4.3,1540.51
-IOLCP,TFStage2,-6.26,3,-16,-8,60,10,3,3.0,13.2,-3.0,1.0,130.21,Healthcare - Pharma,Small Cap,,-4.4,102.23
-STEELXIND,TFStage2,-29.08,8,3,3,59,10,1,10.3,17.1,2.0,2.0,13.05,Metals - Iron & Steel,Small Cap,,2.0,10.13
-TIIL,TFStage2,-33.47,2,9,13,4,11,-7,3.6,5.4,0.4,5.3,2616.7,Metals - Casting/Forging,Small Cap,,-0.7,2407.2
-ADANIGREEN,TFStage2,-30.9,4,-8,3,60,10,1,3.0,10.4,-1.5,1.8,1502.4,Power - Green,Large Cap,,-2.1,1230.86
-NAM-INDIA,TFStage2,-0.37,11,5,9,60,10,36,6.9,10.5,6.6,7.9,1186.9,Financials - AMC,Mid Cap,,1.7,1014.0
-TIPSMUSIC,TFStage2,-31.26,6,1,-15,-5,10,3,0.5,2.1,-5.5,-1.4,653.0,Media - Entertaintment,Small Cap,,-5.5,609.71
-RATNAMANI,TFStage2,-30.35,11,6,9,2,17,-15,6.4,6.6,-3.4,4.8,2770.9,Metals - Pipe & Tube,Small Cap,,-9.0,2510.67
-KIOCL,TFStage2,-36.1,-2,5,10,12,10,11,1.3,3.5,-1.5,-5.9,405.45,Metals - Iron & Steel,Small Cap,,-3.4,378.69
-FINEORG,TFStage2,-11.29,10,13,23,12,12,1,9.4,11.1,7.7,12.2,5285.8,Chemicals - Specialty,Small Cap,,2.6,4613.32
-SUVEN,TFStage2,-10.6,1,-3,-6,60,10,36,3.1,13.3,-4.0,-4.0,268.2,Healthcare - Pharma,Small Cap,,-4.0,210.95
-MUKANDLTD,TFStage2,-36.18,10,2,-30,-9,9,-19,-0.8,-0.3,-3.8,-4.4,135.81,Metals - Iron & Steel,Small Cap,,-8.8,134.15
-DIACABS,TFStage2,-0.93,-6,1,22,60,9,29,5.4,12.8,2.8,7.7,209.24,Power - Wiring,Small Cap,,-2.8,168.48
-GOCLCORP,TFStage2,-31.73,11,2,10,21,10,-18,11.8,20.8,6.5,19.1,437.5,Defense - Misc,Small Cap,,3.0,330.47
-FACT,TFStage2,-25.45,-4,-1,15,7,9,36,-2.3,1.1,-2.2,-4.3,884.85,Agrichem - Fertilizers,Mid Cap,,-11.3,860.04
-SCHAEFFLER,TFStage2,-12.54,11,5,8,3,17,27,5.4,5.2,1.0,-0.6,4329.9,Industrial - Bearings,Mid Cap,,-0.6,4053.06
-ATGL,TFStage2,-42.25,4,-14,-31,60,10,-18,1.7,6.6,-5.9,-5.9,727.3,Utility - Gas,Mid Cap,,-10.0,637.71
-E2E,TFStage2,-22.39,9,1,2,55,23,36,9.3,18.0,-6.0,8.6,425.9,IT - Software/Consulting,Small Cap,,-6.0,315.92
-IFCI,TFStage2,-6.2,-4,-1,28,56,26,36,10.5,20.1,1.4,25.1,85.73,Financials - NBFC,Small Cap,,-4.8,65.04
-PARAS,TFStage2,-11.56,6,14,30,60,11,1,34.4,47.0,28.4,71.9,1408.65,Defense - Misc,Small Cap,,7.5,845.31
-OBEROIRLTY,TFStage2,-28.17,-2,5,8,3,9,1,1.6,2.3,-1.6,-5.3,1683.5,Real Estate,Mid Cap,,-2.9,1628.01
-TIINDIA,TFStage2,-31.7,11,5,9,60,11,-17,4.8,8.4,4.6,4.6,3285.6,Metals - Pipe & Tube,Mid Cap,,0.5,2883.55
-TFCILTD,TFStage2,-12.35,-5,-2,10,13,20,36,-0.7,0.8,-11.2,1.1,74.16,Financials - Misc,Small Cap,,-11.4,71.62
-SUNFLAG,TFStage2,-16.23,-2,4,-19,-7,9,36,-0.9,5.1,-13.8,-4.1,358.55,Metals - Iron & Steel,Small Cap,,-13.8,311.99
-LLOYDSENGG,TFStage2,-7.02,11,4,8,60,8,1,15.8,26.2,18.0,18.0,86.84,Metals - Iron & Steel,Small Cap,,-1.0,62.1
-ADFFOODS,TFStage2,-13.31,10,4,26,60,9,1,7.7,14.6,8.3,15.9,306.85,Consumption - Misc,Small Cap,,0.4,245.84
-GOLDIAM,TFStage2,-16.59,-3,6,30,56,9,32,6.9,13.9,-0.9,16.1,474.6,Consumption - Jewelry,Small Cap,,-5.1,390.99
-SJS,TFStage2,-0.93,-3,9,16,59,8,36,5.8,11.6,4.7,5.2,2215.3,Auto - OEM Suppliers,Small Cap,,-0.2,1880.71
-JYOTISTRUC,TFStage2,-70.39,8,2,-15,-6,18,-12,-1.9,-1.3,-11.8,-18.7,12.24,Power - Equipment,Small Cap,,-12.8,11.92
-BCLIND,TFStage2,-56.95,-13,-2,20,10,10,-18,3.1,7.7,-1.7,-8.3,37.15,Agri - Edible Oil,Small Cap,,-3.1,33.01
-PRUDENT,TFStage2,-18.9,-3,8,14,7,9,36,6.8,9.3,4.1,7.2,3029.2,Financials - Misc,Small Cap,,-0.8,2678.87
-PGIL,TFStage2,-10.02,4,2,10,26,6,35,7.9,9.1,7.3,6.2,1793.5,Textile - Apparels,Small Cap,,2.9,1612.29
-APCOTEXIND,TFStage2,-7.03,2,1,29,54,9,1,6.3,12.6,1.2,14.0,546.65,Industrial - Consumables,Small Cap,,1.2,444.97
-BHAGCHEM,TFStage2,-37.62,2,1,17,8,9,-6,9.0,11.2,3.4,5.4,279.26,Agrichem - Protection,Small Cap,,2.4,238.68
-GOODLUCK,TFStage2,-3.5,10,5,6,2,10,36,6.3,8.7,-0.9,9.9,1423.4,Metals - Pipe & Tube,Small Cap,,-1.0,1239.27
-BBOX,TFStage2,-3.58,12,-21,3,52,9,36,3.2,16.1,-4.7,-1.4,1023.0,IT - Services,Small Cap,,-5.1,754.63
-INDIAGLYCO,TFStage2,-21.62,-6,6,-16,-20,7,36,-2.2,-2.4,-16.7,-12.2,957.75,Chemicals - Bulk,Small Cap,,-16.7,976.13
-GRSE,TFStage2,-20.92,11,6,9,3,10,36,3.7,4.0,-8.3,-4.5,2798.3,Defense - Ship Building,Small Cap,,-9.6,2612.15
-VENUSPIPES,TFStage2,-36.9,11,4,8,59,9,-16,8.6,12.3,6.7,10.6,1546.1,Metals - Iron & Steel,Small Cap,,4.3,1291.9
-MIDHANI,TFStage2,-20.18,-4,-2,31,54,10,2,2.3,7.0,0.3,3.9,437.0,Defense - Misc,Small Cap,,-3.0,382.31
-ADVENZYMES,TFStage2,-34.55,11,3,2,55,8,1,1.0,6.1,-0.4,2.7,373.7,Healthcare - Biotech,Small Cap,,-4.7,333.5
-SKIPPER,TFStage2,-18.3,-2,-10,7,59,9,36,2.1,9.6,-2.4,-1.1,543.3,Power - Equipment,Small Cap,,-5.5,459.07
-GPTINFRA,TFStage2,-40.5,12,5,7,2,10,36,4.2,5.1,3.2,-2.1,121.39,Infra - Construction,Small Cap,,-0.8,113.55
-MUTHOOTMF,TFStage2,-26.16,9,14,22,6,8,-29,8.5,11.6,3.5,6.4,207.48,Financials - NBFC,Small Cap,,-3.3,181.28
-PHOENIXLTD,TFStage2,-9.06,-3,10,11,5,5,36,4.7,6.1,2.8,1.5,1881.1,Real Estate,Mid Cap,,0.6,1754.63
-RRKABEL,TFStage2,-0.34,10,2,25,60,8,3,8.8,17.8,4.4,12.9,2321.1,Power - Wiring,Small Cap,,1.1,1782.73
-SUZLON,TFStage2,-31.19,11,5,8,60,8,1,5.8,9.2,3.9,-0.2,59.2,Power - Green,Mid Cap,,-0.1,51.96
-OFSS,TFStage2,-27.09,10,1,-21,-5,9,2,0.6,5.1,-3.3,-3.3,9638.5,IT - Product/Platform,Mid Cap,,-6.8,8620.29
-MUFIN,TFStage2,-53.11,10,5,7,60,6,3,4.6,7.5,4.4,4.4,128.66,Financials - Misc,Small Cap,,-0.0,116.55
-NITCO,TFStage2,-30.63,4,9,4,3,8,2,15.5,16.8,5.8,-4.0,113.74,Infra - Ceramics,Small Cap,,5.8,92.94
-FEDFINA,TFStage2,-10.48,9,4,5,4,8,10,1.9,4.5,-1.2,-1.2,159.78,Financials - NBFC,Small Cap,,-3.0,148.75
-KERNEX,TFStage2,-5.15,-3,-2,31,56,8,35,8.0,22.9,0.3,18.3,1999.5,Railways,Small Cap,,-4.9,1441.88
-WALCHANNAG,TFStage2,-28.87,12,6,12,55,9,2,19.5,27.3,17.6,23.2,312.05,Engineering,Small Cap,,3.6,220.99
-ONEPOINT,TFStage2,-24.75,-2,6,6,-10,8,2,-0.4,1.6,-6.8,-6.8,58.32,Tech - BPO,Small Cap,,-9.6,55.29
-BAJEL,TFStage2,-39.65,8,-10,-29,22,9,-8,2.3,6.2,-0.7,-1.9,199.17,Engineering,Small Cap,,-2.1,178.97
-PAGEIND,TFStage2,-20.98,11,5,23,59,10,-7,3.5,5.7,1.3,-9.8,39975.0,Textile - Innerwear,Mid Cap,,-0.5,36649.58
-PNBHOUSING,TFStage2,-16.57,-3,6,7,-13,9,36,-0.5,0.9,-8.1,-4.1,1003.0,Financials - Housing,Small Cap,,-8.2,959.76
-WINDMACHIN,TFStage2,-26.26,-8,-1,18,9,9,36,5.1,10.1,0.2,0.3,325.05,Engineering,Small Cap,,-1.0,282.1
-MOTHERSON,TFStage2,-4.1,-5,-3,10,60,9,36,2.5,6.9,-0.1,-0.1,145.54,Auto - Replacement,Large Cap,,-1.7,130.21
-TRITURBINE,TFStage2,-24.03,12,2,-30,60,8,2,1.1,5.8,-9.3,-9.3,672.3,Power - Equipment,Small Cap,,-9.3,589.72
-BLSE,TFStage2,-46.87,-5,-11,26,59,7,-28,1.4,8.5,-2.0,1.3,225.11,IT - Services,Small Cap,,-3.9,195.16
-WEBELSOLAR,TFStage2,-43.86,0,4,-20,-8,9,2,-1.2,2.6,-8.9,-21.3,104.71,Power - Green,Small Cap,,-14.3,94.6
-JGCHEM,TFStage2,-21.01,1,1,1,58,10,27,4.1,7.6,1.0,-5.1,440.75,Chemicals - Specialty,Small Cap,,0.6,390.04
-OLECTRA,TFStage2,-31.58,6,3,30,14,9,-8,16.0,19.2,13.4,-2.1,1520.3,Auto - PV/Trucks,Small Cap,,5.1,1211.21
-MARINE,TFStage2,-22.39,-1,4,6,56,9,36,4.4,9.4,-3.9,-3.9,258.45,Electronic - Equipment,Small Cap,,-3.9,221.52
-NESTLEIND,TFStage2,-5.56,6,3,1,-14,9,9,0.7,2.1,-4.6,-3.0,1414.8,Consumption - FMCG,Large Cap,,-4.8,1350.95
-ASIANENE,TFStage2,-17.31,2,-8,-8,26,10,3,3.1,7.2,-3.9,-0.5,367.25,Oil and Gas,Small Cap,,-4.3,321.34
-VIJAYA,TFStage2,-1.86,8,1,4,55,9,35,5.7,9.8,-0.6,4.3,1364.2,Healthcare - Diagnostics,Small Cap,,-0.6,1154.83
-AEROENTER,TFStage2,-10.32,6,13,24,60,9,1,25.4,30.4,23.8,41.2,135.87,Metals - Iron & Steel,Small Cap,,9.2,95.59
-JSFB,TFStage2,-38.05,9,-12,-29,59,9,-18,-0.1,3.0,-4.8,-4.8,471.4,Financials - Private Bank,Small Cap,,-5.5,436.38
-DLINKINDIA,TFStage2,-27.96,4,14,27,60,10,1,6.3,10.8,4.7,11.0,525.05,IT - Software/Consulting,Small Cap,,-0.2,451.94
-EXICOM,TFStage2,-68.27,10,4,6,53,7,-16,12.7,23.5,5.5,5.5,168.15,IT - Equipments,Small Cap,,0.1,124.26
-GMRAIRPORT,TFStage2,-1.39,-2,6,21,20,4,36,5.6,8.2,5.0,0.4,108.83,Infra - Construction,Mid Cap,,-1.6,98.87
-TITAGARH,TFStage2,-51.37,12,4,11,60,6,-15,7.7,13.3,7.4,3.4,922.45,Railways,Small Cap,,-1.1,784.4
-TVSSCS,TFStage2,-45.62,-4,6,24,54,10,-29,10.3,13.2,6.1,8.7,140.31,Transport - Logistics,Small Cap,,3.1,117.93
-SUMICHEM,TFStage2,-31.92,-4,-2,-30,-7,7,-6,-2.7,-0.6,-9.7,-20.0,452.7,Agrichem - Protection,Small Cap,,-9.7,443.64
-YASHO,TFStage2,-0.48,-8,-1,31,53,11,1,15.8,32.2,0.3,38.9,2878.6,Chemicals - Specialty,Small Cap,,-0.5,1881.24
-REDTAPE,TFStage2,-86.31,1,2,-31,56,8,-17,0.0,2.0,-3.9,-6.6,134.13,Consumption - Footwear,Small Cap,,-9.7,128.09
-GENUSPOWER,TFStage2,-33.2,-3,6,10,6,8,-5,2.5,5.7,-0.7,-4.8,324.7,Electronic - Equipment,Small Cap,,-3.1,296.3
-AJANTPHARM,TFStage2,-12.05,-10,-1,19,7,26,36,0.6,2.1,-3.5,2.4,3065.2,Healthcare - Pharma,Small Cap,,-6.0,2935.62
-WOCKPHARMA,TFStage2,-4.11,14,1,4,60,7,32,6.4,15.7,-1.0,-1.0,2011.1,Healthcare - Pharma,Small Cap,,-6.6,1595.04
-CYIENTDLM,TFStage2,-46.41,-3,5,12,56,6,-17,5.9,12.9,4.5,4.8,473.65,Electronic - Equipment,Small Cap,,1.0,396.73
-GRINDWELL,TFStage2,-27.81,10,5,22,59,7,-19,9.2,15.6,9.1,16.1,2136.8,Engineering,Small Cap,,1.5,1737.87
-MOTILALOFS,TFStage2,-26.57,-2,6,10,60,7,2,7.1,11.2,7.3,-2.5,953.45,Financials - Broking,Mid Cap,,0.6,828.05
-METROPOLIS,TFStage2,-7.88,11,3,5,50,7,12,3.6,6.2,-0.5,-0.5,552.75,Healthcare - Diagnostics,Small Cap,,-1.3,501.53
-KIMS,TFStage2,-1.68,6,3,21,53,18,36,4.1,7.5,1.9,6.0,804.25,Healthcare - Hospitals,Small Cap,,0.4,713.75
-MANAPPURAM,TFStage2,-4.6,-1,5,8,3,7,36,2.1,4.3,-2.1,-2.1,318.65,Financials - NBFC,Small Cap,,-3.5,298.06
-GNFC,TFStage2,-30.34,12,6,10,5,6,-19,9.2,13.0,10.4,8.6,567.65,Agrichem - Fertilizers,Small Cap,,0.9,485.45
-WELSPUNLIV,TFStage2,-23.82,10,4,9,60,6,1,11.8,15.9,13.3,9.0,162.23,Textile - Misc,Small Cap,,-0.5,134.97
-SHYAMMETL,TFStage2,-3.07,4,-15,-8,56,10,36,0.9,4.3,-3.1,-0.3,970.3,Metals - Iron & Steel,Small Cap,,-3.2,892.15
-BORORENEW,TFStage2,-17.02,12,13,26,13,5,1,9.9,13.9,6.5,-7.0,598.25,Power - Green,Small Cap,,0.5,510.77
-HUDCO,TFStage2,-41.01,-3,13,11,4,7,3,0.3,1.8,-10.1,-12.8,208.65,Financials - Housing,Mid Cap,,-10.1,202.33
-SIS,TFStage2,-20.67,-7,-6,31,59,8,-23,3.8,10.5,2.0,6.7,429.75,Others,Small Cap,,0.3,363.71
-DEEPAKFERT,TFStage2,-12.11,-10,-2,19,60,8,27,6.2,12.8,0.6,4.1,1563.3,Agrichem - Fertilizers,Small Cap,,0.6,1284.64
-POLYPLEX,TFStage2,-35.68,13,5,6,3,11,-10,3.8,4.4,-1.1,-8.4,951.1,Packaging,Small Cap,,-3.3,887.44
-MMTC,TFStage2,-43.44,-2,6,12,53,10,1,8.1,11.7,9.1,8.5,74.55,Others,Small Cap,,-1.9,64.32
-VMART,TFStage2,-29.4,16,8,17,54,4,-6,12.4,18.0,10.8,-3.8,797.8,Consumption - Retail,Small Cap,,1.1,651.76
-EQUITASBNK,TFStage2,-33.69,-4,-1,25,53,8,-24,4.3,9.5,2.3,10.0,77.25,Financials - Private Bank,Small Cap,,-1.9,67.44
-CERA,TFStage2,-40.24,1,9,17,9,8,-20,8.9,12.9,4.9,2.2,6448.0,Infra - Home Furnish,Small Cap,,3.0,5471.04
-NAZARA,TFStage2,-18.14,-3,8,15,7,10,25,4.0,6.9,-0.9,2.4,297.35,IT - Product/Platform,Small Cap,,-1.3,269.13
-VSTIND,TFStage2,-46.53,-6,11,21,54,8,-17,0.9,2.1,-1.8,-3.3,259.95,Consumption - Misc,Small Cap,,-1.8,249.35
-RAINBOW,TFStage2,-13.97,16,6,11,60,7,1,6.5,9.7,6.6,-2.1,1470.8,Healthcare - Hospitals,Small Cap,,1.4,1298.38
-HNDFDS,TFStage2,-20.54,-1,5,30,35,7,-11,1.6,4.5,0.1,1.4,545.4,Consumption - Misc,Small Cap,,-2.2,513.2
-RATEGAIN,TFStage2,-5.86,-2,5,15,56,5,2,10.5,21.8,10.8,16.2,867.7,IT - Product/Platform,Small Cap,,-2.4,660.58
-ICIL,TFStage2,-12.44,3,2,31,60,7,1,16.0,23.6,14.6,21.7,394.6,Textile - Spinning/Yarn,Small Cap,,-2.8,297.5
-VIYASH,TFStage2,-8.47,2,-14,-11,59,7,33,2.7,7.0,-3.1,-3.1,253.85,Healthcare - Pharma,Small Cap,,-3.1,225.51
-ASTEC,TFStage2,-46.46,8,2,5,60,8,-33,3.7,8.3,3.4,-8.6,797.7,Agrichem - Protection,Small Cap,,0.4,706.38
-HINDOILEXP,TFStage2,-44.58,3,-7,-10,-3,8,-17,-1.8,0.8,-6.9,-4.5,162.68,Oil and Gas,Small Cap,,-11.1,156.57
-GREENPLY,TFStage2,-29.2,-16,-3,27,60,8,-6,4.2,10.0,-0.0,-5.5,291.67,Infra - Laminates,Small Cap,,-1.7,251.28
-HCC,TFStage2,-53.01,11,5,9,60,8,-15,12.4,20.0,12.5,-5.3,27.02,Infra - Construction,Small Cap,,-1.2,20.9
-STOVEKRAFT,TFStage2,-28.82,6,2,31,52,6,-6,8.6,14.8,5.8,-11.9,694.25,Consumption - Appliances,Small Cap,,0.9,575.5
-OAL,TFStage2,-47.72,-2,9,17,56,8,-16,4.6,9.0,4.7,-7.1,343.3,Chemicals - Specialty,Small Cap,,-1.0,302.62
-ELECON,TFStage2,-27.07,-4,-1,19,54,8,-6,1.7,6.2,-3.3,-5.1,539.05,Electronic - Equipment,Small Cap,,-4.2,483.43
-MARKSANS,TFStage2,-27.61,5,2,16,60,9,1,6.9,16.3,2.9,5.5,259.67,Healthcare - Pharma,Small Cap,,-0.7,205.67
-GTLINFRA,TFStage2,-64.67,0,0,8,59,9,-11,4.1,10.1,-5.0,2.0,1.53,Telecom,Small Cap,,-5.0,1.3
-HBLENGINE,TFStage2,-27.32,11,5,5,2,5,36,3.3,3.7,-3.8,-18.8,815.5,Railways,Small Cap,,-4.6,778.66
-MOREPENLAB,TFStage2,-50.94,-5,-1,18,60,9,-9,3.9,10.8,-1.2,3.4,49.5,Healthcare - Pharma,Small Cap,,-5.6,42.73
-SOTL,TFStage2,-7.66,-4,-2,26,51,7,1,13.3,26.4,6.0,38.8,604.8,Petro - Lubricants,Small Cap,,-1.0,429.3
-SASKEN,TFStage2,-6.98,8,3,6,60,9,2,17.9,35.0,14.5,14.5,2586.1,IT - Services,Small Cap,,-2.3,1654.52
-POWERMECH,TFStage2,-23.76,-4,7,31,54,8,-6,7.0,11.1,1.8,-5.5,2839.9,Infra - Construction,Small Cap,,-0.4,2421.67
-KSL,TFStage2,-35.06,11,5,2,-9,8,2,1.6,3.6,-3.8,-4.2,829.3,Metals - Iron & Steel,Small Cap,,-7.4,773.77
-SHRIRAMPPS,TFStage2,-37.8,11,5,5,3,7,-16,4.9,6.8,-5.2,-2.4,91.81,Real Estate,Small Cap,,-5.2,83.43
-WELENT,TFStage2,-13.31,4,2,23,55,7,36,5.1,8.2,2.8,1.3,567.85,Infra - Construction,Small Cap,,-0.4,508.73
-VINDHYATEL,TFStage2,-26.5,2,3,9,56,7,-18,15.1,29.3,7.4,7.4,2374.1,Telecom,Small Cap,,7.4,1611.27
-CEMPRO,TFStage2,0.0,4,-6,24,60,7,36,13.2,28.0,11.5,16.9,1252.0,Infra - Construction,Small Cap,,1.2,860.94
-PRAKASH,TFStage2,-38.57,-2,5,8,4,10,-6,-0.2,2.4,-4.3,-11.4,145.6,Metals - Pipe & Tube,Small Cap,,-5.1,138.54
-LUMAXIND,TFStage2,-23.87,-2,5,-31,-10,-1,35,-1.5,-1.8,-8.3,-12.7,5279.5,Auto - Replacement,Small Cap,,-11.7,5386.08
-VSSL,TFStage2,-17.87,-3,6,11,5,5,35,1.7,4.0,0.4,-4.8,281.55,Metals - Iron & Steel,Small Cap,,-4.0,267.18
-SYNCOMF,TFStage2,-49.89,-2,-2,-29,-7,7,-6,-2.5,-0.3,-6.9,-16.4,13.98,Healthcare - Pharma,Small Cap,,-12.6,13.76
-RPGLIFE,TFStage2,-23.45,-4,7,11,4,7,36,2.1,3.5,-7.5,-5.3,2277.4,Healthcare - Pharma,Small Cap,,-8.6,2164.84
-ARMANFIN,TFStage2,-36.78,-2,8,9,1,7,-28,2.3,3.3,-5.2,0.5,1694.2,Financials - NBFC,Small Cap,,-9.8,1601.2
-MONARCH,TFStage2,-29.81,12,4,11,60,7,1,4.2,8.8,3.0,4.2,350.25,Financials - Broking,Small Cap,,0.5,309.2
-SRHHYPOLTD,TFStage2,-47.96,3,1,-31,-10,7,-16,-2.4,-2.0,-10.3,-15.2,490.25,Chemicals - Bulk,Small Cap,,-11.5,494.2
-RML,TFStage2,-26.67,11,5,11,52,7,1,18.9,22.8,21.5,23.2,1121.15,Auto - OEM Suppliers,Small Cap,,13.6,857.11
-BLKASHYAP,TFStage2,-54.86,2,6,7,-14,9,-10,0.6,0.8,-9.5,-21.9,54.47,Real Estate,Small Cap,,-12.5,52.94
-CLSEL,TFStage2,-33.96,-2,6,11,6,10,-5,3.9,5.3,-1.6,4.5,295.35,Agri - Rice,Small Cap,,-1.6,272.4
-PREMEXPLN,TFStage2,-14.69,10,4,10,60,8,36,12.5,23.0,11.9,12.3,775.3,Defense - Misc,Small Cap,,1.2,574.68
-PARACABLES,TFStage2,-37.48,10,2,7,53,10,-15,13.6,25.8,8.5,10.9,73.06,Power - Wiring,Small Cap,,4.6,50.01
-SERVOTECH,TFStage2,-50.5,-4,-10,10,60,10,-7,1.3,7.1,-2.5,-17.9,101.67,Electronic - Equipment,Small Cap,,-9.4,88.53
-HARSHA,TFStage2,-29.78,-2,6,10,6,8,-16,4.6,7.4,1.2,8.0,431.05,Engineering,Small Cap,,-1.8,390.18
-NSLNISP,TFStage2,-36.39,-2,-10,-14,56,8,-19,-0.6,4.6,-6.2,4.5,46.88,Metals - Iron & Steel,Small Cap,,-10.8,43.05
-MANKIND,TFStage2,-20.97,3,9,4,2,8,1,1.4,3.1,-3.5,-2.3,2414.2,Healthcare - Pharma,Large Cap,,-6.6,2275.72
-SENCO,TFStage2,-55.91,-4,-1,-2,60,7,-13,-0.3,1.1,-6.8,-7.8,340.4,Consumption - Jewelry,Small Cap,,-6.8,329.69
-SANDUMA,TFStage2,-22.45,-2,4,-31,-9,7,33,-3.0,-2.4,-12.2,-12.8,211.72,Metals - Misc,Small Cap,,-12.2,214.93
-NUVAMA,TFStage2,-0.47,11,5,10,60,7,33,8.9,14.2,6.6,11.9,1739.6,Financials - AMC,Small Cap,,0.7,1450.95
-INNOVACAP,TFStage2,-25.96,-7,-2,28,59,10,2,3.4,9.9,-1.0,3.4,932.95,Healthcare - Pharma,Small Cap,,-3.2,795.42
-CAPITALSFB,TFStage2,-37.95,-1,9,11,6,8,-28,3.2,5.6,-1.4,0.4,291.0,Financials - Private Bank,Small Cap,,-2.4,269.32
-GPTHEALTH,TFStage2,-33.26,0,-8,-4,54,8,-28,0.7,3.2,-1.9,-1.3,146.76,Healthcare - Hospitals,Small Cap,,-3.7,138.4
-ASIANPAINT,TFStage2,-23.41,-6,-1,18,60,4,-35,1.6,4.5,-0.5,-4.9,2732.9,Consumption - Paints,Large Cap,,-0.8,2568.93
-BERGEPAINT,TFStage2,-18.98,2,1,15,60,5,-6,7.8,9.6,3.2,-2.5,550.7,Consumption - Paints,Mid Cap,,3.1,492.62
-YESBANK,TFStage2,-22.65,11,5,9,60,6,2,8.4,12.8,9.1,9.8,25.41,Financials - Private Bank,Mid Cap,,-0.3,21.74
-IDEA,TFStage2,-21.74,1,0,10,52,5,3,5.2,14.1,0.4,7.3,15.01,Telecom,Mid Cap,,0.0,12.16
-KPRMILL,TFStage2,-16.5,4,2,31,60,7,35,10.6,15.0,6.7,7.4,1159.75,Textile - Apparels,Mid Cap,,-2.2,965.48
-GODREJIND,TFStage2,-19.97,12,5,4,1,7,2,3.9,5.5,-8.7,-9.6,1112.4,Chemicals - Specialty,Mid Cap,,-9.3,1021.58
-APTUS,TFStage2,-32.84,-5,6,11,6,5,-7,1.9,3.4,-4.6,-15.6,269.75,Financials - Housing,Small Cap,,-6.0,257.09
-ALKYLAMINE,TFStage2,-34.04,1,-5,27,60,6,-36,4.0,9.3,0.7,-8.0,1845.4,Chemicals - Specialty,Small Cap,,-0.3,1613.86
-NH,TFStage2,-20.74,4,-10,-14,-3,4,36,-0.4,1.3,-4.6,-3.4,1878.7,Healthcare - Hospitals,Mid Cap,,-5.1,1830.88
-LXCHEM,TFStage2,-53.19,1,-3,-14,56,5,-19,-0.4,2.2,-7.6,-26.3,152.37,Chemicals - Specialty,Small Cap,,-8.2,146.67
-JUBLPHARMA,TFStage2,-26.23,-3,6,9,-1,4,35,-1.0,0.3,-4.2,-12.2,966.35,Healthcare - Pharma,Small Cap,,-4.7,958.96
-RAIN,TFStage2,-13.02,-8,-10,-3,60,6,1,1.7,13.1,-3.1,1.6,191.0,Chemicals - Petro,Small Cap,,-8.1,154.24
-TEJASNET,TFStage2,-57.7,5,1,31,34,11,-15,13.2,20.7,5.6,8.0,632.35,IT - Equipments,Small Cap,,5.0,481.71
-RAYMOND,TFStage2,-83.23,-6,8,16,54,8,-19,6.2,14.5,1.0,-2.2,586.45,Textile - Apparels,Small Cap,,-0.9,472.07
-RBA,TFStage2,-46.5,11,3,10,53,7,-27,6.9,8.2,7.0,-7.8,73.67,Leisure - Restaurants,Small Cap,,5.7,66.46
-KENNAMET,TFStage2,-13.07,-1,4,7,3,9,2,2.2,5.3,-5.5,2.1,2956.0,Engineering,Small Cap,,-5.5,2706.21
-SUPRIYA,TFStage2,-3.77,-8,-11,-7,60,5,36,3.5,11.9,-4.6,-3.8,932.2,Healthcare - Pharma,Small Cap,,-11.4,770.24
-HEMIPROP,TFStage2,-47.33,-4,6,-2,-13,7,-16,-0.7,0.4,-9.5,-16.3,139.55,Real Estate,Small Cap,,-10.9,136.86
-COSMOFIRST,TFStage2,-40.27,10,9,8,2,8,-6,4.6,6.2,-4.3,-21.1,780.75,Packaging,Small Cap,,-4.3,712.38
-IIFLCAPS,TFStage2,-23.29,-1,3,18,56,7,36,0.8,3.3,-3.3,-5.2,344.4,Financials - Broking,Small Cap,,-3.3,325.19
-MOLDTKPAC,TFStage2,-36.54,2,1,2,59,7,-35,2.2,6.8,-1.5,-11.0,698.1,Packaging,Small Cap,,-1.5,620.17
-HESTERBIO,TFStage2,-38.55,-2,5,9,55,7,-15,5.3,12.9,3.3,2.5,2076.4,Healthcare - Diagnostics,Small Cap,,-3.7,1717.84
-PSPPROJECT,TFStage2,-5.9,2,1,23,55,4,11,10.2,15.3,5.7,4.3,969.1,Infra - Construction,Small Cap,,5.2,805.42
-PANAMAPET,TFStage2,-1.36,4,2,18,54,7,1,31.5,38.0,28.1,46.9,483.25,Petro - Lubricants,Small Cap,,18.4,320.62
-GEOJITFSL,TFStage2,-55.73,-3,5,12,53,4,-12,4.5,8.1,2.0,0.0,78.35,Financials - Broking,Small Cap,,-0.9,70.71
-SANDHAR,TFStage2,-3.54,2,-15,1,60,5,13,4.3,13.9,-0.6,4.9,707.95,Auto - OEM Suppliers,Small Cap,,-3.6,578.49
-VERANDA,TFStage2,-32.02,11,5,9,60,6,-13,5.7,12.4,1.4,4.3,244.89,IT - Services,Small Cap,,0.4,202.81
-PANACEABIO,TFStage2,-7.82,-15,-6,27,52,7,36,7.2,19.1,-0.7,22.5,536.4,Healthcare - Biotech,Small Cap,,-11.7,411.33
-ASHAPURMIN,TFStage2,-23.43,13,4,4,56,4,36,2.4,5.9,-4.2,-19.4,708.15,Metals - Misc,Small Cap,,-4.4,656.7
-ADOR,TFStage2,-31.28,2,6,11,48,6,-18,6.6,10.1,4.3,6.7,1216.4,Engineering,Small Cap,,3.3,1064.81
-THEMISMED,TFStage2,-67.91,6,-14,-31,-1,6,-15,-1.2,2.6,-7.1,-24.5,101.73,Healthcare - Pharma,Small Cap,,-10.7,95.78
-KICL,TFStage2,-36.68,-2,5,10,55,6,36,3.0,5.3,2.9,-4.8,5212.0,Financials - Misc,Small Cap,,0.0,4867.71
-ARTEMISMED,TFStage2,-26.1,-3,5,-31,-8,6,36,-1.8,-0.1,-7.6,-9.4,258.65,Healthcare - Hospitals,Small Cap,,-10.2,254.57
-V2RETAIL,TFStage2,-7.63,10,1,1,60,6,36,2.3,5.6,-4.5,-3.3,236.85,Consumption - Retail,Small Cap,,-7.6,217.38
-REFEX,TFStage2,-43.85,12,4,7,59,7,-5,9.2,15.7,2.6,-8.5,336.9,Chemicals - Misc,Small Cap,,2.5,271.37
-NDRAUTO,TFStage2,-29.89,-3,5,10,5,6,36,4.6,7.9,4.1,-16.2,855.35,Auto - OEM Suppliers,Small Cap,,0.0,776.27
-MEDANTA,TFStage2,-16.39,8,4,24,59,6,36,3.1,5.6,1.9,-7.9,1265.8,Healthcare - Hospitals,Small Cap,,0.6,1166.07
-GUJTHEM,TFStage2,-22.22,1,-14,-16,-2,6,16,-3.1,0.5,-9.8,-19.9,372.55,Healthcare - Pharma,Small Cap,,-13.8,359.25
-ESAFSFB,TFStage2,-61.14,9,6,7,5,6,-29,10.1,13.6,8.5,9.2,32.02,Financials - Private Bank,Small Cap,,0.0,27.2
-GANDHAR,TFStage2,-49.39,2,2,2,52,5,-31,8.7,11.6,6.0,11.6,174.11,Petro - Lubricants,Small Cap,,0.0,150.52
-PIDILITIND,TFStage2,-7.47,-4,8,18,51,5,1,4.3,6.7,2.9,3.6,1579.9,Chemicals - Specialty,Large Cap,,-0.1,1455.13
-BIOCON,TFStage2,-5.65,2,1,-31,38,5,27,0.2,2.7,-3.4,-3.1,415.5,Healthcare - Biotech,Mid Cap,,-4.7,395.06
-TATACOMM,TFStage2,-8.56,3,-16,1,60,5,1,4.1,9.1,0.8,1.2,1988.8,Telecom,Mid Cap,,-1.0,1738.76
-KANSAINER,TFStage2,-40.91,-6,-3,-5,-2,5,-28,-1.0,0.4,-4.9,-14.9,211.13,Consumption - Paints,Small Cap,,-4.9,208.56
-TANLA,TFStage2,-60.44,-2,5,7,3,7,-33,0.2,2.6,-7.7,-20.6,521.35,IT - Product/Platform,Small Cap,,-10.6,499.46
-ITI,TFStage2,-47.28,12,5,9,19,4,36,4.0,5.3,3.5,-3.8,312.45,Telecom,Small Cap,,0.4,293.17
-SAREGAMA,TFStage2,-32.37,1,-10,31,48,7,-8,5.4,12.0,-2.2,-3.4,465.9,Media - Entertaintment,Small Cap,,-2.2,387.98
-PGHL,TFStage2,-7.35,4,-13,17,49,4,2,2.8,8.3,-0.7,-2.0,6244.0,Healthcare - Pharma,Small Cap,,-1.1,5542.78
-AEGISLOG,TFStage2,-2.82,-5,9,18,24,5,36,16.5,25.9,6.7,31.6,1007.8,Utility - Gas,Small Cap,,0.1,750.63
-PRINCEPIPE,TFStage2,-63.67,-4,5,27,52,8,-29,2.9,6.1,1.8,-11.9,281.95,Infra - Plastic Pipes,Small Cap,,-1.1,258.7
-GREAVESCOT,TFStage2,-37.86,10,4,10,56,4,-4,7.4,12.2,3.3,-12.9,198.54,Industrial - Pumps/Engines,Small Cap,,3.3,170.41
-HCG,TFStage2,-24.07,-4,-17,-31,-2,3,36,-2.7,-0.4,-6.6,-18.2,610.95,Healthcare - Hospitals,Small Cap,,-7.4,610.0
-SOLARA,TFStage2,-36.21,-8,-2,17,60,5,-5,-0.0,4.0,-7.5,-8.1,563.1,Healthcare - Pharma,Small Cap,,-7.5,528.0
-SIYSIL,TFStage2,-46.25,3,2,27,55,4,-4,3.6,7.1,2.2,-15.9,631.6,Textile - Misc,Small Cap,,-1.1,576.82
-BOMDYEING,TFStage2,-47.35,-2,6,10,60,5,-9,5.5,8.9,-0.3,-20.6,135.0,Textiles - Processing,Small Cap,,-0.6,121.17
-BAJAJHIND,TFStage2,-58.37,-5,-1,30,12,9,-16,0.5,2.4,-5.5,-13.1,19.19,Agri - Sugar,Small Cap,,-6.0,18.3
-MANALIPETC,TFStage2,-37.59,-5,-1,11,54,5,-18,4.0,8.9,0.5,-11.5,65.5,Chemicals - Petro,Small Cap,,-4.0,57.96
-DATAMATICS,TFStage2,-28.44,-2,4,8,56,4,35,1.9,4.0,-2.1,-20.7,801.5,IT - Services,Small Cap,,-4.0,761.66
-MANORAMA,TFStage2,-11.47,2,-4,28,17,9,36,4.0,6.8,-1.1,3.3,1558.2,Agri - Misc,Small Cap,,-3.1,1413.38
-ORCHPHARMA,TFStage2,-50.98,-2,6,25,55,4,-13,11.3,25.1,6.8,17.5,979.05,Healthcare - Pharma,Small Cap,,-6.6,726.32
-BFUTILITIE,TFStage2,-41.59,11,3,31,53,3,-7,8.2,13.2,3.8,-18.1,659.5,Infra - Construction,Small Cap,,-0.2,562.79
-GIPCL,TFStage2,-40.22,-2,-10,-18,20,8,-7,0.2,3.1,-5.1,-11.7,161.35,Power - Misc,Small Cap,,-7.1,151.69
-CENTENKA,TFStage2,-39.32,10,1,11,51,5,-10,5.7,9.1,0.6,4.8,524.85,Textile - Misc,Small Cap,,-2.7,461.42
-KDDL,TFStage2,-22.42,5,-8,5,22,9,1,5.2,10.3,1.9,6.5,2959.7,Consumption - Jewelry,Small Cap,,-1.8,2545.24
-BBL,TFStage2,-50.76,10,3,2,18,8,-9,0.8,1.8,-9.5,-10.7,2801.6,Power - Equipment,Small Cap,,-12.9,2700.41
-IMPAL,TFStage2,-28.95,-3,-1,9,59,5,-4,-0.4,1.2,-5.4,-1.9,1065.7,Auto - Misc,Small Cap,,-5.4,1042.22
-DREDGECORP,TFStage2,-22.08,11,2,-20,23,5,8,2.8,8.1,-3.6,-2.2,1136.0,Engineering,Small Cap,,-7.8,1007.71
-FAZE3Q,TFStage2,-20.11,6,2,10,23,10,2,10.7,16.1,9.1,9.5,597.5,Textiles - Processing,Small Cap,,2.6,486.9
-TARIL,TFStage2,-44.9,11,5,7,5,10,-5,11.7,11.7,7.0,-27.1,357.55,Power - Equipment,Small Cap,,4.3,308.75
-GKWLIMITED,TFStage2,-55.67,-14,-3,21,49,5,-11,3.3,5.8,-0.2,3.7,1839.8,Financials - Misc,Small Cap,,-0.5,1699.39
-ELECTHERM,TFStage2,-26.21,-10,-3,31,22,4,35,6.1,18.5,-9.8,8.6,1073.7,Metals - Iron & Steel,Small Cap,,-9.8,835.12
-JAYKAY,TFStage2,-19.4,6,3,-29,-6,3,-6,0.6,4.2,-2.7,-9.3,177.08,IT - Software/Consulting,Small Cap,,-17.2,168.08
-DIVGIITTS,TFStage2,-25.5,-4,6,11,19,26,2,6.5,11.4,4.6,5.6,856.7,Auto - Misc,Small Cap,,-1.4,729.45
-SINDHUTRAD,TFStage2,-44.16,11,4,-31,4,20,2,-0.1,2.1,-6.8,-10.8,25.21,Transport - Logistics,Small Cap,,-6.8,23.88
-KODYTECH,TFStage2,-73.53,10,8,8,32,3,-13,20.2,24.6,16.9,20.1,1105.25,IT - Software/Consulting,Small Cap,,6.0,851.66
-JSWINFRA,TFStage2,-14.63,12,9,16,20,7,1,7.7,9.6,5.9,-2.3,308.15,Infra - Construction,Mid Cap,,0.1,274.79
-MAXESTATES,TFStage2,-35.01,8,4,5,52,4,-4,3.1,7.3,2.2,-6.3,454.15,Infra - Construction,Small Cap,,-1.4,414.13
-AMNPLST,TFStage2,-44.28,8,3,4,52,5,-8,3.5,8.2,-3.6,-9.2,200.55,Chemicals - Specialty,Small Cap,,-3.6,180.01
-TATATECH,TFStage2,-46.16,-2,-9,27,60,5,-31,2.6,9.9,-2.3,6.9,753.7,IT - Software/Consulting,Mid Cap,,-3.3,653.07
-TINNARUBR,TFStage2,-18.95,-2,-7,28,52,7,-12,4.4,11.5,1.5,-7.9,882.55,Rubber,Small Cap,,-1.0,758.03
-CIPLA,TFStage2,-20.58,-8,-22,-31,-3,3,-4,-1.7,-0.7,-5.6,-14.9,1351.8,Healthcare - Pharma,Large Cap,,-5.9,1359.33
-GAIL,TFStage2,-29.4,-4,6,23,20,3,-6,2.6,5.2,2.0,-4.8,173.9,Utility - Gas,Large Cap,,-1.4,163.21
-ZEEL,TFStage2,-62.18,2,-5,30,17,4,-28,9.0,15.0,0.7,-2.3,113.36,Media - TV Broadcast,Small Cap,,0.7,93.15
-SFL,TFStage2,-48.86,-8,-2,22,60,6,-35,5.8,12.4,-0.4,0.2,700.65,Infra - Home Furnish,Small Cap,,-1.3,592.88
-LMW,TFStage2,-13.2,12,3,9,53,4,-7,5.7,9.3,5.7,5.9,16665.0,Engineering,Small Cap,,-0.3,14890.11
-QUESS,TFStage2,-71.44,-13,-1,25,60,6,-14,7.3,13.3,2.4,-6.8,249.87,Human Resources,Small Cap,,-0.0,211.35
-AETHER,TFStage2,-8.85,-3,19,26,9,26,5,1.8,3.1,-4.2,-0.8,1162.3,Chemicals - Specialty,Small Cap,,-7.2,1089.25
-SAMMAANCAP,TFStage2,-16.58,-4,-10,-5,21,12,9,1.3,6.1,-5.3,-7.4,174.6,Financials - Housing,Small Cap,,-5.3,157.45
-VAIBHAVGBL,TFStage2,-54.95,-2,5,11,51,2,-23,4.5,7.9,3.9,-9.2,244.33,Consumption - Jewelry,Small Cap,,-2.7,224.04
-JINDWORLD,TFStage2,-65.58,3,5,8,55,4,-13,10.4,14.7,7.2,-12.8,32.44,Textile - Misc,Small Cap,,5.0,27.15
-VARROC,TFStage2,-14.19,-2,4,9,59,2,36,4.8,8.6,4.9,-6.7,615.2,Auto - OEM Suppliers,Small Cap,,-1.3,560.86
-ENGINERSIN,TFStage2,-17.49,10,6,6,2,12,36,5.2,6.8,-2.2,-0.5,250.74,Infra - Construction,Small Cap,,-4.4,224.81
-NELCO,TFStage2,-37.42,5,8,30,18,6,-8,26.9,29.1,29.2,7.8,940.35,IT - Equipments,Small Cap,,7.9,697.24
-BFINVEST,TFStage2,-44.75,1,5,9,15,8,-13,5.3,7.9,3.2,-3.6,458.0,Financials - Misc,Small Cap,,1.1,413.33
-INDNIPPON,TFStage2,-16.87,-1,-2,6,24,4,36,3.7,7.6,-0.7,-3.8,914.3,Auto - OEM Suppliers,Small Cap,,-1.3,821.58
-GREENPOWER,TFStage2,-67.55,0,5,-28,-12,7,-16,-0.3,0.7,-10.8,-20.4,11.18,Power - Green,Small Cap,,-12.2,10.96
-RANEHOLDIN,TFStage2,-31.33,12,4,10,48,5,-6,14.5,21.7,16.4,4.3,1688.3,Auto - Misc,Small Cap,,2.1,1313.57
-SIMPLEXINF,TFStage2,-21.92,-1,4,18,22,4,35,7.5,16.1,6.8,-5.3,274.85,Infra - Construction,Small Cap,,-2.5,227.9
-SPECTRUM,TFStage2,-29.73,4,2,28,29,6,-8,11.3,17.1,0.1,14.0,1770.7,IT - Equipments,Small Cap,,0.0,1421.49
-VINYAS,TFStage2,-1.75,10,-2,9,17,4,31,12.1,18.6,-1.3,18.5,1443.95,Electronic - Equipment,Small Cap,,-1.3,1144.5
-UDS,TFStage2,-58.73,1,-9,-3,59,5,-12,0.8,4.2,-6.2,-27.1,181.02,Human Resources,Small Cap,,-6.2,169.05
-SRF,TFStage2,-18.5,-6,-3,1,60,-25,18,0.3,1.4,-2.6,-11.9,2709.8,Chemicals - Specialty,Mid Cap,,-3.2,2690.5
-HONAUT,TFStage2,-37.56,4,4,12,22,4,-17,6.2,10.6,3.6,-3.3,37460.0,Electronic - Equipment,Small Cap,,0.8,32783.79
-LICHSGFIN,TFStage2,-33.49,-6,6,24,5,9,-8,0.3,0.8,-5.4,-3.7,549.9,Financials - Housing,Small Cap,,-6.2,538.76
-CHAMBLFERT,TFStage2,-34.76,-4,6,11,25,7,-4,2.9,4.8,3.0,-10.3,484.2,Agrichem - Fertilizers,Small Cap,,-1.2,454.71
-INDIGOPNTS,TFStage2,-40.41,-2,6,10,60,-22,-18,3.8,6.8,2.2,-20.1,1025.15,Consumption - Paints,Small Cap,,-0.4,960.39
-NBCC,TFStage2,-20.3,-1,4,11,60,2,36,6.6,10.7,4.8,-8.5,111.45,Infra - Construction,Small Cap,,-1.2,99.06
-TEAMLEASE,TFStage2,-60.41,7,7,24,60,1,-17,4.6,7.6,4.3,-17.9,1465.0,Human Resources,Small Cap,,0.6,1351.26
-EPL,TFStage2,-20.81,-4,12,13,5,11,1,3.4,3.7,-3.8,1.5,229.57,Packaging,Small Cap,,-3.8,218.08
-SUPRAJIT,TFStage2,-27.06,4,-10,4,21,3,1,1.8,4.1,-1.9,-1.7,466.55,Auto - OEM Suppliers,Small Cap,,-1.9,442.95
-FDC,TFStage2,-40.9,4,1,-31,54,3,-6,1.0,2.9,-3.9,-15.5,389.35,Healthcare - Pharma,Small Cap,,-9.4,375.71
-RESPONIND,TFStage2,-47.64,12,4,4,48,1,-17,7.5,9.8,-1.6,-10.5,191.09,Infra - Plastic Pipes,Small Cap,,-1.6,172.36
-MAITHANALL,TFStage2,-18.23,-1,5,9,6,9,-8,7.0,9.3,7.2,0.6,1111.2,Metals - Misc,Small Cap,,-2.2,998.19
-ITDC,TFStage2,-33.5,-3,4,24,11,9,-6,4.8,6.7,-7.6,0.3,619.0,Leisure - Hotels,Small Cap,,-7.6,561.24
-RAJRATAN,TFStage2,-49.14,-8,-1,24,12,2,-36,2.4,4.3,-2.3,-3.7,448.6,Auto - OEM Suppliers,Small Cap,,-2.3,427.39
-TASTYBITE,TFStage2,-58.08,-1,13,24,60,5,-28,4.4,7.0,-1.5,-12.9,8297.5,Consumption - FMCG,Small Cap,,-1.5,7598.46
-KIRLOSBROS,TFStage2,-27.96,11,20,21,10,8,1,10.9,13.2,9.6,-0.4,1933.6,Industrial - Pumps/Engines,Small Cap,,1.6,1663.9
-SSWL,TFStage2,-23.38,-8,-3,26,12,10,-8,2.6,5.9,-1.1,1.7,229.09,Auto - Replacement,Small Cap,,-2.4,210.12
-SURYAROSNI,TFStage2,-36.71,-5,6,31,14,3,-7,4.8,6.6,0.1,-9.5,266.34,Metals - Pipe & Tube,Small Cap,,-3.4,245.52
-EVEREADY,TFStage2,-26.96,15,8,24,12,3,-7,8.9,10.9,6.7,-12.5,368.85,Batteries,Small Cap,,2.1,326.1
-GUFICBIO,TFStage2,-29.55,-6,-8,-1,20,3,-6,1.5,7.8,-4.3,-3.2,355.25,Healthcare - Pharma,Small Cap,,-8.2,319.93
-ANANTRAJ,TFStage2,-45.12,-3,-9,-15,20,3,36,-1.6,0.4,-8.7,-25.5,520.2,Real Estate,Small Cap,,-11.7,515.08
-GANESHHOU,TFStage2,-48.22,-16,-6,31,52,3,-6,3.3,7.4,-1.5,-10.5,769.0,Real Estate,Small Cap,,-1.5,703.47
-DIAMONDYD,TFStage2,-21.68,6,-10,2,19,3,36,2.5,5.9,-2.6,-4.1,1135.7,Consumption - FMCG,Small Cap,,-4.3,1059.13
-NACLIND,TFStage2,-42.91,2,11,21,9,10,15,16.0,17.0,9.2,-30.3,193.8,Agrichem - Protection,Small Cap,,7.4,159.43
-SHALBY,TFStage2,-49.68,-1,3,5,60,1,-17,0.7,3.0,-1.7,-35.4,170.82,Healthcare - Hospitals,Small Cap,,-3.4,165.81
-PNBGILTS,TFStage2,-38.22,1,-7,31,27,3,-9,6.2,11.6,-2.5,-4.5,92.05,Financials - Misc,Small Cap,,-2.5,79.23
-MPSLTD,TFStage2,-41.15,-4,-2,-3,26,4,-5,0.6,2.5,-1.5,-16.6,1812.1,Media - Publishing,Small Cap,,-4.1,1752.17
-BANCOINDIA,TFStage2,-24.64,-7,-3,12,20,3,36,1.1,3.6,-3.8,-20.2,663.05,Auto - Replacement,Small Cap,,-3.8,632.21
-TEXINFRA,TFStage2,-35.81,-2,5,25,11,3,-10,2.6,3.6,0.0,-1.7,102.39,Railways,Small Cap,,-1.6,98.36
-LIKHITHA,TFStage2,-51.11,-2,13,30,10,11,-15,8.4,13.7,4.3,-1.5,243.21,Infra - Construction,Small Cap,,-1.0,201.49
-HARIOMPIPE,TFStage2,-53.28,-5,-10,10,22,3,-19,4.2,11.1,-1.7,-14.1,415.2,Metals - Pipe & Tube,Small Cap,,-3.2,361.22
-CREST,TFStage2,-35.31,1,11,21,8,2,-5,7.6,9.2,4.1,3.3,402.15,Financials - NBFC,Small Cap,,0.9,364.7
-PTCIL,TFStage2,-5.44,1,-8,-6,18,2,35,2.7,6.0,-1.4,-1.3,18333.0,Metals - Casting/Forging,Small Cap,,-5.4,17115.03
-BLUEJET,TFStage2,-50.29,-6,9,22,56,3,-5,5.8,10.7,-0.3,-23.5,510.9,Healthcare - Pharma,Small Cap,,-0.3,449.71
-TMPV,TFStage2,-69.51,-6,-14,-31,-1,5,-16,-4.8,-2.2,-9.6,-47.1,359.5,Auto - PV/Trucks,Large Cap,,-10.3,360.19
-ZFCVINDIA,TFStage2,-13.45,18,8,11,5,1,6,6.2,6.7,5.3,4.2,15795.0,Auto - OEM Suppliers,Small Cap,,1.4,14743.19
-360ONE,TFStage2,-13.12,-2,6,10,5,1,36,3.7,4.7,2.4,-3.8,1145.1,Financials - Misc,Mid Cap,,0.2,1089.78
-CREDITACC,TFStage2,-21.69,-2,8,10,5,7,10,5.1,7.3,-6.1,-1.2,1406.4,Financials - MFI,Small Cap,,-7.7,1292.2
-BCG,TFStage2,-71.55,-5,-9,-6,23,3,-36,-1.0,-0.2,-14.2,-36.1,10.37,IT - Services,Small Cap,,-14.2,10.24
-MEDPLUS,TFStage2,-19.21,-6,-2,-30,-12,20,15,-3.1,-3.3,-11.2,-5.7,844.45,IT - Product/Platform,Small Cap,,-11.5,864.47
-JSWDULUX,TFStage2,-30.88,-5,-2,14,16,3,-5,3.1,5.3,2.0,-5.3,3230.9,Consumption - Paints,Small Cap,,-0.4,3032.58
-EASEMYTRIP,TFStage2,-70.41,-8,-1,15,7,10,-22,1.7,4.2,-4.2,-7.3,7.99,IT - Product/Platform,Small Cap,,-9.4,7.56
-BEML,TFStage2,-36.25,-3,9,10,-15,8,-4,-1.4,-0.2,-10.3,-20.5,1749.3,Defense - Misc,Small Cap,,-12.5,1733.21
-NIITLTD,TFStage2,-59.41,-3,-1,30,15,2,-10,7.2,20.5,1.4,-11.5,94.91,IT - Education,Small Cap,,-10.2,75.97
-JINDALPOLY,TFStage2,-40.27,-8,-2,15,6,17,1,-1.4,-2.1,-10.8,-7.3,686.9,Packaging,Small Cap,,-15.2,674.27
-INGERRAND,TFStage2,-7.77,-1,9,10,3,19,3,8.1,8.6,0.8,4.4,4611.3,Industrial - Pumps/Engines,Small Cap,,-2.2,4061.3
-GREENLAM,TFStage2,-23.79,-5,9,31,59,2,-15,3.9,6.4,-0.1,-4.9,252.25,Infra - Laminates,Small Cap,,-2.6,235.04
-RELIGARE,TFStage2,-20.81,16,6,11,60,4,1,6.7,8.1,5.4,-4.0,253.4,Financials - Misc,Small Cap,,2.3,231.35
-KARURVYSYA,TFStage2,-15.05,-2,6,8,3,26,34,0.9,0.7,-4.2,-10.6,291.75,Financials - Private Bank,Small Cap,,-7.0,287.47
-IPL,TFStage2,-62.88,-5,8,9,-12,5,-23,-0.4,0.6,-9.7,-24.1,160.28,Agrichem - Protection,Small Cap,,-10.5,158.67
-RKFORGE,TFStage2,-44.67,-6,7,12,5,26,-13,2.7,3.4,-3.5,-1.6,588.7,Metals - Casting/Forging,Small Cap,,-5.5,553.67
-FILATEX,TFStage2,-29.67,4,2,27,18,3,-6,9.3,14.5,5.7,-13.5,54.86,Textiles - Polyester,Small Cap,,0.7,46.6
-INDOSTAR,TFStage2,-31.89,1,-7,18,20,2,-6,6.0,9.7,2.9,-3.3,249.47,Financials - NBFC,Small Cap,,-1.6,223.62
-ANDHRSUGAR,TFStage2,-34.55,3,9,9,-22,11,-21,0.1,-1.0,-15.6,-13.6,84.42,Chemicals - Bulk,Small Cap,,-18.8,82.89
-RAMCOIND,TFStage2,-26.89,-1,-10,-15,60,-23,36,-0.2,1.6,-5.3,-17.3,291.0,Infra - Cement,Small Cap,,-6.5,286.95
-INDORAMA,TFStage2,-38.44,-2,-7,31,19,2,-5,5.2,11.7,0.9,-32.9,46.17,Textiles - Polyester,Small Cap,,-1.7,40.44
-GABRIEL,TFStage2,-13.73,18,6,9,4,7,36,9.8,12.6,5.8,-6.0,1197.4,Auto - Replacement,Small Cap,,4.5,1029.92
-CARERATING,TFStage2,-12.76,2,8,10,1,8,36,4.1,3.8,-4.8,2.6,1713.3,Financials - Ratings,Small Cap,,-4.8,1629.25
-VADILALIND,TFStage2,-17.44,-6,-5,30,16,3,29,9.0,17.5,1.6,13.4,6108.0,Consumption - Dairy,Small Cap,,-1.7,4962.27
-RAMCOSYS,TFStage2,-18.34,-15,-5,22,21,2,36,7.5,13.9,-0.9,-10.9,557.2,IT - Product/Platform,Small Cap,,-2.4,478.08
-MANGLMCEM,TFStage2,-22.04,2,20,10,-25,18,35,0.5,-0.4,-8.6,-7.6,852.6,Infra - Cement,Small Cap,,-9.1,846.31
-FOSECOIND,TFStage2,-23.19,-1,6,9,4,6,36,4.9,5.8,3.7,-15.6,5258.5,Chemicals - Specialty,Small Cap,,-3.4,4926.16
-SMSPHARMA,TFStage2,-15.45,-10,11,18,-21,25,36,-0.0,-1.4,-11.7,-6.2,378.6,Healthcare - Pharma,Small Cap,,-13.6,376.71
-CNL,TFStage2,-33.29,-6,-2,18,53,1,-11,5.2,9.5,1.7,-1.3,717.1,Textile - Apparels,Small Cap,,-1.1,653.05
-TBZ,TFStage2,-47.59,-4,-1,12,16,3,-4,9.5,16.9,2.8,1.9,188.88,Consumption - Jewelry,Small Cap,,-3.6,155.57
-INOXGREEN,TFStage2,-28.51,-4,11,17,6,2,36,7.8,10.6,4.6,-25.2,199.47,Power - Green,Small Cap,,0.5,177.66
-BETA,TFStage2,-16.24,-1,6,24,19,3,-5,19.4,27.4,10.0,4.0,1948.3,Healthcare - Pharma,Small Cap,,0.0,1448.68
-IKIO,TFStage2,-66.0,-3,6,11,5,3,-36,3.0,5.5,-8.9,-22.8,162.17,Consumption - Electronics,Small Cap,,-8.9,152.36
-JLHL,TFStage2,-24.18,-2,4,10,27,2,-3,1.4,2.7,-1.1,-15.5,1342.1,Healthcare - Hospitals,Small Cap,,-1.1,1303.41
-AXISBANK,TFStage2,-4.26,-6,9,16,8,11,34,3.1,3.9,-0.6,-1.9,1357.9,Financials - Private Bank,Large Cap,,-1.6,1294.35
-COALINDIA,TFStage2,-16.97,8,2,-16,-7,26,34,-1.2,-0.7,-6.3,-6.3,451.3,Utility - Misc,Large Cap,,-6.3,446.53
-EICHERMOT,TFStage2,-7.52,-2,8,16,9,1,31,3.8,5.1,2.5,-5.0,7611.0,Auto - 2W,Large Cap,,-0.2,7224.65
-DRREDDY,TFStage2,-10.51,1,7,-30,-13,9,36,-0.7,-1.1,-4.8,-3.8,1272.1,Healthcare - Pharma,Large Cap,,-6.1,1281.56
-GUJGASLTD,TFStage2,-43.7,-2,-1,7,46,2,-17,-0.3,1.2,-3.2,-9.6,388.45,Utility - Gas,Small Cap,,-5.0,383.06
-DELHIVERY,TFStage2,-5.9,12,6,9,1,21,11,2.5,2.1,-3.8,-1.5,461.1,Transport - Logistics,Small Cap,,-4.3,443.83
-AARTIIND,TFStage2,-37.02,-2,5,8,3,20,-19,3.1,4.8,-4.5,-4.5,484.5,Chemicals - Specialty,Small Cap,,-5.6,446.22
-PFC,TFStage2,-25.69,8,5,6,-25,26,3,0.4,-0.1,-8.2,-3.9,431.0,Financials - NBFC,Large Cap,,-10.5,420.85
-ATUL,TFStage2,-20.76,-5,2,-31,-14,21,-12,-2.5,-2.9,-8.7,-5.4,6482.0,Chemicals - Specialty,Small Cap,,-8.8,6581.98
-COFORGE,TFStage2,-27.03,10,4,6,33,-26,-3,3.2,7.3,1.9,-23.3,1463.3,IT - Software/Consulting,Mid Cap,,-3.7,1380.78
-LINDEINDIA,TFStage2,-24.91,12,6,4,1,26,4,5.2,3.7,-4.5,1.9,7460.5,Chemicals - Misc,Mid Cap,,-4.9,7007.64
-NIACL,TFStage2,-37.69,12,6,9,3,9,-16,24.1,23.4,20.9,7.0,202.31,Financials - Non-Life,Small Cap,,13.2,158.02
-ENDURANCE,TFStage2,-14.85,16,5,4,2,5,36,1.4,3.1,-3.7,-8.6,2622.4,Auto - OEM Suppliers,Mid Cap,,-6.4,2519.61
-AMBER,TFStage2,-12.09,8,4,7,3,19,36,2.4,2.5,-10.6,-2.5,7889.0,Consumption - Appliances,Small Cap,,-10.8,7477.48
-CESC,TFStage2,-20.51,11,4,-31,-12,9,36,-2.9,-2.4,-9.9,-9.9,168.9,Power - Misc,Small Cap,,-15.0,169.99
-ORIENTELEC,TFStage2,-39.24,-2,5,6,-12,7,-17,-0.4,-0.1,-6.3,-16.0,180.53,Consumption - Appliances,Small Cap,,-6.7,179.34
-GARFIBRES,TFStage2,-19.26,5,2,28,52,2,-7,16.7,17.8,15.0,4.0,796.4,Textile - Misc,Small Cap,,14.2,661.04
-ROSSARI,TFStage2,-42.34,10,3,3,2,1,-19,7.8,8.6,3.1,-12.5,560.9,Chemicals - Specialty,Small Cap,,3.1,512.03
-KRBL,TFStage2,-22.23,12,6,11,6,2,12,6.3,7.7,3.2,-10.7,384.95,Agri - Rice,Small Cap,,0.4,354.2
-GESHIP,TFStage2,-20.04,10,4,1,-15,26,9,-1.1,-1.5,-13.7,-8.8,1437.7,Transport - Shipping,Small Cap,,-16.4,1410.31
-GMDCLTD,TFStage2,-20.6,11,4,-31,-11,26,36,-3.3,-4.1,-16.8,-16.7,612.9,Metals - Misc,Small Cap,,-17.9,622.52
-SHOPERSTOP,TFStage2,-61.79,-6,-3,13,60,-26,-36,1.3,4.7,-3.8,-33.2,360.5,Consumption - Retail,Small Cap,,-3.8,346.0
-RTNPOWER,TFStage2,-55.88,0,0,-29,-8,8,-7,-1.1,-0.6,-8.0,-24.2,9.31,Power - Misc,Small Cap,,-9.5,9.25
-DCBBANK,TFStage2,-10.35,-2,9,11,4,11,14,2.3,2.1,-4.5,-7.6,184.59,Financials - Private Bank,Small Cap,,-5.8,180.14
-NAVA,TFStage2,-15.94,1,6,8,-24,11,36,2.3,1.3,-14.5,-9.6,621.55,Power - Misc,Small Cap,,-14.9,606.39
-GRAVITA,TFStage2,-36.24,12,6,9,3,1,36,4.5,5.4,-2.3,-7.3,1721.6,Metals - Misc,Small Cap,,-4.3,1627.23
-KOLTEPATIL,TFStage2,-35.42,10,5,6,1,6,-5,2.5,3.1,-4.2,-19.2,377.8,Real Estate,Small Cap,,-5.9,364.87
-BALMLAWRIE,TFStage2,-43.38,12,5,6,-19,8,-9,0.8,0.6,-7.6,-16.8,181.44,Others,Small Cap,,-7.8,178.65
-UNICHEMLAB,TFStage2,-52.63,-10,-1,27,9,2,-9,8.4,14.2,-0.7,-11.8,444.3,Healthcare - Pharma,Small Cap,,-4.0,381.49
-SWARAJENG,TFStage2,-16.79,10,5,8,3,11,31,3.2,3.6,-3.1,-5.0,3927.6,Industrial - Pumps/Engines,Small Cap,,-4.0,3743.47
-STYRENIX,TFStage2,-33.88,10,5,4,1,10,-5,4.2,4.7,-1.4,-13.5,2312.9,Chemicals - Specialty,Small Cap,,-1.4,2140.22
-RIIL,TFStage2,-46.52,-2,13,22,8,7,-17,7.4,10.4,6.9,-4.1,858.4,Transport - Logistics,Small Cap,,-2.2,764.23
-TNPL,TFStage2,-56.08,10,5,-31,-14,8,-21,-0.5,0.3,-7.0,-10.5,145.39,Media - Publishing,Small Cap,,-8.3,143.12
-VHL,TFStage2,-36.21,13,12,10,3,6,-5,6.0,6.5,1.9,-11.5,3674.3,Financials - NBFC,Small Cap,,-1.6,3417.92
-ARVSMART,TFStage2,-40.42,-1,5,8,2,8,-7,2.5,3.1,-3.6,-6.5,610.7,Real Estate,Small Cap,,-5.5,586.03
-HITECH,TFStage2,-56.08,12,6,11,4,7,-14,3.9,5.4,0.5,-19.2,92.6,Metals - Iron & Steel,Small Cap,,-3.0,86.77
-GALLANTT,TFStage2,-24.75,16,19,9,1,25,36,3.7,2.4,-17.9,-17.2,713.35,Metals - Iron & Steel,Small Cap,,-23.1,668.22
-HPL,TFStage2,-44.74,-3,6,11,5,5,-5,5.3,7.2,-1.1,-17.7,383.5,Consumption - Electronics,Small Cap,,-1.1,352.71
-SALZERELEC,TFStage2,-60.44,-3,12,27,-17,7,-7,1.2,1.3,-11.1,-23.1,652.7,Power - Equipment,Small Cap,,-15.5,639.3
-MICEL,TFStage2,-63.16,0,5,-31,-17,7,-9,-1.7,-0.9,-23.2,-26.2,42.29,Electronic - Equipment,Small Cap,,-23.2,41.85
-FUSION,TFStage2,-74.06,-3,6,9,-21,8,-28,1.6,0.1,-17.2,-6.5,179.26,Financials - MFI,Small Cap,,-19.1,176.54
-NPST,TFStage2,-55.16,-12,-4,28,14,2,-6,10.4,19.7,-2.6,-24.9,1604.0,IT - Software/Consulting,Small Cap,,-3.0,1285.18
-EMIL,TFStage2,-53.87,11,5,6,2,9,-16,7.0,7.6,-2.8,-20.0,120.86,Consumption - Retail,Small Cap,,-5.0,108.39
-REMUS,TFStage2,-90.54,4,5,4,2,6,-24,11.9,13.1,-4.4,-7.2,827.5,Others,Small Cap,,-9.6,713.41
-CONCORDBIO,TFStage2,-50.63,-10,-2,27,13,1,-7,4.1,9.8,-2.9,-21.8,1315.1,Healthcare - Pharma,Small Cap,,-4.7,1187.73
-POCL,TFStage2,-17.05,12,6,7,-16,7,36,2.5,2.1,-13.1,-7.6,1343.0,Metals - Misc,Small Cap,,-13.1,1290.22
-IRMENERGY,TFStage2,-58.45,-2,6,7,-20,8,-23,-0.4,0.5,-25.4,-27.7,266.35,Industrial - Consumables,Small Cap,,-25.4,260.07
-SCILAL,TFStage2,-57.66,9,6,7,1,7,-13,0.9,0.8,-13.2,-9.3,45.96,Transport - Shipping,Small Cap,,-13.2,45.4
+GAEL,TFStage2,-24.04,3,10,3,1,26,4,1.3,2.7,-3.9,2.7,159.98,Agri - Misc,Small Cap,,-4.3,149.77
+SEAMECLTD,TFStage2_Low,-20.03,-7,-13,-22,-7,26,6,-9.4,-9.5,-15.3,-15.3,1366.8,Transport - Shipping,Small Cap,,-16.8,1442.34
+BLISSGVS,TFStage2,-1.51,14,2,13,60,20,36,10.4,32.9,10.9,14.3,486.3,Healthcare - Pharma,Small Cap,,0.7,306.44
+MBAPL,TFStage2,-3.76,-7,-1,27,12,26,14,1.1,4.9,-2.0,6.3,563.0,Agrichem - Fertilizers,Small Cap,,-2.4,509.08
+PRECWIRE,TFStage2,-12.67,-1,4,7,3,20,36,-1.3,4.4,-3.3,-3.3,408.25,Metals - Copper,Small Cap,,-10.7,357.76
+ANANDRATHI,TFStage2,-1.03,14,6,11,4,17,36,4.7,5.9,1.2,3.7,1867.5,Financials - Misc,Small Cap,,1.2,1702.34
+NLCINDIA,TFStage2_Low,-17.04,11,2,-31,-11,26,36,-0.7,0.5,-8.8,-7.4,321.7,Power - Misc,Small Cap,,-13.3,302.54
+HAPPYFORGE,TFStage2,-2.42,8,2,4,1,20,7,5.0,6.4,0.7,4.8,1453.9,Metals - Casting/Forging,Small Cap,,0.3,1310.6
+CHENNPETRO,TFStage2_Low,-13.9,-6,-7,-4,-1,17,10,-3.9,2.1,-7.1,-2.7,1097.8,Petro - Refineries,Small Cap,,-10.5,1028.84
+CUMMINSIND,TFStage2,-3.85,12,3,8,60,18,30,2.5,6.8,-0.3,-0.3,5865.0,Industrial - Pumps/Engines,Large Cap,,-2.7,5193.73
+STLTECH,TFStage2,-3.49,10,1,10,60,20,5,9.5,38.2,5.7,22.0,654.35,Telecom,Small Cap,,0.4,361.97
+VTL,TFStage2,-1.88,3,6,12,13,19,5,4.3,8.7,4.1,7.4,657.45,Textile - Spinning/Yarn,Small Cap,,-0.6,570.34
+ARVIND,TFStage2,-0.54,4,2,5,60,20,36,3.9,12.6,4.5,9.1,516.6,Textile - Apparels,Small Cap,,1.2,420.0
+ABB,TFStage2,-20.79,10,3,6,3,20,3,3.1,5.1,-1.1,-0.1,7248.0,Power - Equipment,Large Cap,,-4.5,6573.9
+STEELCAS,TFStage2,-8.31,-3,12,24,9,19,36,1.8,4.5,-0.8,1.4,293.4,Metals - Casting/Forging,Small Cap,,-5.3,264.46
+NITINSPIN,TFStage2,-0.91,3,2,30,56,21,3,5.2,14.1,1.7,16.2,568.7,Textile - Spinning/Yarn,Small Cap,,1.4,449.79
+TIMKEN,TFStage2,-23.42,10,4,7,3,20,3,2.8,3.4,-1.6,1.6,3689.4,Industrial - Bearings,Small Cap,,-1.6,3455.67
+LINCOLN,TFStage2_Low,-37.25,-6,-2,-4,-15,19,2,-3.2,-2.7,-16.3,-4.8,614.65,Healthcare - Pharma,Small Cap,,-18.9,608.62
+AEROFLEX,TFStage2,-2.23,12,6,12,60,18,22,11.6,28.0,13.2,26.4,507.25,Metals - Iron & Steel,Small Cap,,-0.7,336.94
+SPORTKING,TFStage2,-2.34,4,-12,11,23,19,5,2.7,12.8,0.2,7.4,183.07,Textile - Spinning/Yarn,Small Cap,,-4.0,144.02
+GVPIL,TFStage2,0.0,-3,5,26,54,19,36,11.6,34.5,13.2,21.7,1052.55,Power - Equipment,Small Cap,,-0.3,645.37
+J&KBANK,TFStage2,-1.61,-4,13,26,23,26,36,5.1,14.7,3.9,16.5,163.56,Financials - Private Bank,Small Cap,,0.4,131.36
+CENTUM,TFStage2,-0.82,-4,-2,12,32,26,36,1.9,8.6,-1.2,1.6,3539.0,Electronic - Equipment,Small Cap,,-2.4,3008.51
+AUROPHARMA,TFStage2,-5.92,4,1,2,1,15,36,3.4,4.1,-0.9,5.0,1497.8,Healthcare - Pharma,Mid Cap,,-3.2,1381.21
+APOLLOPIPE,TFStage2_Low,-38.11,-5,6,-3,-2,18,-35,0.0,2.8,-5.4,-2.9,494.25,Infra - Plastic Pipes,Small Cap,,-9.8,442.54
+ASTERDM,TFStage2,-1.18,2,-4,2,11,17,36,3.8,8.0,-0.7,11.1,809.4,Healthcare - Hospitals,Small Cap,,-0.7,709.16
+BALRAMCHIN,TFStage2_Low,-23.16,-6,-1,-1,12,19,2,-2.0,2.0,-1.5,-0.9,531.6,Agri - Sugar,Small Cap,,-4.9,502.58
+ADANIPOWER,TFStage2,-8.83,11,2,3,1,15,36,2.3,6.8,-4.8,-4.8,231.76,Power - Misc,Large Cap,,-6.9,196.94
+JINDALSAW,TFStage2,-32.04,11,4,9,5,26,-11,5.6,10.8,4.1,5.6,260.88,Metals - Pipe & Tube,Small Cap,,-1.2,218.49
+LUMAXTECH,TFStage2,-13.26,12,3,3,-10,18,36,-0.4,-0.8,-9.7,-6.3,1646.4,Auto - Replacement,Small Cap,,-10.9,1640.44
+PIXTRANS,TFStage2,-41.41,2,1,12,59,16,1,2.2,4.7,1.1,5.5,1640.6,Industrial - Consumables,Small Cap,,-0.1,1523.03
+HONASA,TFStage2_Low,-25.69,1,-13,-7,59,25,1,0.4,7.0,-2.3,0.0,406.5,Others,Small Cap,,-3.2,350.8
+GPIL,TFStage2_Low,-64.82,-6,-3,-21,-20,26,2,-3.0,-4.1,-11.9,-9.2,269.1,Metals - Iron & Steel,Small Cap,,-12.0,275.44
+GRANULES,TFStage2,-2.16,4,2,2,1,13,36,2.7,6.6,-0.4,1.7,786.9,Healthcare - Pharma,Small Cap,,-0.9,692.72
+AXISCADES,TFStage2,-12.11,4,11,6,3,18,19,2.2,3.1,-10.6,-3.3,1943.2,IT - Services,Small Cap,,-10.6,1754.89
+SHRIPISTON,TFStage2,-3.12,-2,8,14,8,11,36,4.5,8.2,0.1,7.1,3739.7,Auto - OEM Suppliers,Small Cap,,-1.8,3341.67
+INOXINDIA,TFStage2,-6.91,-9,-1,20,18,19,14,4.8,16.2,0.2,21.3,1812.4,Engineering,Small Cap,,-5.4,1430.47
+ALIVUS,TFStage2,-19.83,18,6,11,3,21,36,2.1,2.7,-4.5,1.4,1070.3,Healthcare - Pharma,Small Cap,,-4.9,1012.93
+STAR,TFStage2,-33.68,-1,6,10,3,12,36,2.8,3.8,-4.0,-0.1,1110.9,Healthcare - Pharma,Small Cap,,-6.5,1026.78
+SKYGOLD,TFStage2_Low,-7.36,-3,-10,-2,23,19,34,-1.1,6.8,-5.9,-2.2,509.4,Consumption - Jewelry,Small Cap,,-10.9,434.48
+VMARCIND,TFStage2,-4.84,3,3,3,54,11,36,9.9,29.5,5.6,15.3,1598.75,Industrial - Consumables,Small Cap,,-3.9,1042.0
+SONACOMS,TFStage2,-20.15,11,4,6,3,19,1,2.3,4.8,1.0,1.0,613.8,Auto - OEM Suppliers,Small Cap,,-0.8,561.86
+ASHIANA,TFStage2,-18.16,-3,6,10,4,19,3,3.4,7.8,2.4,5.3,383.85,Real Estate,Small Cap,,-1.3,340.28
+DYNAMATECH,TFStage2,-15.16,12,5,9,2,17,36,3.4,1.6,-12.8,-5.6,10923.0,Defense - Misc,Small Cap,,-12.8,10455.32
+RPTECH,TFStage2,-2.01,10,4,9,59,12,5,22.3,34.3,30.7,34.4,730.0,Others,Small Cap,,6.4,481.33
+MMFL,TFStage2,-35.63,-1,6,10,5,25,1,2.0,3.0,-5.8,-5.0,469.8,Metals - Casting/Forging,Small Cap,,-6.6,445.21
+GULPOLY,TFStage2,-23.83,-15,-3,29,11,19,-36,2.7,10.3,1.5,15.6,209.47,Chemicals - Bulk,Small Cap,,-2.5,176.63
+UNIPARTS,TFStage2,-6.64,-5,-2,26,60,11,3,4.8,14.1,2.3,12.3,674.7,Engineering,Small Cap,,0.7,549.06
+MAHSEAMLES,TFStage2,-42.51,3,6,10,2,14,-10,1.5,1.3,-3.0,-1.7,630.65,Metals - Pipe & Tube,Small Cap,,-5.1,605.37
+UFBL,TFStage2,-21.11,-5,9,19,50,26,-32,12.1,34.6,5.2,26.6,624.55,Leisure - Restaurants,Small Cap,,0.9,378.37
+RBLBANK,TFStage2,-0.28,1,9,26,21,11,12,4.7,9.4,3.6,9.8,378.85,Financials - Private Bank,Small Cap,,1.7,332.36
+WELCORP,TFStage2,-0.76,5,1,12,60,19,36,2.7,11.2,1.5,3.4,1423.4,Metals - Pipe & Tube,Small Cap,,0.7,1137.79
+JAYNECOIND,TFStage2_Low,-23.35,0,5,-31,-25,10,12,-3.5,-5.6,-21.8,-19.1,89.68,Metals - Iron & Steel,Small Cap,,-22.2,91.07
+INDIGRID,TFStage2,-3.21,3,3,3,3,10,23,0.3,0.7,-0.9,0.1,172.15,Financials - Misc,Small Cap,,-1.4,169.88
+GUJALKALI,TFStage2_Low,-29.04,-3,5,-3,-29,13,-17,-1.5,-3.0,-20.3,-20.3,638.65,Chemicals - Bulk,Small Cap,,-20.3,625.16
+KRISHNADEF,TFStage2,-4.0,4,11,26,12,26,36,8.6,15.6,9.0,19.8,1320.0,Defense - Misc,Small Cap,,1.1,1064.29
+HIRECT,TFStage2,-4.93,-3,-1,11,26,15,35,2.8,13.1,1.9,3.5,1152.4,Electronic - Equipment,Small Cap,,-3.3,919.01
+RAMRAT,TFStage2,-21.7,14,5,7,1,18,27,2.5,2.9,-8.5,-8.4,407.15,Power - Wiring,Small Cap,,-13.5,373.93
+LLOYDSME,TFStage2,-6.48,12,5,9,1,12,27,0.6,4.2,-2.0,-2.0,1766.2,Metals - Iron & Steel,Mid Cap,,-5.0,1574.85
+IMFA,TFStage2,-14.93,-1,4,8,-9,10,36,-0.5,-0.4,-8.7,-4.9,1429.1,Metals - Misc,Small Cap,,-13.6,1406.87
+NMDC,TFStage2_Low,-7.37,4,-10,-19,-8,26,36,-1.2,-0.1,-4.8,-2.2,88.42,Metals - Misc,Mid Cap,,-7.9,86.07
+RPSGVENT,TFStage2_Low,-35.94,11,4,-20,-21,12,2,-2.1,-2.3,-19.6,-5.2,871.2,Tech - BPO,Small Cap,,-19.6,855.39
+ADANIENSOL,TFStage2,-4.5,6,-8,3,23,11,8,0.4,8.0,-4.5,-0.4,1507.4,Power - Misc,Large Cap,,-4.5,1272.65
+BANDHANBNK,TFStage2,-22.01,-2,5,10,5,20,1,0.3,6.0,-0.1,-0.1,208.09,Financials - Private Bank,Small Cap,,-4.0,184.62
+GOKULAGRO,TFStage2_Low,-11.26,-1,-5,-10,-5,11,36,-2.7,-0.2,-7.6,-4.7,221.77,Agri - Edible Oil,Small Cap,,-8.7,210.43
+SIGNPOST,TFStage2_Low,-47.2,-2,-6,-29,-14,18,-28,-6.4,-6.7,-17.0,-17.0,246.05,Others,Small Cap,,-19.7,254.98
+CONFIPET,TFStage2_Low,-41.3,2,-8,-13,-2,13,-20,0.7,12.2,-9.2,3.9,70.44,Utility - Misc,Small Cap,,-9.2,54.56
+APOLLOHOSP,TFStage2,-0.37,1,-4,1,60,26,32,1.2,4.2,-0.1,3.8,8489.5,Healthcare - Hospitals,Large Cap,,-0.4,7874.82
+NEOGEN,TFStage2_Low,-20.17,-6,-3,-4,52,26,1,-0.4,9.4,-5.0,4.0,1932.0,Chemicals - Specialty,Small Cap,,-7.2,1597.85
+XPROINDIA,TFStage2,-19.81,-3,6,24,33,12,1,7.9,16.5,11.4,18.2,1344.8,Packaging,Small Cap,,-3.5,1090.23
+LUXIND,TFStage2_Low,-50.01,-4,-3,-23,-12,10,-15,-4.1,-4.2,-24.7,-10.9,1246.2,Textile - Innerwear,Small Cap,,-28.7,1239.45
+VISHNU,TFStage2,-4.75,-1,4,9,3,10,25,0.5,3.4,-0.4,1.2,601.0,Chemicals - Misc,Small Cap,,-4.1,562.55
+MANINDS,TFStage2,-4.14,-2,11,22,6,11,34,6.0,11.2,2.9,11.6,587.6,Metals - Pipe & Tube,Small Cap,,-0.8,489.96
+STARHEALTH,TFStage2,-14.04,10,3,10,3,12,1,8.1,10.9,9.9,9.9,580.25,Financials - Non-Life,Small Cap,,2.6,503.32
+RISHABH,TFStage2,-8.93,5,8,16,9,20,3,5.7,12.9,4.0,9.3,578.65,Electronic - Equipment,Small Cap,,0.8,475.11
+SCI,TFStage2,-18.75,-1,6,10,3,26,36,2.4,4.7,-7.9,2.5,312.15,Transport - Shipping,Small Cap,,-9.4,279.88
+YATHARTH,TFStage2,-5.64,4,2,4,9,11,32,1.4,4.5,-2.6,2.4,839.75,Healthcare - Hospitals,Small Cap,,-2.6,763.48
+PAISALO,TFStage2,-40.97,-15,-6,30,24,11,2,2.8,14.0,-0.8,14.0,58.81,Financials - NBFC,Small Cap,,-2.3,46.31
+ELGIEQUIP,TFStage2,-23.31,2,-9,2,23,19,1,2.4,7.4,0.4,6.9,612.75,Industrial - Pumps/Engines,Small Cap,,-1.5,541.98
+BHEL,TFStage2,-2.48,11,3,5,1,10,36,4.9,10.5,-0.6,-0.6,414.35,Power - Equipment,Mid Cap,,-1.9,342.89
+DEEPINDS,TFStage2_Low,-22.0,-2,-8,-15,-2,11,36,-2.0,2.3,-8.5,-9.3,487.05,Oil and Gas,Small Cap,,-8.5,455.98
+AVALON,TFStage2,-3.01,-5,5,27,60,20,21,5.7,20.5,3.4,14.7,1744.6,Electronic - Equipment,Small Cap,,-0.9,1270.83
+WSTCSTPAPR,TFStage2,-37.01,-1,4,7,4,14,-18,1.0,5.1,-2.0,2.9,513.35,Paper,Small Cap,,-2.9,467.67
+SPAL,TFStage2,-9.24,4,5,10,14,14,3,20.0,24.6,26.5,26.8,1028.4,Textile - Apparels,Small Cap,,11.7,784.27
+CARBORUNIV,TFStage2,-32.56,11,6,10,5,10,-17,13.5,19.2,12.6,20.7,1241.7,Engineering,Small Cap,,4.2,971.03
+PTC,TFStage2_Low,-26.69,-5,11,-2,-1,26,3,-1.4,-0.9,-16.2,-10.1,186.65,Power - Misc,Small Cap,,-17.9,182.44
+SANGAMIND,TFStage2,-14.12,3,1,4,19,10,36,2.2,5.8,-0.2,4.5,541.0,Textile - Spinning/Yarn,Small Cap,,-0.2,490.47
+SURYODAY,TFStage2,-19.57,1,2,10,18,9,1,2.6,8.0,-2.7,7.0,175.09,Financials - Private Bank,Small Cap,,-2.7,152.95
+ADANIPORTS,TFStage2,-0.74,7,3,7,60,9,36,1.1,5.7,0.6,1.7,1835.3,Infra - Construction,Large Cap,,-0.4,1648.43
+AUBANK,TFStage2,-4.31,-3,6,11,6,9,13,2.9,3.5,-3.1,1.7,1033.05,Financials - Private Bank,Mid Cap,,-3.1,988.54
+MSPL,TFStage2,-31.31,2,5,11,5,8,36,6.0,10.5,3.7,3.7,44.32,Metals - Iron & Steel,Small Cap,,2.9,37.74
+JPPOWER,TFStage2_Low,-34.44,10,2,-29,-12,9,35,-1.9,-2.6,-17.0,-17.0,18.16,Power - Misc,Small Cap,,-20.6,18.02
+BAJAJ-AUTO,TFStage2_Low,-21.2,6,2,-31,-13,11,36,-0.8,-0.4,-6.0,-3.8,10066.0,Auto - 2W,Large Cap,,-6.9,9883.82
+NOVARTIND,TFStage2,-13.38,19,2,1,1,9,2,1.3,12.7,-12.4,-12.4,1364.3,Healthcare - Pharma,Small Cap,,-12.4,1038.38
+ROLEXRINGS,TFStage2,-48.74,10,9,10,2,10,-19,1.8,2.1,-7.8,-1.8,143.23,Auto - OEM Suppliers,Small Cap,,-11.5,136.75
+MARICO,TFStage2,-3.74,4,2,3,-15,26,26,0.3,1.2,-2.9,-0.6,817.05,Agri - Edible Oil,Mid Cap,,-3.0,791.28
+AZAD,TFStage2_Low,-12.01,-1,-6,-1,11,10,30,-2.6,1.4,-10.7,-4.5,2067.7,Engineering,Small Cap,,-10.7,1915.68
+SOMANYCERA,TFStage2,-40.82,-4,5,11,6,9,-19,0.8,6.5,-2.4,4.8,516.4,Infra - Ceramics,Small Cap,,-2.4,458.67
+JBMA,TFStage2,-40.1,11,5,12,15,10,-17,6.7,11.3,6.4,8.5,727.3,Auto - Misc,Small Cap,,2.9,625.1
+DSSL,TFStage2,-24.7,18,3,4,-12,10,2,4.4,8.8,-17.0,-17.0,1449.3,IT - Services,Small Cap,,-23.5,1212.49
+SATIN,TFStage2,-16.97,8,-8,6,56,26,1,2.0,11.8,-2.5,8.1,235.43,Financials - MFI,Small Cap,,-2.8,190.38
+CGCL,TFStage2,-74.78,-1,6,11,20,9,-30,5.6,11.7,6.0,8.8,220.96,Financials - NBFC,Small Cap,,0.1,189.48
+IPCALAB,TFStage2_Low,-9.69,2,-6,-10,-4,24,36,0.5,1.1,-3.4,-1.0,1585.8,Healthcare - Pharma,Mid Cap,,-4.3,1540.51
+IOLCP,TFStage2_Low,-6.26,3,-16,-8,60,10,3,1.4,13.2,-3.0,1.0,130.21,Healthcare - Pharma,Small Cap,,-4.4,102.23
+STEELXIND,TFStage2,-29.08,8,3,6,59,10,1,8.2,17.1,2.0,2.0,13.05,Metals - Iron & Steel,Small Cap,,2.0,10.13
+TIIL,TFStage2,-33.47,2,9,22,4,11,-7,3.4,5.4,0.4,5.3,2616.7,Metals - Casting/Forging,Small Cap,,-0.7,2407.2
+ADANIGREEN,TFStage2,-30.9,4,-8,3,60,10,1,1.8,10.4,-1.5,1.8,1502.4,Power - Green,Large Cap,,-2.1,1230.86
+NAM-INDIA,TFStage2,-0.37,11,5,10,5,10,36,5.8,10.5,6.6,7.9,1186.9,Financials - AMC,Mid Cap,,1.7,1014.0
+TIPSMUSIC,TFStage2_Low,-31.26,6,1,-16,-7,10,3,0.5,2.1,-5.5,-1.4,653.0,Media - Entertaintment,Small Cap,,-5.5,609.71
+RATNAMANI,TFStage2,-30.35,11,6,10,3,17,-15,6.1,6.6,-3.4,4.8,2770.9,Metals - Pipe & Tube,Small Cap,,-9.0,2510.67
+KIOCL,TFStage2,-36.1,-2,5,10,6,10,11,0.9,3.5,-1.5,-5.9,405.45,Metals - Iron & Steel,Small Cap,,-3.4,378.69
+FINEORG,TFStage2,-11.29,10,13,24,12,12,1,8.0,11.1,7.7,12.2,5285.8,Chemicals - Specialty,Small Cap,,2.6,4613.32
+SUVEN,TFStage2,-10.6,1,-3,1,8,10,36,1.9,13.3,-4.0,-4.0,268.2,Healthcare - Pharma,Small Cap,,-4.0,210.95
+MUKANDLTD,TFStage2_Low,-36.18,10,2,-1,-12,9,-19,-0.5,-0.3,-3.8,-4.4,135.81,Metals - Iron & Steel,Small Cap,,-8.8,134.15
+DIACABS,TFStage2,-0.93,-6,1,12,60,9,29,3.8,12.8,2.8,7.7,209.24,Power - Wiring,Small Cap,,-2.8,168.48
+GOCLCORP,TFStage2,-31.73,11,2,10,20,10,-18,9.0,20.8,6.5,19.1,437.5,Defense - Misc,Small Cap,,3.0,330.47
+FACT,TFStage2_Low,-25.45,-4,-1,-1,8,9,36,-3.0,1.1,-2.2,-4.3,884.85,Agrichem - Fertilizers,Mid Cap,,-11.3,860.04
+SCHAEFFLER,TFStage2,-12.54,11,5,9,4,17,27,5.1,5.2,1.0,-0.6,4329.9,Industrial - Bearings,Mid Cap,,-0.6,4053.06
+ATGL,TFStage2_Low,-42.25,4,-14,-31,1,10,-18,0.8,6.6,-5.9,-5.9,727.3,Utility - Gas,Mid Cap,,-10.0,637.71
+E2E,TFStage2,-22.39,9,1,3,2,23,36,7.5,18.0,-6.0,8.6,425.9,IT - Software/Consulting,Small Cap,,-6.0,315.92
+IFCI,TFStage2,-6.2,-4,-1,12,19,26,36,6.7,20.1,1.4,25.1,85.73,Financials - NBFC,Small Cap,,-4.8,65.04
+PARAS,TFStage2,-11.56,6,14,28,20,11,1,27.2,47.0,28.4,71.9,1408.65,Defense - Misc,Small Cap,,7.5,845.31
+OBEROIRLTY,TFStage2,-28.17,-2,5,10,4,9,1,1.3,2.3,-1.6,-5.3,1683.5,Real Estate,Mid Cap,,-2.9,1628.01
+TIINDIA,TFStage2,-31.7,11,5,10,6,11,-17,3.7,8.4,4.6,4.6,3285.6,Metals - Pipe & Tube,Mid Cap,,0.5,2883.55
+TFCILTD,TFStage2_Low,-12.35,-5,-2,-2,5,20,36,-0.8,0.8,-11.2,1.1,74.16,Financials - Misc,Small Cap,,-11.4,71.62
+SUNFLAG,TFStage2_Low,-16.23,-2,4,-2,-10,9,36,-1.0,5.1,-13.8,-4.1,358.55,Metals - Iron & Steel,Small Cap,,-13.8,311.99
+LLOYDSENGG,TFStage2,-7.02,11,4,8,4,8,1,12.8,26.2,18.0,18.0,86.84,Metals - Iron & Steel,Small Cap,,-1.0,62.1
+ADFFOODS,TFStage2,-13.31,10,4,11,57,9,1,5.9,14.6,8.3,15.9,306.85,Consumption - Misc,Small Cap,,0.4,245.84
+GOLDIAM,TFStage2,-16.59,-3,6,17,20,9,32,4.4,13.9,-0.9,16.1,474.6,Consumption - Jewelry,Small Cap,,-5.1,390.99
+SJS,TFStage2,-0.93,-3,9,18,37,8,36,4.1,11.6,4.7,5.2,2215.3,Auto - OEM Suppliers,Small Cap,,-0.2,1880.71
+JYOTISTRUC,TFStage2_Low,-70.39,8,2,-16,-7,18,-12,-1.5,-1.3,-11.8,-18.7,12.24,Power - Equipment,Small Cap,,-12.8,11.92
+BCLIND,TFStage2,-56.95,-13,-2,21,10,10,-18,1.6,7.7,-1.7,-8.3,37.15,Agri - Edible Oil,Small Cap,,-3.1,33.01
+PRUDENT,TFStage2,-18.9,-3,8,15,7,9,36,5.3,9.3,4.1,7.2,3029.2,Financials - Misc,Small Cap,,-0.8,2678.87
+PGIL,TFStage2,-10.02,4,2,10,26,6,35,6.8,9.1,7.3,6.2,1793.5,Textile - Apparels,Small Cap,,2.9,1612.29
+APCOTEXIND,TFStage2,-7.03,2,1,4,54,9,1,4.8,12.6,1.2,14.0,546.65,Industrial - Consumables,Small Cap,,1.2,444.97
+BHAGCHEM,TFStage2,-37.62,2,1,17,9,9,-6,7.8,11.2,3.4,5.4,279.26,Agrichem - Protection,Small Cap,,2.4,238.68
+GOODLUCK,TFStage2,-3.5,10,5,6,2,10,36,5.9,8.7,-0.9,9.9,1423.4,Metals - Pipe & Tube,Small Cap,,-1.0,1239.27
+BBOX,TFStage2,-3.58,12,-21,4,52,9,36,1.2,16.1,-4.7,-1.4,1023.0,IT - Services,Small Cap,,-5.1,754.63
+INDIAGLYCO,TFStage2_Low,-21.62,-6,6,-6,-24,7,36,-1.7,-2.4,-16.7,-12.2,957.75,Chemicals - Bulk,Small Cap,,-16.7,976.13
+GRSE,TFStage2,-20.92,11,6,10,3,10,36,3.5,4.0,-8.3,-4.5,2798.3,Defense - Ship Building,Small Cap,,-9.6,2612.15
+VENUSPIPES,TFStage2,-36.9,11,4,9,5,9,-16,7.5,12.3,6.7,10.6,1546.1,Metals - Iron & Steel,Small Cap,,4.3,1291.9
+MIDHANI,TFStage2,-20.18,-4,-2,31,54,10,2,1.2,7.0,0.3,3.9,437.0,Defense - Misc,Small Cap,,-3.0,382.31
+ADVENZYMES,TFStage2,-34.55,11,3,3,1,8,1,0.6,6.1,-0.4,2.7,373.7,Healthcare - Biotech,Small Cap,,-4.7,333.5
+SKIPPER,TFStage2,-18.3,-2,-10,9,24,9,36,0.6,9.6,-2.4,-1.1,543.3,Power - Equipment,Small Cap,,-5.5,459.07
+GPTINFRA,TFStage2,-40.5,12,5,10,2,10,36,3.9,5.1,3.2,-2.1,121.39,Infra - Construction,Small Cap,,-0.8,113.55
+MUTHOOTMF,TFStage2,-26.16,9,14,22,9,8,-29,7.0,11.6,3.5,6.4,207.48,Financials - NBFC,Small Cap,,-3.3,181.28
+PHOENIXLTD,TFStage2,-9.06,-3,10,11,5,5,36,4.0,6.1,2.8,1.5,1881.1,Real Estate,Mid Cap,,0.6,1754.63
+RRKABEL,TFStage2,-0.34,10,2,26,56,8,3,6.5,17.8,4.4,12.9,2321.1,Power - Wiring,Small Cap,,1.1,1782.73
+SUZLON,TFStage2,-31.19,11,5,10,5,8,1,4.8,9.2,3.9,-0.2,59.2,Power - Green,Mid Cap,,-0.1,51.96
+OFSS,TFStage2_Low,-27.09,10,1,-23,-8,9,2,0.6,5.1,-3.3,-3.3,9638.5,IT - Product/Platform,Mid Cap,,-6.8,8620.29
+MUFIN,TFStage2,-53.11,10,5,8,5,6,3,3.7,7.5,4.4,4.4,128.66,Financials - Misc,Small Cap,,-0.0,116.55
+NITCO,TFStage2,-30.63,4,9,4,2,8,2,14.3,16.8,5.8,-4.0,113.74,Infra - Ceramics,Small Cap,,5.8,92.94
+FEDFINA,TFStage2,-10.48,9,4,7,3,8,10,1.4,4.5,-1.2,-1.2,159.78,Financials - NBFC,Small Cap,,-3.0,148.75
+KERNEX,TFStage2,-5.15,-3,-2,31,20,8,35,3.8,22.9,0.3,18.3,1999.5,Railways,Small Cap,,-4.9,1441.88
+WALCHANNAG,TFStage2,-28.87,12,6,12,9,9,2,16.5,27.3,17.6,23.2,312.05,Engineering,Small Cap,,3.6,220.99
+ONEPOINT,TFStage2,-24.75,-2,6,10,3,8,2,-0.4,1.6,-6.8,-6.8,58.32,Tech - BPO,Small Cap,,-9.6,55.29
+BAJEL,TFStage2,-39.65,8,-10,5,21,9,-8,1.2,6.2,-0.7,-1.9,199.17,Engineering,Small Cap,,-2.1,178.97
+PAGEIND,TFStage2,-20.98,11,5,11,12,10,-7,2.8,5.7,1.3,-9.8,39975.0,Textile - Innerwear,Mid Cap,,-0.5,36649.58
+PNBHOUSING,TFStage2,-16.57,-3,6,9,-15,9,36,-0.1,0.9,-8.1,-4.1,1003.0,Financials - Housing,Small Cap,,-8.2,959.76
+WINDMACHIN,TFStage2,-26.26,-8,-1,18,9,9,36,3.5,10.1,0.2,0.3,325.05,Engineering,Small Cap,,-1.0,282.1
+MOTHERSON,TFStage2,-4.1,-5,-3,10,33,9,36,1.4,6.9,-0.1,-0.1,145.54,Auto - Replacement,Large Cap,,-1.7,130.21
+TRITURBINE,TFStage2,-24.03,12,2,3,2,8,2,0.4,5.8,-9.3,-9.3,672.3,Power - Equipment,Small Cap,,-9.3,589.72
+BLSE,TFStage2_Low,-46.87,-5,-11,-1,59,7,-28,-0.1,8.5,-2.0,1.3,225.11,IT - Services,Small Cap,,-3.9,195.16
+WEBELSOLAR,TFStage2_Low,-43.86,0,4,-3,-10,9,2,-0.9,2.6,-8.9,-21.3,104.71,Power - Green,Small Cap,,-14.3,94.6
+JGCHEM,TFStage2,-21.01,1,1,1,18,10,27,3.2,7.6,1.0,-5.1,440.75,Chemicals - Specialty,Small Cap,,0.6,390.04
+OLECTRA,TFStage2,-31.58,6,3,6,14,9,-8,14.2,19.2,13.4,-2.1,1520.3,Auto - PV/Trucks,Small Cap,,5.1,1211.21
+MARINE,TFStage2,-22.39,-1,4,8,5,9,36,3.1,9.4,-3.9,-3.9,258.45,Electronic - Equipment,Small Cap,,-3.9,221.52
+NESTLEIND,TFStage2,-5.56,6,3,1,-6,9,9,0.8,2.1,-4.6,-3.0,1414.8,Consumption - FMCG,Large Cap,,-4.8,1350.95
+ASIANENE,TFStage2,-17.31,2,-8,1,1,10,3,2.1,7.2,-3.9,-0.5,367.25,Oil and Gas,Small Cap,,-4.3,321.34
+VIJAYA,TFStage2,-1.86,8,1,6,55,9,35,4.8,9.8,-0.6,4.3,1364.2,Healthcare - Diagnostics,Small Cap,,-0.6,1154.83
+AEROENTER,TFStage2,-10.32,6,13,25,12,9,1,21.8,30.4,23.8,41.2,135.87,Metals - Iron & Steel,Small Cap,,9.2,95.59
+JSFB,TFStage2_Low,-38.05,9,-12,-6,-7,9,-18,-0.3,3.0,-4.8,-4.8,471.4,Financials - Private Bank,Small Cap,,-5.5,436.38
+DLINKINDIA,TFStage2,-27.96,4,14,28,60,10,1,4.8,10.8,4.7,11.0,525.05,IT - Software/Consulting,Small Cap,,-0.2,451.94
+EXICOM,TFStage2,-68.27,10,4,7,21,7,-16,9.7,23.5,5.5,5.5,168.15,IT - Equipments,Small Cap,,0.1,124.26
+GMRAIRPORT,TFStage2,-1.39,-2,6,11,18,4,36,4.1,8.2,5.0,0.4,108.83,Infra - Construction,Mid Cap,,-1.6,98.87
+TITAGARH,TFStage2,-51.37,12,4,11,20,6,-15,5.8,13.3,7.4,3.4,922.45,Railways,Small Cap,,-1.1,784.4
+TVSSCS,TFStage2,-45.62,-4,6,24,12,10,-29,8.1,13.2,6.1,8.7,140.31,Transport - Logistics,Small Cap,,3.1,117.93
+SUMICHEM,TFStage2_Low,-31.92,-4,-2,-4,-10,7,-6,-2.5,-0.6,-9.7,-20.0,452.7,Agrichem - Protection,Small Cap,,-9.7,443.64
+YASHO,TFStage2,-0.48,-8,-1,31,53,11,1,10.4,32.2,0.3,38.9,2878.6,Chemicals - Specialty,Small Cap,,-0.5,1881.24
+REDTAPE,TFStage2_Low,-86.31,1,2,-6,-10,8,-17,-0.1,2.0,-3.9,-6.6,134.13,Consumption - Footwear,Small Cap,,-9.7,128.09
+GENUSPOWER,TFStage2,-33.2,-3,6,12,5,8,-5,1.8,5.7,-0.7,-4.8,324.7,Electronic - Equipment,Small Cap,,-3.1,296.3
+AJANTPHARM,TFStage2,-12.05,-10,-1,22,7,26,36,0.3,2.1,-3.5,2.4,3065.2,Healthcare - Pharma,Small Cap,,-6.0,2935.62
+WOCKPHARMA,TFStage2,-4.11,14,1,6,60,7,32,4.2,15.7,-1.0,-1.0,2011.1,Healthcare - Pharma,Small Cap,,-6.6,1595.04
+CYIENTDLM,TFStage2,-46.41,-3,5,11,54,6,-17,4.3,12.9,4.5,4.8,473.65,Electronic - Equipment,Small Cap,,1.0,396.73
+GRINDWELL,TFStage2,-27.81,10,5,12,59,7,-19,7.2,15.6,9.1,16.1,2136.8,Engineering,Small Cap,,1.5,1737.87
+MOTILALOFS,TFStage2,-26.57,-2,6,11,6,7,2,5.7,11.2,7.3,-2.5,953.45,Financials - Broking,Mid Cap,,0.6,828.05
+METROPOLIS,TFStage2,-7.88,11,3,6,3,7,12,3.0,6.2,-0.5,-0.5,552.75,Healthcare - Diagnostics,Small Cap,,-1.3,501.53
+KIMS,TFStage2,-1.68,6,3,7,53,18,36,3.2,7.5,1.9,6.0,804.25,Healthcare - Hospitals,Small Cap,,0.4,713.75
+MANAPPURAM,TFStage2,-4.6,-1,5,10,3,7,36,1.8,4.3,-2.1,-2.1,318.65,Financials - NBFC,Small Cap,,-3.5,298.06
+GNFC,TFStage2,-30.34,12,6,10,4,6,-19,7.9,13.0,10.4,8.6,567.65,Agrichem - Fertilizers,Small Cap,,0.9,485.45
+WELSPUNLIV,TFStage2,-23.82,10,4,9,5,6,1,10.1,15.9,13.3,9.0,162.23,Textile - Misc,Small Cap,,-0.5,134.97
+SHYAMMETL,TFStage2_Low,-3.07,4,-15,-9,56,10,36,0.2,4.3,-3.1,-0.3,970.3,Metals - Iron & Steel,Small Cap,,-3.2,892.15
+BORORENEW,TFStage2,-17.02,12,13,26,13,5,1,8.1,13.9,6.5,-7.0,598.25,Power - Green,Small Cap,,0.5,510.77
+HUDCO,TFStage2,-41.01,-3,13,10,5,7,3,0.1,1.8,-10.1,-12.8,208.65,Financials - Housing,Mid Cap,,-10.1,202.33
+SIS,TFStage2,-20.67,-7,-6,31,59,8,-23,2.5,10.5,2.0,6.7,429.75,Others,Small Cap,,0.3,363.71
+DEEPAKFERT,TFStage2,-12.11,-10,-2,20,60,8,27,4.3,12.8,0.6,4.1,1563.3,Agrichem - Fertilizers,Small Cap,,0.6,1284.64
+POLYPLEX,TFStage2,-35.68,13,5,9,4,11,-10,3.5,4.4,-1.1,-8.4,951.1,Packaging,Small Cap,,-3.3,887.44
+MMTC,TFStage2,-43.44,-2,6,12,6,10,1,6.2,11.7,9.1,8.5,74.55,Others,Small Cap,,-1.9,64.32
+VMART,TFStage2,-29.4,16,8,17,20,4,-6,10.0,18.0,10.8,-3.8,797.8,Consumption - Retail,Small Cap,,1.1,651.76
+EQUITASBNK,TFStage2,-33.69,-4,-1,26,19,8,-24,2.7,9.5,2.3,10.0,77.25,Financials - Private Bank,Small Cap,,-1.9,67.44
+CERA,TFStage2,-40.24,1,9,18,8,8,-20,7.3,12.9,4.9,2.2,6448.0,Infra - Home Furnish,Small Cap,,3.0,5471.04
+NAZARA,TFStage2,-18.14,-3,8,17,6,10,25,3.0,6.9,-0.9,2.4,297.35,IT - Product/Platform,Small Cap,,-1.3,269.13
+VSTIND,TFStage2,-46.53,-6,11,12,10,8,-17,0.6,2.1,-1.8,-3.3,259.95,Consumption - Misc,Small Cap,,-1.8,249.35
+RAINBOW,TFStage2,-13.97,16,6,12,6,7,1,5.3,9.7,6.6,-2.1,1470.8,Healthcare - Hospitals,Small Cap,,1.4,1298.38
+HNDFDS,TFStage2,-20.54,-1,5,10,35,7,-11,1.0,4.5,0.1,1.4,545.4,Consumption - Misc,Small Cap,,-2.2,513.2
+RATEGAIN,TFStage2,-5.86,-2,5,15,56,5,2,7.2,21.8,10.8,16.2,867.7,IT - Product/Platform,Small Cap,,-2.4,660.58
+ICIL,TFStage2,-12.44,3,2,11,60,7,1,13.0,23.6,14.6,21.7,394.6,Textile - Spinning/Yarn,Small Cap,,-2.8,297.5
+VIYASH,TFStage2_Low,-8.47,2,-14,-12,1,7,33,1.8,7.0,-3.1,-3.1,253.85,Healthcare - Pharma,Small Cap,,-3.1,225.51
+ASTEC,TFStage2,-46.46,8,2,7,25,8,-33,2.6,8.3,3.4,-8.6,797.7,Agrichem - Protection,Small Cap,,0.4,706.38
+HINDOILEXP,TFStage2_Low,-44.58,3,-7,-12,-5,8,-17,-1.6,0.8,-6.9,-4.5,162.68,Oil and Gas,Small Cap,,-11.1,156.57
+GREENPLY,TFStage2,-29.2,-16,-3,28,13,8,-6,2.4,10.0,-0.0,-5.5,291.67,Infra - Laminates,Small Cap,,-1.7,251.28
+HCC,TFStage2,-53.01,11,5,10,6,8,-15,9.8,20.0,12.5,-5.3,27.02,Infra - Construction,Small Cap,,-1.2,20.9
+STOVEKRAFT,TFStage2,-28.82,6,2,31,22,6,-6,6.3,14.8,5.8,-11.9,694.25,Consumption - Appliances,Small Cap,,0.9,575.5
+OAL,TFStage2,-47.72,-2,9,18,22,8,-16,3.3,9.0,4.7,-7.1,343.3,Chemicals - Specialty,Small Cap,,-1.0,302.62
+ELECON,TFStage2,-27.07,-4,-1,21,11,8,-6,0.7,6.2,-3.3,-5.1,539.05,Electronic - Equipment,Small Cap,,-4.2,483.43
+MARKSANS,TFStage2,-27.61,5,2,17,60,9,1,4.6,16.3,2.9,5.5,259.67,Healthcare - Pharma,Small Cap,,-0.7,205.67
+GTLINFRA,TFStage2,-64.67,0,0,8,55,9,-11,2.7,10.1,-5.0,2.0,1.53,Telecom,Small Cap,,-5.0,1.3
+HBLENGINE,TFStage2,-27.32,11,5,9,3,5,36,3.0,3.7,-3.8,-18.8,815.5,Railways,Small Cap,,-4.6,778.66
+MOREPENLAB,TFStage2,-50.94,-5,-1,18,16,9,-9,1.7,10.8,-1.2,3.4,49.5,Healthcare - Pharma,Small Cap,,-5.6,42.73
+SOTL,TFStage2,-7.66,-4,-2,26,52,7,1,8.7,26.4,6.0,38.8,604.8,Petro - Lubricants,Small Cap,,-1.0,429.3
+SASKEN,TFStage2,-6.98,8,3,6,60,9,2,13.6,35.0,14.5,14.5,2586.1,IT - Services,Small Cap,,-2.3,1654.52
+POWERMECH,TFStage2,-23.76,-4,7,31,22,8,-6,5.2,11.1,1.8,-5.5,2839.9,Infra - Construction,Small Cap,,-0.4,2421.67
+KSL,TFStage2,-35.06,11,5,6,1,8,2,1.7,3.6,-3.8,-4.2,829.3,Metals - Iron & Steel,Small Cap,,-7.4,773.77
+SHRIRAMPPS,TFStage2,-37.8,11,5,9,3,7,-16,4.5,6.8,-5.2,-2.4,91.81,Real Estate,Small Cap,,-5.2,83.43
+WELENT,TFStage2,-13.31,4,2,24,18,7,36,3.7,8.2,2.8,1.3,567.85,Infra - Construction,Small Cap,,-0.4,508.73
+VINDHYATEL,TFStage2,-26.5,2,3,10,56,7,-18,11.7,29.3,7.4,7.4,2374.1,Telecom,Small Cap,,7.4,1611.27
+CEMPRO,TFStage2,0.0,4,-6,24,60,7,36,9.4,28.0,11.5,16.9,1252.0,Infra - Construction,Small Cap,,1.2,860.94
+PRAKASH,TFStage2,-38.57,-2,5,9,4,10,-6,-0.3,2.4,-4.3,-11.4,145.6,Metals - Pipe & Tube,Small Cap,,-5.1,138.54
+LUMAXIND,TFStage2_Low,-23.87,-2,5,-2,-12,-1,35,-1.2,-1.8,-8.3,-12.7,5279.5,Auto - Replacement,Small Cap,,-11.7,5386.08
+VSSL,TFStage2,-17.87,-3,6,11,5,5,35,1.2,4.0,0.4,-4.8,281.55,Metals - Iron & Steel,Small Cap,,-4.0,267.18
+SYNCOMF,TFStage2_Low,-49.89,-2,-2,-29,-11,7,-6,-2.3,-0.3,-6.9,-16.4,13.98,Healthcare - Pharma,Small Cap,,-12.6,13.76
+RPGLIFE,TFStage2,-23.45,-4,7,13,5,7,36,1.8,3.5,-7.5,-5.3,2277.4,Healthcare - Pharma,Small Cap,,-8.6,2164.84
+ARMANFIN,TFStage2,-36.78,-2,8,11,4,7,-28,2.3,3.3,-5.2,0.5,1694.2,Financials - NBFC,Small Cap,,-9.8,1601.2
+MONARCH,TFStage2,-29.81,12,4,12,60,7,1,3.0,8.8,3.0,4.2,350.25,Financials - Broking,Small Cap,,0.5,309.2
+SRHHYPOLTD,TFStage2_Low,-47.96,3,1,-31,-13,7,-16,-1.8,-2.0,-10.3,-15.2,490.25,Chemicals - Bulk,Small Cap,,-11.5,494.2
+RML,TFStage2,-26.67,11,5,11,6,7,1,16.8,22.8,21.5,23.2,1121.15,Auto - OEM Suppliers,Small Cap,,13.6,857.11
+BLKASHYAP,TFStage2,-54.86,2,6,10,-17,9,-10,0.8,0.8,-9.5,-21.9,54.47,Real Estate,Small Cap,,-12.5,52.94
+CLSEL,TFStage2,-33.96,-2,6,12,6,10,-5,3.0,5.3,-1.6,4.5,295.35,Agri - Rice,Small Cap,,-1.6,272.4
+PREMEXPLN,TFStage2,-14.69,10,4,8,23,8,36,9.5,23.0,11.9,12.3,775.3,Defense - Misc,Small Cap,,1.2,574.68
+PARACABLES,TFStage2,-37.48,10,2,7,53,10,-15,10.7,25.8,8.5,10.9,73.06,Power - Wiring,Small Cap,,4.6,50.01
+SERVOTECH,TFStage2_Low,-50.5,-4,-10,-1,22,10,-7,0.2,7.1,-2.5,-17.9,101.67,Electronic - Equipment,Small Cap,,-9.4,88.53
+HARSHA,TFStage2,-29.78,-2,6,11,6,8,-16,3.6,7.4,1.2,8.0,431.05,Engineering,Small Cap,,-1.8,390.18
+NSLNISP,TFStage2_Low,-36.39,-2,-10,-16,-2,8,-19,-1.2,4.6,-6.2,4.5,46.88,Metals - Iron & Steel,Small Cap,,-10.8,43.05
+MANKIND,TFStage2,-20.97,3,9,3,2,8,1,1.3,3.1,-3.5,-2.3,2414.2,Healthcare - Pharma,Large Cap,,-6.6,2275.72
+SENCO,TFStage2_Low,-55.91,-4,-1,-2,5,7,-13,-0.6,1.1,-6.8,-7.8,340.4,Consumption - Jewelry,Small Cap,,-6.8,329.69
+SANDUMA,TFStage2_Low,-22.45,-2,4,-31,-12,7,33,-2.4,-2.4,-12.2,-12.8,211.72,Metals - Misc,Small Cap,,-12.2,214.93
+NUVAMA,TFStage2,-0.47,11,5,11,60,7,33,7.0,14.2,6.6,11.9,1739.6,Financials - AMC,Small Cap,,0.7,1450.95
+INNOVACAP,TFStage2,-25.96,-7,-2,28,59,10,2,1.8,9.9,-1.0,3.4,932.95,Healthcare - Pharma,Small Cap,,-3.2,795.42
+CAPITALSFB,TFStage2,-37.95,-1,9,14,6,8,-28,2.4,5.6,-1.4,0.4,291.0,Financials - Private Bank,Small Cap,,-2.4,269.32
+GPTHEALTH,TFStage2_Low,-33.26,0,-8,-12,16,8,-28,0.2,3.2,-1.9,-1.3,146.76,Healthcare - Hospitals,Small Cap,,-3.7,138.4
+ASIANPAINT,TFStage2,-23.41,-6,-1,18,60,4,-35,0.8,4.5,-0.5,-4.9,2732.9,Consumption - Paints,Large Cap,,-0.8,2568.93
+BERGEPAINT,TFStage2,-18.98,2,1,2,8,5,-6,7.1,9.6,3.2,-2.5,550.7,Consumption - Paints,Mid Cap,,3.1,492.62
+YESBANK,TFStage2,-22.65,11,5,10,60,6,2,6.7,12.8,9.1,9.8,25.41,Financials - Private Bank,Mid Cap,,-0.3,21.74
+IDEA,TFStage2,-21.74,1,0,10,52,5,3,3.2,14.1,0.4,7.3,15.01,Telecom,Mid Cap,,0.0,12.16
+KPRMILL,TFStage2,-16.5,4,2,31,24,7,35,8.5,15.0,6.7,7.4,1159.75,Textile - Apparels,Mid Cap,,-2.2,965.48
+GODREJIND,TFStage2,-19.97,12,5,9,2,7,2,3.7,5.5,-8.7,-9.6,1112.4,Chemicals - Specialty,Mid Cap,,-9.3,1021.58
+APTUS,TFStage2,-32.84,-5,6,12,6,5,-7,1.4,3.4,-4.6,-15.6,269.75,Financials - Housing,Small Cap,,-6.0,257.09
+ALKYLAMINE,TFStage2,-34.04,1,-5,1,14,6,-36,2.8,9.3,0.7,-8.0,1845.4,Chemicals - Specialty,Small Cap,,-0.3,1613.86
+NH,TFStage2_Low,-20.74,4,-10,-17,-7,4,36,-0.4,1.3,-4.6,-3.4,1878.7,Healthcare - Hospitals,Mid Cap,,-5.1,1830.88
+LXCHEM,TFStage2_Low,-53.19,1,-3,-6,-8,5,-19,-0.5,2.2,-7.6,-26.3,152.37,Chemicals - Specialty,Small Cap,,-8.2,146.67
+JUBLPHARMA,TFStage2_Low,-26.23,-3,6,-1,-1,4,35,-1.0,0.3,-4.2,-12.2,966.35,Healthcare - Pharma,Small Cap,,-4.7,958.96
+RAIN,TFStage2_Low,-13.02,-8,-10,-6,60,6,1,-0.6,13.1,-3.1,1.6,191.0,Chemicals - Petro,Small Cap,,-8.1,154.24
+TEJASNET,TFStage2,-57.7,5,1,15,34,11,-15,10.0,20.7,5.6,8.0,632.35,IT - Equipments,Small Cap,,5.0,481.71
+RAYMOND,TFStage2,-83.23,-6,8,16,9,8,-19,4.0,14.5,1.0,-2.2,586.45,Textile - Apparels,Small Cap,,-0.9,472.07
+RBA,TFStage2,-46.5,11,3,11,54,7,-27,6.2,8.2,7.0,-7.8,73.67,Leisure - Restaurants,Small Cap,,5.7,66.46
+KENNAMET,TFStage2,-13.07,-1,4,8,3,9,2,1.7,5.3,-5.5,2.1,2956.0,Engineering,Small Cap,,-5.5,2706.21
+SUPRIYA,TFStage2_Low,-3.77,-8,-11,-8,60,5,36,1.1,11.9,-4.6,-3.8,932.2,Healthcare - Pharma,Small Cap,,-11.4,770.24
+HEMIPROP,TFStage2_Low,-47.33,-4,6,-2,-2,7,-16,-0.5,0.4,-9.5,-16.3,139.55,Real Estate,Small Cap,,-10.9,136.86
+COSMOFIRST,TFStage2,-40.27,10,9,8,3,8,-6,4.3,6.2,-4.3,-21.1,780.75,Packaging,Small Cap,,-4.3,712.38
+IIFLCAPS,TFStage2,-23.29,-1,3,21,11,7,36,0.4,3.3,-3.3,-5.2,344.4,Financials - Broking,Small Cap,,-3.3,325.19
+MOLDTKPAC,TFStage2,-36.54,2,1,9,5,7,-35,1.4,6.8,-1.5,-11.0,698.1,Packaging,Small Cap,,-1.5,620.17
+HESTERBIO,TFStage2,-38.55,-2,5,10,55,7,-15,3.7,12.9,3.3,2.5,2076.4,Healthcare - Diagnostics,Small Cap,,-3.7,1717.84
+PSPPROJECT,TFStage2,-5.9,2,1,23,19,4,11,8.1,15.3,5.7,4.3,969.1,Infra - Construction,Small Cap,,5.2,805.42
+PANAMAPET,TFStage2,-1.36,4,2,23,54,7,1,26.7,38.0,28.1,46.9,483.25,Petro - Lubricants,Small Cap,,18.4,320.62
+GEOJITFSL,TFStage2,-55.73,-3,5,11,54,4,-12,3.3,8.1,2.0,0.0,78.35,Financials - Broking,Small Cap,,-0.9,70.71
+SANDHAR,TFStage2,-3.54,2,-15,2,60,5,13,2.1,13.9,-0.6,4.9,707.95,Auto - OEM Suppliers,Small Cap,,-3.6,578.49
+VERANDA,TFStage2,-32.02,11,5,10,5,6,-13,4.6,12.4,1.4,4.3,244.89,IT - Services,Small Cap,,0.4,202.81
+PANACEABIO,TFStage2,-7.82,-15,-6,27,52,7,36,3.6,19.1,-0.7,22.5,536.4,Healthcare - Biotech,Small Cap,,-11.7,411.33
+ASHAPURMIN,TFStage2,-23.43,13,4,9,6,4,36,1.5,5.9,-4.2,-19.4,708.15,Metals - Misc,Small Cap,,-4.4,656.7
+ADOR,TFStage2,-31.28,2,6,11,48,6,-18,5.4,10.1,4.3,6.7,1216.4,Engineering,Small Cap,,3.3,1064.81
+THEMISMED,TFStage2_Low,-67.91,6,-14,-31,-7,6,-15,-1.4,2.6,-7.1,-24.5,101.73,Healthcare - Pharma,Small Cap,,-10.7,95.78
+KICL,TFStage2,-36.68,-2,5,11,23,6,36,2.3,5.3,2.9,-4.8,5212.0,Financials - Misc,Small Cap,,0.0,4867.71
+ARTEMISMED,TFStage2_Low,-26.1,-3,5,-4,-13,6,36,-1.6,-0.1,-7.6,-9.4,258.65,Healthcare - Hospitals,Small Cap,,-10.2,254.57
+V2RETAIL,TFStage2,-7.63,10,1,2,-7,6,36,2.0,5.6,-4.5,-3.3,236.85,Consumption - Retail,Small Cap,,-7.6,217.38
+REFEX,TFStage2,-43.85,12,4,10,59,7,-5,7.3,15.7,2.6,-8.5,336.9,Chemicals - Misc,Small Cap,,2.5,271.37
+NDRAUTO,TFStage2,-29.89,-3,5,10,5,6,36,3.9,7.9,4.1,-16.2,855.35,Auto - OEM Suppliers,Small Cap,,0.0,776.27
+MEDANTA,TFStage2,-16.39,8,4,25,12,6,36,2.4,5.6,1.9,-7.9,1265.8,Healthcare - Hospitals,Small Cap,,0.6,1166.07
+GUJTHEM,TFStage2_Low,-22.22,1,-14,-15,-6,6,16,-3.2,0.5,-9.8,-19.9,372.55,Healthcare - Pharma,Small Cap,,-13.8,359.25
+ESAFSFB,TFStage2,-61.14,9,6,8,5,6,-29,8.4,13.6,8.5,9.2,32.02,Financials - Private Bank,Small Cap,,0.0,27.2
+GANDHAR,TFStage2,-49.39,2,2,2,2,5,-31,7.6,11.6,6.0,11.6,174.11,Petro - Lubricants,Small Cap,,0.0,150.52
+PIDILITIND,TFStage2,-7.47,-4,8,18,52,5,1,3.2,6.7,2.9,3.6,1579.9,Chemicals - Specialty,Large Cap,,-0.1,1455.13
+BIOCON,TFStage2_Low,-5.65,2,1,-31,-11,5,27,-0.1,2.7,-3.4,-3.1,415.5,Healthcare - Biotech,Mid Cap,,-4.7,395.06
+TATACOMM,TFStage2,-8.56,3,-16,1,54,5,1,2.8,9.1,0.8,1.2,1988.8,Telecom,Mid Cap,,-1.0,1738.76
+KANSAINER,TFStage2_Low,-40.91,-6,-3,-5,-3,5,-28,-1.0,0.4,-4.9,-14.9,211.13,Consumption - Paints,Small Cap,,-4.9,208.56
+TANLA,TFStage2,-60.44,-2,5,9,4,7,-33,0.1,2.6,-7.7,-20.6,521.35,IT - Product/Platform,Small Cap,,-10.6,499.46
+ITI,TFStage2,-47.28,12,5,10,5,4,36,3.4,5.3,3.5,-3.8,312.45,Telecom,Small Cap,,0.4,293.17
+SAREGAMA,TFStage2,-32.37,1,-10,12,27,7,-8,3.3,12.0,-2.2,-3.4,465.9,Media - Entertaintment,Small Cap,,-2.2,387.98
+PGHL,TFStage2,-7.35,4,-13,22,49,4,2,1.3,8.3,-0.7,-2.0,6244.0,Healthcare - Pharma,Small Cap,,-1.1,5542.78
+AEGISLOG,TFStage2,-2.82,-5,9,18,23,5,36,11.7,25.9,6.7,31.6,1007.8,Utility - Gas,Small Cap,,0.1,750.63
+PRINCEPIPE,TFStage2,-63.67,-4,5,28,24,8,-29,1.9,6.1,1.8,-11.9,281.95,Infra - Plastic Pipes,Small Cap,,-1.1,258.7
+GREAVESCOT,TFStage2,-37.86,10,4,10,24,4,-4,5.8,12.2,3.3,-12.9,198.54,Industrial - Pumps/Engines,Small Cap,,3.3,170.41
+HCG,TFStage2_Low,-24.07,-4,-17,-31,-10,3,36,-2.6,-0.4,-6.6,-18.2,610.95,Healthcare - Hospitals,Small Cap,,-7.4,610.0
+SOLARA,TFStage2_Low,-36.21,-8,-2,-3,9,5,-5,-1.1,4.0,-7.5,-8.1,563.1,Healthcare - Pharma,Small Cap,,-7.5,528.0
+SIYSIL,TFStage2,-46.25,3,2,27,13,4,-4,2.5,7.1,2.2,-15.9,631.6,Textile - Misc,Small Cap,,-1.1,576.82
+BOMDYEING,TFStage2,-47.35,-2,6,11,6,5,-9,4.4,8.9,-0.3,-20.6,135.0,Textiles - Processing,Small Cap,,-0.6,121.17
+BAJAJHIND,TFStage2,-58.37,-5,-1,10,15,9,-16,0.0,2.4,-5.5,-13.1,19.19,Agri - Sugar,Small Cap,,-6.0,18.3
+MANALIPETC,TFStage2,-37.59,-5,-1,11,54,5,-18,2.2,8.9,0.5,-11.5,65.5,Chemicals - Petro,Small Cap,,-4.0,57.96
+DATAMATICS,TFStage2,-28.44,-2,4,9,5,4,35,1.3,4.0,-2.1,-20.7,801.5,IT - Services,Small Cap,,-4.0,761.66
+MANORAMA,TFStage2,-11.47,2,-4,28,18,9,36,3.1,6.8,-1.1,3.3,1558.2,Agri - Misc,Small Cap,,-3.1,1413.38
+ORCHPHARMA,TFStage2,-50.98,-2,6,26,55,4,-13,6.8,25.1,6.8,17.5,979.05,Healthcare - Pharma,Small Cap,,-6.6,726.32
+BFUTILITIE,TFStage2,-41.59,11,3,11,19,3,-7,6.4,13.2,3.8,-18.1,659.5,Infra - Construction,Small Cap,,-0.2,562.79
+GIPCL,TFStage2_Low,-40.22,-2,-10,-3,20,8,-7,-0.4,3.1,-5.1,-11.7,161.35,Power - Misc,Small Cap,,-7.1,151.69
+CENTENKA,TFStage2,-39.32,10,1,8,53,5,-10,4.5,9.1,0.6,4.8,524.85,Textile - Misc,Small Cap,,-2.7,461.42
+KDDL,TFStage2,-22.42,5,-8,4,23,9,1,3.6,10.3,1.9,6.5,2959.7,Consumption - Jewelry,Small Cap,,-1.8,2545.24
+BBL,TFStage2,-50.76,10,3,5,5,8,-9,0.6,1.8,-9.5,-10.7,2801.6,Power - Equipment,Small Cap,,-12.9,2700.41
+IMPAL,TFStage2_Low,-28.95,-3,-1,-1,5,5,-4,-0.7,1.2,-5.4,-1.9,1065.7,Auto - Misc,Small Cap,,-5.4,1042.22
+DREDGECORP,TFStage2,-22.08,11,2,4,2,5,8,1.9,8.1,-3.6,-2.2,1136.0,Engineering,Small Cap,,-7.8,1007.71
+FAZE3Q,TFStage2,-20.11,6,2,6,23,10,2,8.5,16.1,9.1,9.5,597.5,Textiles - Processing,Small Cap,,2.6,486.9
+TARIL,TFStage2,-44.9,11,5,9,4,10,-5,10.8,11.7,7.0,-27.1,357.55,Power - Equipment,Small Cap,,4.3,308.75
+GKWLIMITED,TFStage2,-55.67,-14,-3,21,12,5,-11,2.1,5.8,-0.2,3.7,1839.8,Financials - Misc,Small Cap,,-0.5,1699.39
+ELECTHERM,TFStage2_Low,-26.21,-10,-3,-1,22,4,35,2.0,18.5,-9.8,8.6,1073.7,Metals - Iron & Steel,Small Cap,,-9.8,835.12
+JAYKAY,TFStage2,-19.4,6,3,3,-8,3,-6,0.5,4.2,-2.7,-9.3,177.08,IT - Software/Consulting,Small Cap,,-17.2,168.08
+DIVGIITTS,TFStage2,-25.5,-4,6,12,20,26,2,4.6,11.4,4.6,5.6,856.7,Auto - Misc,Small Cap,,-1.4,729.45
+SINDHUTRAD,TFStage2,-44.16,11,4,4,-9,20,2,-0.3,2.1,-6.8,-10.8,25.21,Transport - Logistics,Small Cap,,-6.8,23.88
+KODYTECH,TFStage2,-73.53,10,8,8,8,3,-13,17.0,24.6,16.9,20.1,1105.25,IT - Software/Consulting,Small Cap,,6.0,851.66
+JSWINFRA,TFStage2,-14.63,12,9,17,9,7,1,6.3,9.6,5.9,-2.3,308.15,Infra - Construction,Mid Cap,,0.1,274.79
+MAXESTATES,TFStage2,-35.01,8,4,6,52,4,-4,2.1,7.3,2.2,-6.3,454.15,Infra - Construction,Small Cap,,-1.4,414.13
+AMNPLST,TFStage2,-44.28,8,3,6,4,5,-8,2.6,8.2,-3.6,-9.2,200.55,Chemicals - Specialty,Small Cap,,-3.6,180.01
+TATATECH,TFStage2,-46.16,-2,-9,10,60,5,-31,0.8,9.9,-2.3,6.9,753.7,IT - Software/Consulting,Mid Cap,,-3.3,653.07
+TINNARUBR,TFStage2,-18.95,-2,-7,28,20,7,-12,2.6,11.5,1.5,-7.9,882.55,Rubber,Small Cap,,-1.0,758.03
+CIPLA,TFStage2_Low,-20.58,-8,-22,-31,-9,3,-4,-1.6,-0.7,-5.6,-14.9,1351.8,Healthcare - Pharma,Large Cap,,-5.9,1359.33
+GAIL,TFStage2,-29.4,-4,6,23,20,3,-6,1.7,5.2,2.0,-4.8,173.9,Utility - Gas,Large Cap,,-1.4,163.21
+ZEEL,TFStage2,-62.18,2,-5,25,17,4,-28,6.1,15.0,0.7,-2.3,113.36,Media - TV Broadcast,Small Cap,,0.7,93.15
+SFL,TFStage2,-48.86,-8,-2,23,33,6,-35,3.4,12.4,-0.4,0.2,700.65,Infra - Home Furnish,Small Cap,,-1.3,592.88
+LMW,TFStage2,-13.2,12,3,10,20,4,-7,4.4,9.3,5.7,5.9,16665.0,Engineering,Small Cap,,-0.3,14890.11
+QUESS,TFStage2,-71.44,-13,-1,26,18,6,-14,4.9,13.3,2.4,-6.8,249.87,Human Resources,Small Cap,,-0.0,211.35
+AETHER,TFStage2,-8.85,-3,19,26,12,26,5,1.4,3.1,-4.2,-0.8,1162.3,Chemicals - Specialty,Small Cap,,-7.2,1089.25
+SAMMAANCAP,TFStage2_Low,-16.58,-4,-10,-4,22,12,9,-0.0,6.1,-5.3,-7.4,174.6,Financials - Housing,Small Cap,,-5.3,157.45
+VAIBHAVGBL,TFStage2,-54.95,-2,5,11,6,2,-23,3.3,7.9,3.9,-9.2,244.33,Consumption - Jewelry,Small Cap,,-2.7,224.04
+JINDWORLD,TFStage2,-65.58,3,5,11,6,4,-13,8.9,14.7,7.2,-12.8,32.44,Textile - Misc,Small Cap,,5.0,27.15
+VARROC,TFStage2,-14.19,-2,4,9,5,2,36,3.6,8.6,4.9,-6.7,615.2,Auto - OEM Suppliers,Small Cap,,-1.3,560.86
+ENGINERSIN,TFStage2,-17.49,10,6,9,3,12,36,4.8,6.8,-2.2,-0.5,250.74,Infra - Construction,Small Cap,,-4.4,224.81
+NELCO,TFStage2,-37.42,5,8,17,18,6,-8,23.9,29.1,29.2,7.8,940.35,IT - Equipments,Small Cap,,7.9,697.24
+BFINVEST,TFStage2,-44.75,1,5,10,16,8,-13,4.1,7.9,3.2,-3.6,458.0,Financials - Misc,Small Cap,,1.1,413.33
+INDNIPPON,TFStage2,-16.87,-1,-2,9,22,4,36,2.3,7.6,-0.7,-3.8,914.3,Auto - OEM Suppliers,Small Cap,,-1.3,821.58
+GREENPOWER,TFStage2,-67.55,0,5,6,-12,7,-16,-0.1,0.7,-10.8,-20.4,11.18,Power - Green,Small Cap,,-12.2,10.96
+RANEHOLDIN,TFStage2,-31.33,12,4,10,48,5,-6,11.7,21.7,16.4,4.3,1688.3,Auto - Misc,Small Cap,,2.1,1313.57
+SIMPLEXINF,TFStage2,-21.92,-1,4,20,20,4,35,4.9,16.1,6.8,-5.3,274.85,Infra - Construction,Small Cap,,-2.5,227.9
+SPECTRUM,TFStage2,-29.73,4,2,3,31,6,-8,8.7,17.1,0.1,14.0,1770.7,IT - Equipments,Small Cap,,0.0,1421.49
+VINYAS,TFStage2,-1.75,10,-2,10,17,4,31,8.2,18.6,-1.3,18.5,1443.95,Electronic - Equipment,Small Cap,,-1.3,1144.5
+UDS,TFStage2_Low,-58.73,1,-9,-9,59,5,-12,0.1,4.2,-6.2,-27.1,181.02,Human Resources,Small Cap,,-6.2,169.05
+SRF,TFStage2_Low,-18.5,-6,-3,-6,6,-25,18,0.0,1.4,-2.6,-11.9,2709.8,Chemicals - Specialty,Mid Cap,,-3.2,2690.5
+HONAUT,TFStage2,-37.56,4,4,16,22,4,-17,4.5,10.6,3.6,-3.3,37460.0,Electronic - Equipment,Small Cap,,0.8,32783.79
+LICHSGFIN,TFStage2,-33.49,-6,6,12,6,9,-8,0.2,0.8,-5.4,-3.7,549.9,Financials - Housing,Small Cap,,-6.2,538.76
+CHAMBLFERT,TFStage2,-34.76,-4,6,15,8,7,-4,2.2,4.8,3.0,-10.3,484.2,Agrichem - Fertilizers,Small Cap,,-1.2,454.71
+INDIGOPNTS,TFStage2_Low,-40.41,-2,6,11,6,-22,-18,2.8,6.8,2.2,-20.1,1025.15,Consumption - Paints,Small Cap,,-0.4,960.39
+NBCC,TFStage2,-20.3,-1,4,10,20,2,36,4.8,10.7,4.8,-8.5,111.45,Infra - Construction,Small Cap,,-1.2,99.06
+TEAMLEASE,TFStage2,-60.41,7,7,24,55,1,-17,3.6,7.6,4.3,-17.9,1465.0,Human Resources,Small Cap,,0.6,1351.26
+EPL,TFStage2,-20.81,-4,12,13,6,11,1,2.8,3.7,-3.8,1.5,229.57,Packaging,Small Cap,,-3.8,218.08
+SUPRAJIT,TFStage2,-27.06,4,-10,4,21,3,1,1.0,4.1,-1.9,-1.7,466.55,Auto - OEM Suppliers,Small Cap,,-1.9,442.95
+FDC,TFStage2_Low,-40.9,4,1,-31,-8,3,-6,0.8,2.9,-3.9,-15.5,389.35,Healthcare - Pharma,Small Cap,,-9.4,375.71
+RESPONIND,TFStage2,-47.64,12,4,7,2,1,-17,6.7,9.8,-1.6,-10.5,191.09,Infra - Plastic Pipes,Small Cap,,-1.6,172.36
+MAITHANALL,TFStage2,-18.23,-1,5,10,5,9,-8,5.6,9.3,7.2,0.6,1111.2,Metals - Misc,Small Cap,,-2.2,998.19
+ITDC,TFStage2,-33.5,-3,4,10,12,9,-6,3.5,6.7,-7.6,0.3,619.0,Leisure - Hotels,Small Cap,,-7.6,561.24
+RAJRATAN,TFStage2,-49.14,-8,-1,24,12,2,-36,1.4,4.3,-2.3,-3.7,448.6,Auto - OEM Suppliers,Small Cap,,-2.3,427.39
+TASTYBITE,TFStage2,-58.08,-1,13,24,13,5,-28,3.2,7.0,-1.5,-12.9,8297.5,Consumption - FMCG,Small Cap,,-1.5,7598.46
+KIRLOSBROS,TFStage2,-27.96,11,20,22,11,8,1,9.2,13.2,9.6,-0.4,1933.6,Industrial - Pumps/Engines,Small Cap,,1.6,1663.9
+SSWL,TFStage2,-23.38,-8,-3,26,13,10,-8,1.5,5.9,-1.1,1.7,229.09,Auto - Replacement,Small Cap,,-2.4,210.12
+SURYAROSNI,TFStage2,-36.71,-5,6,12,14,3,-7,3.7,6.6,0.1,-9.5,266.34,Metals - Pipe & Tube,Small Cap,,-3.4,245.52
+EVEREADY,TFStage2,-26.96,15,8,16,12,3,-7,7.3,10.9,6.7,-12.5,368.85,Batteries,Small Cap,,2.1,326.1
+GUFICBIO,TFStage2_Low,-29.55,-6,-8,-4,20,3,-6,-0.4,7.8,-4.3,-3.2,355.25,Healthcare - Pharma,Small Cap,,-8.2,319.93
+ANANTRAJ,TFStage2_Low,-45.12,-3,-9,-6,-1,3,36,-2.0,0.4,-8.7,-25.5,520.2,Real Estate,Small Cap,,-11.7,515.08
+GANESHHOU,TFStage2,-48.22,-16,-6,31,52,3,-6,2.0,7.4,-1.5,-10.5,769.0,Real Estate,Small Cap,,-1.5,703.47
+DIAMONDYD,TFStage2,-21.68,6,-10,2,19,3,36,1.5,5.9,-2.6,-4.1,1135.7,Consumption - FMCG,Small Cap,,-4.3,1059.13
+NACLIND,TFStage2,-42.91,2,11,22,10,10,15,14.7,17.0,9.2,-30.3,193.8,Agrichem - Protection,Small Cap,,7.4,159.43
+SHALBY,TFStage2,-49.68,-1,3,7,3,1,-17,0.4,3.0,-1.7,-35.4,170.82,Healthcare - Hospitals,Small Cap,,-3.4,165.81
+PNBGILTS,TFStage2,-38.22,1,-7,31,27,3,-9,3.9,11.6,-2.5,-4.5,92.05,Financials - Misc,Small Cap,,-2.5,79.23
+MPSLTD,TFStage2,-41.15,-4,-2,1,6,4,-5,0.2,2.5,-1.5,-16.6,1812.1,Media - Publishing,Small Cap,,-4.1,1752.17
+BANCOINDIA,TFStage2_Low,-24.64,-7,-3,-2,20,3,36,0.1,3.6,-3.8,-20.2,663.05,Auto - Replacement,Small Cap,,-3.8,632.21
+TEXINFRA,TFStage2,-35.81,-2,5,10,12,3,-10,2.1,3.6,0.0,-1.7,102.39,Railways,Small Cap,,-1.6,98.36
+LIKHITHA,TFStage2,-51.11,-2,13,30,11,11,-15,6.2,13.7,4.3,-1.5,243.21,Infra - Construction,Small Cap,,-1.0,201.49
+HARIOMPIPE,TFStage2,-53.28,-5,-10,10,22,3,-19,2.1,11.1,-1.7,-14.1,415.2,Metals - Pipe & Tube,Small Cap,,-3.2,361.22
+CREST,TFStage2,-35.31,1,11,22,10,2,-5,6.2,9.2,4.1,3.3,402.15,Financials - NBFC,Small Cap,,0.9,364.7
+PTCIL,TFStage2_Low,-5.44,1,-8,-8,1,2,35,1.8,6.0,-1.4,-1.3,18333.0,Metals - Casting/Forging,Small Cap,,-5.4,17115.03
+BLUEJET,TFStage2,-50.29,-6,9,22,12,3,-5,4.1,10.7,-0.3,-23.5,510.9,Healthcare - Pharma,Small Cap,,-0.3,449.71
+TMPV,TFStage2_Low,-69.51,-6,-14,-6,-3,5,-16,-4.9,-2.2,-9.6,-47.1,359.5,Auto - PV/Trucks,Large Cap,,-10.3,360.19
+ZFCVINDIA,TFStage2,-13.45,18,8,15,6,1,6,5.5,6.7,5.3,4.2,15795.0,Auto - OEM Suppliers,Small Cap,,1.4,14743.19
+360ONE,TFStage2,-13.12,-2,6,11,5,1,36,3.1,4.7,2.4,-3.8,1145.1,Financials - Misc,Mid Cap,,0.2,1089.78
+CREDITACC,TFStage2,-21.69,-2,8,11,5,7,10,4.2,7.3,-6.1,-1.2,1406.4,Financials - MFI,Small Cap,,-7.7,1292.2
+BCG,TFStage2_Low,-71.55,-5,-9,-14,-3,3,-36,-1.6,-0.2,-14.2,-36.1,10.37,IT - Services,Small Cap,,-14.2,10.24
+MEDPLUS,TFStage2_Low,-19.21,-6,-2,-6,-18,20,15,-2.6,-3.3,-11.2,-5.7,844.45,IT - Product/Platform,Small Cap,,-11.5,864.47
+JSWDULUX,TFStage2,-30.88,-5,-2,14,16,3,-5,2.0,5.3,2.0,-5.3,3230.9,Consumption - Paints,Small Cap,,-0.4,3032.58
+EASEMYTRIP,TFStage2,-70.41,-8,-1,15,8,10,-22,0.8,4.2,-4.2,-7.3,7.99,IT - Product/Platform,Small Cap,,-9.4,7.56
+BEML,TFStage2_Low,-36.25,-3,9,-2,-1,8,-4,-1.3,-0.2,-10.3,-20.5,1749.3,Defense - Misc,Small Cap,,-12.5,1733.21
+NIITLTD,TFStage2,-59.41,-3,-1,8,17,2,-10,3.3,20.5,1.4,-11.5,94.91,IT - Education,Small Cap,,-10.2,75.97
+JINDALPOLY,TFStage2_Low,-40.27,-8,-2,-4,7,17,1,-1.4,-2.1,-10.8,-7.3,686.9,Packaging,Small Cap,,-15.2,674.27
+INGERRAND,TFStage2,-7.77,-1,9,12,5,19,3,7.2,8.6,0.8,4.4,4611.3,Industrial - Pumps/Engines,Small Cap,,-2.2,4061.3
+GREENLAM,TFStage2,-23.79,-5,9,24,12,2,-15,2.5,6.4,-0.1,-4.9,252.25,Infra - Laminates,Small Cap,,-2.6,235.04
+RELIGARE,TFStage2,-20.81,16,6,12,6,4,1,5.7,8.1,5.4,-4.0,253.4,Financials - Misc,Small Cap,,2.3,231.35
+KARURVYSYA,TFStage2,-15.05,-2,6,10,4,26,34,0.8,0.7,-4.2,-10.6,291.75,Financials - Private Bank,Small Cap,,-7.0,287.47
+IPL,TFStage2,-62.88,-5,8,11,-1,5,-23,-0.3,0.6,-9.7,-24.1,160.28,Agrichem - Protection,Small Cap,,-10.5,158.67
+RKFORGE,TFStage2,-44.67,-6,7,14,6,26,-13,2.3,3.4,-3.5,-1.6,588.7,Metals - Casting/Forging,Small Cap,,-5.5,553.67
+FILATEX,TFStage2,-29.67,4,2,27,18,3,-6,6.8,14.5,5.7,-13.5,54.86,Textiles - Polyester,Small Cap,,0.7,46.6
+INDOSTAR,TFStage2,-31.89,1,-7,11,20,2,-6,4.2,9.7,2.9,-3.3,249.47,Financials - NBFC,Small Cap,,-1.6,223.62
+ANDHRSUGAR,TFStage2,-34.55,3,9,16,1,11,-21,0.8,-1.0,-15.6,-13.6,84.42,Chemicals - Bulk,Small Cap,,-18.8,82.89
+RAMCOIND,TFStage2_Low,-26.89,-1,-10,-1,-1,-23,36,-0.6,1.6,-5.3,-17.3,291.0,Infra - Cement,Small Cap,,-6.5,286.95
+INDORAMA,TFStage2,-38.44,-2,-7,31,19,2,-5,3.1,11.7,0.9,-32.9,46.17,Textiles - Polyester,Small Cap,,-1.7,40.44
+GABRIEL,TFStage2,-13.73,18,6,10,5,7,36,8.8,12.6,5.8,-6.0,1197.4,Auto - Replacement,Small Cap,,4.5,1029.92
+CARERATING,TFStage2,-12.76,2,8,10,3,8,36,4.0,3.8,-4.8,2.6,1713.3,Financials - Ratings,Small Cap,,-4.8,1629.25
+VADILALIND,TFStage2,-17.44,-6,-5,30,18,3,29,5.3,17.5,1.6,13.4,6108.0,Consumption - Dairy,Small Cap,,-1.7,4962.27
+RAMCOSYS,TFStage2,-18.34,-15,-5,23,21,2,36,4.1,13.9,-0.9,-10.9,557.2,IT - Product/Platform,Small Cap,,-2.4,478.08
+MANGLMCEM,TFStage2,-22.04,2,20,10,3,18,35,0.7,-0.4,-8.6,-7.6,852.6,Infra - Cement,Small Cap,,-9.1,846.31
+FOSECOIND,TFStage2,-23.19,-1,6,10,4,6,36,4.3,5.8,3.7,-15.6,5258.5,Chemicals - Specialty,Small Cap,,-3.4,4926.16
+SMSPHARMA,TFStage2,-15.45,-10,11,2,-3,25,36,0.5,-1.4,-11.7,-6.2,378.6,Healthcare - Pharma,Small Cap,,-13.6,376.71
+CNL,TFStage2,-33.29,-6,-2,18,10,1,-11,3.6,9.5,1.7,-1.3,717.1,Textile - Apparels,Small Cap,,-1.1,653.05
+TBZ,TFStage2,-47.59,-4,-1,12,16,3,-4,6.0,16.9,2.8,1.9,188.88,Consumption - Jewelry,Small Cap,,-3.6,155.57
+INOXGREEN,TFStage2,-28.51,-4,11,18,7,2,36,6.3,10.6,4.6,-25.2,199.47,Power - Green,Small Cap,,0.5,177.66
+BETA,TFStage2,-16.24,-1,6,24,20,3,-5,14.6,27.4,10.0,4.0,1948.3,Healthcare - Pharma,Small Cap,,0.0,1448.68
+IKIO,TFStage2,-66.0,-3,6,11,5,3,-36,2.4,5.5,-8.9,-22.8,162.17,Consumption - Electronics,Small Cap,,-8.9,152.36
+JLHL,TFStage2,-24.18,-2,4,10,28,2,-3,1.0,2.7,-1.1,-15.5,1342.1,Healthcare - Hospitals,Small Cap,,-1.1,1303.41
+AXISBANK,TFStage2,-4.26,-6,9,18,9,11,34,2.3,3.9,-0.6,-1.9,1357.9,Financials - Private Bank,Large Cap,,-1.6,1294.35
+COALINDIA,TFStage2_Low,-16.97,8,2,-18,-8,26,34,-0.9,-0.7,-6.3,-6.3,451.3,Utility - Misc,Large Cap,,-6.3,446.53
+EICHERMOT,TFStage2,-7.52,-2,8,17,8,1,31,3.1,5.1,2.5,-5.0,7611.0,Auto - 2W,Large Cap,,-0.2,7224.65
+DRREDDY,TFStage2_Low,-10.51,1,7,-30,-15,9,36,-0.4,-1.1,-4.8,-3.8,1272.1,Healthcare - Pharma,Large Cap,,-6.1,1281.56
+GUJGASLTD,TFStage2,-43.7,-2,-1,9,16,2,-17,-0.8,1.2,-3.2,-9.6,388.45,Utility - Gas,Small Cap,,-5.0,383.06
+DELHIVERY,TFStage2,-5.9,12,6,10,3,21,11,2.6,2.1,-3.8,-1.5,461.1,Transport - Logistics,Small Cap,,-4.3,443.83
+AARTIIND,TFStage2,-37.02,-2,5,10,4,20,-19,2.8,4.8,-4.5,-4.5,484.5,Chemicals - Specialty,Small Cap,,-5.6,446.22
+PFC,TFStage2,-25.69,8,5,7,1,26,3,0.7,-0.1,-8.2,-3.9,431.0,Financials - NBFC,Large Cap,,-10.5,420.85
+ATUL,TFStage2_Low,-20.76,-5,2,-31,-16,21,-12,-1.8,-2.9,-8.7,-5.4,6482.0,Chemicals - Specialty,Small Cap,,-8.8,6581.98
+COFORGE,TFStage2_Low,-27.03,10,4,7,4,-26,-3,2.2,7.3,1.9,-23.3,1463.3,IT - Software/Consulting,Mid Cap,,-3.7,1380.78
+LINDEINDIA,TFStage2,-24.91,12,6,7,2,26,4,5.3,3.7,-4.5,1.9,7460.5,Chemicals - Misc,Mid Cap,,-4.9,7007.64
+NIACL,TFStage2,-37.69,12,6,10,4,9,-16,22.4,23.4,20.9,7.0,202.31,Financials - Non-Life,Small Cap,,13.2,158.02
+ENDURANCE,TFStage2,-14.85,16,5,9,2,5,36,1.2,3.1,-3.7,-8.6,2622.4,Auto - OEM Suppliers,Mid Cap,,-6.4,2519.61
+AMBER,TFStage2,-12.09,8,4,8,4,19,36,2.2,2.5,-10.6,-2.5,7889.0,Consumption - Appliances,Small Cap,,-10.8,7477.48
+CESC,TFStage2_Low,-20.51,11,4,-31,-15,9,36,-2.1,-2.4,-9.9,-9.9,168.9,Power - Misc,Small Cap,,-15.0,169.99
+ORIENTELEC,TFStage2,-39.24,-2,5,9,2,7,-17,-0.2,-0.1,-6.3,-16.0,180.53,Consumption - Appliances,Small Cap,,-6.7,179.34
+GARFIBRES,TFStage2,-19.26,5,2,28,19,2,-7,14.9,17.8,15.0,4.0,796.4,Textile - Misc,Small Cap,,14.2,661.04
+ROSSARI,TFStage2,-42.34,10,3,5,2,1,-19,7.3,8.6,3.1,-12.5,560.9,Chemicals - Specialty,Small Cap,,3.1,512.03
+KRBL,TFStage2,-22.23,12,6,12,6,2,12,5.2,7.7,3.2,-10.7,384.95,Agri - Rice,Small Cap,,0.4,354.2
+GESHIP,TFStage2,-20.04,10,4,2,-17,26,9,0.0,-1.5,-13.7,-8.8,1437.7,Transport - Shipping,Small Cap,,-16.4,1410.31
+GMDCLTD,TFStage2_Low,-20.6,11,4,-31,-11,26,36,-2.2,-4.1,-16.8,-16.7,612.9,Metals - Misc,Small Cap,,-17.9,622.52
+SHOPERSTOP,TFStage2_Low,-61.79,-6,-3,-4,33,-26,-36,0.2,4.7,-3.8,-33.2,360.5,Consumption - Retail,Small Cap,,-3.8,346.0
+RTNPOWER,TFStage2_Low,-55.88,0,0,-29,-8,8,-7,-0.9,-0.6,-8.0,-24.2,9.31,Power - Misc,Small Cap,,-9.5,9.25
+DCBBANK,TFStage2,-10.35,-2,9,17,5,11,14,2.0,2.1,-4.5,-7.6,184.59,Financials - Private Bank,Small Cap,,-5.8,180.14
+NAVA,TFStage2,-15.94,1,6,9,2,11,36,2.8,1.3,-14.5,-9.6,621.55,Power - Misc,Small Cap,,-14.9,606.39
+GRAVITA,TFStage2,-36.24,12,6,10,4,1,36,4.2,5.4,-2.3,-7.3,1721.6,Metals - Misc,Small Cap,,-4.3,1627.23
+KOLTEPATIL,TFStage2,-35.42,10,5,8,2,6,-5,2.5,3.1,-4.2,-19.2,377.8,Real Estate,Small Cap,,-5.9,364.87
+BALMLAWRIE,TFStage2,-43.38,12,5,8,2,8,-9,1.0,0.6,-7.6,-16.8,181.44,Others,Small Cap,,-7.8,178.65
+UNICHEMLAB,TFStage2,-52.63,-10,-1,27,9,2,-9,5.6,14.2,-0.7,-11.8,444.3,Healthcare - Pharma,Small Cap,,-4.0,381.49
+SWARAJENG,TFStage2,-16.79,10,5,9,4,11,31,2.9,3.6,-3.1,-5.0,3927.6,Industrial - Pumps/Engines,Small Cap,,-4.0,3743.47
+STYRENIX,TFStage2,-33.88,10,5,7,2,10,-5,4.2,4.7,-1.4,-13.5,2312.9,Chemicals - Specialty,Small Cap,,-1.4,2140.22
+RIIL,TFStage2,-46.52,-2,13,24,9,7,-17,5.8,10.4,6.9,-4.1,858.4,Transport - Logistics,Small Cap,,-2.2,764.23
+TNPL,TFStage2,-56.08,10,5,1,-21,8,-21,-0.2,0.3,-7.0,-10.5,145.39,Media - Publishing,Small Cap,,-8.3,143.12
+VHL,TFStage2,-36.21,13,12,10,5,6,-5,5.5,6.5,1.9,-11.5,3674.3,Financials - NBFC,Small Cap,,-1.6,3417.92
+ARVSMART,TFStage2,-40.42,-1,5,9,3,8,-7,2.4,3.1,-3.6,-6.5,610.7,Real Estate,Small Cap,,-5.5,586.03
+HITECH,TFStage2,-56.08,12,6,11,5,7,-14,3.4,5.4,0.5,-19.2,92.6,Metals - Iron & Steel,Small Cap,,-3.0,86.77
+GALLANTT,TFStage2,-24.75,16,19,12,3,25,36,4.1,2.4,-17.9,-17.2,713.35,Metals - Iron & Steel,Small Cap,,-23.1,668.22
+HPL,TFStage2,-44.74,-3,6,11,5,5,-5,4.5,7.2,-1.1,-17.7,383.5,Consumption - Electronics,Small Cap,,-1.1,352.71
+SALZERELEC,TFStage2,-60.44,-3,12,10,3,7,-7,1.4,1.3,-11.1,-23.1,652.7,Power - Equipment,Small Cap,,-15.5,639.3
+MICEL,TFStage2,-63.16,0,5,1,-25,7,-9,-1.4,-0.9,-23.2,-26.2,42.29,Electronic - Equipment,Small Cap,,-23.2,41.85
+FUSION,TFStage2,-74.06,-3,6,10,4,8,-28,2.0,0.1,-17.2,-6.5,179.26,Financials - MFI,Small Cap,,-19.1,176.54
+NPST,TFStage2,-55.16,-12,-4,28,15,2,-6,6.1,19.7,-2.6,-24.9,1604.0,IT - Software/Consulting,Small Cap,,-3.0,1285.18
+EMIL,TFStage2,-53.87,11,5,8,3,9,-16,6.8,7.6,-2.8,-20.0,120.86,Consumption - Retail,Small Cap,,-5.0,108.39
+REMUS,TFStage2,-90.54,4,5,4,3,6,-24,11.2,13.1,-4.4,-7.2,827.5,Others,Small Cap,,-9.6,713.41
+CONCORDBIO,TFStage2,-50.63,-10,-2,28,13,1,-7,1.9,9.8,-2.9,-21.8,1315.1,Healthcare - Pharma,Small Cap,,-4.7,1187.73
+POCL,TFStage2,-17.05,12,6,9,1,7,36,3.0,2.1,-13.1,-7.6,1343.0,Metals - Misc,Small Cap,,-13.1,1290.22
+IRMENERGY,TFStage2,-58.45,-2,6,8,3,8,-23,0.1,0.5,-25.4,-27.7,266.35,Industrial - Consumables,Small Cap,,-25.4,260.07
+SCILAL,TFStage2,-57.66,9,6,8,4,7,-13,1.0,0.8,-13.2,-9.3,45.96,Transport - Shipping,Small Cap,,-13.2,45.4
