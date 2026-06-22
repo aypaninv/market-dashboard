@@ -279,11 +279,6 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("orange");
   }
 
-  if (chgColumns.includes(column) && isNum) {
-    if (num > 5) td.classList.add("green");
-    else if (num < -5) td.classList.add("red");
-  }
-
   if (emaColumns.includes(column) && isNum && num > 15) {
     td.classList.add("orange");
   }
