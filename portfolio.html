@@ -79,17 +79,17 @@ function defaultSellCondition(d) {
 const addConditionsByFolio = {
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const co_4h = toNumber(d["4H_XC"]);
+    const macd_4h = toNumber(d["4H_MACD"]);
     const co_d = toNumber(d.D_XC);
     // const dema20 = toNumber(d.D_EMA20);
-    return ltPert > 4 && co_4h > 1 && co_d > 0;
+    return ltPert > 4 && macd_4h > 1 && co_d > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const co_4h = toNumber(d["4H_XC"]);
+    const macd_4h = toNumber(d["4H_MACD"]);
     const co_W = toNumber(d.W_XC);
     const wema10 = toNumber(d.W_EMA10);
-    return ltPert > 4 && co_4h > 1 && co_W > 0 && wema10 < 15;
+    return ltPert > 4 && macd_4h > 1 && co_W > 0 && wema10 < 15;
   },
 };
 
