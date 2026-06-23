@@ -266,7 +266,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
 
   const chgColumns = options.chgColumns || ["D_CHG", "W_CHG", "M_CHG"];
   const emaColumns = options.emaColumns || ["D_EMA20", "W_EMA10"];
-  const crossColumns = options.crossColumns || ["D_XC", "W_XC", "4H_XC", "M_XC", "D_XL", "W_XL", "M_XL"];
+  const crossColumns = options.crossColumns || ["D_XC", "W_XC", "4H_XC", "M_XC"];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
@@ -287,6 +287,10 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("red");
   } else if (crossColumns.includes(column) && isNum) {
     td.classList.add("green");
+  }
+
+  if (["D_XL", "W_XL", "M_XL"].includes(column) && isNum && num < 0) {
+    td.classList.add("red");
   }
 
   if (profitColumns.includes(column) && isNum && num < 0) {
