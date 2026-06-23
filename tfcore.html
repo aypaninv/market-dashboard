@@ -14,7 +14,7 @@ const COLS_TFC = [
   "Symbol","Folio","DD_High",
 
   "4H_XC","D_XC","W_XC","M_XC",
-  "D_EMA20","W_EMA10","W_CHG","M_CHG",
+  "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
@@ -236,7 +236,7 @@ function drawTFCTable(table, rows, sectionKey) {
       }
 
       window.applyCommonCellClasses(td, h, v, {
-        chgColumns: ["W_CHG", "M_CHG"],
+        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
       });
       row.appendChild(td);
     });

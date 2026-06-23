@@ -10,16 +10,44 @@
 <script>
 const CSV_FILE = "portfolio_report.csv";
 
-const COLUMN_ORDER = [
+const DEFAULT_COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
   "DD_High","LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
 
   "4H_XC","D_XC","W_XC","M_XC",
-  "D_EMA20","W_EMA10","W_CHG","M_CHG",
+  "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
+
+// Customize table columns per folio type.
+const COLUMN_ORDER_BY_FOLIO = {
+  Trade: [
+    "Symbol","Folio","IC","CC","PnL",
+    "LT_Type","LT_days","LT_Pert",
+    "D_XL","4H_XC","D_XC","W_XC","D_CHG",
+    "AvgPrice","CurPrice","Notes"
+  ],
+  Sate: [
+    "Symbol","Folio","IC","CC","PnL",
+    "DD_High","LT_Type","LT_days","LT_Pert",
+    "D_XL","W_XL",
+    "4H_XC","D_XC","W_XC",
+    "D_EMA20","W_CHG",
+    "AvgPrice","CurPrice",
+    "Sector","MarketCap","Notes"
+  ],
+  Core: [
+    "Symbol","Folio","IC","CC","PnL",
+    "DD_High","LT_Type","LT_days","LT_Pert",
+    "W_XL","M_XL",
+    "W_XC","M_XC",
+    "W_EMA10","W_CHG","M_CHG",
+    "AvgPrice","CurPrice",
+    "Sector","MarketCap","Notes"
+  ],
+};
 
 const HEADER_LABELS = {
   "LT_Type": "LT_T",
@@ -67,6 +95,10 @@ function toNumber(value) {
   return Number.isFinite(num) ? num : NaN;
 }
 
+function getColumnOrderForFolio(folio) {
+  return COLUMN_ORDER_BY_FOLIO[folio] || DEFAULT_COLUMN_ORDER;
+}
+
 function defaultAddCondition(d) {
   const ltPert = toNumber(d.LT_Pert);
   const co_d = toNumber(d["D_XC"]);
@@ -81,19 +113,19 @@ function defaultSellCondition(d) {
 }
 
 const addConditionsByFolio = {
+  Trade: d => {
+    const dChg = toNumber(d["D_CHG"]);
+    return dChg > 0;
+  },
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const xc_4h = toNumber(d["4H_XC"]);
-    const xc_d = toNumber(d.D_XC);
-    // const dema20 = toNumber(d.D_EMA20);
-    return ltPert > 4 && xc_d > 0;
+    const wChg = toNumber(d["W_CHG"]);
+    return ltPert > 6 && wChg > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const xc_4h = toNumber(d["4H_XC"]);
-    const xc_w = toNumber(d.W_XC);
-    const wema10 = toNumber(d.W_EMA10);
-    return ltPert > 4 && xc_w > 0 && wema10 < 15;
+    const mChg = toNumber(d["M_CHG"]);
+    return ltPert > 6 && mChg > 0;
   },
 };
 
@@ -204,9 +236,9 @@ function getSortedSectionRows(rows, sectionKey) {
   return window.sortRowsByColumn(rows, col, asc);
 }
 
-function computeSharedColWidths(allRows) {
+function computeSharedColWidths(allRows, columnOrder) {
   if (!allRows.length) return {};
-  const visibleCols = COLUMN_ORDER.filter(h => h in allRows[0]);
+  const visibleCols = columnOrder.filter(h => h in allRows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
@@ -251,26 +283,32 @@ function computeSharedColWidths(allRows) {
 }
 
 function renderFolioSections(folio, folioRows) {
-  const colWidths = computeSharedColWidths(folioRows);
+  const columnOrder = getColumnOrderForFolio(folio);
+  const colWidths = computeSharedColWidths(folioRows, columnOrder);
   const container = document.getElementById("folioSections");
   container.innerHTML = "";
 
   // Trade folio has custom 2-section layout
   if (folio === "Trade") {
+    const addCondition = getAddCondition(folio);
     const exitCondition = getExitCondition(folio);
+    const addRows = [];
     const exitRows = [];
     const holdingRows = [];
 
     folioRows.forEach(d => {
-      if (exitCondition(d)) {
+      if (addCondition(d)) {
+        addRows.push(d);
+      } else if (exitCondition(d)) {
         exitRows.push(d);
       } else {
         holdingRows.push(d);
       }
     });
 
-    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths));
-    container.appendChild(createSection("Holding", sortByDefault(holdingRows), `${folio}__Holding`, true, colWidths));
+    container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Holding", sortByDefault(holdingRows), `${folio}__Holding`, true, colWidths, columnOrder));
   } else {
     // Standard 6-section layout for other folios
     const addCondition = getAddCondition(folio);
@@ -303,16 +341,16 @@ function renderFolioSections(folio, folioRows) {
       }
     });
 
-    container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths));
-    container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true, colWidths));
-    container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true, colWidths));
-    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths));
-    container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false, colWidths));
-    container.appendChild(createSection("Track", sortByDefault(trackRows), `${folio}__Track`, false, colWidths));
+    container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false, colWidths, columnOrder));
+    container.appendChild(createSection("Track", sortByDefault(trackRows), `${folio}__Track`, false, colWidths, columnOrder));
   }
 }
 
-function createSection(title, rows, sectionKey, isOpenByDefault, colWidths) {
+function createSection(title, rows, sectionKey, isOpenByDefault, colWidths, columnOrder) {
   const details = document.createElement("details");
   details.className = "portfolio-dropdown";
   details.open = isOpenByDefault;
@@ -326,14 +364,14 @@ function createSection(title, rows, sectionKey, isOpenByDefault, colWidths) {
 
   const table = document.createElement("table");
   table.className = "portfolio-section-table";
-  renderTable(table, rows, sectionKey, colWidths);
+  renderTable(table, rows, sectionKey, colWidths, columnOrder);
 
   wrapper.appendChild(table);
   details.appendChild(wrapper);
   return details;
 }
 
-function renderTable(table, baseRows, sectionKey, colWidths) {
+function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
   table.innerHTML = "";
   const data = getSortedSectionRows(baseRows, sectionKey);
 
@@ -342,7 +380,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
     const td = document.createElement("td");
     td.innerText = "No data";
     td.className = "text";
-    td.colSpan = COLUMN_ORDER.length;
+    td.colSpan = columnOrder.length;
     tr.appendChild(td);
     table.appendChild(tr);
     return;
@@ -350,7 +388,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
 
   if (colWidths && Object.keys(colWidths).length) {
     const colgroup = document.createElement("colgroup");
-    COLUMN_ORDER.forEach(h => {
+    columnOrder.forEach(h => {
       if (!(h in data[0]) || !colWidths[h]) return;
       const col = document.createElement("col");
       col.style.width = colWidths[h] + "px";
@@ -362,7 +400,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
   }
 
   const tr = document.createElement("tr");
-  COLUMN_ORDER.forEach(h => {
+  columnOrder.forEach(h => {
     if (!(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS[h] || h;
@@ -371,7 +409,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
       const existing = sectionSortState[sectionKey];
       const asc = existing && existing.col === h ? !existing.asc : true;
       sectionSortState[sectionKey] = { col: h, asc };
-      renderTable(table, baseRows, sectionKey, colWidths);
+      renderTable(table, baseRows, sectionKey, colWidths, columnOrder);
     };
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
@@ -380,7 +418,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
 
   data.forEach(r => {
     const row = document.createElement("tr");
-    COLUMN_ORDER.forEach(h => {
+    columnOrder.forEach(h => {
       if (!(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
@@ -394,7 +432,7 @@ function renderTable(table, baseRows, sectionKey, colWidths) {
       }
 
       window.applyCommonCellClasses(td, h, v, {
-        chgColumns: ["W_CHG", "M_CHG"],
+        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
         profitColumns: ["PnL", "LT_Pert"],
       });
 
