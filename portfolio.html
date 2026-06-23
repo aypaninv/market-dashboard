@@ -82,14 +82,14 @@ const addConditionsByFolio = {
     const xc_4h = toNumber(d["4H_XC"]);
     const xc_d = toNumber(d.D_XC);
     // const dema20 = toNumber(d.D_EMA20);
-    return ltPert > 4 && xc_4h > 0 && xc_d > 0;
+    return ltPert > 4 && xc_d > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const xc_4h = toNumber(d["4H_XC"]);
     const xc_w = toNumber(d.W_XC);
     const wema10 = toNumber(d.W_EMA10);
-    return ltPert > 4 && xc_4h > 0 && xc_w > 0 && wema10 < 15;
+    return ltPert > 4 && xc_w > 0 && wema10 < 15;
   },
 };
 
