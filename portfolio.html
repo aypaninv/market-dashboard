@@ -13,7 +13,7 @@ const CSV_FILE = "portfolio_report.csv";
 const COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
   "DD_High","LT_Type","LT_days","LT_Pert",
-  "4H_MACD",
+
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
@@ -24,7 +24,7 @@ const HEADER_LABELS = {
   "LT_Type": "LT_T",
   "LT_days": "LT_D",
   "LT_Pert": "LT_P",
-  "4H_MACD": "4H_MC",
+
   "4H_XC": "4H_XC",
   "D_XC": "D_XC",
   "W_XC": "W_XC",
@@ -79,17 +79,17 @@ function defaultSellCondition(d) {
 const addConditionsByFolio = {
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const macd_4h = toNumber(d["4H_MACD"]);
-    const co_d = toNumber(d.D_XC);
+    const xc_4h = toNumber(d["4H_XC"]);
+    const xc_d = toNumber(d.D_XC);
     // const dema20 = toNumber(d.D_EMA20);
-    return ltPert > 4 && macd_4h > 1 && co_d > 0;
+    return ltPert > 4 && xc_4h > 0 && xc_d > 0;
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const macd_4h = toNumber(d["4H_MACD"]);
-    const co_W = toNumber(d.W_XC);
+    const xc_4h = toNumber(d["4H_XC"]);
+    const xc_w = toNumber(d.W_XC);
     const wema10 = toNumber(d.W_EMA10);
-    return ltPert > 4 && macd_4h > 1 && co_W > 0 && wema10 < 15;
+    return ltPert > 4 && xc_4h > 0 && xc_w > 0 && wema10 < 15;
   },
 };
 
