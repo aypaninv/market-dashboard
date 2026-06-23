@@ -130,8 +130,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.W_CHG) < -8 || toNumber(d["4H_XC"]) < -1),
-  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.M_CHG) < -8 || toNumber(d["D_XC"]) < -1),
+  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.W_CHG) < -8 || toNumber(d["D_XL"]) < -1),
+  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.M_CHG) < -8 || toNumber(d["W_XL"]) < 0),
 };
 
 const holdConditionsByFolio = {
@@ -148,28 +148,22 @@ const exitConditionsByFolio = {
                 toNumber(d["PNL"]) < -8
               ) || (
                 toNumber(d["PNL"]) < 0 &&
-                toNumber(d["4H_XC"]) < -2
+                toNumber(d["D_XL"]) < -1
               ) || (  
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.D_XC) < -1
-              ) || (
-                toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.W_CHG) < -12
+                toNumber(d.W_XL) < 0
               ), 
   Core: d => (
                 toNumber(d["PNL"]) < -8
               ) || (
                 toNumber(d["PNL"]) < 0 &&
-                toNumber(d.D_XC) < -1
+                toNumber(d.W_XL) < 0
               ) || (  
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.W_XC) < -1
-              ) || (
-                toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.M_CHG) < -15
+                toNumber(d.M_XL) < 0
               ),
   Trade: d => (
-                toNumber(d["4H_XC"]) < 0
+                toNumber(d["D_XL"]) < -1
               ),
 };
   
