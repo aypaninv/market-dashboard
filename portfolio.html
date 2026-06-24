@@ -396,8 +396,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
       const col = document.createElement("col");
       if (h === "Chart") {
         col.style.width = "42px";
-      } else {
-        if (!(h in data[0]) || !colWidths[h]) return;
+      } else if (h in data[0] && colWidths[h]) {
         col.style.width = colWidths[h] + "px";
       }
       colgroup.appendChild(col);

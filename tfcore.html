@@ -197,8 +197,7 @@ function drawTFCTable(table, rows, sectionKey) {
       const col = document.createElement("col");
       if (h === "Chart") {
         col.style.width = "42px";
-      } else {
-        if (!(h in data[0]) || !tfcColWidths[h]) return;
+      } else if (h in data[0] && tfColWidths[h]) {
         col.style.width = tfcColWidths[h] + "px";
       }
       colgroup.appendChild(col);
