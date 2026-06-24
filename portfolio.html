@@ -16,7 +16,7 @@ const DEFAULT_COLUMN_ORDER = [
   "D_XL","W_XL","M_XL",
   "D_CP","W_CP","M_CP",
 
-  "4H_XC","D_XC","W_XC","M_XC",
+  "4H_XC","D_XC","W_XC","W_BO","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
@@ -27,14 +27,14 @@ const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
     "Symbol","Folio","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
-    "D_XL","D_CP","4H_XC","D_XC","W_XC","D_CHG",
+    "D_XL","D_CP","4H_XC","D_XC","W_XC","W_BO","D_CHG",
     "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Folio","IC","CC","PnL",
     "DD_High","LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL","W_CP",
-    "4H_XC","D_XC","W_XC",
+    "4H_XC","D_XC","W_XC","W_BO",
     "D_EMA20","W_CHG",
     "AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
@@ -43,7 +43,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Folio","IC","CC","PnL",
     "DD_High","LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL","W_CP","M_CP",
-    "W_XC","M_XC",
+    "W_XC","W_BO","M_XC",
     "W_EMA10","W_CHG","M_CHG",
     "AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
@@ -64,6 +64,7 @@ const HEADER_LABELS = {
   "4H_XC": "4H_XC",
   "D_XC": "D_XC",
   "W_XC": "W_XC",
+  "W_BO": "W_BO",
   "M_XC": "M_XC",
   "D_EMA20": "D_E20",
   "W_EMA10": "W_E10",
