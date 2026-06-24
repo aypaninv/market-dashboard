@@ -8,6 +8,37 @@
 
 let kbIndex = -1;
 
+/* ---------- Sticky table setup ---------- */
+window.applyStickyTableBehavior = function (table) {
+  if (!table) return;
+
+  const rows = [...table.querySelectorAll("tr")];
+  if (!rows.length) return;
+
+  const headerRow = rows.find(r => r.querySelector("th"));
+  if (!headerRow) return;
+
+  const headerCells = [...headerRow.children].filter(c => c.tagName === "TH");
+  if (!headerCells.length) return;
+
+  let symbolIndex = headerCells.findIndex(
+    th => (th.textContent || "").trim().toUpperCase() === "SYMBOL"
+  );
+
+  if (symbolIndex < 0) {
+    symbolIndex = 0;
+  }
+
+  headerCells[symbolIndex]?.classList.add("symbol-col");
+
+  rows.forEach(r => {
+    const dataCells = [...r.children].filter(c => c.tagName === "TD");
+    if (dataCells[symbolIndex]) {
+      dataCells[symbolIndex].classList.add("symbol-col");
+    }
+  });
+};
+
 /* ---------- Active table ---------- */
 function getActiveTable() {
   const active = document.querySelector(
@@ -71,6 +102,9 @@ let sectorTimeout;
 new MutationObserver(() => {
   clearTimeout(sectorTimeout);
   sectorTimeout = setTimeout(() => {
+    const tables = document.querySelectorAll("#app table");
+    tables.forEach(window.applyStickyTableBehavior);
+
     const table = getActiveTable();
     if (table) applySectorSeparators(table);
   }, 50);
