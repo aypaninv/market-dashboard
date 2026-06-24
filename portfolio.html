@@ -122,14 +122,12 @@ const addConditionsByFolio = {
     return dChg > 0;
   },
   Sate: d => {
-    const ltPert = toNumber(d.LT_Pert);
     const wChg = toNumber(d["W_CHG"]);
-    return ltPert > 6 && wChg > 0;
+    return wChg > 0;
   },
   Core: d => {
-    const ltPert = toNumber(d.LT_Pert);
     const mChg = toNumber(d["M_CHG"]);
-    return ltPert > 6 && mChg > 0;
+    return mChg > 0;
   },
 };
 
