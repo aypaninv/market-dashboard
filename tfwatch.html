@@ -11,7 +11,7 @@
 const CSV_TFW = "tfwatch_report.csv";
 
 const COLS_TFW = [
-  "Symbol","Folio","DD_High","W_BO",
+  "Symbol","Folio","DD_High","D_BO","W_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -47,7 +47,7 @@ function splitHighLow(rows) {
   rows.forEach(r => {
     const dBO = toNumber(r.D_BO);
 
-    if (dBO > 3) highRows.push(r);
+    if (dBO > 4) highRows.push(r);
     else lowRows.push(r);
   });
 
