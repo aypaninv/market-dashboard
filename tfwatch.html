@@ -47,7 +47,7 @@ function splitHighLow(rows) {
   rows.forEach(r => {
     const dBO = toNumber(r.D_BO);
 
-    if (dBO > 3) highRows.push(r);
+    if (dBO > 4) highRows.push(r);
     else lowRows.push(r);
   });
 

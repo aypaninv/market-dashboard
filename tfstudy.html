@@ -11,7 +11,7 @@
 const CSV_TFS = "tfstudy_report.csv";
 
 const COLS_TFS = [
-  "Symbol","Folio","DD_High","W_BO",
+  "Symbol","Chart","Folio","DD_High","W_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -56,7 +56,7 @@ function splitHighLow(rows) {
 
 function computeSharedColWidths(allRows) {
   if (!allRows.length) return {};
-  const visibleCols = COLS_TFST.filter(h => h !== "Chart" && h in allRows[0]);
+  const visibleCols = COLS_TFS.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
