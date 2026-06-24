@@ -12,10 +12,10 @@ const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
   "Symbol","Folio","IC","CC", "PnL",
-  "DD_High","LT_Type","LT_days","LT_Pert",
+  "DD_High","D_BO","W_BO",
+  "LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
-
-  "4H_XC","D_XC","W_XC","W_BO","D_BO","M_XC",
+  "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
@@ -25,25 +25,28 @@ const DEFAULT_COLUMN_ORDER = [
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
     "Symbol","Folio","IC","CC","PnL",
+    "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
-    "D_XL","4H_XC","D_XC","W_XC","D_CHG","D_BO","W_BO",
+    "D_XL","4H_XC","D_XC","W_XC","D_CHG",
     "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Folio","IC","CC","PnL",
-    "DD_High","LT_Type","LT_days","LT_Pert",
+    "DD_High","W_BO",
+    "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
     "4H_XC","D_XC","W_XC",
-    "D_EMA20","W_CHG","W_BO",
+    "D_EMA20","W_CHG",
     "AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
   Core: [
     "Symbol","Folio","IC","CC","PnL",
-    "DD_High","LT_Type","LT_days","LT_Pert",
+    "DD_High","W_BO",
+    "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
     "W_XC","W_BO","M_XC",
-    "W_EMA10","W_CHG","M_CHG","W_BO",
+    "W_EMA10","W_CHG","M_CHG",
     "AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
