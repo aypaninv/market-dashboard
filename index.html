@@ -293,6 +293,10 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("red");
   }
 
+  if (["D_BO", "W_BO"].includes(column) && isNum && num >= 0) {
+    td.classList.add("green");
+  }
+
   if (profitColumns.includes(column) && isNum && num < 0) {
     td.classList.add("red");
   } else if (profitColumns.includes(column) && isNum) {
