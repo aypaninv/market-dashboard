@@ -11,7 +11,7 @@
 const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
-  "Symbol","Folio","IC","CC", "PnL",
+  "Symbol","Chart","Folio","IC","CC", "PnL",
   "DD_High","D_BO","W_BO",
   "LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
@@ -24,15 +24,15 @@ const DEFAULT_COLUMN_ORDER = [
 // Customize table columns per folio type.
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
-    "Symbol","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","4H_XC","D_XC","W_XC","D_CHG",
     "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
-    "Symbol","Folio","IC","CC","PnL",
-    "DD_High","W_BO",
+    "Symbol","Chart","Folio","IC","CC","PnL",
+    "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
     "4H_XC","D_XC","W_XC",
@@ -41,7 +41,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Sector","MarketCap","Notes"
   ],
   Core: [
-    "Symbol","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
@@ -119,16 +119,19 @@ function defaultSellCondition(d) {
 
 const addConditionsByFolio = {
   Trade: d => {
-    const dChg = toNumber(d["D_CHG"]);
-    return dChg > 0;
+    const ltPert = toNumber(d.LT_Pert);
+    const dBo = toNumber(d["D_BO"]);
+    return ltPert > 0 && dBo > 0;
   },
   Sate: d => {
-    const wChg = toNumber(d["W_CHG"]);
-    return wChg > 0;
+    const ltPert = toNumber(d.LT_Pert);
+    const wBo = toNumber(d["W_BO"]);
+    return ltPert > 0 && wBo >= 0;
   },
   Core: d => {
+    const ltPert = toNumber(d.LT_Pert);
     const mChg = toNumber(d["M_CHG"]);
-    return mChg > 0;
+    return ltPert > 0 && mChg > 0;
   },
 };
 
@@ -188,6 +191,16 @@ function getTrackCondition(folio) {
   return trackConditionsByFolio[folio] || defaultTrackCondition;
 }
 
+// ===================== CANDLESTICK CHART =====================
+
+const CHART_TIMEFRAMES_BY_FOLIO = {
+  Trade: ["D"],
+  Sate:  ["D", "W"],
+  Core:  ["W", "M"],
+};
+
+// ==============================================================
+
 window.registerTabs(addTab => {
   fetch(CSV_FILE)
     .then(r => r.text())
@@ -229,7 +242,7 @@ function getSortedSectionRows(rows, sectionKey) {
 
 function computeSharedColWidths(allRows, columnOrder) {
   if (!allRows.length) return {};
-  const visibleCols = columnOrder.filter(h => h in allRows[0]);
+  const visibleCols = columnOrder.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
@@ -380,9 +393,12 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
   if (colWidths && Object.keys(colWidths).length) {
     const colgroup = document.createElement("colgroup");
     columnOrder.forEach(h => {
-      if (!(h in data[0]) || !colWidths[h]) return;
       const col = document.createElement("col");
-      col.style.width = colWidths[h] + "px";
+      if (h === "Chart") {
+        col.style.width = "42px";
+      } else if (h in data[0] && colWidths[h]) {
+        col.style.width = colWidths[h] + "px";
+      }
       colgroup.appendChild(col);
     });
     table.appendChild(colgroup);
@@ -392,16 +408,18 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
 
   const tr = document.createElement("tr");
   columnOrder.forEach(h => {
-    if (!(h in data[0])) return;
+    if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS[h] || h;
     th.style.whiteSpace = "nowrap";
-    th.onclick = () => {
-      const existing = sectionSortState[sectionKey];
-      const asc = existing && existing.col === h ? !existing.asc : true;
-      sectionSortState[sectionKey] = { col: h, asc };
-      renderTable(table, baseRows, sectionKey, colWidths, columnOrder);
-    };
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = sectionSortState[sectionKey];
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        sectionSortState[sectionKey] = { col: h, asc };
+        renderTable(table, baseRows, sectionKey, colWidths, columnOrder);
+      };
+    }
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -410,22 +428,37 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
   data.forEach(r => {
     const row = document.createElement("tr");
     columnOrder.forEach(h => {
-      if (!(h in r)) return;
+      if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
         td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        const folioBase = sectionKey.split("__")[0].replace(/_Low$/, "");
+        const tfs = CHART_TIMEFRAMES_BY_FOLIO[folioBase] || ["D"];
+        tfs.forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      window.applyCommonCellClasses(td, h, v, {
-        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-        profitColumns: ["PnL", "LT_Pert"],
-      });
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+          profitColumns: ["PnL", "LT_Pert"],
+        });
+      }
 
       row.appendChild(td);
     });

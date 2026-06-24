@@ -36,6 +36,56 @@ body.dark {
   --focus-ring: rgba(88, 166, 255, 0.35);
 }
 
+/* ---------- Chart Icon Style ---------- */
+.chart-icon {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: 2px;
+  line-height: 1.6;
+  display: inline-block;
+}
+
+.chart-icon:hover {
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+}
+
+.chart-icon-D {
+  border-color: #eab308;
+  color: #eab308;
+}
+
+.chart-icon-D:hover {
+  background: #eab308;
+  color: #fff;
+}
+
+.chart-icon-W {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.chart-icon-W:hover {
+  background: #22c55e;
+  color: #fff;
+}
+
+.chart-icon-M {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.chart-icon-M:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
 /* ---------- Base ---------- */
 body {
   margin: 0;
