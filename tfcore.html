@@ -36,6 +36,8 @@ let tfcSortState = {};
 let tfcSectionOpenState = { High: true, Low: false };
 let tfcColWidths = {};
 
+const CHART_TIMEFRAMES_BY_FOLIO = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
+
 function toNumber(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
@@ -239,7 +241,7 @@ function drawTFCTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["W"];
+        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

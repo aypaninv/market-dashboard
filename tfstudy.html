@@ -35,6 +35,8 @@ let tfsSortState = {};
 let tfsSectionOpenState = { High: true, Low: false };
 let tfsColWidths = {};
 
+const CHART_TIMEFRAMES_BY_FOLIO = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
+
 function toNumber(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
@@ -210,14 +212,14 @@ function drawTFSTable(table, rows, sectionKey) {
   COLS_TFS.forEach(h => {
     if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = HEADER_LABELS_TFST[h] || h;
+    th.innerText = HEADER_LABELS_TFS[h] || h;
     if (h !== "Chart") {
       th.onclick = () => {
-        const existing = tfstSortState[sectionKey];
+        const existing = tfsSortState[sectionKey];
         const asc = existing && existing.col === h ? !existing.asc : true;
-        tfstSortState[sectionKey] = { col: h, asc };
-        tfstSectionOpenState[sectionKey] = true;
-        drawTFSTSections();
+        tfsSortState[sectionKey] = { col: h, asc };
+        tfsSectionOpenState[sectionKey] = true;
+        drawTFSSections();
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");
@@ -238,7 +240,7 @@ function drawTFSTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["D"];
+        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";
