@@ -35,6 +35,8 @@ let rawTrend = [];
 let curTrend = [];
 let trendSortState = {};
 
+const CHART_TIMEFRAMES_TREND = ["D", "W", "M"];
+
 function parseCSV(text) {
   const lines = text.trim().split("\n");
   const h = lines[0].split(",");
@@ -106,7 +108,7 @@ function drawTrend(data) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = Array.isArray(CHART_TIMEFRAMES_BY_FOLIO) ? CHART_TIMEFRAMES_BY_FOLIO : ["D", "W", "M"];
+        const tfs = Array.isArray(CHART_TIMEFRAMES_TREND) ? CHART_TIMEFRAMES_TREND : ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

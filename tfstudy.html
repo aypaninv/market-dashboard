@@ -35,7 +35,7 @@ let tfsSortState = {};
 let tfsSectionOpenState = { High: true, Low: false };
 let tfsColWidths = {};
 
-const CHART_TIMEFRAMES_BY_FOLIO = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
+const CHART_TIMEFRAMES_TFSTUDY = { High: ["D", "W", "M"], Low: ["D", "W"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -240,7 +240,7 @@ function drawTFSTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["D", "W", "M"];
+        const tfs = CHART_TIMEFRAMES_TFSTUDY[sectionKey] || ["D", "W"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

@@ -193,7 +193,7 @@ function getTrackCondition(folio) {
 
 // ===================== CANDLESTICK CHART =====================
 
-const CHART_TIMEFRAMES_BY_FOLIO = {
+const CHART_TIMEFRAMES_PORTFOLIO = {
   Trade: ["D"],
   Sate:  ["D", "W"],
   Core:  ["W", "M"],
@@ -439,7 +439,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
         const folioBase = sectionKey.split("__")[0].replace(/_Low$/, "");
-        const tfs = CHART_TIMEFRAMES_BY_FOLIO[folioBase] || ["D"];
+        const tfs = CHART_TIMEFRAMES_PORTFOLIO[folioBase] || ["D"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";
