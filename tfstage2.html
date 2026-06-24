@@ -11,7 +11,7 @@
 const CSV_TFS2 = "tfstage2_report.csv";
 
 const COLS_TFS2 = [
-  "Symbol","Folio","DD_High","W_BO",
+  "Symbol","Chart","Folio","DD_High","W_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -56,7 +56,7 @@ function splitHighLowTFS2(rows) {
 
 function computeSharedColWidthsTFS2(allRows) {
   if (!allRows.length) return {};
-  const visibleCols = COLS_TFS2.filter(h => h in allRows[0]);
+  const visibleCols = COLS_TFS2.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
@@ -193,9 +193,13 @@ function drawTFS2Table(table, rows, sectionKey) {
   if (tfs2ColWidths && Object.keys(tfs2ColWidths).length) {
     const colgroup = document.createElement("colgroup");
     COLS_TFS2.forEach(h => {
-      if (!(h in data[0]) || !tfs2ColWidths[h]) return;
       const col = document.createElement("col");
-      col.style.width = tfs2ColWidths[h] + "px";
+      if (h === "Chart") {
+        col.style.width = "42px";
+      } else {
+        if (!(h in data[0]) || !tfs2ColWidths[h]) return;
+        col.style.width = tfs2ColWidths[h] + "px";
+      }
       colgroup.appendChild(col);
     });
     table.appendChild(colgroup);
@@ -205,16 +209,18 @@ function drawTFS2Table(table, rows, sectionKey) {
 
   const tr = document.createElement("tr");
   COLS_TFS2.forEach(h => {
-    if (!(h in data[0])) return;
+    if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS_TFS2[h] || h;
-    th.onclick = () => {
-      const existing = tfs2SortState[sectionKey];
-      const asc = existing && existing.col === h ? !existing.asc : true;
-      tfs2SortState[sectionKey] = { col: h, asc };
-      tfs2SectionOpenState[sectionKey] = true;
-      drawTFS2Sections();
-    };
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = tfs2SortState[sectionKey];
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        tfs2SortState[sectionKey] = { col: h, asc };
+        tfs2SectionOpenState[sectionKey] = true;
+        drawTFS2Sections();
+      };
+    }
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -223,21 +229,35 @@ function drawTFS2Table(table, rows, sectionKey) {
   data.forEach(r => {
     const row = document.createElement("tr");
     COLS_TFS2.forEach(h => {
-      if (!(h in r)) return;
+      if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
         td.innerHTML = `<a href="#" onclick="openChartTFS2('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        const tfs = CHART_TIMEFRAMES_BY_FOLIO[sectionKey] || ["W"];
+        tfs.forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      window.applyCommonCellClasses(td, h, v, {
-        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-      });
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+        });
+      }
       row.appendChild(td);
     });
     table.appendChild(row);

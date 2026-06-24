@@ -1,21 +1,9 @@
 <!-- ===================== PORTFOLIO FEATURE ===================== -->
 
-<style>
-.chart-icon{font-size:10px;font-weight:700;padding:1px 4px;border-radius:3px;border:1px solid var(--accent);color:var(--accent);text-decoration:none;margin-right:2px;line-height:1.6;display:inline-block}
-.chart-icon:hover{background:var(--accent);color:#fff;text-decoration:none}
-</style>
-
 <div id="portfolioFeature">
   <div class="update-time" id="updateTime"></div>
   <div class="content">
     <div id="folioSections"></div>
-  </div>
-</div>
-
-<div id="chartOverlay" onclick="closeChart()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;align-items:center;justify-content:center;">
-  <div id="chartPopup" style="background:var(--panel);border-radius:12px;padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.45);">
-    <div id="chartTitle" style="font-size:12px;font-weight:700;letter-spacing:0.4px;color:var(--text);margin-bottom:8px;"></div>
-    <canvas id="chartCanvas"></canvas>
   </div>
 </div>
 
@@ -44,7 +32,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High","W_BO",
+    "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
     "4H_XC","D_XC","W_XC",
@@ -131,16 +119,19 @@ function defaultSellCondition(d) {
 
 const addConditionsByFolio = {
   Trade: d => {
-    const dChg = toNumber(d["D_CHG"]);
-    return dChg > 0;
+    const ltPert = toNumber(d.LT_Pert);
+    const dBo = toNumber(d["D_BO"]);
+    return ltPert > 0 && dBo > 0;
   },
   Sate: d => {
-    const wChg = toNumber(d["W_CHG"]);
-    return wChg > 0;
+    const ltPert = toNumber(d.LT_Pert);
+    const wBo = toNumber(d["W_BO"]);
+    return ltPert > 0 && wBo >= 0;
   },
   Core: d => {
+    const ltPert = toNumber(d.LT_Pert);
     const mChg = toNumber(d["M_CHG"]);
-    return mChg > 0;
+    return ltPert > 0 && mChg > 0;
   },
 };
 
@@ -252,10 +243,11 @@ function openCandleChart(symbol, tf) {
 
 function showChart(symbol, tf, candles) {
   const canvas = document.getElementById("chartCanvas");
-  canvas.width  = Math.min(620, window.innerWidth - 48);
-  canvas.height = Math.round(canvas.width * 0.52);
+  canvas.width  = Math.min(760, window.innerWidth - 40);
+  canvas.height = Math.round(canvas.width * 0.54);
   document.getElementById("chartTitle").textContent =
-    symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (last " + candles.length + ")";
+    symbol + "  —  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+  document.getElementById("chartTitle").style.marginBottom = "10px";
   drawCandles(canvas, candles);
   document.getElementById("chartOverlay").style.display = "flex";
 }
@@ -267,7 +259,7 @@ function closeChart() {
 function drawCandles(canvas, candles) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
-  const P = { t: 20, r: 16, b: 26, l: 58 };
+  const P = { t: 22, r: 16, b: 28, l: 62 };
   const cW = W - P.l - P.r, cH = H - P.t - P.b;
   const dark = document.body.classList.contains("dark");
   const bgC    = dark ? "#161b22" : "#ffffff";
@@ -295,15 +287,15 @@ function drawCandles(canvas, candles) {
 
   // Horizontal grid + price labels
   ctx.strokeStyle = gridC;
-  ctx.lineWidth = 0.5;
+  ctx.lineWidth = 0.7;
   ctx.fillStyle = labelC;
-  ctx.font = "10px Courier New";
+  ctx.font = "11px Courier New";
   ctx.textAlign = "right";
   for (let i = 0; i <= 4; i++) {
     const pv = lo + rng * i / 4;
     const y  = py(pv);
     ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
-    ctx.fillText(pv.toFixed(0), P.l - 4, y + 3);
+    ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
   }
 
   // Candles
@@ -314,18 +306,18 @@ function drawCandles(canvas, candles) {
     const cx  = P.l + (i + 0.5) * slotW;
 
     ctx.strokeStyle = col;
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
     const yTop = py(Math.max(o, cl));
-    const bH   = Math.max(1, py(Math.min(o, cl)) - yTop);
+    const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
     ctx.fillStyle = col;
     ctx.fillRect(cx - bW / 2, yTop, bW, bH);
   });
 
   // X-axis date labels (every ~4 candles)
   ctx.fillStyle = labelC;
-  ctx.font = "9px Courier New";
+  ctx.font = "10px Courier New";
   ctx.textAlign = "center";
   const step = Math.max(1, Math.floor(n / 5));
   candles.forEach((c, i) => {
@@ -581,7 +573,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
           const a = document.createElement("a");
           a.href = "#";
           a.textContent = tf;
-          a.className = "chart-icon";
+          a.className = "chart-icon chart-icon-" + tf;
           a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
           td.appendChild(a);
         });

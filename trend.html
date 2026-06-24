@@ -11,7 +11,7 @@
 const CSV_TREND = "trend_report.csv";
 
 const COLS_TREND = [
-  "Symbol","Folio",
+  "Symbol","Chart","Folio",
   "DD_High","D_BO","W_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
@@ -81,10 +81,12 @@ function drawTrend(data) {
 
   const tr = document.createElement("tr");
   COLS_TREND.forEach(h => {
-    if (!(h in data[0])) return;
+    if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
     th.innerText = HEADER_LABELS_TREND[h] || h;
-    th.onclick = () => sortTrend(h);
+    if (h !== "Chart") {
+      th.onclick = () => sortTrend(h);
+    }
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });
@@ -94,21 +96,35 @@ function drawTrend(data) {
     const row = document.createElement("tr");
 
     COLS_TREND.forEach(h => {
-      if (!(h in r)) return;
+      if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
-        td.innerHTML = `<a href="#" onclick="openChart('${v}')">${v}</a>`;
+        td.innerHTML = `<a href="#" onclick="openTVChart3('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        const tfs = Array.isArray(CHART_TIMEFRAMES_BY_FOLIO) ? CHART_TIMEFRAMES_BY_FOLIO : ["D", "W", "M"];
+        tfs.forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      window.applyCommonCellClasses(td, h, v, {
-        chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-      });
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+        });
+      }
       row.appendChild(td);
     });
 
@@ -124,7 +140,7 @@ function sortTrend(col) {
   drawTrend(curTrend);
 }
 
-function openChart(symbol) {
+function openTVChart3(symbol) {
   window.open(
     `https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`,
     "_blank"

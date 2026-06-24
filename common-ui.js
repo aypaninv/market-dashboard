@@ -129,3 +129,161 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ---------- Touch scroll optimization ---------- */
 document.addEventListener("touchstart", () => {}, { passive: true });
 document.addEventListener("touchmove", () => {}, { passive: true });
+
+/* =========================================================
+   CANDLESTICK CHART – SHARED ACROSS ALL FEATURES
+   ========================================================= */
+
+const OHLC_FILES = {
+  D: "nse_data/nse_daily.csv",
+  W: "nse_data/nse_weekly.csv",
+  M: "nse_data/nse_monthly.csv",
+};
+
+const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
+const ohlcCache = {};
+
+function parseOHLC(text) {
+  const lines = text.trim().split("\n");
+  const headers = lines[0].split(",").map(h => h.trim());
+  const bySymbol = {};
+  for (let i = 1; i < lines.length; i++) {
+    const vals = lines[i].split(",");
+    const obj = {};
+    headers.forEach((h, j) => { obj[h] = (vals[j] || "").trim(); });
+    const sym = obj.Symbol;
+    if (!sym) continue;
+    if (!bySymbol[sym]) bySymbol[sym] = [];
+    bySymbol[sym].push(obj);
+  }
+  return bySymbol;
+}
+
+function loadOHLC(tf) {
+  if (ohlcCache[tf]) return Promise.resolve(ohlcCache[tf]);
+  return fetch(OHLC_FILES[tf])
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(t => { ohlcCache[tf] = parseOHLC(t); return ohlcCache[tf]; });
+}
+
+window.openCandleChart = function(symbol, tf) {
+  loadOHLC(tf)
+    .then(data => {
+      const rows = data[symbol];
+      if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
+      window.showChart(symbol, tf, rows.slice(-20));
+    })
+    .catch(() => alert("Failed to load chart data"));
+};
+
+window.showChart = function(symbol, tf, candles) {
+  const canvas = document.getElementById("chartCanvas");
+  canvas.width  = Math.min(760, window.innerWidth - 40);
+  canvas.height = Math.round(canvas.width * 0.54);
+  document.getElementById("chartTitle").textContent =
+    symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+  document.getElementById("chartTitle").style.marginBottom = "10px";
+  window.drawCandles(canvas, candles);
+  document.getElementById("chartOverlay").style.display = "flex";
+};
+
+window.closeChart = function() {
+  document.getElementById("chartOverlay").style.display = "none";
+};
+
+window.drawCandles = function(canvas, candles) {
+  const ctx = canvas.getContext("2d");
+  const W = canvas.width, H = canvas.height;
+  const P = { t: 22, r: 16, b: 28, l: 62 };
+  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const dark = document.body.classList.contains("dark");
+  const bgC    = dark ? "#161b22" : "#ffffff";
+  const gridC  = dark ? "#2b313a" : "#e5e5e5";
+  const labelC = dark ? "#8b949e" : "#666666";
+
+  ctx.fillStyle = bgC;
+  ctx.fillRect(0, 0, W, H);
+
+  let minP = Infinity, maxP = -Infinity;
+  candles.forEach(c => {
+    const h = +c.High, l = +c.Low;
+    if (isFinite(h)) maxP = Math.max(maxP, h);
+    if (isFinite(l))  minP = Math.min(minP, l);
+  });
+  if (!isFinite(minP)) return;
+
+  const pad = (maxP - minP) * 0.05 || 1;
+  const lo = minP - pad, hi = maxP + pad, rng = hi - lo;
+  const py = p => P.t + cH * (1 - (p - lo) / rng);
+
+  const n = candles.length;
+  const slotW = cW / n;
+  const bW = Math.max(2, Math.floor(slotW * 0.62));
+
+  // Horizontal grid + price labels
+  ctx.strokeStyle = gridC;
+  ctx.lineWidth = 0.7;
+  ctx.fillStyle = labelC;
+  ctx.font = "11px Courier New";
+  ctx.textAlign = "right";
+  for (let i = 0; i <= 4; i++) {
+    const pv = lo + rng * i / 4;
+    const y  = py(pv);
+    ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
+    ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
+  }
+
+  // Candles
+  candles.forEach((c, i) => {
+    const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
+    if (![o, h, l, cl].every(isFinite)) return;
+    const col = cl >= o ? "#26a69a" : "#ef5350";
+    const cx  = P.l + (i + 0.5) * slotW;
+
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
+
+    const yTop = py(Math.max(o, cl));
+    const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
+    ctx.fillStyle = col;
+    ctx.fillRect(cx - bW / 2, yTop, bW, bH);
+  });
+
+  // X-axis date labels (every ~4 candles)
+  ctx.fillStyle = labelC;
+  ctx.font = "10px Courier New";
+  ctx.textAlign = "center";
+  const step = Math.max(1, Math.floor(n / 5));
+  candles.forEach((c, i) => {
+    if (i % step !== 0) return;
+    const d = (c.Date || c.Datetime || "").slice(0, 10).slice(5); // MM-DD
+    ctx.fillText(d, P.l + (i + 0.5) * slotW, H - 8);
+  });
+};
+
+// Inject chart overlay on DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  if (!document.getElementById("chartOverlay")) {
+    const overlay = document.createElement("div");
+    overlay.id = "chartOverlay";
+    overlay.onclick = window.closeChart;
+    overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;align-items:center;justify-content:center;";
+    
+    const popup = document.createElement("div");
+    popup.id = "chartPopup";
+    popup.style.cssText = "background:var(--panel);border-radius:12px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,0.52);border:1px solid var(--grid);";
+    
+    const title = document.createElement("div");
+    title.id = "chartTitle";
+    title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);margin-bottom:10px;";
+    
+    const canvas = document.createElement("canvas");
+    canvas.id = "chartCanvas";
+    
+    popup.appendChild(title);
+    popup.appendChild(canvas);
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+  }
+});
