@@ -12,7 +12,7 @@ const CSV_TFS = "tfstudy_report.csv";
 
 const COLS_TFS = [
   "Symbol","Chart","Folio",
-  "DD_High","D_BO","W_BO",
+  "DD_High","D_BO","W_BO","M_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -36,7 +36,7 @@ let tfsSortState = {};
 let tfsSectionOpenState = { High: true, Low: false };
 let tfsColWidths = {};
 
-const CHART_TIMEFRAMES_TFSTUDY = { High: ["D", "W", "M"], Low: ["D", "W"] };
+const CHART_TIMEFRAMES_TFSTUDY = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -48,9 +48,9 @@ function splitHighLow(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wBO = toNumber(r.W_BO);
+    const mBO = toNumber(r.M_BO);
 
-    if (wBO >= 0) highRows.push(r);
+    if (mBO >= 0) highRows.push(r);
     else lowRows.push(r);
   });
 

@@ -12,7 +12,7 @@ const CSV_TFS2 = "tfstage2_report.csv";
 
 const COLS_TFS2 = [
   "Symbol","Chart","Folio",
-  "DD_High","D_BO","W_BO",
+  "DD_High","D_BO","W_BO","M_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -36,7 +36,7 @@ let tfs2SortState = {};
 let tfs2SectionOpenState = { High: true, Low: false };
 let tfs2ColWidths = {};
 
-const CHART_TIMEFRAMES_TFSTAGE2 = { High: ["D", "W", "M"], Low: ["W"] };
+const CHART_TIMEFRAMES_TFSTAGE2 = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumberTFS2(value) {
   const num = parseFloat(value);
@@ -48,9 +48,9 @@ function splitHighLowTFS2(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wBO = toNumberTFS2(r.W_BO);
+    const mBO = toNumberTFS2(r.M_BO);
 
-    if (wBO > 0) highRows.push(r);
+    if (mBO >= 0) highRows.push(r);
     else lowRows.push(r);
   });
 

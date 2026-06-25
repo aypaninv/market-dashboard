@@ -12,7 +12,7 @@ const CSV_TFW = "tfwatch_report.csv";
 
 const COLS_TFW = [
   "Symbol","Chart","Folio",
-  "DD_High","D_BO","W_BO",
+  "DD_High","D_BO","W_BO","M_BO",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -36,7 +36,7 @@ let tfSortState = {};
 let tfSectionOpenState = { High: true, Low: false };
 let tfColWidths = {};
 
-const CHART_TIMEFRAMES_TFWATCH = { High: ["D", "W", "M"], Low: ["D"] };
+const CHART_TIMEFRAMES_TFWATCH = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
