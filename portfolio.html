@@ -11,7 +11,7 @@
 const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
-  "Symbol","Chart","Folio","IC","CC", "PnL",
+  "Symbol","Chart","Folio","IC","CC", "PnL","P_SC",
   "DD_High","D_BO","W_BO","M_BO",
   "LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
@@ -24,7 +24,7 @@ const DEFAULT_COLUMN_ORDER = [
 // Customize table columns per folio type.
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","IC","CC","PnL","P_SC",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
@@ -32,7 +32,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","IC","CC","PnL","P_SC",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
@@ -42,7 +42,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Sector","MarketCap","Notes"
   ],
   Core: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","IC","CC","PnL","P_SC",
     "DD_High","D_BO","W_BO","M_BO",
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
@@ -54,6 +54,7 @@ const COLUMN_ORDER_BY_FOLIO = {
 };
 
 const HEADER_LABELS = {
+  "P_SC": "P_SC",
   "LT_Type": "LT_T",
   "LT_days": "LT_D",
   "LT_Pert": "LT_P",
@@ -119,16 +120,14 @@ function defaultSellCondition(d) {
   return toNumber(d.D_XC) < 0;
 }
 
-// Check if position meets performance threshold based on IC and PnL
-function meetsPnLThreshold(ic, pnl) {
-  if (ic >= 6) return pnl > 50;
-  if (ic >= 5) return pnl > 40;
-  if (ic >= 4) return pnl > 32;
-  if (ic >= 3) return pnl > 24;
-  if (ic >= 2) return pnl > 15;
-  if (ic >= 1) return pnl > 8;
-  if (ic < 1) return pnl > 0;
-  return true; // No threshold for IC <= 1
+// Check if position meets performance threshold based on blended Portfolio Score (P_SC)
+function meetsPnLThreshold(ic, pnl, psc) {
+  // psc ranges from 0-1, where higher is better
+  // Allocation tiers based on score
+  if (psc >= 0.65) return true;          // Top tier - high allocation (score 65%+)
+  if (psc >= 0.50) return pnl > 30;      // Mid tier - conditional (score 50-65%)
+  if (psc >= 0.35) return pnl > 75;      // Low tier - high profit required (score 35-50%)
+  return false;                          // Below 35% - reject
 }
 
 const addConditionsByFolio = {
@@ -142,14 +141,16 @@ const addConditionsByFolio = {
     const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 6 && wBo >= 0 && meetsPnLThreshold(ic, pnl);
+    const psc = toNumber(d["P_SC"]);
+    return ic < 6 && wBo >= 0 && meetsPnLThreshold(ic, pnl, psc);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const mBo = toNumber(d["M_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 8 && mBo >= 0 && meetsPnLThreshold(ic, pnl);
+    const psc = toNumber(d["P_SC"]);
+    return ic < 8 && mBo >= 0 && meetsPnLThreshold(ic, pnl, psc);
   },
 };
 
