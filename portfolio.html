@@ -12,7 +12,7 @@ const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","IC","CC", "PnL",
-  "DD_High","D_BO","W_BO",
+  "DD_High","D_BO","W_BO","M_BO",
   "LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
   "4H_XC","D_XC","W_XC","M_XC",
@@ -42,7 +42,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High","D_BO","W_BO",
+    "DD_High","D_BO","W_BO","M_BO",
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
     "W_XC","M_XC",
@@ -64,6 +64,7 @@ const HEADER_LABELS = {
   "D_XC": "D_XC",
   "W_XC": "W_XC",
   "W_BO": "W_BO",
+  "M_BO": "M_BO",
   "D_BO": "D_BO",
   "M_XC": "M_XC",
   "D_EMA20": "D_E20",
@@ -144,10 +145,10 @@ const addConditionsByFolio = {
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const wBo = toNumber(d["W_BO"]);
+    const mBo = toNumber(d["M_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 8 && wBo > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 8 && mBo >= 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
