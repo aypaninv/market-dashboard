@@ -494,8 +494,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         const ic = toNumber(v);
         const pnl = toNumber(r["PnL"]);
         if (isICAlert(ic, pnl)) {
-          td.style.color = "#ff4444";
-          td.style.fontWeight = "bold";
+          td.classList.add("red");
         }
       }
 
