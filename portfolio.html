@@ -119,11 +119,13 @@ function defaultSellCondition(d) {
 
 // Check if position meets performance threshold based on IC and PnL
 function meetsPnLThreshold(ic, pnl) {
-  if (ic > 5) return pnl > 40;
-  if (ic > 4) return pnl > 32;
-  if (ic > 3) return pnl > 24;
-  if (ic > 2) return pnl > 15;
-  if (ic > 1) return pnl > 8;
+  if (ic >= 6) return pnl > 50;
+  if (ic >= 5) return pnl > 40;
+  if (ic >= 4) return pnl > 32;
+  if (ic >= 3) return pnl > 24;
+  if (ic >= 2) return pnl > 15;
+  if (ic >= 1) return pnl > 8;
+  if (ic < 1) return pnl > 0;
   return true; // No threshold for IC <= 1
 }
 
@@ -138,14 +140,14 @@ const addConditionsByFolio = {
     const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return wBo >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && wBo >= 0 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const mChg = toNumber(d["M_CHG"]);
+    const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return mChg > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 8 && wBo > 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
