@@ -46,8 +46,7 @@ function getActiveTable() {
     "#tfwatchFeature:not([style*='display: none'])," +
     "#tfcoreFeature:not([style*='display: none'])," +
     "#tfstudyFeature:not([style*='display: none'])," +
-    "#tfstage2Feature:not([style*='display: none'])," +
-    "#trendFeature:not([style*='display: none'])"
+    "#tfstage2Feature:not([style*='display: none'])"
   );
   return active ? active.querySelector("table") : null;
 }
