@@ -178,7 +178,7 @@ window.openCandleChart = function(symbol, tf) {
 window.showChart = function(symbol, tf, candles) {
   const canvas = document.getElementById("chartCanvas");
   canvas.width  = Math.min(760, window.innerWidth - 40);
-  canvas.height = Math.round(canvas.width * 0.54);
+  canvas.height = Math.round(canvas.width * 0.75);  // Increased from 0.54 to 0.75 for taller candles
   document.getElementById("chartTitle").textContent =
     symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
   document.getElementById("chartTitle").style.marginBottom = "10px";
