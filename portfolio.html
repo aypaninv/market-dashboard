@@ -119,6 +119,18 @@ function defaultSellCondition(d) {
   return toNumber(d.D_XC) < 0;
 }
 
+// Returns true when IC value is high but PnL hasn't caught up — triggers red highlight
+function isICAlert(ic, pnl) {
+  if (ic >= 6) return pnl < 50;
+  if (ic >= 5) return pnl < 40;
+  if (ic >= 4) return pnl < 32;
+  if (ic >= 3) return pnl < 24;
+  if (ic >= 2) return pnl < 15;
+  if (ic >= 1) return pnl < 8;
+  if (ic >= 0.5) return pnl < 0;
+  return false;
+}
+
 // Check if position meets performance threshold based on IC and PnL
 function meetsPnLThreshold(ic, pnl) {
   if (ic >= 6) return pnl >= 50;
@@ -476,6 +488,15 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
           profitColumns: ["PnL", "LT_Pert"],
         });
+      }
+
+      if (h === "IC") {
+        const ic = toNumber(v);
+        const pnl = toNumber(r["PnL"]);
+        if (isICAlert(ic, pnl)) {
+          td.style.color = "#ff4444";
+          td.style.fontWeight = "bold";
+        }
       }
 
       row.appendChild(td);
