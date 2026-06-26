@@ -190,6 +190,14 @@ window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
 };
 
+window.isValidGreenCandle = function(open_, close, high, low) {
+  if (close <= open_) return false;
+  const body = close - open_;
+  const upperWick = high - close;
+  const lowerWick = open_ - low;
+  return body > upperWick && body > lowerWick;
+};
+
 window.drawCandles = function(canvas, candles) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
@@ -232,15 +240,78 @@ window.drawCandles = function(canvas, candles) {
     ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
   }
 
+  // Find latest high close green candle
+  let highCloseGreenIdx = -1;
+  let highCloseLow = null;
+  let highCloseHigh = null;
+  for (let i = n - 1; i >= 0; i--) {
+    const c = candles[i];
+    const o = +c.Open, cl = +c.Close, h = +c.High, l = +c.Low;
+    if (![o, cl, h, l].every(isFinite)) continue;
+    
+    if (window.isValidGreenCandle(o, cl, h, l)) {
+      highCloseGreenIdx = i;
+      // Find highest close among remaining valid green candles up to this point
+      let maxClose = cl;
+      let maxCloseL = l;
+      let maxCloseH = h;
+      for (let j = i; j >= 0; j--) {
+        const cj = candles[j];
+        const oj = +cj.Open, clj = +cj.Close, hj = +cj.High, lj = +cj.Low;
+        if (![oj, clj, hj, lj].every(isFinite)) continue;
+        if (window.isValidGreenCandle(oj, clj, hj, lj) && clj > maxClose) {
+          maxClose = clj;
+          maxCloseL = lj;
+          maxCloseH = hj;
+          highCloseGreenIdx = j;
+        }
+      }
+      highCloseLow = maxCloseL;
+      highCloseHigh = maxCloseH;
+      break;
+    }
+  }
+
+  // Draw breakout/breakdown lines from highest close green candle
+  if (highCloseGreenIdx >= 0 && highCloseLow !== null) {
+    ctx.strokeStyle = dark ? "#4a5568" : "#d0d0d0";
+    ctx.lineWidth = 0.8;
+    ctx.setLineDash([3, 3]); // Dashed lines
+    
+    const highY = py(highCloseHigh);
+    const lowY = py(highCloseLow);
+    
+    // Draw from the high/low to the right edge
+    ctx.beginPath();
+    ctx.moveTo(P.l + (highCloseGreenIdx + 0.5) * slotW, highY);
+    ctx.lineTo(W - P.r, highY);
+    ctx.stroke();
+    
+    ctx.beginPath();
+    ctx.moveTo(P.l + (highCloseGreenIdx + 0.5) * slotW, lowY);
+    ctx.lineTo(W - P.r, lowY);
+    ctx.stroke();
+    
+    ctx.setLineDash([]);
+  }
+
   // Candles
   candles.forEach((c, i) => {
     const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
     if (![o, h, l, cl].every(isFinite)) return;
-    const col = cl >= o ? "#26a69a" : "#ef5350";
+    
+    const isHighlighted = i === highCloseGreenIdx;
+    let col = cl >= o ? "#26a69a" : "#ef5350";
+    
+    // Highlight the latest high close green candle
+    if (isHighlighted) {
+      col = dark ? "#fbbf24" : "#f59e0b"; // Amber/orange highlight
+    }
+    
     const cx  = P.l + (i + 0.5) * slotW;
 
     ctx.strokeStyle = col;
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = isHighlighted ? 2 : 1.2;
     ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
     const yTop = py(Math.max(o, cl));
