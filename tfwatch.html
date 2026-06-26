@@ -31,12 +31,11 @@ const HEADER_LABELS_TFW = {
 };
 
 let rawTF = [];
-let tfSections = { High: [], Low: [] };
+let tfSections = { ALL: [], Week: [], Daily: [] };
 let tfSortState = {};
-let tfSectionOpenState = { High: true, Low: false };
+let tfSectionOpenState = { ALL: true, Week: false, Daily: false };
 let tfColWidths = {};
 
-const CHART_TIMEFRAMES_TFWATCH = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -44,17 +43,32 @@ function toNumber(value) {
 }
 
 function splitHighLow(rows) {
-  const highRows = [];
-  const lowRows = [];
+  const allRows = [];
+  const weekRows = [];
+  const dailyRows = [];
 
   rows.forEach(r => {
+    const mBO = toNumber(r.M_BO);
+    const wBO = toNumber(r.W_BO);
     const dBO = toNumber(r.D_BO);
 
-    if (dBO >= 0) highRows.push(r);
-    else lowRows.push(r);
+    // ALL: M_BO >= 0 && W_BO >= 0 && D_BO >= 0
+    if (mBO >= 0 && wBO >= 0 && dBO >= 0) {
+      allRows.push(r);
+    }
+    
+    // Week: W_BO >= 0
+    if (wBO >= 0) {
+      weekRows.push(r);
+    }
+    
+    // Daily: D_BO >= 0
+    if (dBO >= 0) {
+      dailyRows.push(r);
+    }
   });
 
-  return { highRows, lowRows };
+  return { allRows, weekRows, dailyRows };
 }
 
 function computeSharedColWidths(allRows) {
@@ -133,14 +147,15 @@ window.registerTabs(addTab => {
 });
 
 function renderTF(data) {
-  const { highRows, lowRows } = splitHighLow([...data]);
+  const { allRows, weekRows, dailyRows } = splitHighLow([...data]);
   tfSections = {
-    High: window.sortRowsByColumn(highRows, "D_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
+    ALL: window.sortRowsByColumn(allRows, "D_BO", false),
+    Week: window.sortRowsByColumn(weekRows, "D_BO", false),
+    Daily: window.sortRowsByColumn(dailyRows, "D_BO", false),
   };
-  tfColWidths = computeSharedColWidths([...highRows, ...lowRows]);
+  tfColWidths = computeSharedColWidths([...allRows, ...weekRows, ...dailyRows]);
   tfSortState = {};
-  tfSectionOpenState = { High: true, Low: false };
+  tfSectionOpenState = { ALL: true, Week: false, Daily: false };
   drawTFSections();
 }
 
@@ -148,8 +163,9 @@ function drawTFSections() {
   const container = document.getElementById("tfwatchSections");
   container.innerHTML = "";
 
-  container.appendChild(createTFSection("High", tfSections.High, "High"));
-  container.appendChild(createTFSection("Low", tfSections.Low, "Low"));
+  container.appendChild(createTFSection("ALL", tfSections.ALL, "ALL"));
+  container.appendChild(createTFSection("Week", tfSections.Week, "Week"));
+  container.appendChild(createTFSection("Daily", tfSections.Daily, "Daily"));
 }
 
 function createTFSection(title, rows, sectionKey) {
@@ -162,6 +178,11 @@ function createTFSection(title, rows, sectionKey) {
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
+  summary.style.cursor = "pointer";
+  summary.onclick = (e) => {
+    e.preventDefault();
+    details.open = !details.open;
+  };
   details.appendChild(summary);
 
   const wrapper = document.createElement("div");
@@ -241,7 +262,7 @@ function drawTFTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_TFWATCH[sectionKey] || ["D", "W"];
+        const tfs = ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

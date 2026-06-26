@@ -36,8 +36,6 @@ let tfs2SortState = {};
 let tfs2SectionOpenState = { High: true, Low: false };
 let tfs2ColWidths = {};
 
-const CHART_TIMEFRAMES_TFSTAGE2 = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
-
 function toNumberTFS2(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
@@ -179,6 +177,11 @@ function createTFS2Section(title, rows, sectionKey) {
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
+  summary.style.cursor = "pointer";
+  summary.onclick = (e) => {
+    e.preventDefault();
+    details.open = !details.open;
+  };
   details.appendChild(summary);
 
   const wrapper = document.createElement("div");
@@ -258,7 +261,7 @@ function drawTFS2Table(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_TFSTAGE2[sectionKey] || ["W", "M"];
+        const tfs = ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

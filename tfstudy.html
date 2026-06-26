@@ -31,12 +31,10 @@ const HEADER_LABELS_TFS = {
 };
 
 let rawTFS = [];
-let tfsSections = { High: [], Low: [] };
+let tfsSections = { ALL: [], Week: [], Daily: [] };
 let tfsSortState = {};
-let tfsSectionOpenState = { High: true, Low: false };
+let tfsSectionOpenState = { ALL: true, Week: false, Daily: false };
 let tfsColWidths = {};
-
-const CHART_TIMEFRAMES_TFSTUDY = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -179,6 +177,11 @@ function createTFSSection(title, rows, sectionKey) {
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
+  summary.style.cursor = "pointer";
+  summary.onclick = (e) => {
+    e.preventDefault();
+    details.open = !details.open;
+  };
   details.appendChild(summary);
 
   const wrapper = document.createElement("div");
@@ -258,7 +261,7 @@ function drawTFSTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_TFSTUDY[sectionKey] || ["D", "W"];
+        const tfs = ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

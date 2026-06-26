@@ -32,12 +32,10 @@ const HEADER_LABELS_TFC = {
 };
 
 let rawTFC = [];
-let tfcSections = { High: [], Low: [] };
+let tfcSections = { ALL: [], Week: [], Daily: [] };
 let tfcSortState = {};
-let tfcSectionOpenState = { High: true, Low: false };
+let tfcSectionOpenState = { ALL: true, Week: false, Daily: false };
 let tfcColWidths = {};
-
-const CHART_TIMEFRAMES_TFCORE = { High: ["D", "W", "M"], Low: ["D", "W", "M"] };
 
 function toNumber(value) {
   const num = parseFloat(value);
@@ -157,7 +155,7 @@ function renderTFC(data) {
   };
   tfcColWidths = computeSharedColWidths([...allRows, ...weekRows, ...dailyRows]);
   tfcSortState = {};
-  tfcSectionOpenState = { ALL: false, Week: false, Daily: false };
+  tfcSectionOpenState = { ALL: true, Week: false, Daily: false };
   drawTFCSections();
 }
 
@@ -180,6 +178,11 @@ function createTFCSection(title, rows, sectionKey) {
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
+  summary.style.cursor = "pointer";
+  summary.onclick = (e) => {
+    e.preventDefault();
+    details.open = !details.open;
+  };
   details.appendChild(summary);
 
   const wrapper = document.createElement("div");
@@ -259,7 +262,7 @@ function drawTFCTable(table, rows, sectionKey) {
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
-        const tfs = CHART_TIMEFRAMES_TFCORE[sectionKey] || ["W", "M"];
+        const tfs = ["D", "W", "M"];
         tfs.forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";

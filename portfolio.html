@@ -222,13 +222,7 @@ function getTrackCondition(folio) {
   return trackConditionsByFolio[folio] || defaultTrackCondition;
 }
 
-// ===================== CANDLESTICK CHART =====================
-
-const CHART_TIMEFRAMES_PORTFOLIO = {
-  Trade: ["D", "W", "M"],
-  Sate:  ["D", "W", "M"],
-  Core:  ["D", "W", "M"],
-};
+const CHART_TIMEFRAMES_PORTFOLIO = { Trade: ["D", "W", "M"], Sate: ["D", "W", "M"], Core: ["D", "W", "M"] };
 
 // ==============================================================
 
@@ -392,6 +386,11 @@ function createSection(title, rows, sectionKey, isOpenByDefault, colWidths, colu
 
   const summary = document.createElement("summary");
   summary.textContent = `${title} (${rows.length})`;
+  summary.style.cursor = "pointer";
+  summary.onclick = (e) => {
+    e.preventDefault();
+    details.open = !details.open;
+  };
   details.appendChild(summary);
 
   const wrapper = document.createElement("div");
