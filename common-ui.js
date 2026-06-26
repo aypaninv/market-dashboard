@@ -191,11 +191,7 @@ window.closeChart = function() {
 };
 
 window.isValidGreenCandle = function(open_, close, high, low) {
-  if (close <= open_) return false;
-  const body = close - open_;
-  const upperWick = high - close;
-  const lowerWick = open_ - low;
-  return body > upperWick && body > lowerWick;
+  return close > open_;
 };
 
 window.drawCandles = function(canvas, candles) {
