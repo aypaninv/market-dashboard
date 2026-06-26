@@ -48,9 +48,9 @@ function splitHighLow(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wBO = toNumber(r.W_BO);
+    const dBO = toNumber(r.D_BO);
 
-    if (wBO >= 0) highRows.push(r);
+    if (dBO >= 0) highRows.push(r);
     else lowRows.push(r);
   });
 
@@ -135,8 +135,8 @@ window.registerTabs(addTab => {
 function renderTF(data) {
   const { highRows, lowRows } = splitHighLow([...data]);
   tfSections = {
-    High: window.sortRowsByCustomDefault(highRows, "D_XC"),
-    Low: window.sortRowsByCustomDefault(lowRows, "D_XC"),
+    High: window.sortRowsByColumn(highRows, "D_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
   tfColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfSortState = {};
@@ -251,7 +251,12 @@ function drawTFTable(table, rows, sectionKey) {
           td.appendChild(a);
         });
       } else {
-        td.innerText = v;
+        // Format BO columns as integers
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 

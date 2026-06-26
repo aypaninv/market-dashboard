@@ -45,17 +45,32 @@ function toNumber(value) {
 }
 
 function splitHighLow(rows) {
-  const highRows = [];
-  const lowRows = [];
+  const allRows = [];
+  const weekRows = [];
+  const dailyRows = [];
 
   rows.forEach(r => {
+    const mBO = toNumber(r.M_BO);
     const wBO = toNumber(r.W_BO);
-    const wXC = toNumber(r.W_XC);
-    if (wBO > 0) highRows.push(r);
-    else lowRows.push(r);
+    const dBO = toNumber(r.D_BO);
+
+    // ALL: M_BO >= 0 && W_BO >= 0 && D_BO >= 0
+    if (mBO >= 0 && wBO >= 0 && dBO >= 0) {
+      allRows.push(r);
+    }
+    
+    // Week: W_BO >= 0
+    if (wBO >= 0) {
+      weekRows.push(r);
+    }
+    
+    // Daily: D_BO >= 0
+    if (dBO >= 0) {
+      dailyRows.push(r);
+    }
   });
 
-  return { highRows, lowRows };
+  return { allRows, weekRows, dailyRows };
 }
 
 function computeSharedColWidths(allRows) {
@@ -134,14 +149,15 @@ window.registerTabs(addTab => {
 });
 
 function renderTFC(data) {
-  const { highRows, lowRows } = splitHighLow([...data]);
+  const { allRows, weekRows, dailyRows } = splitHighLow([...data]);
   tfcSections = {
-    High: window.sortRowsByCustomDefault(highRows, "D_XC"),
-    Low: window.sortRowsByCustomDefault(lowRows, "D_XC"),
+    ALL: window.sortRowsByColumn(allRows, "D_BO", false),
+    Week: window.sortRowsByColumn(weekRows, "D_BO", false),
+    Daily: window.sortRowsByColumn(dailyRows, "D_BO", false),
   };
-  tfcColWidths = computeSharedColWidths([...highRows, ...lowRows]);
+  tfcColWidths = computeSharedColWidths([...allRows, ...weekRows, ...dailyRows]);
   tfcSortState = {};
-  tfcSectionOpenState = { High: true, Low: false };
+  tfcSectionOpenState = { ALL: false, Week: false, Daily: false };
   drawTFCSections();
 }
 
@@ -149,8 +165,9 @@ function drawTFCSections() {
   const container = document.getElementById("tfcoreSections");
   container.innerHTML = "";
 
-  container.appendChild(createTFCSection("High", tfcSections.High, "High"));
-  container.appendChild(createTFCSection("Low", tfcSections.Low, "Low"));
+  container.appendChild(createTFCSection("ALL", tfcSections.ALL, "ALL"));
+  container.appendChild(createTFCSection("Week", tfcSections.Week, "Week"));
+  container.appendChild(createTFCSection("Daily", tfcSections.Daily, "Daily"));
 }
 
 function createTFCSection(title, rows, sectionKey) {
@@ -252,7 +269,12 @@ function drawTFCTable(table, rows, sectionKey) {
           td.appendChild(a);
         });
       } else {
-        td.innerText = v;
+        // Format BO columns as integers
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 

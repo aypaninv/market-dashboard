@@ -152,9 +152,10 @@ const addConditionsByFolio = {
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
     const wBo = toNumber(d["W_BO"]);
+    const dBo = toNumber(d["D_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 6 && wBo >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && (wBo >= 0 || dBo > 0) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -257,7 +258,7 @@ window.registerTabs(addTab => {
 });
 
 function sortByDefault(data) {
-  return window.sortRowsByCustomDefault(data, "D_XC");
+  return window.sortRowsByColumn(data, "D_BO", false);
 }
 
 function getSortedSectionRows(rows, sectionKey) {
@@ -479,7 +480,12 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
           td.appendChild(a);
         });
       } else {
-        td.innerText = v;
+        // Format BO columns as integers
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
