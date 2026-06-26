@@ -160,9 +160,10 @@ const addConditionsByFolio = {
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const mBo = toNumber(d["M_BO"]);
+     const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 7 && mBo >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && (mBo >= 0 || wBo >= 0) && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -194,7 +195,7 @@ const exitConditionsByFolio = {
                 toNumber(d.M_XC) < 0
               ),
   Trade: d => (
-                toNumber(d["D_XL"]) < -1
+                toNumber(d["W_XL"]) < 0
               ),
 };
   
