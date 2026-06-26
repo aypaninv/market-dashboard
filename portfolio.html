@@ -12,7 +12,7 @@ const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","IC","CC", "PnL",
-  "DD_High","D_BO","W_BO","M_BO",
+  "DD_High","D_BO","W_BO","M_BO","D_SL","W_SL","M_SL",
   "LT_Type","LT_days","LT_Pert",
   "D_XL","W_XL","M_XL",
   "4H_XC","D_XC","W_XC","M_XC",
@@ -25,7 +25,7 @@ const DEFAULT_COLUMN_ORDER = [
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High","D_BO","W_BO",
+    "DD_High","D_BO","W_BO","D_SL","W_SL",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
     "4H_XC","D_XC","W_XC","D_CHG",
@@ -33,7 +33,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High","D_BO","W_BO",
+    "DD_High","D_BO","W_BO","D_SL","W_SL",
     "LT_Type","LT_days","LT_Pert",
     "D_XL","W_XL",
     "4H_XC","D_XC","W_XC",
@@ -43,7 +43,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High","D_BO","W_BO","M_BO",
+    "DD_High","D_BO","W_BO","M_BO","D_SL","W_SL","M_SL",
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
     "W_XC","M_XC",
@@ -65,8 +65,11 @@ const HEADER_LABELS = {
   "D_XC": "D_XC",
   "W_XC": "W_XC",
   "W_BO": "W_BO",
+  "W_SL": "W_SL",
   "M_BO": "M_BO",
+  "M_SL": "M_SL",
   "D_BO": "D_BO",
+  "D_SL": "D_SL",
   "M_XC": "M_XC",
   "D_EMA20": "D_E20",
   "W_EMA10": "W_E10",
