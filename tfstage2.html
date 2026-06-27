@@ -137,8 +137,8 @@ window.registerTabs(addTab => {
 function renderTFS2(data) {
   const { highRows, lowRows } = splitHighLowTFS2([...data]);
   tfs2Sections = {
-    High: window.sortRowsByColumn(highRows, "D_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
+    High: window.sortRowsByColumn(highRows, "W_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "W_BO", false),
   };
   tfs2ColWidths = computeSharedColWidthsTFS2([...highRows, ...lowRows]);
   tfs2SortState = {};

@@ -137,8 +137,8 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const { highRows, lowRows } = splitHighLow([...data]);
   tfcSections = {
-    High: window.sortRowsByColumn(highRows, "D_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
+    High: window.sortRowsByColumn(highRows, "W_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "W_BO", false),
   };
   tfcColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfcSortState = {};
