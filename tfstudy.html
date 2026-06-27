@@ -33,7 +33,7 @@ const HEADER_LABELS_TFS = {
 let rawTFS = [];
 let tfsSections = { ALL: [], Week: [], Daily: [] };
 let tfsSortState = {};
-let tfsSectionOpenState = { ALL: true, Week: false, Daily: false };
+let tfsSectionOpenState = { High: true, Low: false };
 let tfsColWidths = {};
 
 function toNumber(value) {
@@ -42,32 +42,20 @@ function toNumber(value) {
 }
 
 function splitHighLow(rows) {
-  const allRows = [];
-  const weekRows = [];
-  const dailyRows = [];
+  const highRows = [];
+  const lowRows = [];
 
   rows.forEach(r => {
-    const mBO = toNumber(r.M_BO);
     const wBO = toNumber(r.W_BO);
-    const dBO = toNumber(r.D_BO);
 
-    // ALL: M_BO >= 0 && W_BO >= 0 && D_BO >= 0
-    if (mBO >= 0 && wBO >= 0 && dBO >= 0) {
-      allRows.push(r);
-    }
-    
-    // Week: W_BO >= 0
     if (wBO >= 0) {
-      weekRows.push(r);
-    }
-    
-    // Daily: D_BO >= 0
-    if (dBO >= 0) {
-      dailyRows.push(r);
+      highRows.push(r);
+    } else {
+      lowRows.push(r);
     }
   });
 
-  return { allRows, weekRows, dailyRows };
+  return { highRows, lowRows };
 }
 
 function computeSharedColWidths(allRows) {
@@ -146,15 +134,14 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  const { allRows, weekRows, dailyRows } = splitHighLow([...data]);
+  const { highRows, lowRows } = splitHighLow([...data]);
   tfsSections = {
-    ALL: window.sortRowsByColumn(allRows, "D_BO", false),
-    Week: window.sortRowsByColumn(weekRows, "D_BO", false),
-    Daily: window.sortRowsByColumn(dailyRows, "D_BO", false),
+    High: window.sortRowsByColumn(highRows, "D_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
-  tfsColWidths = computeSharedColWidths([...allRows, ...weekRows, ...dailyRows]);
+  tfsColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfsSortState = {};
-  tfsSectionOpenState = { ALL: false, Week: false, Daily: false };
+  tfsSectionOpenState = { High: true, Low: false };
   drawTFSSections();
 }
 
@@ -162,9 +149,8 @@ function drawTFSSections() {
   const container = document.getElementById("tfstudySections");
   container.innerHTML = "";
 
-  container.appendChild(createTFSSection("ALL", tfsSections.ALL, "ALL"));
-  container.appendChild(createTFSSection("Week", tfsSections.Week, "Week"));
-  container.appendChild(createTFSSection("Daily", tfsSections.Daily, "Daily"));
+  container.appendChild(createTFSSection("High", tfsSections.High, "High"));
+  container.appendChild(createTFSSection("Low", tfsSections.Low, "Low"));
 }
 
 function createTFSSection(title, rows, sectionKey) {

@@ -42,32 +42,21 @@ function toNumberTFS2(value) {
 }
 
 function splitHighLowTFS2(rows) {
-  const allRows = [];
-  const weekRows = [];
-  const dailyRows = [];
+  const highRows = [];
+  const lowRows = [];
 
   rows.forEach(r => {
-    const mBO = toNumberTFS2(r.M_BO);
-    const wBO = toNumberTFS2(r.W_BO);
     const dBO = toNumberTFS2(r.D_BO);
+    const wBO = toNumberTFS2(r.W_BO);
 
-    // ALL: M_BO >= 0 && W_BO >= 0 && D_BO >= 0
-    if (mBO >= 0 && wBO >= 0 && dBO >= 0) {
-      allRows.push(r);
-    }
-    
-    // Week: W_BO >= 0
-    if (wBO >= 0) {
-      weekRows.push(r);
-    }
-    
-    // Daily: D_BO >= 0
-    if (dBO >= 0) {
-      dailyRows.push(r);
+    if (wBO >= 0 && dBO >= 0) {
+      highRows.push(r);
+    } else {
+      lowRows.push(r);
     }
   });
 
-  return { allRows, weekRows, dailyRows };
+  return { highRows, lowRows };
 }
 
 function computeSharedColWidthsTFS2(allRows) {
@@ -146,15 +135,14 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS2(data) {
-  const { allRows, weekRows, dailyRows } = splitHighLowTFS2([...data]);
+  const { highRows, lowRows } = splitHighLowTFS2([...data]);
   tfs2Sections = {
-    ALL: window.sortRowsByColumn(allRows, "D_BO", false),
-    Week: window.sortRowsByColumn(weekRows, "D_BO", false),
-    Daily: window.sortRowsByColumn(dailyRows, "D_BO", false),
+    High: window.sortRowsByColumn(highRows, "D_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
-  tfs2ColWidths = computeSharedColWidthsTFS2([...allRows, ...weekRows, ...dailyRows]);
+  tfs2ColWidths = computeSharedColWidthsTFS2([...highRows, ...lowRows]);
   tfs2SortState = {};
-  tfs2SectionOpenState = { ALL: false, Week: false, Daily: false };
+  tfs2SectionOpenState = { High: true, Low: false };
   drawTFS2Sections();
 }
 
@@ -162,9 +150,8 @@ function drawTFS2Sections() {
   const container = document.getElementById("tfstage2Sections");
   container.innerHTML = "";
 
-  container.appendChild(createTFS2Section("ALL", tfs2Sections.ALL, "ALL"));
-  container.appendChild(createTFS2Section("Week", tfs2Sections.Week, "Week"));
-  container.appendChild(createTFS2Section("Daily", tfs2Sections.Daily, "Daily"));
+  container.appendChild(createTFS2Section("High", tfs2Sections.High, "High"));
+  container.appendChild(createTFS2Section("Low", tfs2Sections.Low, "Low"));
 }
 
 function createTFS2Section(title, rows, sectionKey) {
