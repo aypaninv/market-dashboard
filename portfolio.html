@@ -155,7 +155,7 @@ const addConditionsByFolio = {
     const dBo = toNumber(d["D_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 6 && (wBo >= 0 || dBo > 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 0 &&  dBo >= 2 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -163,7 +163,7 @@ const addConditionsByFolio = {
      const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 7 && (mBo >= 0 || wBo >= 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 0 && wBo > 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -252,8 +252,15 @@ window.registerTabs(addTab => {
     });
 });
 
-function sortByDefault(data) {
-  return window.sortRowsByColumn(data, "D_BO", false);
+function getDefaultSortColumnForFolio(folio) {
+  const folioBase = (folio || "").replace(/_Low$/, "");
+  if (folioBase === "Core") return "W_BO";
+  if (folioBase === "Sate" || folioBase === "Trade") return "D_BO";
+  return "W_BO";
+}
+
+function sortByDefault(data, folio) {
+  return window.sortRowsByColumn(data, getDefaultSortColumnForFolio(folio), false);
 }
 
 function getSortedSectionRows(rows, sectionKey) {
@@ -336,9 +343,9 @@ function renderFolioSections(folio, folioRows) {
       }
     });
 
-    container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Holding", sortByDefault(holdingRows), `${folio}__Holding`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Holding", sortByDefault(holdingRows, folio), `${folio}__Holding`, true, colWidths, columnOrder));
   } else {
     // Standard 6-section layout for other folios
     const addCondition = getAddCondition(folio);
@@ -371,12 +378,12 @@ function renderFolioSections(folio, folioRows) {
       }
     });
 
-    container.appendChild(createSection("Add", sortByDefault(addRows), `${folio}__Add`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Sell", sortByDefault(sellRows), `${folio}__Sell`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Hold", sortByDefault(holdRows), `${folio}__Hold`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Exit", sortByDefault(exitRows), `${folio}__Exit`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Others", sortByDefault(otherRows), `${folio}__Others`, false, colWidths, columnOrder));
-    container.appendChild(createSection("Track", sortByDefault(trackRows), `${folio}__Track`, false, colWidths, columnOrder));
+    container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Sell", sortByDefault(sellRows, folio), `${folio}__Sell`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Others", sortByDefault(otherRows, folio), `${folio}__Others`, false, colWidths, columnOrder));
+    container.appendChild(createSection("Track", sortByDefault(trackRows, folio), `${folio}__Track`, false, colWidths, columnOrder));
   }
 }
 
