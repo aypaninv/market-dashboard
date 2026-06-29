@@ -155,7 +155,7 @@ const addConditionsByFolio = {
     const dBo = toNumber(d["D_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 6 && ltPert > 0 &&  dBo >= 2 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 0 && (dBo >= 0 || wBo >= 0) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -163,7 +163,7 @@ const addConditionsByFolio = {
      const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 7 && ltPert > 0 && wBo > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 0 && (wBo >= 0 || mBo >= 0) && meetsPnLThreshold(ic, pnl);
   },
 };
 
