@@ -148,9 +148,9 @@ const CHART_CANDLE_COUNTS = {
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
 const CHART_SR_PIVOT_SOURCE_BY_TF = {
-  D: "latest-candle", // (highest-high | latest-candle)
-  W: "latest-candle",
-  M: "latest-candle",
+  D: "highest-high", // (highest-high | latest-candle)
+  W: "highest-high",
+  M: "highest-high",
 };
 const CHART_SR_SHOW_PIVOT_DATE = false;
 
