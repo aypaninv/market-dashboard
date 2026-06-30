@@ -217,7 +217,7 @@ function getExitCondition(folio) {
 }
 
 function defaultTrackCondition(d) {
-  return toNumber(d.IC) < 0.5;
+  return toNumber(d.IC) <= 0.5;
 }
 
 function getTrackCondition(folio) {
@@ -255,7 +255,7 @@ window.registerTabs(addTab => {
 
 function getDefaultSortColumnForFolio(folio) {
   const folioBase = (folio || "").replace(/_Low$/, "");
-  if (folioBase === "Core") return "W_BO";
+  if (folioBase === "Core") return "D_BO";
   if (folioBase === "Sate" || folioBase === "Trade") return "D_BO";
   return "W_BO";
 }
