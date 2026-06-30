@@ -35,7 +35,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
-    "W_XL",
+    "D_XL","W_XL",
     "4H_XC","D_XC","W_XC",
     "D_EMA20","W_CHG",
     "AvgPrice","CurPrice",
@@ -133,10 +133,10 @@ function isICAlert(ic, pnl) {
 
 // Check if position meets performance threshold based on IC and PnL
 function meetsPnLThreshold(ic, pnl) {
-  if (ic >= 6) return pnl >= 60;
-  if (ic >= 5) return pnl >= 45;
-  if (ic >= 4) return pnl >= 35;
-  if (ic >= 3) return pnl >= 25;
+  if (ic >= 6) return pnl >= 50;
+  if (ic >= 5) return pnl >= 40;
+  if (ic >= 4) return pnl >= 32;
+  if (ic >= 3) return pnl >= 24;
   if (ic >= 2) return pnl >= 15;
   if (ic >= 1) return pnl >= 8;
   if (ic >= 0.5) return pnl > 0;
@@ -160,11 +160,10 @@ const addConditionsByFolio = {
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
     const mBo = toNumber(d["M_BO"]);
-    const wBo = toNumber(d["W_BO"]);
-    const dBo = toNumber(d["D_BO"]);
+     const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 7 && ltPert > 0 && (dBo >= 0 || wBo >= 0) && mBo >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 0 && (wBo >= 0 || mBo >= 0) && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -217,7 +216,7 @@ function getExitCondition(folio) {
 }
 
 function defaultTrackCondition(d) {
-  return toNumber(d.IC) <= 0.5;
+  return toNumber(d.IC) < 0.5;
 }
 
 function getTrackCondition(folio) {
@@ -255,7 +254,7 @@ window.registerTabs(addTab => {
 
 function getDefaultSortColumnForFolio(folio) {
   const folioBase = (folio || "").replace(/_Low$/, "");
-  if (folioBase === "Core") return "D_BO";
+  if (folioBase === "Core") return "W_BO";
   if (folioBase === "Sate" || folioBase === "Trade") return "D_BO";
   return "W_BO";
 }

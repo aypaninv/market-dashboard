@@ -141,6 +141,8 @@ const OHLC_FILES = {
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
+const DAILY_SR_PIVOT_SOURCE = "highest-high"; // (highest-high | latest-candle)
+const DAILY_SR_SHOW_PIVOT_DATE = true;
 
 function parseOHLC(text) {
   const lines = text.trim().split("\n");
@@ -165,24 +167,84 @@ function loadOHLC(tf) {
     .then(t => { ohlcCache[tf] = parseOHLC(t); return ohlcCache[tf]; });
 }
 
+function getRowDateLabel(row) {
+  return (row?.Date || row?.Datetime || "").slice(0, 10);
+}
+
+function getDailyPivotRow(rows, source) {
+  if (!rows || !rows.length) return null;
+
+  if (source === "latest-candle") {
+    return rows[rows.length - 1] || null;
+  }
+
+  return rows.reduce((best, row) => {
+    const high = parseFloat(row.High);
+    if (!Number.isFinite(high)) return best;
+    if (!best) return row;
+
+    const bestHigh = parseFloat(best.High);
+    const rowDate = getRowDateLabel(row);
+    const bestDate = getRowDateLabel(best);
+
+    if (high > bestHigh) return row;
+    if (high === bestHigh && rowDate > bestDate) return row;
+    return best;
+  }, null);
+}
+
+function getDailySupportResistance(rows, source = DAILY_SR_PIVOT_SOURCE) {
+  const pivotRow = getDailyPivotRow(rows, source);
+  if (!pivotRow) return null;
+
+  const high = parseFloat(pivotRow.High);
+  const low = parseFloat(pivotRow.Low);
+  const close = parseFloat(pivotRow.Close);
+  if (![high, low, close].every(Number.isFinite)) return null;
+
+  const pivot = (high + low + close) / 3;
+
+  return {
+    source,
+    pivotDate: getRowDateLabel(pivotRow),
+    pivotHigh: high,
+    pivotLow: low,
+    pivotClose: close,
+    pivot: +pivot.toFixed(2),
+    R1: +(2 * pivot - low).toFixed(2),
+    S1: +(2 * pivot - high).toFixed(2),
+    S2: +(pivot - (high - low)).toFixed(2),
+    S3: +(low - 2 * (high - pivot)).toFixed(2),
+  };
+}
+
+function buildChartTitle(symbol, tf, candles, levels) {
+  let title = symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+  if (tf === "D" && levels && DAILY_SR_SHOW_PIVOT_DATE && levels.pivotDate) {
+    const sourceLabel = levels.source === "latest-candle" ? "Latest" : "Highest High";
+    title += "  \u2014  Pivot: " + levels.pivotDate + " (" + sourceLabel + ")";
+  }
+  return title;
+}
+
 window.openCandleChart = function(symbol, tf) {
   loadOHLC(tf)
     .then(data => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
-      window.showChart(symbol, tf, rows.slice(-20));
+      const levels = tf === "D" ? getDailySupportResistance(rows) : null;
+      window.showChart(symbol, tf, rows.slice(-20), levels);
     })
     .catch(() => alert("Failed to load chart data"));
 };
 
-window.showChart = function(symbol, tf, candles) {
+window.showChart = function(symbol, tf, candles, levels) {
   const canvas = document.getElementById("chartCanvas");
   canvas.width  = Math.min(760, window.innerWidth - 40);
   canvas.height = Math.round(canvas.width * 0.75);  // Increased from 0.54 to 0.75 for taller candles
-  document.getElementById("chartTitle").textContent =
-    symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles, levels);
   document.getElementById("chartTitle").style.marginBottom = "10px";
-  window.drawCandles(canvas, candles);
+  window.drawCandles(canvas, candles, levels, tf);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -190,7 +252,7 @@ window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
 };
 
-window.drawCandles = function(canvas, candles) {
+window.drawCandles = function(canvas, candles, levels, tf) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -209,6 +271,15 @@ window.drawCandles = function(canvas, candles) {
     if (isFinite(h)) maxP = Math.max(maxP, h);
     if (isFinite(l))  minP = Math.min(minP, l);
   });
+
+  if (tf === "D" && levels) {
+    [levels.R1, levels.S1, levels.S2, levels.S3].forEach(level => {
+      if (!Number.isFinite(level)) return;
+      maxP = Math.max(maxP, level);
+      minP = Math.min(minP, level);
+    });
+  }
+
   if (!isFinite(minP)) return;
 
   const pad = (maxP - minP) * 0.05 || 1;
@@ -230,6 +301,36 @@ window.drawCandles = function(canvas, candles) {
     const y  = py(pv);
     ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
     ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
+  }
+
+  if (tf === "D" && levels) {
+    const lineDefs = [
+      { key: "R1", value: levels.R1, color: "#ff9800" },
+      { key: "S1", value: levels.S1, color: "#42a5f5" },
+      { key: "S2", value: levels.S2, color: "#26a69a" },
+      { key: "S3", value: levels.S3, color: "#7e57c2" },
+    ];
+
+    ctx.font = "10px Courier New";
+    ctx.textAlign = "right";
+
+    lineDefs.forEach(line => {
+      if (!Number.isFinite(line.value)) return;
+
+      const y = py(line.value);
+      ctx.save();
+      ctx.strokeStyle = line.color;
+      ctx.lineWidth = 0.8;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(P.l, y);
+      ctx.lineTo(W - P.r, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = line.color;
+      ctx.fillText(line.key + ": " + line.value.toFixed(2), W - P.r - 4, y - 4);
+      ctx.restore();
+    });
   }
 
   // Candles
