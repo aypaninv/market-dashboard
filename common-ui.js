@@ -147,7 +147,7 @@ const CHART_CANDLE_COUNTS = {
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const CHART_SR_PIVOT_SOURCE = "highest-high"; // (highest-high | latest-candle)
+const CHART_SR_PIVOT_SOURCE = "latest-candle"; // (highest-high | latest-candle)
 const CHART_SR_SHOW_PIVOT_DATE = false;
 
 function parseOHLC(text) {
@@ -218,6 +218,7 @@ function getSupportResistanceLevels(rows, source = CHART_SR_PIVOT_SOURCE) {
     pivotClose: close,
     pivot: +pivot.toFixed(2),
     R1: +(2 * pivot - low).toFixed(2),
+    R2: +(pivot + (high - low)).toFixed(2),
     S1: +(2 * pivot - high).toFixed(2),
     S2: +(pivot - (high - low)).toFixed(2),
     S3: +(low - 2 * (high - pivot)).toFixed(2),
@@ -280,7 +281,7 @@ window.drawCandles = function(canvas, candles, levels, tf) {
   });
 
   if (levels) {
-    [levels.R1, levels.S1, levels.S2, levels.S3].forEach(level => {
+    [levels.R1, levels.R2, levels.S1, levels.S2, levels.S3].forEach(level => {
       if (!Number.isFinite(level)) return;
       maxP = Math.max(maxP, level);
       minP = Math.min(minP, level);
@@ -313,13 +314,14 @@ window.drawCandles = function(canvas, candles, levels, tf) {
   if (levels) {
     const lineDefs = [
       { key: "R1", value: levels.R1, color: "#ff9800" },
+      { key: "R2", value: levels.R2, color: "#ff7043" },
       { key: "S1", value: levels.S1, color: "#42a5f5" },
       { key: "S2", value: levels.S2, color: "#26a69a" },
       { key: "S3", value: levels.S3, color: "#7e57c2" },
     ];
 
     ctx.font = "10px Courier New";
-    ctx.textAlign = "right";
+    ctx.textAlign = "left";
 
     lineDefs.forEach(line => {
       if (!Number.isFinite(line.value)) return;
@@ -335,7 +337,7 @@ window.drawCandles = function(canvas, candles, levels, tf) {
       ctx.stroke();
       ctx.setLineDash([]);
       ctx.fillStyle = line.color;
-      ctx.fillText(line.key + ": " + line.value.toFixed(2), W - P.r - 4, y - 4);
+      ctx.fillText(line.key + ": " + line.value.toFixed(2), P.l + 4, y - 4);
       ctx.restore();
     });
   }
