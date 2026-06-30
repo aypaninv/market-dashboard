@@ -139,10 +139,16 @@ const OHLC_FILES = {
   M: "nse_data/nse_monthly.csv",
 };
 
+const CHART_CANDLE_COUNTS = {
+  D: 45,
+  W: 30,
+  M: 30,
+};
+
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const DAILY_SR_PIVOT_SOURCE = "highest-high"; // (highest-high | latest-candle)
-const DAILY_SR_SHOW_PIVOT_DATE = true;
+const CHART_SR_PIVOT_SOURCE = "highest-high"; // (highest-high | latest-candle)
+const CHART_SR_SHOW_PIVOT_DATE = false;
 
 function parseOHLC(text) {
   const lines = text.trim().split("\n");
@@ -171,7 +177,7 @@ function getRowDateLabel(row) {
   return (row?.Date || row?.Datetime || "").slice(0, 10);
 }
 
-function getDailyPivotRow(rows, source) {
+function getPivotRow(rows, source) {
   if (!rows || !rows.length) return null;
 
   if (source === "latest-candle") {
@@ -193,8 +199,8 @@ function getDailyPivotRow(rows, source) {
   }, null);
 }
 
-function getDailySupportResistance(rows, source = DAILY_SR_PIVOT_SOURCE) {
-  const pivotRow = getDailyPivotRow(rows, source);
+function getSupportResistanceLevels(rows, source = CHART_SR_PIVOT_SOURCE) {
+  const pivotRow = getPivotRow(rows, source);
   if (!pivotRow) return null;
 
   const high = parseFloat(pivotRow.High);
@@ -220,7 +226,7 @@ function getDailySupportResistance(rows, source = DAILY_SR_PIVOT_SOURCE) {
 
 function buildChartTitle(symbol, tf, candles, levels) {
   let title = symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
-  if (tf === "D" && levels && DAILY_SR_SHOW_PIVOT_DATE && levels.pivotDate) {
+  if (levels && CHART_SR_SHOW_PIVOT_DATE && levels.pivotDate) {
     const sourceLabel = levels.source === "latest-candle" ? "Latest" : "Highest High";
     title += "  \u2014  Pivot: " + levels.pivotDate + " (" + sourceLabel + ")";
   }
@@ -232,8 +238,9 @@ window.openCandleChart = function(symbol, tf) {
     .then(data => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
-      const levels = tf === "D" ? getDailySupportResistance(rows) : null;
-      window.showChart(symbol, tf, rows.slice(-20), levels);
+      const levels = getSupportResistanceLevels(rows);
+      const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
+      window.showChart(symbol, tf, rows.slice(-candleCount), levels);
     })
     .catch(() => alert("Failed to load chart data"));
 };
@@ -272,7 +279,7 @@ window.drawCandles = function(canvas, candles, levels, tf) {
     if (isFinite(l))  minP = Math.min(minP, l);
   });
 
-  if (tf === "D" && levels) {
+  if (levels) {
     [levels.R1, levels.S1, levels.S2, levels.S3].forEach(level => {
       if (!Number.isFinite(level)) return;
       maxP = Math.max(maxP, level);
@@ -303,7 +310,7 @@ window.drawCandles = function(canvas, candles, levels, tf) {
     ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
   }
 
-  if (tf === "D" && levels) {
+  if (levels) {
     const lineDefs = [
       { key: "R1", value: levels.R1, color: "#ff9800" },
       { key: "S1", value: levels.S1, color: "#42a5f5" },
