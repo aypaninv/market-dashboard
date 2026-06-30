@@ -147,7 +147,11 @@ const CHART_CANDLE_COUNTS = {
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const CHART_SR_PIVOT_SOURCE = "latest-candle"; // (highest-high | latest-candle)
+const CHART_SR_PIVOT_SOURCE_BY_TF = {
+  D: "latest-candle", // (highest-high | latest-candle)
+  W: "latest-candle",
+  M: "latest-candle",
+};
 const CHART_SR_SHOW_PIVOT_DATE = false;
 
 function parseOHLC(text) {
@@ -199,7 +203,7 @@ function getPivotRow(rows, source) {
   }, null);
 }
 
-function getSupportResistanceLevels(rows, source = CHART_SR_PIVOT_SOURCE) {
+function getSupportResistanceLevels(rows, source, tf) {
   const pivotRow = getPivotRow(rows, source);
   if (!pivotRow) return null;
 
@@ -211,6 +215,7 @@ function getSupportResistanceLevels(rows, source = CHART_SR_PIVOT_SOURCE) {
   const pivot = (high + low + close) / 3;
 
   return {
+    tf,
     source,
     pivotDate: getRowDateLabel(pivotRow),
     pivotHigh: high,
@@ -229,7 +234,7 @@ function buildChartTitle(symbol, tf, candles, levels) {
   let title = symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
   if (levels && CHART_SR_SHOW_PIVOT_DATE && levels.pivotDate) {
     const sourceLabel = levels.source === "latest-candle" ? "Latest" : "Highest High";
-    title += "  \u2014  Pivot: " + levels.pivotDate + " (" + sourceLabel + ")";
+    title += "  \u2014  Pivot: " + levels.pivotDate + " (" + sourceLabel + ", " + (OHLC_LABELS[levels.tf] || levels.tf) + ")";
   }
   return title;
 }
@@ -239,7 +244,8 @@ window.openCandleChart = function(symbol, tf) {
     .then(data => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
-      const levels = getSupportResistanceLevels(rows);
+      const srSource = CHART_SR_PIVOT_SOURCE_BY_TF[tf] || "latest-candle";
+      const levels = getSupportResistanceLevels(rows, srSource, tf);
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       window.showChart(symbol, tf, rows.slice(-candleCount), levels);
     })
