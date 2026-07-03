@@ -283,33 +283,34 @@ window.drawCandles = function(canvas, candles, allRows, tf) {
   const ema10 = calcEMA(allCloses, 10);
   const ema20 = calcEMA(allCloses, 20);
   
-  const startIdx = Math.max(0, allCloses.length - candles.length);
+  const startIdx10 = Math.max(0, ema10.length - candles.length);
+  const startIdx20 = Math.max(0, ema20.length - candles.length);
   
   // Draw EMA 10 in blue
-  if (ema10.length > startIdx) {
+  if (ema10.length > startIdx10) {
     ctx.strokeStyle = "#2196F3";
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    for (let i = startIdx; i < ema10.length; i++) {
-      const candleIdx = i - startIdx;
+    for (let i = startIdx10; i < ema10.length; i++) {
+      const candleIdx = i - startIdx10;
       const cx = P.l + (candleIdx + 0.5) * slotW;
       const y = py(ema10[i]);
-      if (i === startIdx) ctx.moveTo(cx, y);
+      if (i === startIdx10) ctx.moveTo(cx, y);
       else ctx.lineTo(cx, y);
     }
     ctx.stroke();
   }
 
   // Draw EMA 20 in red
-  if (ema20.length > startIdx) {
+  if (ema20.length > startIdx20) {
     ctx.strokeStyle = "#FF4444";
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    for (let i = startIdx; i < ema20.length; i++) {
-      const candleIdx = i - startIdx;
+    for (let i = startIdx20; i < ema20.length; i++) {
+      const candleIdx = i - startIdx20;
       const cx = P.l + (candleIdx + 0.5) * slotW;
       const y = py(ema20[i]);
-      if (i === startIdx) ctx.moveTo(cx, y);
+      if (i === startIdx20) ctx.moveTo(cx, y);
       else ctx.lineTo(cx, y);
     }
     ctx.stroke();
