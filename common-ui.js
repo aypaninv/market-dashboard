@@ -147,12 +147,6 @@ const CHART_CANDLE_COUNTS = {
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const CHART_SR_PIVOT_SOURCE_BY_TF = {
-  D: "highest-high", // (highest-high | latest-candle)
-  W: "highest-high",
-  M: "highest-high",
-};
-const CHART_SR_SHOW_PIVOT_DATE = false;
 
 function parseOHLC(text) {
   const lines = text.trim().split("\n");
@@ -181,62 +175,21 @@ function getRowDateLabel(row) {
   return (row?.Date || row?.Datetime || "").slice(0, 10);
 }
 
-function getPivotRow(rows, source) {
-  if (!rows || !rows.length) return null;
-
-  if (source === "latest-candle") {
-    return rows[rows.length - 1] || null;
+function calcEMA(closes, period) {
+  if (!closes || closes.length < period) return [];
+  const emas = [];
+  const multiplier = 2 / (period + 1);
+  let sma = closes.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  emas.push(sma);
+  for (let i = period; i < closes.length; i++) {
+    sma = closes[i] * multiplier + sma * (1 - multiplier);
+    emas.push(sma);
   }
-
-  return rows.reduce((best, row) => {
-    const high = parseFloat(row.High);
-    if (!Number.isFinite(high)) return best;
-    if (!best) return row;
-
-    const bestHigh = parseFloat(best.High);
-    const rowDate = getRowDateLabel(row);
-    const bestDate = getRowDateLabel(best);
-
-    if (high > bestHigh) return row;
-    if (high === bestHigh && rowDate > bestDate) return row;
-    return best;
-  }, null);
+  return emas;
 }
 
-function getSupportResistanceLevels(rows, source, tf) {
-  const pivotRow = getPivotRow(rows, source);
-  if (!pivotRow) return null;
-
-  const high = parseFloat(pivotRow.High);
-  const low = parseFloat(pivotRow.Low);
-  const close = parseFloat(pivotRow.Close);
-  if (![high, low, close].every(Number.isFinite)) return null;
-
-  const pivot = (high + low + close) / 3;
-
-  return {
-    tf,
-    source,
-    pivotDate: getRowDateLabel(pivotRow),
-    pivotHigh: high,
-    pivotLow: low,
-    pivotClose: close,
-    pivot: +pivot.toFixed(2),
-    R1: +(2 * pivot - low).toFixed(2),
-    R2: +(pivot + (high - low)).toFixed(2),
-    S1: +(2 * pivot - high).toFixed(2),
-    S2: +(pivot - (high - low)).toFixed(2),
-    S3: +(low - 2 * (high - pivot)).toFixed(2),
-  };
-}
-
-function buildChartTitle(symbol, tf, candles, levels) {
-  let title = symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
-  if (levels && CHART_SR_SHOW_PIVOT_DATE && levels.pivotDate) {
-    const sourceLabel = levels.source === "latest-candle" ? "Latest" : "Highest High";
-    title += "  \u2014  Pivot: " + levels.pivotDate + " (" + sourceLabel + ", " + (OHLC_LABELS[levels.tf] || levels.tf) + ")";
-  }
-  return title;
+function buildChartTitle(symbol, tf, candles) {
+  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
 
 window.openCandleChart = function(symbol, tf) {
@@ -244,21 +197,20 @@ window.openCandleChart = function(symbol, tf) {
     .then(data => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
-      const srSource = CHART_SR_PIVOT_SOURCE_BY_TF[tf] || "latest-candle";
-      const levels = getSupportResistanceLevels(rows, srSource, tf);
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
-      window.showChart(symbol, tf, rows.slice(-candleCount), levels);
+      const visibleRows = rows.slice(-candleCount);
+      window.showChart(symbol, tf, visibleRows, rows);
     })
     .catch(() => alert("Failed to load chart data"));
 };
 
-window.showChart = function(symbol, tf, candles, levels) {
+window.showChart = function(symbol, tf, candles, allRows) {
   const canvas = document.getElementById("chartCanvas");
   canvas.width  = Math.min(760, window.innerWidth - 40);
-  canvas.height = Math.round(canvas.width * 0.75);  // Increased from 0.54 to 0.75 for taller candles
-  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles, levels);
+  canvas.height = Math.round(canvas.width * 0.75);
+  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
-  window.drawCandles(canvas, candles, levels, tf);
+  window.drawCandles(canvas, candles, allRows, tf);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -266,7 +218,7 @@ window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
 };
 
-window.drawCandles = function(canvas, candles, levels, tf) {
+window.drawCandles = function(canvas, candles, allRows, tf) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -285,14 +237,6 @@ window.drawCandles = function(canvas, candles, levels, tf) {
     if (isFinite(h)) maxP = Math.max(maxP, h);
     if (isFinite(l))  minP = Math.min(minP, l);
   });
-
-  if (levels) {
-    [levels.R1, levels.R2, levels.S1, levels.S2, levels.S3].forEach(level => {
-      if (!Number.isFinite(level)) return;
-      maxP = Math.max(maxP, level);
-      minP = Math.min(minP, level);
-    });
-  }
 
   if (!isFinite(minP)) return;
 
@@ -317,37 +261,6 @@ window.drawCandles = function(canvas, candles, levels, tf) {
     ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
   }
 
-  if (levels) {
-    const lineDefs = [
-      { key: "R1", value: levels.R1, color: "#ff9800" },
-      { key: "R2", value: levels.R2, color: "#ff7043" },
-      { key: "S1", value: levels.S1, color: "#42a5f5" },
-      { key: "S2", value: levels.S2, color: "#26a69a" },
-      { key: "S3", value: levels.S3, color: "#7e57c2" },
-    ];
-
-    ctx.font = "10px Courier New";
-    ctx.textAlign = "left";
-
-    lineDefs.forEach(line => {
-      if (!Number.isFinite(line.value)) return;
-
-      const y = py(line.value);
-      ctx.save();
-      ctx.strokeStyle = line.color;
-      ctx.lineWidth = 0.8;
-      ctx.setLineDash([4, 3]);
-      ctx.beginPath();
-      ctx.moveTo(P.l, y);
-      ctx.lineTo(W - P.r, y);
-      ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle = line.color;
-      ctx.fillText(line.key + ": " + line.value.toFixed(2), P.l + 4, y - 4);
-      ctx.restore();
-    });
-  }
-
   // Candles
   candles.forEach((c, i) => {
     const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
@@ -364,6 +277,43 @@ window.drawCandles = function(canvas, candles, levels, tf) {
     ctx.fillStyle = col;
     ctx.fillRect(cx - bW / 2, yTop, bW, bH);
   });
+
+  // Draw EMA lines
+  const allCloses = allRows.map(r => +r.Close).filter(Number.isFinite);
+  const ema10 = calcEMA(allCloses, 10);
+  const ema20 = calcEMA(allCloses, 20);
+  
+  const startIdx = Math.max(0, allCloses.length - candles.length);
+  
+  // Draw EMA 10 in blue
+  if (ema10.length > startIdx) {
+    ctx.strokeStyle = "#2196F3";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let i = startIdx; i < ema10.length; i++) {
+      const candleIdx = i - startIdx;
+      const cx = P.l + (candleIdx + 0.5) * slotW;
+      const y = py(ema10[i]);
+      if (i === startIdx) ctx.moveTo(cx, y);
+      else ctx.lineTo(cx, y);
+    }
+    ctx.stroke();
+  }
+
+  // Draw EMA 20 in red
+  if (ema20.length > startIdx) {
+    ctx.strokeStyle = "#FF4444";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let i = startIdx; i < ema20.length; i++) {
+      const candleIdx = i - startIdx;
+      const cx = P.l + (candleIdx + 0.5) * slotW;
+      const y = py(ema20[i]);
+      if (i === startIdx) ctx.moveTo(cx, y);
+      else ctx.lineTo(cx, y);
+    }
+    ctx.stroke();
+  }
 
   // X-axis date labels (every ~4 candles)
   ctx.fillStyle = labelC;
