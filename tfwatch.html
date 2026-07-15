@@ -14,7 +14,7 @@ const COLS_TFW = [
   "Symbol","Chart","Folio",
   "DD_High","D_BO","W_BO","M_BO",
   "4H_XC","D_XC","W_XC","M_XC",
-  "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
+  "D_CHG","W_CHG","M_CHG",
   "M_SL","CurPrice","Sector","MarketCap","Notes"
 ];
 
@@ -49,8 +49,9 @@ function splitHighLow(rows) {
 
   rows.forEach(r => {
     const dBO = toNumber(r.D_BO);
+    const mSL = toNumber(r.M_SL);
 
-    if (dBO >= 0) {
+    if (dBO >= 0 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);

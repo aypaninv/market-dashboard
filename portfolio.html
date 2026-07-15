@@ -28,7 +28,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
-    "D_XC","W_XC","D_CHG",
+    "D_XC","W_XC",
+    "W_CHG","M_CHG",
     "M_SL","AvgPrice","CurPrice","Notes"
   ],
   Sate: [
@@ -37,7 +38,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
     "D_XC","W_XC",
-    "D_EMA20","W_CHG",
+    "W_CHG","M_CHG",
     "M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
@@ -47,7 +48,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "W_XL","M_XL",
     "W_XC","M_XC",
-    "W_EMA10","W_CHG","M_CHG",
+    "W_CHG","M_CHG",
     "M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
@@ -156,7 +157,8 @@ const addConditionsByFolio = {
     const dBo = toNumber(d["D_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 6 && ltPert > 7 && wBo >= 0 && meetsPnLThreshold(ic, pnl);
+    const mSL = toNumber(d["M_SL"]);
+    return ic < 6 && ltPert > 7 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -164,7 +166,8 @@ const addConditionsByFolio = {
      const wBo = toNumber(d["W_BO"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ic < 7 && ltPert > 7 && mBo >= 0 && meetsPnLThreshold(ic, pnl);
+    const mSL = toNumber(d["M_SL"]);
+    return ic < 7 && ltPert > 7 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
