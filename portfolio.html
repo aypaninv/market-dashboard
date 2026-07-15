@@ -17,7 +17,7 @@ const DEFAULT_COLUMN_ORDER = [
   "D_XL","W_XL","M_XL",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
-  "AvgPrice","CurPrice",
+  "M_SL","AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
@@ -27,18 +27,18 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
-    "W_XL",
+    "W_XL","M_XL",
     "D_XC","W_XC","D_CHG",
-    "AvgPrice","CurPrice","Notes"
+    "M_SL","AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High","D_BO","W_BO",
     "LT_Type","LT_days","LT_Pert",
-    "W_XL",
+    "W_XL","M_XL",
     "D_XC","W_XC",
     "D_EMA20","W_CHG",
-    "AvgPrice","CurPrice",
+    "M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
   Core: [
@@ -48,7 +48,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_XL","M_XL",
     "W_XC","M_XC",
     "W_EMA10","W_CHG","M_CHG",
-    "AvgPrice","CurPrice",
+    "M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
 };
@@ -70,6 +70,7 @@ const HEADER_LABELS = {
   "M_XC": "M_XC",
   "D_EMA20": "D_E20",
   "W_EMA10": "W_E10",
+  "M_SL": "M_SL",
 };
 
 let rawData = [];
