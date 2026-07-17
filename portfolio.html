@@ -17,7 +17,7 @@ const DEFAULT_COLUMN_ORDER = [
   "D_XL","W_XL","M_XL",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_EMA20","W_EMA10","D_CHG","W_CHG","M_CHG",
-  "M_SL","AvgPrice","CurPrice",
+  "W_SL","M_SL","AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
@@ -39,7 +39,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_XL","M_XL",
     "D_XC","W_XC",
     "W_CHG","M_CHG",
-    "M_SL","AvgPrice","CurPrice",
+    "W_SL","M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
   Core: [
@@ -49,7 +49,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_XL","M_XL",
     "W_XC","M_XC",
     "W_CHG","M_CHG",
-    "M_SL","AvgPrice","CurPrice",
+    "W_SL","M_SL","AvgPrice","CurPrice",
     "Sector","MarketCap","Notes"
   ],
 };
@@ -71,6 +71,7 @@ const HEADER_LABELS = {
   "M_XC": "M_XC",
   "D_EMA20": "D_E20",
   "W_EMA10": "W_E10",
+  "W_SL": "W_SL",
   "M_SL": "M_SL",
 };
 
@@ -172,8 +173,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.W_CHG) < -8 || toNumber(d["W_XL"]) < 0),
-  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.M_CHG) < -8 || toNumber(d["M_XL"]) < 0),
+  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.W_CHG) < -8 || toNumber(d["W_SL"]) < 0),
+  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d.M_CHG) < -8 || toNumber(d["M_SL"]) < 0),
 };
 
 const holdConditionsByFolio = {
@@ -190,16 +191,16 @@ const exitConditionsByFolio = {
                 toNumber(d["PNL"]) < -8
               ) || (  
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.W_XC) < -1
+                toNumber(d.M_SL) < 0
               ), 
   Core: d => (
                 toNumber(d["PNL"]) < -8
               ) || ( 
                 toNumber(d["IC"]) > 0.5 && 
-                toNumber(d.M_XC) < 0
+                toNumber(d["M_SL"]) < 0
               ),
   Trade: d => (
-                toNumber(d["W_XL"]) < 0
+                toNumber(d["W_SL"]) < 0
               ),
 };
   
