@@ -40,14 +40,30 @@ window.applyStickyTableBehavior = function (table) {
 };
 
 /* ---------- Active table ---------- */
+function getActiveFeature() {
+  const featureIds = [
+    "portfolioFeature",
+    "tfwatchFeature",
+    "tfcoreFeature",
+    "tfstudyFeature",
+    "tfstage2Feature",
+  ];
+
+  for (const id of featureIds) {
+    const element = document.getElementById(id);
+    if (!element) continue;
+
+    const style = window.getComputedStyle(element);
+    if (style.display !== "none" && style.visibility !== "hidden") {
+      return element;
+    }
+  }
+
+  return null;
+}
+
 function getActiveTable() {
-  const active = document.querySelector(
-    "#portfolioFeature:not([style*='display: none'])," +
-    "#tfwatchFeature:not([style*='display: none'])," +
-    "#tfcoreFeature:not([style*='display: none'])," +
-    "#tfstudyFeature:not([style*='display: none'])," +
-    "#tfstage2Feature:not([style*='display: none'])"
-  );
+  const active = getActiveFeature();
   return active ? active.querySelector("table") : null;
 }
 
@@ -152,13 +168,7 @@ const ohlcCache = {};
 const chartState = { symbol: null, tf: null, symbols: [], index: -1 };
 
 function getActiveTableSymbols() {
-  const activeFeature = document.querySelector(
-    "#portfolioFeature:not([style*='display: none'])," +
-    "#tfwatchFeature:not([style*='display: none'])," +
-    "#tfcoreFeature:not([style*='display: none'])," +
-    "#tfstudyFeature:not([style*='display: none'])," +
-    "#tfstage2Feature:not([style*='display: none'])"
-  );
+  const activeFeature = getActiveFeature();
   if (!activeFeature) return [];
 
   const symbols = [];
