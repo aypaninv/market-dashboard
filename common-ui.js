@@ -165,29 +165,33 @@ const M_SL_LOOKBACK_MONTHS = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1 };
+const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null };
 
-function getActiveTableSymbols() {
-  const activeFeature = getActiveFeature();
-  if (!activeFeature) return [];
+function getTableSymbols(table) {
+  if (!table) return [];
 
   const symbols = [];
   const seen = new Set();
-  const tables = [...activeFeature.querySelectorAll("table")];
+  const rows = [...table.querySelectorAll("tr")].slice(1);
 
-  tables.forEach(table => {
-    const rows = [...table.querySelectorAll("tr")].slice(1);
-
-    rows.forEach(row => {
-      const symbolCell = row.querySelector("td.symbol-col a") || row.querySelector("td a");
-      const symbol = (symbolCell?.textContent || "").trim();
-      if (!symbol || seen.has(symbol)) return;
-      seen.add(symbol);
-      symbols.push(symbol);
-    });
+  rows.forEach(row => {
+    const symbolCell = row.querySelector("td.symbol-col a") || row.querySelector("td a");
+    const symbol = (symbolCell?.textContent || "").trim();
+    if (!symbol || seen.has(symbol)) return;
+    seen.add(symbol);
+    symbols.push(symbol);
   });
 
   return symbols;
+}
+
+function getActiveTableSymbols() {
+  if (chartState.sourceTable) {
+    return getTableSymbols(chartState.sourceTable);
+  }
+
+  const activeTable = getActiveTable();
+  return getTableSymbols(activeTable);
 }
 
 function updateChartNavButtons() {
@@ -275,6 +279,9 @@ function setActiveChartTfButton(tf) {
 }
 
 window.renderCandleChart = function(symbol, tf) {
+  const eventTarget = window.event?.target;
+  const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable;
+  chartState.sourceTable = sourceTable || null;
   chartState.symbol = symbol;
   chartState.tf = tf;
   chartState.symbols = getActiveTableSymbols();
@@ -349,6 +356,7 @@ window.closeChart = function() {
   chartState.tf = null;
   chartState.symbols = [];
   chartState.index = -1;
+  chartState.sourceTable = null;
 };
 
 window.navigateChartSymbol = function(direction) {
