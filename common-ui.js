@@ -461,7 +461,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
       ctx.font = "10px Courier New";
       const tw = ctx.measureText(tag).width + 8;
       const tx = P.l + 6;
-      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, ySl + 3));
+      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, ySl - 5));
       ctx.fillStyle = dark ? "rgba(127, 29, 29, 0.2)" : "rgba(220, 38, 38, 0.12)";
       ctx.fillRect(tx, ty - 10, tw, 13);
       ctx.fillStyle = "#dc2626";
