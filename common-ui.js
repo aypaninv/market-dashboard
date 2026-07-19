@@ -331,35 +331,36 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
 
   const infoEl = document.getElementById("chartInfo");
   const latest = candles[candles.length - 1] || null;
-  const latestClose = latest ? +latest.Close : NaN;
-  const pctFrom52w = (
-    Number.isFinite(high52w) && high52w !== 0 && Number.isFinite(latestClose)
-      ? ((latestClose - high52w) / high52w) * 100
-      : null
-  );
 
   function fmt(v, d) {
     return Number.isFinite(+v) ? (+v).toFixed(d) : "NA";
   }
 
+  function fmtCompact(v) {
+    return Number.isFinite(+v) ? String(Math.trunc(+v)) : "NA";
+  }
+
   function setInfo(row, hoverMode) {
     if (!infoEl || !row) return;
     const d = getRowDateLabel(row);
-    const o = fmt(row.Open, 2);
-    const h = fmt(row.High, 2);
-    const l = fmt(row.Low, 2);
-    const c = fmt(row.Close, 2);
-    const highText = Number.isFinite(high52w) ? high52w.toFixed(2) : "NA";
+    const o = fmtCompact(row.Open);
+    const h = fmtCompact(row.High);
+    const l = fmtCompact(row.Low);
+    const c = fmtCompact(row.Close);
+    const rowClose = +row.Close;
+    const pctFrom52w = (
+      Number.isFinite(high52w) && high52w !== 0 && Number.isFinite(rowClose)
+        ? ((rowClose - high52w) / high52w) * 100
+        : null
+    );
     const pctText = pctFrom52w === null ? "NA" : pctFrom52w.toFixed(2) + "%";
-    infoEl.textContent =
-      "Date: " + d +
-      "   O: " + o +
-      "   H: " + h +
-      "   L: " + l +
-      "   C: " + c +
-      "   52W High: " + highText +
-      "   From 52W: " + pctText +
-      (hoverMode ? "" : "   (latest)");
+    infoEl.innerHTML =
+      '<span>Date: ' + d + '</span>' +
+      ' <span style="color:#1976d2;">O:' + o + '</span>' +
+      ' <span style="color:#2e7d32;">H:' + h + '</span>' +
+      ' <span style="color:#d32f2f;">L:' + l + '</span>' +
+      ' <span style="color:#f59e0b;">C:' + c + '</span>' +
+      ' <span style="color:#dc2626;font-weight:700;">52W:' + pctText + '</span>';
   }
 
   function drawPricePointerLine(y, color, label) {
@@ -526,13 +527,10 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      const pointerMode = (document.getElementById("chartPointerMode")?.value || "close").toLowerCase();
-      if (pointerMode === "ohlc") {
-        drawPricePointerLine(py(o), "#1976d2", "O " + fmt(o, 2));
-        drawPricePointerLine(py(h), "#2e7d32", "H " + fmt(h, 2));
-        drawPricePointerLine(py(l), "#d32f2f", "L " + fmt(l, 2));
-        drawPricePointerLine(py(cl), "#f59e0b", "C " + fmt(cl, 2));
-      }
+      drawPricePointerLine(py(o), "#1976d2", "O " + fmt(o, 2));
+      drawPricePointerLine(py(h), "#2e7d32", "H " + fmt(h, 2));
+      drawPricePointerLine(py(l), "#d32f2f", "L " + fmt(l, 2));
+      drawPricePointerLine(py(cl), "#f59e0b", "C " + fmt(cl, 2));
 
       setInfo(row, true);
     }
@@ -580,8 +578,11 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.style.cssText = "background:var(--panel);border-radius:12px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,0.52);border:1px solid var(--grid);";
     popup.onclick = (e) => e.stopPropagation();
 
+    const headerRow = document.createElement("div");
+    headerRow.style.cssText = "display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;";
+
     const tfControls = document.createElement("div");
-    tfControls.style.cssText = "display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:8px;";
+    tfControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
     ["D", "W", "M"].forEach(tfKey => {
       const btn = document.createElement("button");
@@ -600,38 +601,18 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const title = document.createElement("div");
     title.id = "chartTitle";
-    title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);margin-bottom:10px;";
+    title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);min-width:0;";
 
     const info = document.createElement("div");
     info.id = "chartInfo";
     info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:760px;";
-
-    const controls = document.createElement("div");
-    controls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:8px;";
-
-    const pointerLabel = document.createElement("label");
-    pointerLabel.setAttribute("for", "chartPointerMode");
-    pointerLabel.textContent = "Pointer:";
-    pointerLabel.style.cssText = "font-size:11px;color:var(--text);";
-
-    const pointerSelect = document.createElement("select");
-    pointerSelect.id = "chartPointerMode";
-    pointerSelect.style.cssText = "font-size:11px;padding:2px 6px;border:1px solid var(--grid);border-radius:6px;background:var(--panel);color:var(--text);";
-    pointerSelect.innerHTML = '<option value="close">Close</option><option value="ohlc">OHLC</option>';
-    pointerSelect.value = "ohlc";
-    pointerSelect.onchange = () => {
-      if (typeof window.__chartRedraw === "function") window.__chartRedraw();
-    };
-
-    controls.appendChild(pointerLabel);
-    controls.appendChild(pointerSelect);
     
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
-    popup.appendChild(tfControls);
-    popup.appendChild(title);
-    popup.appendChild(controls);
+    headerRow.appendChild(title);
+    headerRow.appendChild(tfControls);
+    popup.appendChild(headerRow);
     popup.appendChild(info);
     popup.appendChild(canvas);
     overlay.appendChild(popup);
