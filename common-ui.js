@@ -436,14 +436,21 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
         ? ((rowClose - high52w) / high52w) * 100
         : null
     );
-    const pctText = pctFrom52w === null ? "NA" : pctFrom52w.toFixed(2) + "%";
+    const pctFromSl = (
+      Number.isFinite(slPrice) && slPrice !== 0 && Number.isFinite(rowClose)
+        ? ((rowClose - slPrice) / slPrice) * 100
+        : null
+    );
+    const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
+    const pctSlText = pctFromSl === null ? "NA" : Math.trunc(pctFromSl) + "%";
     infoEl.innerHTML =
       '<span>Date: ' + d + '</span>' +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
       ' <span style="color:#2e7d32;">H:' + h + '</span>' +
       ' <span style="color:#d32f2f;">L:' + l + '</span>' +
       ' <span style="color:#f59e0b;">C:' + c + '</span>' +
-      ' <span style="color:#dc2626;font-weight:700;">52W:' + pctText + '</span>';
+      ' <span style="color:#dc2626;font-weight:700;">52W:' + pct52Text + '</span>' +
+      ' <span style="color:#7c3aed;font-weight:700;">SL:' + pctSlText + '</span>';
   }
 
   function drawPricePointerLine(y, color, label) {
