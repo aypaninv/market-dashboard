@@ -50,9 +50,10 @@ function splitHighLow(rows) {
 
   rows.forEach(r => {
     const wXC = toNumber(r.W_XC);
+    const h4XC = toNumber(r["4H_XC"]);
     const mSL = toNumber(r.M_SL);
 
-    if (mSL > 0 && mSL < 12) {
+    if (h4XC > 0 &&mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
