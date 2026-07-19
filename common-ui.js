@@ -161,6 +161,7 @@ const CHART_CANDLE_COUNTS = {
   M: 30,
 };
 
+const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
@@ -287,15 +288,17 @@ window.renderCandleChart = function(symbol, tf) {
   chartState.symbols = getActiveTableSymbols();
   chartState.index = chartState.symbols.indexOf(symbol);
 
-  Promise.all([loadOHLC(tf), loadOHLC("M")])
-    .then(([data, monthlyData]) => {
+  Promise.all([loadOHLC(tf), loadOHLC("W"), loadOHLC("M")])
+    .then(([data, weeklyData, monthlyData]) => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
 
+      const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
       const last12Monthly = monthlyRows.slice(-12);
       let high52w = null;
-      let slPrice = null;
+      let mslPrice = null;
+      let wslPrice = null;
       if (last12Monthly.length >= 12) {
         const highs = last12Monthly
           .map(r => +r.High)
@@ -320,13 +323,33 @@ window.renderCandleChart = function(symbol, tf) {
           const highestRows = greenMonthly.filter(r => +r.Close === highestClose);
           const refRow = highestRows[highestRows.length - 1];
           const low = +refRow?.Low;
-          if (Number.isFinite(low) && low !== 0) slPrice = low;
+          if (Number.isFinite(low) && low !== 0) mslPrice = low;
+        }
+      }
+
+      const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
+      if (recentWeekly.length) {
+        const greenWeekly = recentWeekly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+
+        if (greenWeekly.length) {
+          const highestClose = Math.max(...greenWeekly
+            .map(r => +r.Close)
+            .filter(v => Number.isFinite(v)));
+
+          const highestRows = greenWeekly.filter(r => +r.Close === highestClose);
+          const refRow = highestRows[highestRows.length - 1];
+          const low = +refRow?.Low;
+          if (Number.isFinite(low) && low !== 0) wslPrice = low;
         }
       }
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, visibleRows, rows, high52w, slPrice);
+      window.showChart(symbol, tf, visibleRows, rows, high52w, mslPrice, wslPrice);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
     })
@@ -337,7 +360,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf);
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w, slPrice) {
+window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -345,7 +368,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, slPrice) {
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, slPrice);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -372,7 +395,7 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf);
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
+window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -397,9 +420,14 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
     minP = Math.min(minP, high52w);
   }
 
-  if (Number.isFinite(slPrice)) {
-    maxP = Math.max(maxP, slPrice);
-    minP = Math.min(minP, slPrice);
+  if (Number.isFinite(mslPrice)) {
+    maxP = Math.max(maxP, mslPrice);
+    minP = Math.min(minP, mslPrice);
+  }
+
+  if (Number.isFinite(wslPrice)) {
+    maxP = Math.max(maxP, wslPrice);
+    minP = Math.min(minP, wslPrice);
   }
 
   if (!isFinite(minP)) return;
@@ -436,21 +464,30 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
         ? ((rowClose - high52w) / high52w) * 100
         : null
     );
-    const pctFromSl = (
-      Number.isFinite(slPrice) && slPrice !== 0 && Number.isFinite(rowClose)
-        ? ((rowClose - slPrice) / slPrice) * 100
+    const pctFromMsl = (
+      Number.isFinite(mslPrice) && mslPrice !== 0 && Number.isFinite(rowClose)
+        ? ((rowClose - mslPrice) / mslPrice) * 100
+        : null
+    );
+    const pctFromWsl = (
+      Number.isFinite(wslPrice) && wslPrice !== 0 && Number.isFinite(rowClose)
+        ? ((rowClose - wslPrice) / wslPrice) * 100
         : null
     );
     const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
-    const pctSlText = pctFromSl === null ? "NA" : Math.trunc(pctFromSl) + "%";
+    const pctMslText = pctFromMsl === null ? "NA" : Math.trunc(pctFromMsl) + "%";
+    const pctWslText = pctFromWsl === null ? "NA" : Math.trunc(pctFromWsl) + "%";
     infoEl.innerHTML =
-      '<span>Date: ' + d + '</span>' +
+      '<div>Date:' + d +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
       ' <span style="color:#2e7d32;">H:' + h + '</span>' +
       ' <span style="color:#d32f2f;">L:' + l + '</span>' +
-      ' <span style="color:#f59e0b;">C:' + c + '</span>' +
+      ' <span style="color:#f59e0b;">C:' + c + '</span></div>' +
+      '<div style="margin-top:2px;">' +
       ' <span style="color:#dc2626;font-weight:700;">52W:' + pct52Text + '</span>' +
-      ' <span style="color:#7c3aed;font-weight:700;">SL:' + pctSlText + '</span>';
+      ' <span style="color:#7c3aed;font-weight:700;">MSL:' + pctMslText + '</span>' +
+      ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
+      '</div>';
   }
 
   function drawPricePointerLine(y, color, label) {
@@ -559,8 +596,8 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
     }
 
     // Stoploss line from monthly rule (latest highest-close green candle low)
-    if (Number.isFinite(slPrice)) {
-      const ySl = py(slPrice);
+    if (Number.isFinite(mslPrice)) {
+      const ySl = py(mslPrice);
       ctx.strokeStyle = "#dc2626";
       ctx.lineWidth = 1.3;
       ctx.setLineDash([5, 3]);
@@ -570,7 +607,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      const tag = "SL " + slPrice.toFixed(2);
+      const tag = "MSL " + mslPrice.toFixed(2);
       ctx.font = "10px Courier New";
       const tw = ctx.measureText(tag).width + 8;
       const tx = P.l + 6;
@@ -578,6 +615,29 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
       ctx.fillStyle = dark ? "rgba(127, 29, 29, 0.2)" : "rgba(220, 38, 38, 0.12)";
       ctx.fillRect(tx, ty - 10, tw, 13);
       ctx.fillStyle = "#dc2626";
+      ctx.textAlign = "left";
+      ctx.fillText(tag, tx + 4, ty);
+    }
+
+    if (Number.isFinite(wslPrice)) {
+      const yWsl = py(wslPrice);
+      ctx.strokeStyle = "#0f766e";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([5, 3]);
+      ctx.beginPath();
+      ctx.moveTo(P.l, yWsl);
+      ctx.lineTo(W - P.r, yWsl);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const tag = "WSL " + wslPrice.toFixed(2);
+      ctx.font = "10px Courier New";
+      const tw = ctx.measureText(tag).width + 8;
+      const tx = P.l + 6;
+      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, yWsl - 5));
+      ctx.fillStyle = dark ? "rgba(13, 78, 74, 0.2)" : "rgba(15, 118, 110, 0.12)";
+      ctx.fillRect(tx, ty - 10, tw, 13);
+      ctx.fillStyle = "#0f766e";
       ctx.textAlign = "left";
       ctx.fillText(tag, tx + 4, ty);
     }
