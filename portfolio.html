@@ -30,7 +30,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_XL","M_XL",
     "D_XC","W_XC",
     "W_CHG","M_CHG",
-    "M_SL","AvgPrice","CurPrice","Notes"
+    "W_SL","M_SL","AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
@@ -149,8 +149,8 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d.LT_Pert);
-    const dBo = toNumber(d["D_BO"]);
-    return ltPert > 0 && dBo > 0;
+    const wSL = toNumber(d["W_SL"]);
+    return ltPert > 0 && wSL < 12;
   },
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -159,7 +159,7 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 6 && ltPert > 7 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -168,7 +168,7 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 7 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
