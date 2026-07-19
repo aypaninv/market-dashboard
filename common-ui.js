@@ -204,24 +204,37 @@ function buildChartTitle(symbol, tf, candles) {
 }
 
 window.openCandleChart = function(symbol, tf) {
-  loadOHLC(tf)
-    .then(data => {
+  Promise.all([loadOHLC(tf), loadOHLC("M")])
+    .then(([data, monthlyData]) => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
+
+      const monthlyRows = monthlyData[symbol] || [];
+      const last12Monthly = monthlyRows.slice(-12);
+      let high52w = null;
+      if (last12Monthly.length >= 12) {
+        const highs = last12Monthly
+          .map(r => +r.High)
+          .filter(v => Number.isFinite(v));
+        if (highs.length) high52w = Math.max(...highs);
+      }
+
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, visibleRows, rows);
+      window.showChart(symbol, tf, visibleRows, rows, high52w);
     })
     .catch(() => alert("Failed to load chart data"));
 };
 
-window.showChart = function(symbol, tf, candles, allRows) {
+window.showChart = function(symbol, tf, candles, allRows, high52w) {
   const canvas = document.getElementById("chartCanvas");
+  const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
   canvas.height = Math.round(canvas.width * 0.75);
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
-  window.drawCandles(canvas, candles, allRows, tf);
+  if (info) info.textContent = "";
+  window.drawCandles(canvas, candles, allRows, tf, high52w);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -229,7 +242,7 @@ window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf) {
+window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -249,6 +262,11 @@ window.drawCandles = function(canvas, candles, allRows, tf) {
     if (isFinite(l))  minP = Math.min(minP, l);
   });
 
+  if (Number.isFinite(high52w)) {
+    maxP = Math.max(maxP, high52w);
+    minP = Math.min(minP, high52w);
+  }
+
   if (!isFinite(minP)) return;
 
   const pad = (maxP - minP) * 0.05 || 1;
@@ -259,71 +277,177 @@ window.drawCandles = function(canvas, candles, allRows, tf) {
   const slotW = cW / n;
   const bW = Math.max(2, Math.floor(slotW * 0.62));
 
+  const infoEl = document.getElementById("chartInfo");
+  const latest = candles[candles.length - 1] || null;
+  const latestClose = latest ? +latest.Close : NaN;
+  const pctFrom52w = (
+    Number.isFinite(high52w) && high52w !== 0 && Number.isFinite(latestClose)
+      ? ((latestClose - high52w) / high52w) * 100
+      : null
+  );
+
+  function fmt(v, d) {
+    return Number.isFinite(+v) ? (+v).toFixed(d) : "NA";
+  }
+
+  function setInfo(row, hoverMode) {
+    if (!infoEl || !row) return;
+    const d = getRowDateLabel(row);
+    const o = fmt(row.Open, 2);
+    const h = fmt(row.High, 2);
+    const l = fmt(row.Low, 2);
+    const c = fmt(row.Close, 2);
+    const highText = Number.isFinite(high52w) ? high52w.toFixed(2) : "NA";
+    const pctText = pctFrom52w === null ? "NA" : pctFrom52w.toFixed(2) + "%";
+    infoEl.textContent =
+      "Date: " + d +
+      "   O: " + o +
+      "   H: " + h +
+      "   L: " + l +
+      "   C: " + c +
+      "   52W High: " + highText +
+      "   From 52W: " + pctText +
+      (hoverMode ? "" : "   (latest)");
+  }
+
   // Horizontal grid + price labels
-  ctx.strokeStyle = gridC;
-  ctx.lineWidth = 0.7;
-  ctx.fillStyle = labelC;
-  ctx.font = "11px Courier New";
-  ctx.textAlign = "right";
-  for (let i = 0; i <= 4; i++) {
-    const pv = lo + rng * i / 4;
-    const y  = py(pv);
-    ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
-    ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
-  }
+  function drawChart(hoverIndex) {
+    ctx.fillStyle = bgC;
+    ctx.fillRect(0, 0, W, H);
 
-  // Candles
-  candles.forEach((c, i) => {
-    const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
-    if (![o, h, l, cl].every(isFinite)) return;
-    const col = cl >= o ? "#26a69a" : "#ef5350";
-    const cx  = P.l + (i + 0.5) * slotW;
+    ctx.strokeStyle = gridC;
+    ctx.lineWidth = 0.7;
+    ctx.fillStyle = labelC;
+    ctx.font = "11px Courier New";
+    ctx.textAlign = "right";
+    for (let i = 0; i <= 4; i++) {
+      const pv = lo + rng * i / 4;
+      const y  = py(pv);
+      ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
+      ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
+    }
 
-    ctx.strokeStyle = col;
-    ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
+    candles.forEach((c, i) => {
+      const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
+      if (![o, h, l, cl].every(isFinite)) return;
+      const col = cl >= o ? "#26a69a" : "#ef5350";
+      const cx  = P.l + (i + 0.5) * slotW;
 
-    const yTop = py(Math.max(o, cl));
-    const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
-    ctx.fillStyle = col;
-    ctx.fillRect(cx - bW / 2, yTop, bW, bH);
-  });
+      ctx.strokeStyle = col;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
-  // Draw EMA lines — aligned by row index so lines always match candles
-  const allCloses = allRows.map(r => r.Close);
-  const emaFastAll = calcEMA(allCloses, 6);
-  const emaSlowAll = calcEMA(allCloses, 12);
-  const visEmaFast = emaFastAll.slice(-candles.length);
-  const visEmaSlow = emaSlowAll.slice(-candles.length);
-
-  function drawEmaLine(emaValues, color) {
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    let started = false;
-    emaValues.forEach((v, i) => {
-      if (v === null) { started = false; return; }
-      const cx = P.l + (i + 0.5) * slotW;
-      const y = py(v);
-      if (!started) { ctx.moveTo(cx, y); started = true; }
-      else ctx.lineTo(cx, y);
+      const yTop = py(Math.max(o, cl));
+      const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
+      ctx.fillStyle = col;
+      ctx.fillRect(cx - bW / 2, yTop, bW, bH);
     });
-    ctx.stroke();
+
+    // Draw EMA lines — aligned by row index so lines always match candles
+    const allCloses = allRows.map(r => r.Close);
+    const emaFastAll = calcEMA(allCloses, 6);
+    const emaSlowAll = calcEMA(allCloses, 12);
+    const visEmaFast = emaFastAll.slice(-candles.length);
+    const visEmaSlow = emaSlowAll.slice(-candles.length);
+
+    function drawEmaLine(emaValues, color) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      let started = false;
+      emaValues.forEach((v, i) => {
+        if (v === null) { started = false; return; }
+        const cx = P.l + (i + 0.5) * slotW;
+        const y = py(v);
+        if (!started) { ctx.moveTo(cx, y); started = true; }
+        else ctx.lineTo(cx, y);
+      });
+      ctx.stroke();
+    }
+
+    drawEmaLine(visEmaFast, "#2196F3");
+    drawEmaLine(visEmaSlow, "#FF4444");
+
+    // 52-week line from last 12 monthly candles high
+    if (Number.isFinite(high52w)) {
+      const y52 = py(high52w);
+      ctx.strokeStyle = "#f59e0b";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(P.l, y52);
+      ctx.lineTo(W - P.r, y52);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const tag = "52W " + high52w.toFixed(2);
+      ctx.font = "10px Courier New";
+      const tw = ctx.measureText(tag).width + 8;
+      const tx = W - P.r - tw;
+      const ty = Math.max(P.t + 10, y52 - 5);
+      ctx.fillStyle = "rgba(245, 158, 11, 0.16)";
+      ctx.fillRect(tx, ty - 10, tw, 13);
+      ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
+      ctx.textAlign = "left";
+      ctx.fillText(tag, tx + 4, ty);
+    }
+
+    // X-axis date labels (every ~4 candles)
+    ctx.fillStyle = labelC;
+    ctx.font = "10px Courier New";
+    ctx.textAlign = "center";
+    const step = Math.max(1, Math.floor(n / 5));
+    candles.forEach((c, i) => {
+      if (i % step !== 0) return;
+      const d = (c.Date || c.Datetime || "").slice(0, 10).slice(5);
+      ctx.fillText(d, P.l + (i + 0.5) * slotW, H - 8);
+    });
+
+    // Crosshair + hover candle highlight
+    if (Number.isInteger(hoverIndex) && hoverIndex >= 0 && hoverIndex < n) {
+      const row = candles[hoverIndex];
+      const cx = P.l + (hoverIndex + 0.5) * slotW;
+      const yClose = py(+row.Close);
+
+      ctx.strokeStyle = dark ? "rgba(139,148,158,0.7)" : "rgba(80,90,100,0.6)";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(cx, P.t);
+      ctx.lineTo(cx, H - P.b);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(P.l, yClose);
+      ctx.lineTo(W - P.r, yClose);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      setInfo(row, true);
+    }
   }
 
-  drawEmaLine(visEmaFast, "#2196F3"); // EMA Fast – blue
-  drawEmaLine(visEmaSlow, "#FF4444"); // EMA Slow – red
+  setInfo(latest, false);
+  drawChart(null);
 
-  // X-axis date labels (every ~4 candles)
-  ctx.fillStyle = labelC;
-  ctx.font = "10px Courier New";
-  ctx.textAlign = "center";
-  const step = Math.max(1, Math.floor(n / 5));
-  candles.forEach((c, i) => {
-    if (i % step !== 0) return;
-    const d = (c.Date || c.Datetime || "").slice(0, 10).slice(5); // MM-DD
-    ctx.fillText(d, P.l + (i + 0.5) * slotW, H - 8);
-  });
+  canvas.onmousemove = function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x < P.l || x > W - P.r) {
+      drawChart(null);
+      setInfo(latest, false);
+      return;
+    }
+    const idx = Math.floor((x - P.l) / slotW);
+    if (idx >= 0 && idx < n) {
+      drawChart(idx);
+    }
+  };
+
+  canvas.onmouseleave = function() {
+    drawChart(null);
+    setInfo(latest, false);
+  };
 };
 
 // Inject chart overlay on DOMContentLoaded
@@ -341,11 +465,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = document.createElement("div");
     title.id = "chartTitle";
     title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);margin-bottom:10px;";
+
+    const info = document.createElement("div");
+    info.id = "chartInfo";
+    info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:760px;";
     
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
     popup.appendChild(title);
+    popup.appendChild(info);
     popup.appendChild(canvas);
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
