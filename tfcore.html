@@ -49,10 +49,10 @@ function splitHighLow(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wBO = toNumber(r.W_BO);
+    const wXC = toNumber(r.W_XC);
     const mSL = toNumber(r.M_SL);
 
-    if (wBO >= 0 && mSL > 0 && mSL < 12) {
+    if (wXC > 0 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
@@ -140,8 +140,8 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const { highRows, lowRows } = splitHighLow([...data]);
   tfcSections = {
-    High: window.sortRowsByColumn(highRows, "W_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "W_BO", false),
+    High: window.sortRowsByColumn(highRows, "W_XC", false),
+    Low: window.sortRowsByColumn(lowRows, "W_XC", false),
   };
   tfcColWidths = computeSharedColWidths([...highRows, ...lowRows]);
   tfcSortState = {};

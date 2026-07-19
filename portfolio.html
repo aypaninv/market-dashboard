@@ -197,6 +197,8 @@ const exitConditionsByFolio = {
               ),
   Trade: d => (
                 toNumber(d["W_SL"]) < 0
+              ) || (
+                toNumber(d["W_CHG"]) < -8
               ),
 };
   
