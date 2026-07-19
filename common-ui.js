@@ -484,9 +484,9 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ' <span style="color:#d32f2f;">L:' + l + '</span>' +
       ' <span style="color:#f59e0b;">C:' + c + '</span></div>' +
       '<div style="margin-top:2px;">' +
-      ' <span style="color:#dc2626;font-weight:700;">52W:' + pct52Text + '</span>' +
-      ' <span style="color:#7c3aed;font-weight:700;">MSL:' + pctMslText + '</span>' +
-      ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
+        ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
+        ' <span style="color:#dc2626;font-weight:700;">MSL:' + pctMslText + '</span>' +
+        ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
       '</div>';
   }
 
