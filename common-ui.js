@@ -325,7 +325,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
     const tag = label;
     ctx.font = "10px Courier New";
     const tw = ctx.measureText(tag).width + 8;
-    const tx = W - P.r - tw;
+    const tx = P.l + 6;
     const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y + 3));
     ctx.fillStyle = dark ? "rgba(22,27,34,0.88)" : "rgba(255,255,255,0.9)";
     ctx.fillRect(tx, ty - 10, tw, 13);
@@ -407,8 +407,8 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
       const tag = "52W " + high52w.toFixed(2);
       ctx.font = "10px Courier New";
       const tw = ctx.measureText(tag).width + 8;
-      const tx = W - P.r - tw;
-      const ty = Math.max(P.t + 10, y52 - 5);
+      const tx = P.l + 6;
+      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y52 - 5));
       ctx.fillStyle = "rgba(245, 158, 11, 0.16)";
       ctx.fillRect(tx, ty - 10, tw, 13);
       ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
