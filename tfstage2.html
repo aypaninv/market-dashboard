@@ -50,8 +50,9 @@ function splitHighLowTFS2(rows) {
   rows.forEach(r => {
     const mSL = toNumberTFS2(r.M_SL);
     const dXC = toNumberTFS2(r.D_XC);
+    const ddHigh = toNumberTFS2(r.DD_High);
 
-    if (dXC > 0 && dXC < 7 && mSL > 0 && mSL < 12) {
+    if (ddHigh <= -16 && dXC > 0 && dXC < 7 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
