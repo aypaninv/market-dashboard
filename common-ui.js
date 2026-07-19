@@ -240,6 +240,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w) {
 
 window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
+  window.__chartRedraw = null;
 };
 
 window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
@@ -308,6 +309,29 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
       "   52W High: " + highText +
       "   From 52W: " + pctText +
       (hoverMode ? "" : "   (latest)");
+  }
+
+  function drawPricePointerLine(y, color, label) {
+    if (!Number.isFinite(y)) return;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(P.l, y);
+    ctx.lineTo(W - P.r, y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const tag = label;
+    ctx.font = "10px Courier New";
+    const tw = ctx.measureText(tag).width + 8;
+    const tx = W - P.r - tw;
+    const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y + 3));
+    ctx.fillStyle = dark ? "rgba(22,27,34,0.88)" : "rgba(255,255,255,0.9)";
+    ctx.fillRect(tx, ty - 10, tw, 13);
+    ctx.fillStyle = color;
+    ctx.textAlign = "left";
+    ctx.fillText(tag, tx + 4, ty);
   }
 
   // Horizontal grid + price labels
@@ -407,7 +431,11 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
     if (Number.isInteger(hoverIndex) && hoverIndex >= 0 && hoverIndex < n) {
       const row = candles[hoverIndex];
       const cx = P.l + (hoverIndex + 0.5) * slotW;
-      const yClose = py(+row.Close);
+      const o = +row.Open;
+      const h = +row.High;
+      const l = +row.Low;
+      const cl = +row.Close;
+      const yClose = py(cl);
 
       ctx.strokeStyle = dark ? "rgba(139,148,158,0.7)" : "rgba(80,90,100,0.6)";
       ctx.lineWidth = 1;
@@ -423,12 +451,24 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
       ctx.stroke();
       ctx.setLineDash([]);
 
+      const pointerMode = (document.getElementById("chartPointerMode")?.value || "close").toLowerCase();
+      if (pointerMode === "ohlc") {
+        drawPricePointerLine(py(o), "#1976d2", "O " + fmt(o, 2));
+        drawPricePointerLine(py(h), "#2e7d32", "H " + fmt(h, 2));
+        drawPricePointerLine(py(l), "#d32f2f", "L " + fmt(l, 2));
+        drawPricePointerLine(py(cl), "#f59e0b", "C " + fmt(cl, 2));
+      }
+
       setInfo(row, true);
     }
   }
 
   setInfo(latest, false);
   drawChart(null);
+  window.__chartRedraw = function() {
+    drawChart(null);
+    setInfo(latest, false);
+  };
 
   canvas.onmousemove = function(e) {
     const rect = canvas.getBoundingClientRect();
@@ -469,11 +509,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const info = document.createElement("div");
     info.id = "chartInfo";
     info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:760px;";
+
+    const controls = document.createElement("div");
+    controls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-bottom:8px;";
+
+    const pointerLabel = document.createElement("label");
+    pointerLabel.setAttribute("for", "chartPointerMode");
+    pointerLabel.textContent = "Pointer:";
+    pointerLabel.style.cssText = "font-size:11px;color:var(--text);";
+
+    const pointerSelect = document.createElement("select");
+    pointerSelect.id = "chartPointerMode";
+    pointerSelect.style.cssText = "font-size:11px;padding:2px 6px;border:1px solid var(--grid);border-radius:6px;background:var(--panel);color:var(--text);";
+    pointerSelect.innerHTML = '<option value="close">Close</option><option value="ohlc">OHLC</option>';
+    pointerSelect.value = "ohlc";
+    pointerSelect.onchange = () => {
+      if (typeof window.__chartRedraw === "function") window.__chartRedraw();
+    };
+
+    controls.appendChild(pointerLabel);
+    controls.appendChild(pointerSelect);
     
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
     popup.appendChild(title);
+    popup.appendChild(controls);
     popup.appendChild(info);
     popup.appendChild(canvas);
     overlay.appendChild(popup);

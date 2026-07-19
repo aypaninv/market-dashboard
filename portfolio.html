@@ -150,7 +150,7 @@ const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d.LT_Pert);
     const wSL = toNumber(d["W_SL"]);
-    return ltPert > 0 && wSL < 12;
+    return ltPert > 4 && wSL < 12;
   },
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
