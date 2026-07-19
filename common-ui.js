@@ -149,6 +149,7 @@ const M_SL_LOOKBACK_MONTHS = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
+const chartState = { symbol: null, tf: null };
 
 function parseOHLC(text) {
   const lines = text.trim().split("\n");
@@ -205,7 +206,21 @@ function buildChartTitle(symbol, tf, candles) {
   return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
 
-window.openCandleChart = function(symbol, tf) {
+function setActiveChartTfButton(tf) {
+  ["D", "W", "M"].forEach(key => {
+    const btn = document.getElementById("chartTfBtn_" + key);
+    if (!btn) return;
+    const active = key === tf;
+    btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
+    btn.style.color = active ? "#fff" : "var(--text)";
+    btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
+  });
+}
+
+window.renderCandleChart = function(symbol, tf) {
+  chartState.symbol = symbol;
+  chartState.tf = tf;
+
   Promise.all([loadOHLC(tf), loadOHLC("M")])
     .then(([data, monthlyData]) => {
       const rows = data[symbol];
@@ -246,8 +261,13 @@ window.openCandleChart = function(symbol, tf) {
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
       window.showChart(symbol, tf, visibleRows, rows, high52w, slPrice);
+      setActiveChartTfButton(tf);
     })
     .catch(() => alert("Failed to load chart data"));
+};
+
+window.openCandleChart = function(symbol, tf) {
+  window.renderCandleChart(symbol, tf);
 };
 
 window.showChart = function(symbol, tf, candles, allRows, high52w, slPrice) {
@@ -265,6 +285,8 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, slPrice) {
 window.closeChart = function() {
   document.getElementById("chartOverlay").style.display = "none";
   window.__chartRedraw = null;
+  chartState.symbol = null;
+  chartState.tf = null;
 };
 
 window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
@@ -548,12 +570,33 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!document.getElementById("chartOverlay")) {
     const overlay = document.createElement("div");
     overlay.id = "chartOverlay";
-    overlay.onclick = window.closeChart;
+    overlay.onclick = (e) => {
+      if (e.target === overlay) window.closeChart();
+    };
     overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:1000;align-items:center;justify-content:center;";
     
     const popup = document.createElement("div");
     popup.id = "chartPopup";
     popup.style.cssText = "background:var(--panel);border-radius:12px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,0.52);border:1px solid var(--grid);";
+    popup.onclick = (e) => e.stopPropagation();
+
+    const tfControls = document.createElement("div");
+    tfControls.style.cssText = "display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:8px;";
+
+    ["D", "W", "M"].forEach(tfKey => {
+      const btn = document.createElement("button");
+      btn.id = "chartTfBtn_" + tfKey;
+      btn.type = "button";
+      btn.textContent = tfKey;
+      btn.style.cssText = "min-width:30px;height:24px;padding:0 8px;border:1px solid var(--grid);border-radius:6px;background:transparent;color:var(--text);font-size:11px;font-weight:700;cursor:pointer;";
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!chartState.symbol) return;
+        window.renderCandleChart(chartState.symbol, tfKey);
+      };
+      tfControls.appendChild(btn);
+    });
     
     const title = document.createElement("div");
     title.id = "chartTitle";
@@ -586,6 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
+    popup.appendChild(tfControls);
     popup.appendChild(title);
     popup.appendChild(controls);
     popup.appendChild(info);
