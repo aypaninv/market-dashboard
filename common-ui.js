@@ -149,7 +149,44 @@ const M_SL_LOOKBACK_MONTHS = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null };
+const chartState = { symbol: null, tf: null, symbols: [], index: -1 };
+
+function getActiveTableSymbols() {
+  const table = getActiveTable();
+  if (!table) return [];
+
+  const symbols = [];
+  const seen = new Set();
+  const rows = [...table.querySelectorAll("tr")].slice(1);
+
+  rows.forEach(row => {
+    const symbolCell = row.querySelector("td.symbol-col a");
+    const symbol = (symbolCell?.textContent || "").trim();
+    if (!symbol || seen.has(symbol)) return;
+    seen.add(symbol);
+    symbols.push(symbol);
+  });
+
+  return symbols;
+}
+
+function updateChartNavButtons() {
+  const upBtn = document.getElementById("chartNavUpBtn");
+  const downBtn = document.getElementById("chartNavDownBtn");
+  const hasList = Array.isArray(chartState.symbols) && chartState.symbols.length > 0;
+  const hasPrev = hasList && chartState.index > 0;
+  const hasNext = hasList && chartState.index >= 0 && chartState.index < chartState.symbols.length - 1;
+
+  [
+    [upBtn, hasPrev],
+    [downBtn, hasNext],
+  ].forEach(([btn, enabled]) => {
+    if (!btn) return;
+    btn.disabled = !enabled;
+    btn.style.opacity = enabled ? "1" : "0.45";
+    btn.style.cursor = enabled ? "pointer" : "not-allowed";
+  });
+}
 
 function parseOHLC(text) {
   const lines = text.trim().split("\n");
@@ -220,6 +257,8 @@ function setActiveChartTfButton(tf) {
 window.renderCandleChart = function(symbol, tf) {
   chartState.symbol = symbol;
   chartState.tf = tf;
+  chartState.symbols = getActiveTableSymbols();
+  chartState.index = chartState.symbols.indexOf(symbol);
 
   Promise.all([loadOHLC(tf), loadOHLC("M")])
     .then(([data, monthlyData]) => {
@@ -262,6 +301,7 @@ window.renderCandleChart = function(symbol, tf) {
       const visibleRows = rows.slice(-candleCount);
       window.showChart(symbol, tf, visibleRows, rows, high52w, slPrice);
       setActiveChartTfButton(tf);
+      updateChartNavButtons();
     })
     .catch(() => alert("Failed to load chart data"));
 };
@@ -287,6 +327,21 @@ window.closeChart = function() {
   window.__chartRedraw = null;
   chartState.symbol = null;
   chartState.tf = null;
+  chartState.symbols = [];
+  chartState.index = -1;
+};
+
+window.navigateChartSymbol = function(direction) {
+  if (!Array.isArray(chartState.symbols) || !chartState.symbols.length) return;
+  if (!chartState.symbol || !chartState.tf) return;
+
+  const nextIndex = chartState.index + direction;
+  if (nextIndex < 0 || nextIndex >= chartState.symbols.length) return;
+
+  const nextSymbol = chartState.symbols[nextIndex];
+  if (!nextSymbol) return;
+
+  window.renderCandleChart(nextSymbol, chartState.tf);
 };
 
 window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
@@ -581,21 +636,37 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerRow = document.createElement("div");
     headerRow.style.cssText = "display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;";
 
+    const rightControls = document.createElement("div");
+    rightControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
+
+    const navControls = document.createElement("div");
+    navControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
+
     const tfControls = document.createElement("div");
     tfControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
-    ["D", "W", "M"].forEach(tfKey => {
+    const makeHeaderButton = (id, text, onClick) => {
       const btn = document.createElement("button");
-      btn.id = "chartTfBtn_" + tfKey;
+      btn.id = id;
       btn.type = "button";
-      btn.textContent = tfKey;
+      btn.textContent = text;
       btn.style.cssText = "min-width:30px;height:24px;padding:0 8px;border:1px solid var(--grid);border-radius:6px;background:transparent;color:var(--text);font-size:11px;font-weight:700;cursor:pointer;";
       btn.onclick = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        onClick();
+      };
+      return btn;
+    };
+
+    navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
+    navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
+
+    ["D", "W", "M"].forEach(tfKey => {
+      const btn = makeHeaderButton("chartTfBtn_" + tfKey, tfKey, () => {
         if (!chartState.symbol) return;
         window.renderCandleChart(chartState.symbol, tfKey);
-      };
+      });
       tfControls.appendChild(btn);
     });
     
@@ -610,8 +681,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
+    rightControls.appendChild(navControls);
+    rightControls.appendChild(tfControls);
     headerRow.appendChild(title);
-    headerRow.appendChild(tfControls);
+    headerRow.appendChild(rightControls);
     popup.appendChild(headerRow);
     popup.appendChild(info);
     popup.appendChild(canvas);
