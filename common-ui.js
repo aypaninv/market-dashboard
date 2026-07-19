@@ -152,19 +152,29 @@ const ohlcCache = {};
 const chartState = { symbol: null, tf: null, symbols: [], index: -1 };
 
 function getActiveTableSymbols() {
-  const table = getActiveTable();
-  if (!table) return [];
+  const activeFeature = document.querySelector(
+    "#portfolioFeature:not([style*='display: none'])," +
+    "#tfwatchFeature:not([style*='display: none'])," +
+    "#tfcoreFeature:not([style*='display: none'])," +
+    "#tfstudyFeature:not([style*='display: none'])," +
+    "#tfstage2Feature:not([style*='display: none'])"
+  );
+  if (!activeFeature) return [];
 
   const symbols = [];
   const seen = new Set();
-  const rows = [...table.querySelectorAll("tr")].slice(1);
+  const tables = [...activeFeature.querySelectorAll("table")];
 
-  rows.forEach(row => {
-    const symbolCell = row.querySelector("td.symbol-col a");
-    const symbol = (symbolCell?.textContent || "").trim();
-    if (!symbol || seen.has(symbol)) return;
-    seen.add(symbol);
-    symbols.push(symbol);
+  tables.forEach(table => {
+    const rows = [...table.querySelectorAll("tr")].slice(1);
+
+    rows.forEach(row => {
+      const symbolCell = row.querySelector("td.symbol-col a") || row.querySelector("td a");
+      const symbol = (symbolCell?.textContent || "").trim();
+      if (!symbol || seen.has(symbol)) return;
+      seen.add(symbol);
+      symbols.push(symbol);
+    });
   });
 
   return symbols;
@@ -681,8 +691,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
-    rightControls.appendChild(navControls);
     rightControls.appendChild(tfControls);
+    rightControls.appendChild(navControls);
     headerRow.appendChild(title);
     headerRow.appendChild(rightControls);
     popup.appendChild(headerRow);
