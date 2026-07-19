@@ -145,6 +145,8 @@ const CHART_CANDLE_COUNTS = {
   M: 30,
 };
 
+const M_SL_LOOKBACK_MONTHS = 6;
+
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
 
@@ -212,6 +214,7 @@ window.openCandleChart = function(symbol, tf) {
       const monthlyRows = monthlyData[symbol] || [];
       const last12Monthly = monthlyRows.slice(-12);
       let high52w = null;
+      let slPrice = null;
       if (last12Monthly.length >= 12) {
         const highs = last12Monthly
           .map(r => +r.High)
@@ -219,14 +222,35 @@ window.openCandleChart = function(symbol, tf) {
         if (highs.length) high52w = Math.max(...highs);
       }
 
+      // Monthly SL: latest highest-close GREEN candle low from latest lookback window.
+      const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
+      if (recentMonthly.length) {
+        const greenMonthly = recentMonthly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+
+        if (greenMonthly.length) {
+          const highestClose = Math.max(...greenMonthly
+            .map(r => +r.Close)
+            .filter(v => Number.isFinite(v)));
+
+          const highestRows = greenMonthly.filter(r => +r.Close === highestClose);
+          const refRow = highestRows[highestRows.length - 1];
+          const low = +refRow?.Low;
+          if (Number.isFinite(low) && low !== 0) slPrice = low;
+        }
+      }
+
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, visibleRows, rows, high52w);
+      window.showChart(symbol, tf, visibleRows, rows, high52w, slPrice);
     })
     .catch(() => alert("Failed to load chart data"));
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w) {
+window.showChart = function(symbol, tf, candles, allRows, high52w, slPrice) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -234,7 +258,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w) {
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, slPrice);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -243,7 +267,7 @@ window.closeChart = function() {
   window.__chartRedraw = null;
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
+window.drawCandles = function(canvas, candles, allRows, tf, high52w, slPrice) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -266,6 +290,11 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
   if (Number.isFinite(high52w)) {
     maxP = Math.max(maxP, high52w);
     minP = Math.min(minP, high52w);
+  }
+
+  if (Number.isFinite(slPrice)) {
+    maxP = Math.max(maxP, slPrice);
+    minP = Math.min(minP, slPrice);
   }
 
   if (!isFinite(minP)) return;
@@ -412,6 +441,30 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w) {
       ctx.fillStyle = "rgba(245, 158, 11, 0.16)";
       ctx.fillRect(tx, ty - 10, tw, 13);
       ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
+      ctx.textAlign = "left";
+      ctx.fillText(tag, tx + 4, ty);
+    }
+
+    // Stoploss line from monthly rule (latest highest-close green candle low)
+    if (Number.isFinite(slPrice)) {
+      const ySl = py(slPrice);
+      ctx.strokeStyle = "#dc2626";
+      ctx.lineWidth = 1.3;
+      ctx.setLineDash([5, 3]);
+      ctx.beginPath();
+      ctx.moveTo(P.l, ySl);
+      ctx.lineTo(W - P.r, ySl);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const tag = "SL " + slPrice.toFixed(2);
+      ctx.font = "10px Courier New";
+      const tw = ctx.measureText(tag).width + 8;
+      const tx = P.l + 6;
+      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, ySl + 3));
+      ctx.fillStyle = dark ? "rgba(127, 29, 29, 0.2)" : "rgba(220, 38, 38, 0.12)";
+      ctx.fillRect(tx, ty - 10, tw, 13);
+      ctx.fillStyle = "#dc2626";
       ctx.textAlign = "left";
       ctx.fillText(tag, tx + 4, ty);
     }
