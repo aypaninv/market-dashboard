@@ -15,7 +15,7 @@ const COLS_TFS2 = [
   "DD_High",
   "4H_XC","D_XC","W_XC","M_XC",
   "D_CHG","W_CHG","M_CHG",
-  "M_SL","CurPrice","Sector","MarketCap","Notes"
+  "W_SL","M_SL","CurPrice","Sector","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFS2 = {
@@ -49,10 +49,11 @@ function splitHighLowTFS2(rows) {
 
   rows.forEach(r => {
     const mSL = toNumberTFS2(r.M_SL);
+    const wSL = toNumberTFS2(r.W_SL);
     const dXC = toNumberTFS2(r.D_XC);
     const ddHigh = toNumberTFS2(r.DD_High);
 
-    if (ddHigh >= -16 && dXC > 0 && dXC < 7 && mSL > 0 && mSL < 12) {
+    if (ddHigh >= -16 && dXC > 0 && dXC < 7 && mSL > 0 && mSL < 12 && wSL > 0 && wSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
