@@ -172,13 +172,13 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && (toNumber(d["W_SL"]) < 0),
-  Core: d => toNumber(d["IC"]) > 0.5 && (toNumber(d["M_SL"]) < 0),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_SL"]) < 0),
 };
 
 const holdConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) > 0.5 && d.LT_Type === "Sell",
-  Core: d => toNumber(d["IC"]) > 0.5 && d.LT_Type === "Sell",
+  Sate: d => toNumber(d["IC"]) >= 0.5 && d.LT_Type === "Sell",
+  Core: d => toNumber(d["IC"]) >= 0.5 && d.LT_Type === "Sell",
 };
 
 const trackConditionsByFolio = {
@@ -189,13 +189,13 @@ const exitConditionsByFolio = {
   Sate: d => (
                 toNumber(d["PNL"]) < -8
               ) || (  
-                toNumber(d["IC"]) > 0.5 && 
+                toNumber(d["IC"]) >= 0.5 && 
                 toNumber(d.M_SL) < 0
               ), 
   Core: d => (
                 toNumber(d["PNL"]) < -8
               ) || ( 
-                toNumber(d["IC"]) > 0.5 && 
+                toNumber(d["IC"]) >= 0.5 && 
                 toNumber(d["M_SL"]) < 0
               ),
   Trade: d => (
