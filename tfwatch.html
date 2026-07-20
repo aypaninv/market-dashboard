@@ -39,18 +39,18 @@ let tfSectionOpenState = { High: true, Low: false };
 let tfColWidths = {};
 
 
-function toNumber(value) {
+function toNumberTFW(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
 }
 
-function splitHighLow(rows) {
+function splitHighLowTFW(rows) {
   const highRows = [];
   const lowRows = [];
 
   rows.forEach(r => {
-    const wSL = toNumber(r.W_SL);
-    const mSL = toNumber(r.M_SL);
+    const wSL = toNumberTFW(r.W_SL);
+    const mSL = toNumberTFW(r.M_SL);
 
     if (wSL > 0 && wSL < 12 && mSL > 0 && mSL < 12) {
       highRows.push(r);
@@ -62,7 +62,7 @@ function splitHighLow(rows) {
   return { highRows, lowRows };
 }
 
-function computeSharedColWidths(allRows) {
+function computeSharedColWidthsTFW(allRows) {
   if (!allRows.length) return {};
   const visibleCols = COLS_TFW.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
@@ -108,7 +108,7 @@ function computeSharedColWidths(allRows) {
   return widths;
 }
 
-function parseCSV(text) {
+function parseCSVTFW(text) {
   const lines = text.trim().split("\n");
   const h = lines[0].split(",");
   return lines.slice(1).map(r => {
@@ -123,7 +123,7 @@ window.registerTabs(addTab => {
   fetch(CSV_TFW)
     .then(r => r.text())
     .then(t => {
-      rawTF = parseCSV(t);
+      rawTF = parseCSVTFW(t);
       [...new Set(rawTF.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {
@@ -138,12 +138,12 @@ window.registerTabs(addTab => {
 });
 
 function renderTF(data) {
-  const { highRows, lowRows } = splitHighLow([...data]);
+  const { highRows, lowRows } = splitHighLowTFW([...data]);
   tfSections = {
     High: window.sortRowsByColumn(highRows, "D_BO", false),
     Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
-  tfColWidths = computeSharedColWidths([...highRows, ...lowRows]);
+  tfColWidths = computeSharedColWidthsTFW([...highRows, ...lowRows]);
   tfSortState = {};
   tfSectionOpenState = { High: true, Low: false };
   drawTFSections();

@@ -39,20 +39,20 @@ let tfcSortState = {};
 let tfcSectionOpenState = { High: true, Low: false };
 let tfcColWidths = {};
 
-function toNumber(value) {
+function toNumberTFC(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
 }
 
-function splitHighLow(rows) {
+function splitHighLowTFC(rows) {
   const highRows = [];
   const lowRows = [];
 
   rows.forEach(r => {
-    const wXC = toNumber(r.W_XC);
-    const h4XC = toNumber(r["4H_XC"]);
-    const mSL = toNumber(r.M_SL);
-    const ddHigh = toNumber(r.DD_High);
+    const wXC = toNumberTFC(r.W_XC);
+    const h4XC = toNumberTFC(r["4H_XC"]);
+    const mSL = toNumberTFC(r.M_SL);
+    const ddHigh = toNumberTFC(r.DD_High);
 
     if (ddHigh >= -15 && h4XC > 0 && wXC > 0 && mSL > 0 && mSL < 12) {
       highRows.push(r);
@@ -64,7 +64,7 @@ function splitHighLow(rows) {
   return { highRows, lowRows };
 }
 
-function computeSharedColWidths(allRows) {
+function computeSharedColWidthsTFC(allRows) {
   if (!allRows.length) return {};
   const visibleCols = COLS_TFC.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
@@ -140,12 +140,12 @@ window.registerTabs(addTab => {
 });
 
 function renderTFC(data) {
-  const { highRows, lowRows } = splitHighLow([...data]);
+  const { highRows, lowRows } = splitHighLowTFC([...data]);
   tfcSections = {
     High: window.sortRowsByColumn(highRows, "W_XC", false),
     Low: window.sortRowsByColumn(lowRows, "W_XC", false),
   };
-  tfcColWidths = computeSharedColWidths([...highRows, ...lowRows]);
+  tfcColWidths = computeSharedColWidthsTFC([...highRows, ...lowRows]);
   tfcSortState = {};
   tfcSectionOpenState = { High: true, Low: false };
   drawTFCSections();

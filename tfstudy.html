@@ -38,22 +38,22 @@ let tfsSortState = {};
 let tfsSectionOpenState = { High: true, Low: false };
 let tfsColWidths = {};
 
-function toNumber(value) {
+function toNumberTFS(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
 }
 
-function splitHighLow(rows) {
+function splitHighLowTFS(rows) {
   const highRows = [];
   const lowRows = [];
 
   rows.forEach(r => {
-    const wXC = toNumber(r.W_XC);
-    const h4XC = toNumber(r["4H_XC"]);
-    const mSL = toNumber(r.M_SL);
-    const ddHigh = toNumber(r.DD_High);
+    const wXC = toNumberTFS(r.W_XC);
+    const mSL = toNumberTFS(r.M_SL);
+    const wSL = toNumberTFS(r.W_SL);
+    const ddHigh = toNumberTFS(r.DD_High);
 
-    if (ddHigh >= -15 && h4XC > 0 && wXC > 0 && mSL > 0 && mSL < 12) {
+    if (ddHigh >= -15 && wXC > 0 && mSL > 0 && mSL < 12 && wSL > 0 && wSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
@@ -63,7 +63,7 @@ function splitHighLow(rows) {
   return { highRows, lowRows };
 }
 
-function computeSharedColWidths(allRows) {
+function computeSharedColWidthsTFS(allRows) {
   if (!allRows.length) return {};
   const visibleCols = COLS_TFS.filter(h => h !== "Chart" && h in allRows[0]);
   if (!visibleCols.length) return {};
@@ -139,12 +139,12 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  const { highRows, lowRows } = splitHighLow([...data]);
+  const { highRows, lowRows } = splitHighLowTFS([...data]);
   tfsSections = {
     High: window.sortRowsByColumn(highRows, "D_BO", false),
     Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
-  tfsColWidths = computeSharedColWidths([...highRows, ...lowRows]);
+  tfsColWidths = computeSharedColWidthsTFS([...highRows, ...lowRows]);
   tfsSortState = {};
   tfsSectionOpenState = { High: true, Low: false };
   drawTFSSections();
