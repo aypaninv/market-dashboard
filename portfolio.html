@@ -153,15 +153,13 @@ const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d.LT_Pert);
     const wSL = toNumber(d["W_SL"]);
-    const h4XC = toNumber(d["4H_XC"]);
-    return ltPert > 4 && h4XC > 0 && wSL < 12;
+    return ltPert > 4 && wSL < 12;
   },
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wSL = toNumber(d["W_SL"]);
-    const h4XC = toNumber(d["4H_XC"]);
     return ic < 6 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
@@ -169,8 +167,7 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mSL = toNumber(d["M_SL"]);
-    const h4XC = toNumber(d["4H_XC"]);
-    return ic < 7 && ltPert > 4 && h4XC > 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
