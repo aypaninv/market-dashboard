@@ -160,9 +160,9 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d.LT_Pert);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const mSL = toNumber(d["M_SL"]);
+    const wSL = toNumber(d["W_SL"]);
     const h4XC = toNumber(d["4H_XC"]);
-    return ic < 6 && ltPert > 4 && h4XC > 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
