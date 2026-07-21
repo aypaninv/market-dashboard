@@ -387,7 +387,7 @@ function renderFolioSections(folio, folioRows) {
     });
 
     container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Pullback", sortByDefault(pullbackRows, folio), `${folio}__Pullback`, false, colWidths, columnOrder));
+    container.appendChild(createSection("Pullback", sortByDefault(pullbackRows, folio), `${folio}__Pullback`, true, colWidths, columnOrder));
     container.appendChild(createSection("Sell", sortByDefault(sellRows, folio), `${folio}__Sell`, true, colWidths, columnOrder));
     container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
     container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
