@@ -268,6 +268,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const emaColumns = options.emaColumns || ["D_EMA20", "W_EMA10"];
   const crossColumns = options.crossColumns || ["D_XC", "W_XC", "4H_XC", "M_XC"];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
+  const slColumns = options.slColumns || ["W_SL", "M_SL"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
 
@@ -301,6 +302,10 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("green");
   } else if (profitColumns.includes(column) && isNum && num < 0) {
     td.classList.add("red");
+  }
+
+  if (slColumns.includes(column) && isNum && num > 0 && num < 10) {
+    td.classList.add("green");
   }
 
 };
