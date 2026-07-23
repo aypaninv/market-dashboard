@@ -62,6 +62,13 @@ function normalizeSymbolFVG(symbol) {
     .replace(/\.NSE$/, "");
 }
 
+function canonicalSymbolFVG(symbol) {
+  return normalizeSymbolFVG(symbol)
+    .replace(/^NSE[:_\-]?/, "")
+    .replace(/^NSE\./, "")
+    .replace(/[^A-Z0-9]/g, "");
+}
+
 function parseCsvSimpleFVG(text) {
   const lines = text.trim().split("\n");
   const headers = lines[0].split(",").map(h => h.trim());
@@ -70,6 +77,7 @@ function parseCsvSimpleFVG(text) {
     const obj = {};
     headers.forEach((h, i) => { obj[h] = (vals[i] || "").trim(); });
     obj.Symbol = normalizeSymbolFVG(obj.Symbol);
+    obj.SymbolKey = canonicalSymbolFVG(obj.Symbol);
     return obj;
   });
 }
@@ -83,7 +91,7 @@ function parseWeeklyCsvBySymbolFVG(text) {
     const vals = lines[i].split(",");
     const obj = {};
     headers.forEach((h, j) => { obj[h] = (vals[j] || "").trim(); });
-    const sym = normalizeSymbolFVG(obj.Symbol);
+    const sym = canonicalSymbolFVG(obj.Symbol);
     if (!sym) continue;
     if (!bySymbol[sym]) bySymbol[sym] = [];
     bySymbol[sym].push(obj);
@@ -243,7 +251,7 @@ function rebuildFvgSections() {
   const lowRows = [];
 
   rawFVG.forEach(baseRow => {
-    const symbol = baseRow.Symbol;
+    const symbol = baseRow.SymbolKey || canonicalSymbolFVG(baseRow.Symbol);
     if (!symbol) return;
     const rows = buildFvgRowsForSymbol(baseRow, weeklyBySymbolFVG[symbol] || [], minGapPct, maxAge);
     rows.forEach(r => {
@@ -259,7 +267,7 @@ function rebuildFvgSections() {
 
   const statusEl = document.getElementById("fvgStatus");
   if (statusEl) {
-    const covered = rawFVG.filter(r => weeklyBySymbolFVG[r.Symbol]).length;
+    const covered = rawFVG.filter(r => weeklyBySymbolFVG[r.SymbolKey || canonicalSymbolFVG(r.Symbol)]).length;
     statusEl.textContent =
       "Symbols: " + rawFVG.length +
       " | Weekly matched: " + covered +
