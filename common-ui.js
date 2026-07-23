@@ -264,6 +264,84 @@ function calcEMA(closes, period) {
   return result;
 }
 
+function computeActiveFvgZones(rows) {
+  if (!Array.isArray(rows) || rows.length < 3) return [];
+
+  const zones = [];
+
+  for (let i = 2; i < rows.length; i++) {
+    const c1 = rows[i - 2];
+    const c2 = rows[i - 1];
+    const c3 = rows[i];
+
+    const h1 = +c1.High;
+    const l1 = +c1.Low;
+    const o2 = +c2.Open;
+    const h2 = +c2.High;
+    const l2 = +c2.Low;
+    const c2Close = +c2.Close;
+    const h3 = +c3.High;
+    const l3 = +c3.Low;
+
+    if (![h1, l1, o2, h2, l2, c2Close, h3, l3].every(Number.isFinite)) continue;
+
+    const c2Range = h2 - l2;
+    if (!(c2Range > 0)) continue;
+
+    // Filter weak/likely-fake gaps: require displacement body in candle-2.
+    const c2BodyRatio = Math.abs(c2Close - o2) / c2Range;
+    if (c2BodyRatio < 0.45) continue;
+
+    const minGap = Math.max(0.0001, Math.abs(c2Close) * 0.0015);
+
+    // Bullish FVG: candle-3 low above candle-1 high.
+    const bullGap = l3 - h1;
+    const isBull = bullGap >= minGap && c2Close > o2 && h2 > h1;
+
+    // Bearish FVG: candle-3 high below candle-1 low.
+    const bearGap = l1 - h3;
+    const isBear = bearGap >= minGap && c2Close < o2 && l2 < l1;
+
+    if (!isBull && !isBear) continue;
+
+    if (isBull) {
+      zones.push({
+        type: "bull",
+        startIndex: i,
+        lower: h1,
+        upper: l3,
+      });
+    }
+
+    if (isBear) {
+      zones.push({
+        type: "bear",
+        startIndex: i,
+        lower: h3,
+        upper: l1,
+      });
+    }
+  }
+
+  // Keep only undigested (unfilled) zones.
+  return zones.filter(zone => {
+    for (let j = zone.startIndex + 1; j < rows.length; j++) {
+      const rowLow = +rows[j].Low;
+      const rowHigh = +rows[j].High;
+      if (!Number.isFinite(rowLow) || !Number.isFinite(rowHigh)) continue;
+
+      if (zone.type === "bull" && rowLow <= zone.lower) {
+        return false;
+      }
+
+      if (zone.type === "bear" && rowHigh >= zone.upper) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
 function buildChartTitle(symbol, tf, candles) {
   return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
@@ -439,6 +517,8 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
   const n = candles.length;
   const slotW = cW / n;
   const bW = Math.max(2, Math.floor(slotW * 0.62));
+  const activeFvgZones = computeActiveFvgZones(allRows);
+  const visibleStartIndex = Math.max(0, allRows.length - candles.length);
 
   const infoEl = document.getElementById("chartInfo");
   const latest = candles[candles.length - 1] || null;
@@ -529,6 +609,38 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
       ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
     }
+
+    // Draw active, undigested FVG zones (1-3 gap) behind candles.
+    activeFvgZones.forEach(zone => {
+      if (zone.startIndex >= allRows.length) return;
+      if (zone.startIndex > allRows.length - 1) return;
+      if (zone.startIndex > visibleStartIndex + n - 1) return;
+
+      const fromVisibleIndex = Math.max(0, zone.startIndex - visibleStartIndex);
+      const x1 = P.l + fromVisibleIndex * slotW;
+      const x2 = W - P.r;
+
+      const yTop = py(zone.upper);
+      const yBottom = py(zone.lower);
+      const rectY = Math.min(yTop, yBottom);
+      const rectH = Math.max(1, Math.abs(yBottom - yTop));
+
+      const isBull = zone.type === "bull";
+      const fill = isBull ? "rgba(46, 204, 113, 0.14)" : "rgba(231, 76, 60, 0.14)";
+      const stroke = isBull ? "rgba(46, 204, 113, 0.55)" : "rgba(231, 76, 60, 0.55)";
+
+      ctx.fillStyle = fill;
+      ctx.fillRect(x1, rectY, Math.max(1, x2 - x1), rectH);
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x1, rectY, Math.max(1, x2 - x1), rectH);
+
+      const label = isBull ? "FVG+" : "FVG-";
+      ctx.font = "10px Courier New";
+      ctx.fillStyle = stroke;
+      ctx.textAlign = "left";
+      ctx.fillText(label, x1 + 4, Math.max(P.t + 10, rectY + 10));
+    });
 
     candles.forEach((c, i) => {
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
