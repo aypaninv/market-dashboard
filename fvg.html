@@ -3,6 +3,7 @@
 <div id="fvgFeature" style="display:none">
   <div class="update-time" id="updateTime_fvg"></div>
   <div class="content">
+    <div id="fvgStatus" style="font-size:11px;color:var(--text-muted, #7a889a);margin-bottom:8px;"></div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;">
       <label style="font-size:12px;">Gap % Min
         <select id="fvgMinGap" style="margin-left:4px;">
@@ -53,6 +54,14 @@ let fvgSortState = {};
 let fvgSectionOpenState = { High: true, Low: false };
 let fvgColWidths = {};
 
+function normalizeSymbolFVG(symbol) {
+  return String(symbol || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\.NS$/, "")
+    .replace(/\.NSE$/, "");
+}
+
 function parseCsvSimpleFVG(text) {
   const lines = text.trim().split("\n");
   const headers = lines[0].split(",").map(h => h.trim());
@@ -60,6 +69,7 @@ function parseCsvSimpleFVG(text) {
     const vals = line.split(",");
     const obj = {};
     headers.forEach((h, i) => { obj[h] = (vals[i] || "").trim(); });
+    obj.Symbol = normalizeSymbolFVG(obj.Symbol);
     return obj;
   });
 }
@@ -73,11 +83,15 @@ function parseWeeklyCsvBySymbolFVG(text) {
     const vals = lines[i].split(",");
     const obj = {};
     headers.forEach((h, j) => { obj[h] = (vals[j] || "").trim(); });
-    const sym = obj.Symbol;
+    const sym = normalizeSymbolFVG(obj.Symbol);
     if (!sym) continue;
     if (!bySymbol[sym]) bySymbol[sym] = [];
     bySymbol[sym].push(obj);
   }
+
+  Object.keys(bySymbol).forEach(sym => {
+    bySymbol[sym].sort((a, b) => String(a.Date || a.Datetime || "").localeCompare(String(b.Date || b.Datetime || "")));
+  });
 
   return bySymbol;
 }
@@ -106,7 +120,7 @@ function computeActiveFvgZonesForWeekly(rows, minGapPct) {
     if (!(c2Range > 0)) continue;
 
     const c2BodyRatio = Math.abs(c2Close - o2) / c2Range;
-    if (c2BodyRatio < 0.45) continue;
+    if (c2BodyRatio < 0.30) continue;
 
     const minGap = Math.max(0.0001, Math.abs(c2Close) * (minGapPct / 100));
 
@@ -242,6 +256,16 @@ function rebuildFvgSections() {
     High: window.sortRowsByColumn(highRows, "GapPct", true),
     Low: window.sortRowsByColumn(lowRows, "GapPct", true),
   };
+
+  const statusEl = document.getElementById("fvgStatus");
+  if (statusEl) {
+    const covered = rawFVG.filter(r => weeklyBySymbolFVG[r.Symbol]).length;
+    statusEl.textContent =
+      "Symbols: " + rawFVG.length +
+      " | Weekly matched: " + covered +
+      " | High: " + highRows.length +
+      " | Low: " + lowRows.length;
+  }
 
   fvgColWidths = computeSharedColWidthsFVG([...highRows, ...lowRows]);
   fvgSortState = {};
@@ -405,6 +429,17 @@ window.registerTabs(addTab => {
 
     const applyBtn = document.getElementById("fvgApplyBtn");
     if (applyBtn) applyBtn.onclick = rebuildFvgSections;
+  }).catch((err) => {
+    addTab("FVG", () => {
+      hideAllFeatures();
+      document.getElementById("fvgFeature").style.display = "block";
+      const statusEl = document.getElementById("fvgStatus");
+      if (statusEl) {
+        statusEl.textContent = "Unable to load weekly OHLC for FVG: " + (err?.message || "unknown error");
+      }
+      const container = document.getElementById("fvgSections");
+      if (container) container.innerHTML = "";
+    });
   });
 });
 </script>
