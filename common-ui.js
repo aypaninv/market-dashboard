@@ -171,7 +171,7 @@ const CHART_MODES = {
   STANDARD: "standard",
   HEIKIN_ASHI: "heikin-ashi",
 };
-let chartMode = CHART_MODES.STANDARD;
+let chartMode = CHART_MODES.HEIKIN_ASHI;
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -402,6 +402,28 @@ function buildHeikinAshiCandles(rows) {
   return out;
 }
 
+function getStoplossPriceFromHighestCloseGreenCandle(rows, lookback) {
+  const recentRows = rows.slice(-lookback);
+  if (!recentRows.length) return null;
+
+  const greenRows = recentRows.filter(r => {
+    const o = +r.Open;
+    const c = +r.Close;
+    return Number.isFinite(o) && Number.isFinite(c) && c > o;
+  });
+
+  if (!greenRows.length) return null;
+
+  const highestClose = Math.max(...greenRows
+    .map(r => +r.Close)
+    .filter(v => Number.isFinite(v)));
+
+  const highestRows = greenRows.filter(r => +r.Close === highestClose);
+  const refRow = highestRows[highestRows.length - 1];
+  const low = +refRow?.Low;
+  return Number.isFinite(low) && low !== 0 ? low : null;
+}
+
 function setActiveChartTfButton(tf) {
   ["D", "W", "M"].forEach(key => {
     const btn = document.getElementById("chartTfBtn_" + key);
@@ -429,6 +451,12 @@ window.renderCandleChart = function(symbol, tf) {
 
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
+      const stoplossWeeklyRows = chartMode === CHART_MODES.HEIKIN_ASHI
+        ? buildHeikinAshiCandles(weeklyRows)
+        : weeklyRows;
+      const stoplossMonthlyRows = chartMode === CHART_MODES.HEIKIN_ASHI
+        ? buildHeikinAshiCandles(monthlyRows)
+        : monthlyRows;
       const last12Monthly = monthlyRows.slice(-12);
       let high52w = null;
       let mslPrice = null;
@@ -440,46 +468,8 @@ window.renderCandleChart = function(symbol, tf) {
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      // Monthly SL: latest highest-close GREEN candle low from latest lookback window.
-      const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
-      if (recentMonthly.length) {
-        const greenMonthly = recentMonthly.filter(r => {
-          const o = +r.Open;
-          const c = +r.Close;
-          return Number.isFinite(o) && Number.isFinite(c) && c > o;
-        });
-
-        if (greenMonthly.length) {
-          const highestClose = Math.max(...greenMonthly
-            .map(r => +r.Close)
-            .filter(v => Number.isFinite(v)));
-
-          const highestRows = greenMonthly.filter(r => +r.Close === highestClose);
-          const refRow = highestRows[highestRows.length - 1];
-          const low = +refRow?.Low;
-          if (Number.isFinite(low) && low !== 0) mslPrice = low;
-        }
-      }
-
-      const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
-      if (recentWeekly.length) {
-        const greenWeekly = recentWeekly.filter(r => {
-          const o = +r.Open;
-          const c = +r.Close;
-          return Number.isFinite(o) && Number.isFinite(c) && c > o;
-        });
-
-        if (greenWeekly.length) {
-          const highestClose = Math.max(...greenWeekly
-            .map(r => +r.Close)
-            .filter(v => Number.isFinite(v)));
-
-          const highestRows = greenWeekly.filter(r => +r.Close === highestClose);
-          const refRow = highestRows[highestRows.length - 1];
-          const low = +refRow?.Low;
-          if (Number.isFinite(low) && low !== 0) wslPrice = low;
-        }
-      }
+      mslPrice = getStoplossPriceFromHighestCloseGreenCandle(stoplossMonthlyRows, M_SL_LOOKBACK_MONTHS);
+      wslPrice = getStoplossPriceFromHighestCloseGreenCandle(stoplossWeeklyRows, W_SL_LOOKBACK_WEEKS);
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
