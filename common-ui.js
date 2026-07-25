@@ -167,11 +167,6 @@ const M_SL_LOOKBACK_MONTHS = 6;
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
 const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null };
-const CHART_MODES = {
-  STANDARD: "standard",
-  HEIKIN_ASHI: "heikin-ashi",
-};
-let chartMode = CHART_MODES.HEIKIN_ASHI;
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -351,79 +346,6 @@ function buildChartTitle(symbol, tf, candles) {
   return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
 
-function setActiveChartModeButton(mode) {
-  const stdBtn = document.getElementById("chartModeBtn_standard");
-  const haBtn = document.getElementById("chartModeBtn_heikin-ashi");
-  [
-    [stdBtn, CHART_MODES.STANDARD],
-    [haBtn, CHART_MODES.HEIKIN_ASHI],
-  ].forEach(([btn, value]) => {
-    if (!btn) return;
-    const active = mode === value;
-    btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
-    btn.style.color = active ? "#fff" : "var(--text)";
-    btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
-  });
-}
-
-function buildHeikinAshiCandles(rows) {
-  if (!Array.isArray(rows) || !rows.length) return [];
-
-  const out = [];
-  let prevHaOpen = null;
-  let prevHaClose = null;
-
-  rows.forEach((row) => {
-    const o = +row.Open;
-    const h = +row.High;
-    const l = +row.Low;
-    const c = +row.Close;
-    if (![o, h, l, c].every(Number.isFinite)) return;
-
-    const haClose = (o + h + l + c) / 4;
-    const haOpen = prevHaOpen === null || prevHaClose === null
-      ? (o + c) / 2
-      : (prevHaOpen + prevHaClose) / 2;
-    const haHigh = Math.max(h, haOpen, haClose);
-    const haLow = Math.min(l, haOpen, haClose);
-
-    out.push({
-      ...row,
-      Open: haOpen,
-      High: haHigh,
-      Low: haLow,
-      Close: haClose,
-    });
-
-    prevHaOpen = haOpen;
-    prevHaClose = haClose;
-  });
-
-  return out;
-}
-
-function getStoplossPriceFromHighestCloseGreenCandle(rows, lookback) {
-  const recentRows = rows.slice(-lookback);
-  if (!recentRows.length) return null;
-
-  const greenRows = recentRows.filter(r => {
-    const o = +r.Open;
-    const c = +r.Close;
-    return Number.isFinite(o) && Number.isFinite(c) && c > o;
-  });
-
-  if (!greenRows.length) return null;
-
-  const highestClose = Math.max(...greenRows
-    .map(r => +r.Close)
-    .filter(v => Number.isFinite(v)));
-
-  const highestRows = greenRows.filter(r => +r.Close === highestClose);
-  const refRow = highestRows[highestRows.length - 1];
-  const low = +refRow?.Low;
-  return Number.isFinite(low) && low !== 0 ? low : null;
-}
-
 function setActiveChartTfButton(tf) {
   ["D", "W", "M"].forEach(key => {
     const btn = document.getElementById("chartTfBtn_" + key);
@@ -451,12 +373,6 @@ window.renderCandleChart = function(symbol, tf) {
 
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
-      const stoplossWeeklyRows = chartMode === CHART_MODES.HEIKIN_ASHI
-        ? buildHeikinAshiCandles(weeklyRows)
-        : weeklyRows;
-      const stoplossMonthlyRows = chartMode === CHART_MODES.HEIKIN_ASHI
-        ? buildHeikinAshiCandles(monthlyRows)
-        : monthlyRows;
       const last12Monthly = monthlyRows.slice(-12);
       let high52w = null;
       let mslPrice = null;
@@ -468,8 +384,46 @@ window.renderCandleChart = function(symbol, tf) {
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      mslPrice = getStoplossPriceFromHighestCloseGreenCandle(stoplossMonthlyRows, M_SL_LOOKBACK_MONTHS);
-      wslPrice = getStoplossPriceFromHighestCloseGreenCandle(stoplossWeeklyRows, W_SL_LOOKBACK_WEEKS);
+      // Monthly SL: latest highest-close GREEN candle low from latest lookback window.
+      const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
+      if (recentMonthly.length) {
+        const greenMonthly = recentMonthly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+
+        if (greenMonthly.length) {
+          const highestClose = Math.max(...greenMonthly
+            .map(r => +r.Close)
+            .filter(v => Number.isFinite(v)));
+
+          const highestRows = greenMonthly.filter(r => +r.Close === highestClose);
+          const refRow = highestRows[highestRows.length - 1];
+          const low = +refRow?.Low;
+          if (Number.isFinite(low) && low !== 0) mslPrice = low;
+        }
+      }
+
+      const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
+      if (recentWeekly.length) {
+        const greenWeekly = recentWeekly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+
+        if (greenWeekly.length) {
+          const highestClose = Math.max(...greenWeekly
+            .map(r => +r.Close)
+            .filter(v => Number.isFinite(v)));
+
+          const highestRows = greenWeekly.filter(r => +r.Close === highestClose);
+          const refRow = highestRows[highestRows.length - 1];
+          const low = +refRow?.Low;
+          if (Number.isFinite(low) && low !== 0) wslPrice = low;
+        }
+      }
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const visibleRows = rows.slice(-candleCount);
@@ -487,22 +441,12 @@ window.openCandleChart = function(symbol, tf) {
 window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
-  const modeLabel = chartMode === CHART_MODES.HEIKIN_ASHI ? "Heikin Ashi" : "Standard";
-  const renderCandles = chartMode === CHART_MODES.HEIKIN_ASHI ? buildHeikinAshiCandles(candles) : candles;
-  const renderRows = chartMode === CHART_MODES.HEIKIN_ASHI ? buildHeikinAshiCandles(allRows) : allRows;
-
-  if (!renderCandles.length || !renderRows.length) {
-    if (info) info.textContent = "No valid OHLC data to render.";
-    return;
-  }
-
   canvas.width  = Math.min(760, window.innerWidth - 40);
   canvas.height = Math.round(canvas.width * 0.75);
-  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, renderCandles) + "  [" + modeLabel + "]";
+  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, renderCandles, renderRows, tf, high52w, mslPrice, wslPrice);
-  setActiveChartModeButton(chartMode);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -902,12 +846,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const rightControls = document.createElement("div");
     rightControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
-    const leftControls = document.createElement("div");
-    leftControls.style.cssText = "display:flex;justify-content:flex-start;align-items:center;gap:8px;min-width:0;";
-
-    const modeControls = document.createElement("div");
-    modeControls.style.cssText = "display:flex;justify-content:flex-start;align-items:center;gap:6px;flex-shrink:0;";
-
     const navControls = document.createElement("div");
     navControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
@@ -927,17 +865,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       return btn;
     };
-
-    modeControls.appendChild(makeHeaderButton("chartModeBtn_standard", "STD", () => {
-      if (!chartState.symbol || !chartState.tf) return;
-      chartMode = CHART_MODES.STANDARD;
-      window.renderCandleChart(chartState.symbol, chartState.tf);
-    }));
-    modeControls.appendChild(makeHeaderButton("chartModeBtn_heikin-ashi", "HA", () => {
-      if (!chartState.symbol || !chartState.tf) return;
-      chartMode = CHART_MODES.HEIKIN_ASHI;
-      window.renderCandleChart(chartState.symbol, chartState.tf);
-    }));
 
     navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
     navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
@@ -963,9 +890,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
-    leftControls.appendChild(title);
-    leftControls.appendChild(modeControls);
-    headerRow.appendChild(leftControls);
+    headerRow.appendChild(title);
     headerRow.appendChild(rightControls);
     popup.appendChild(headerRow);
     popup.appendChild(info);
