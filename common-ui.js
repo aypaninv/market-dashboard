@@ -342,6 +342,67 @@ function computeActiveFvgZones(rows) {
   });
 }
 
+function toFiniteNumber(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : null;
+}
+
+function formatCisdKey(key) {
+  return String(key || "")
+    .replace(/^CISD[_\-]?/i, "")
+    .replace(/_/g, " ")
+    .trim()
+    .toUpperCase() || "LEVEL";
+}
+
+function extractCisdLevels(rows) {
+  if (!Array.isArray(rows) || !rows.length) return [];
+
+  const preferredKeys = [
+    "CISD",
+    "CISD_LEVEL",
+    "CISD_LVL",
+    "CISD_HIGH",
+    "CISD_LOW",
+    "CISD_BULL",
+    "CISD_BEAR",
+    "BULL_CISD",
+    "BEAR_CISD",
+  ];
+
+  const discovered = new Set();
+  rows.forEach((row) => {
+    Object.keys(row || {}).forEach((k) => {
+      if (/CISD/i.test(k)) discovered.add(k);
+    });
+  });
+
+  const orderedKeys = [
+    ...preferredKeys.filter(k => discovered.has(k)),
+    ...[...discovered].filter(k => !preferredKeys.includes(k)).sort(),
+  ];
+
+  const levels = [];
+
+  orderedKeys.forEach((key) => {
+    let value = null;
+    let rowIndex = -1;
+
+    for (let i = rows.length - 1; i >= 0; i--) {
+      const num = toFiniteNumber(rows[i]?.[key]);
+      if (num === null || num === 0) continue;
+      value = num;
+      rowIndex = i;
+      break;
+    }
+
+    if (value === null) return;
+    levels.push({ key, value, rowIndex });
+  });
+
+  return levels.slice(0, 6);
+}
+
 function buildChartTitle(symbol, tf, candles) {
   return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
@@ -482,6 +543,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
   const bgC    = dark ? "#161b22" : "#ffffff";
   const gridC  = dark ? "#2b313a" : "#e5e5e5";
   const labelC = dark ? "#8b949e" : "#666666";
+  const cisdLevels = extractCisdLevels(allRows);
 
   ctx.fillStyle = bgC;
   ctx.fillRect(0, 0, W, H);
@@ -507,6 +569,12 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     maxP = Math.max(maxP, wslPrice);
     minP = Math.min(minP, wslPrice);
   }
+
+  cisdLevels.forEach(({ value }) => {
+    if (!Number.isFinite(value)) return;
+    maxP = Math.max(maxP, value);
+    minP = Math.min(minP, value);
+  });
 
   if (!isFinite(minP)) return;
 
@@ -557,6 +625,9 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
     const pctMslText = pctFromMsl === null ? "NA" : Math.trunc(pctFromMsl) + "%";
     const pctWslText = pctFromWsl === null ? "NA" : Math.trunc(pctFromWsl) + "%";
+    const cisdText = cisdLevels.length
+      ? cisdLevels.map(level => formatCisdKey(level.key) + ":" + fmt(level.value, 2)).join(" | ")
+      : "NA";
     infoEl.innerHTML =
       '<div>Date:' + d +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
@@ -567,6 +638,9 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
         ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
         ' <span style="color:#dc2626;font-weight:700;">MSL:' + pctMslText + '</span>' +
         ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
+      '</div>' +
+      '<div style="margin-top:2px;">' +
+        ' <span style="color:#1d4ed8;font-weight:700;">CISD ' + cisdText + '</span>' +
       '</div>';
   }
 
@@ -752,6 +826,43 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.fillStyle = "#0f766e";
       ctx.textAlign = "left";
       ctx.fillText(tag, tx + 4, ty);
+    }
+
+    if (cisdLevels.length) {
+      const cisdPalette = ["#1d4ed8", "#b45309", "#be123c", "#0f766e", "#0369a1", "#334155"];
+      cisdLevels.forEach((level, idx) => {
+        const y = py(level.value);
+        const color = cisdPalette[idx % cisdPalette.length];
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(P.l, y);
+        ctx.lineTo(W - P.r, y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const pointIdx = level.rowIndex - visibleStartIndex;
+        if (pointIdx >= 0 && pointIdx < n) {
+          const px = P.l + (pointIdx + 0.5) * slotW;
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(px, y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        const tag = "CISD " + formatCisdKey(level.key) + " " + fmt(level.value, 2);
+        ctx.font = "10px Courier New";
+        const tw = ctx.measureText(tag).width + 8;
+        const tx = P.l + 6;
+        const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y + 3));
+        ctx.fillStyle = dark ? "rgba(22,27,34,0.88)" : "rgba(255,255,255,0.9)";
+        ctx.fillRect(tx, ty - 10, tw, 13);
+        ctx.fillStyle = color;
+        ctx.textAlign = "left";
+        ctx.fillText(tag, tx + 4, ty);
+      });
     }
 
     // X-axis date labels (every ~4 candles)
