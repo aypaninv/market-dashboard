@@ -167,6 +167,11 @@ const M_SL_LOOKBACK_MONTHS = 6;
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
 const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null };
+const CHART_MODES = {
+  STANDARD: "standard",
+  HEIKIN_ASHI: "heikin-ashi",
+};
+let chartMode = CHART_MODES.STANDARD;
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -342,69 +347,59 @@ function computeActiveFvgZones(rows) {
   });
 }
 
-function toFiniteNumber(value) {
-  const num = parseFloat(value);
-  return Number.isFinite(num) ? num : null;
-}
-
-function formatCisdKey(key) {
-  return String(key || "")
-    .replace(/^CISD[_\-]?/i, "")
-    .replace(/_/g, " ")
-    .trim()
-    .toUpperCase() || "LEVEL";
-}
-
-function extractCisdLevels(rows) {
-  if (!Array.isArray(rows) || !rows.length) return [];
-
-  const preferredKeys = [
-    "CISD",
-    "CISD_LEVEL",
-    "CISD_LVL",
-    "CISD_HIGH",
-    "CISD_LOW",
-    "CISD_BULL",
-    "CISD_BEAR",
-    "BULL_CISD",
-    "BEAR_CISD",
-  ];
-
-  const discovered = new Set();
-  rows.forEach((row) => {
-    Object.keys(row || {}).forEach((k) => {
-      if (/CISD/i.test(k)) discovered.add(k);
-    });
-  });
-
-  const orderedKeys = [
-    ...preferredKeys.filter(k => discovered.has(k)),
-    ...[...discovered].filter(k => !preferredKeys.includes(k)).sort(),
-  ];
-
-  const levels = [];
-
-  orderedKeys.forEach((key) => {
-    let value = null;
-    let rowIndex = -1;
-
-    for (let i = rows.length - 1; i >= 0; i--) {
-      const num = toFiniteNumber(rows[i]?.[key]);
-      if (num === null || num === 0) continue;
-      value = num;
-      rowIndex = i;
-      break;
-    }
-
-    if (value === null) return;
-    levels.push({ key, value, rowIndex });
-  });
-
-  return levels.slice(0, 6);
-}
-
 function buildChartTitle(symbol, tf, candles) {
   return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+}
+
+function setActiveChartModeButton(mode) {
+  const stdBtn = document.getElementById("chartModeBtn_standard");
+  const haBtn = document.getElementById("chartModeBtn_heikin-ashi");
+  [
+    [stdBtn, CHART_MODES.STANDARD],
+    [haBtn, CHART_MODES.HEIKIN_ASHI],
+  ].forEach(([btn, value]) => {
+    if (!btn) return;
+    const active = mode === value;
+    btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
+    btn.style.color = active ? "#fff" : "var(--text)";
+    btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
+  });
+}
+
+function buildHeikinAshiCandles(rows) {
+  if (!Array.isArray(rows) || !rows.length) return [];
+
+  const out = [];
+  let prevHaOpen = null;
+  let prevHaClose = null;
+
+  rows.forEach((row) => {
+    const o = +row.Open;
+    const h = +row.High;
+    const l = +row.Low;
+    const c = +row.Close;
+    if (![o, h, l, c].every(Number.isFinite)) return;
+
+    const haClose = (o + h + l + c) / 4;
+    const haOpen = prevHaOpen === null || prevHaClose === null
+      ? (o + c) / 2
+      : (prevHaOpen + prevHaClose) / 2;
+    const haHigh = Math.max(h, haOpen, haClose);
+    const haLow = Math.min(l, haOpen, haClose);
+
+    out.push({
+      ...row,
+      Open: haOpen,
+      High: haHigh,
+      Low: haLow,
+      Close: haClose,
+    });
+
+    prevHaOpen = haOpen;
+    prevHaClose = haClose;
+  });
+
+  return out;
 }
 
 function setActiveChartTfButton(tf) {
@@ -502,12 +497,22 @@ window.openCandleChart = function(symbol, tf) {
 window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
+  const modeLabel = chartMode === CHART_MODES.HEIKIN_ASHI ? "Heikin Ashi" : "Standard";
+  const renderCandles = chartMode === CHART_MODES.HEIKIN_ASHI ? buildHeikinAshiCandles(candles) : candles;
+  const renderRows = chartMode === CHART_MODES.HEIKIN_ASHI ? buildHeikinAshiCandles(allRows) : allRows;
+
+  if (!renderCandles.length || !renderRows.length) {
+    if (info) info.textContent = "No valid OHLC data to render.";
+    return;
+  }
+
   canvas.width  = Math.min(760, window.innerWidth - 40);
   canvas.height = Math.round(canvas.width * 0.75);
-  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
+  document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, renderCandles) + "  [" + modeLabel + "]";
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice);
+  window.drawCandles(canvas, renderCandles, renderRows, tf, high52w, mslPrice, wslPrice);
+  setActiveChartModeButton(chartMode);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -543,7 +548,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
   const bgC    = dark ? "#161b22" : "#ffffff";
   const gridC  = dark ? "#2b313a" : "#e5e5e5";
   const labelC = dark ? "#8b949e" : "#666666";
-  const cisdLevels = extractCisdLevels(allRows);
 
   ctx.fillStyle = bgC;
   ctx.fillRect(0, 0, W, H);
@@ -569,12 +573,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     maxP = Math.max(maxP, wslPrice);
     minP = Math.min(minP, wslPrice);
   }
-
-  cisdLevels.forEach(({ value }) => {
-    if (!Number.isFinite(value)) return;
-    maxP = Math.max(maxP, value);
-    minP = Math.min(minP, value);
-  });
 
   if (!isFinite(minP)) return;
 
@@ -625,9 +623,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
     const pctMslText = pctFromMsl === null ? "NA" : Math.trunc(pctFromMsl) + "%";
     const pctWslText = pctFromWsl === null ? "NA" : Math.trunc(pctFromWsl) + "%";
-    const cisdText = cisdLevels.length
-      ? cisdLevels.map(level => formatCisdKey(level.key) + ":" + fmt(level.value, 2)).join(" | ")
-      : "NA";
     infoEl.innerHTML =
       '<div>Date:' + d +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
@@ -638,9 +633,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
         ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
         ' <span style="color:#dc2626;font-weight:700;">MSL:' + pctMslText + '</span>' +
         ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
-      '</div>' +
-      '<div style="margin-top:2px;">' +
-        ' <span style="color:#1d4ed8;font-weight:700;">CISD ' + cisdText + '</span>' +
       '</div>';
   }
 
@@ -828,43 +820,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.fillText(tag, tx + 4, ty);
     }
 
-    if (cisdLevels.length) {
-      const cisdPalette = ["#1d4ed8", "#b45309", "#be123c", "#0f766e", "#0369a1", "#334155"];
-      cisdLevels.forEach((level, idx) => {
-        const y = py(level.value);
-        const color = cisdPalette[idx % cisdPalette.length];
-
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
-        ctx.setLineDash([3, 3]);
-        ctx.beginPath();
-        ctx.moveTo(P.l, y);
-        ctx.lineTo(W - P.r, y);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const pointIdx = level.rowIndex - visibleStartIndex;
-        if (pointIdx >= 0 && pointIdx < n) {
-          const px = P.l + (pointIdx + 0.5) * slotW;
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.arc(px, y, 3, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        const tag = "CISD " + formatCisdKey(level.key) + " " + fmt(level.value, 2);
-        ctx.font = "10px Courier New";
-        const tw = ctx.measureText(tag).width + 8;
-        const tx = P.l + 6;
-        const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y + 3));
-        ctx.fillStyle = dark ? "rgba(22,27,34,0.88)" : "rgba(255,255,255,0.9)";
-        ctx.fillRect(tx, ty - 10, tw, 13);
-        ctx.fillStyle = color;
-        ctx.textAlign = "left";
-        ctx.fillText(tag, tx + 4, ty);
-      });
-    }
-
     // X-axis date labels (every ~4 candles)
     ctx.fillStyle = labelC;
     ctx.font = "10px Courier New";
@@ -957,6 +912,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const rightControls = document.createElement("div");
     rightControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
+    const leftControls = document.createElement("div");
+    leftControls.style.cssText = "display:flex;justify-content:flex-start;align-items:center;gap:8px;min-width:0;";
+
+    const modeControls = document.createElement("div");
+    modeControls.style.cssText = "display:flex;justify-content:flex-start;align-items:center;gap:6px;flex-shrink:0;";
+
     const navControls = document.createElement("div");
     navControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
@@ -976,6 +937,17 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       return btn;
     };
+
+    modeControls.appendChild(makeHeaderButton("chartModeBtn_standard", "STD", () => {
+      if (!chartState.symbol || !chartState.tf) return;
+      chartMode = CHART_MODES.STANDARD;
+      window.renderCandleChart(chartState.symbol, chartState.tf);
+    }));
+    modeControls.appendChild(makeHeaderButton("chartModeBtn_heikin-ashi", "HA", () => {
+      if (!chartState.symbol || !chartState.tf) return;
+      chartMode = CHART_MODES.HEIKIN_ASHI;
+      window.renderCandleChart(chartState.symbol, chartState.tf);
+    }));
 
     navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
     navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
@@ -1001,7 +973,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
-    headerRow.appendChild(title);
+    leftControls.appendChild(title);
+    leftControls.appendChild(modeControls);
+    headerRow.appendChild(leftControls);
     headerRow.appendChild(rightControls);
     popup.appendChild(headerRow);
     popup.appendChild(info);
