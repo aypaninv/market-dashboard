@@ -14,7 +14,6 @@ const COLS_TFC = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  "W_XC","M_XC",
   "W_CHG","M_CHG",
   "W_SL","M_SL","CurPrice","Sector","MarketCap","Notes"
 ];
@@ -50,12 +49,10 @@ function splitHighLowTFC(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wXC = toNumberTFC(r.W_XC);
     const mBO = toNumberTFC(r.M_BO);
     const mSL = toNumberTFC(r.M_SL);
-    const ddHigh = toNumberTFC(r.DD_High);
 
-    if (wXC > 0 && mBO >= 1 && mSL > 0 && mSL < 12) {
+    if (mBO >= 1 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
@@ -143,8 +140,8 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const { highRows, lowRows } = splitHighLowTFC([...data]);
   tfcSections = {
-    High: window.sortRowsByColumn(highRows, "W_XC", false),
-    Low: window.sortRowsByColumn(lowRows, "W_XC", false),
+    High: window.sortRowsByColumn(highRows, "M_SL", false),
+    Low: window.sortRowsByColumn(lowRows, "DD_High", false),
   };
   tfcColWidths = computeSharedColWidthsTFC([...highRows, ...lowRows]);
   tfcSortState = {};

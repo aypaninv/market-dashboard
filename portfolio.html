@@ -29,9 +29,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_XL","M_XL",
-    "W_XC",
     "W_CHG","M_CHG",
-    "W_SL","M_SL","AvgPrice","CurPrice","Notes"
+    "W_SL","M_SL",
+    "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
@@ -39,10 +39,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_XL","M_XL",
-    "W_XC",
     "W_CHG","M_CHG",
-    "W_SL","M_SL","AvgPrice","CurPrice",
-    "Sector","MarketCap","Notes"
+    "W_SL","M_SL",
+    "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
@@ -50,10 +49,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_XL","M_XL",
-    "W_XC","M_XC",
     "W_CHG","M_CHG",
-    "W_SL","M_SL","AvgPrice","CurPrice",
-    "Sector","MarketCap","Notes"
+    "W_SL","M_SL",
+    "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
 };
 
@@ -114,15 +112,15 @@ function getColumnOrderForFolio(folio) {
 
 function defaultAddCondition(d) {
   const ltPert = toNumber(d.LT_Pert);
-  const co_d = toNumber(d["D_XC"]);
+  const wBO = toNumber(d["W_BO"]);
 
   return (
-    ltPert > 4 && co_d > 0
+    ltPert > 4 && wBO > 0
   );
 }
 
 function defaultSellCondition(d) {
-  return toNumber(d.D_XC) < 0;
+  return toNumber(d.W_BO) < 0;
 }
 
 // Returns true when IC value is high but PnL hasn't caught up — triggers red highlight
@@ -154,7 +152,7 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d.LT_Pert);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltPert > 4 && wBO >= 4 && wSL > 0 && wSL < 10;
+    return ltPert > 4 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -162,7 +160,7 @@ const addConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 4 && wBO >= 0 && wSL > 0 && wSL < 10 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d.LT_Pert);
@@ -170,7 +168,7 @@ const addConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 4 && wBO >= 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
