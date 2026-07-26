@@ -174,9 +174,9 @@ const addConditionsByFolio = {
   },
 };
 
-const sellConditionsByFolio = {
+const sellConditionsByFolio = { 
   Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_SL"]) < 0),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0),
 };
 
 const holdConditionsByFolio = {
@@ -229,7 +229,7 @@ function defaultPullbackCondition(d) {
   const wSL = toNumber(d["W_SL"]);
   const ic = toNumber(d["IC"]);
   const pnl = toNumber(d["PnL"]);
-  return dBO > 0 && dBO >= 0 && wSL < 10 && meetsPnLThreshold(ic, pnl);
+  return dBO > 0 && dBO < 5 && wSL < 10 && meetsPnLThreshold(ic, pnl);
 }
 
 function getPullbackCondition(folio) {
