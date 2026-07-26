@@ -163,7 +163,7 @@ const CHART_CANDLE_COUNTS = {
 
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
-const BODY_MIN_PCT = 0.45;  // Minimum candle body size (body/range) for stoploss reference candle
+const BODY_MIN_PCT = 0.30;  // Minimum candle body size (body/range) for stoploss reference candle
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
