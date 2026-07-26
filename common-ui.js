@@ -163,6 +163,7 @@ const CHART_CANDLE_COUNTS = {
 
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
+const BODY_MIN_PCT = 0.45;  // Minimum candle body size (body/range) for stoploss reference candle
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
@@ -384,21 +385,36 @@ window.renderCandleChart = function(symbol, tf) {
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      // Monthly SL: latest highest-close GREEN candle low from latest lookback window.
+      // Monthly SL: latest highest-close GREEN candle with body >= BODY_MIN_PCT from latest lookback window.
       const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
       if (recentMonthly.length) {
+        // Prefer green candles with body >= BODY_MIN_PCT; fall back to any green candle
         const greenMonthly = recentMonthly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          const h = +r.High;
+          const l = +r.Low;
+          if (!(Number.isFinite(o) && Number.isFinite(c) && Number.isFinite(h) && Number.isFinite(l))) return false;
+          if (c <= o) return false;  // Not green
+          const range = h - l;
+          if (range <= 0) return false;
+          const body = Math.abs(c - o);
+          return (body / range) >= BODY_MIN_PCT;
+        });
+
+        // If no strong-body green, fall back to any green candle
+        const refGreen = greenMonthly.length ? greenMonthly : recentMonthly.filter(r => {
           const o = +r.Open;
           const c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
 
-        if (greenMonthly.length) {
-          const highestClose = Math.max(...greenMonthly
+        if (refGreen.length) {
+          const highestClose = Math.max(...refGreen
             .map(r => +r.Close)
             .filter(v => Number.isFinite(v)));
 
-          const highestRows = greenMonthly.filter(r => +r.Close === highestClose);
+          const highestRows = refGreen.filter(r => +r.Close === highestClose);
           const refRow = highestRows[highestRows.length - 1];
           const low = +refRow?.Low;
           if (Number.isFinite(low) && low !== 0) mslPrice = low;
@@ -407,18 +423,33 @@ window.renderCandleChart = function(symbol, tf) {
 
       const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
       if (recentWeekly.length) {
+        // Prefer green candles with body >= BODY_MIN_PCT; fall back to any green candle
         const greenWeekly = recentWeekly.filter(r => {
+          const o = +r.Open;
+          const c = +r.Close;
+          const h = +r.High;
+          const l = +r.Low;
+          if (!(Number.isFinite(o) && Number.isFinite(c) && Number.isFinite(h) && Number.isFinite(l))) return false;
+          if (c <= o) return false;  // Not green
+          const range = h - l;
+          if (range <= 0) return false;
+          const body = Math.abs(c - o);
+          return (body / range) >= BODY_MIN_PCT;
+        });
+
+        // If no strong-body green, fall back to any green candle
+        const refGreen = greenWeekly.length ? greenWeekly : recentWeekly.filter(r => {
           const o = +r.Open;
           const c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
 
-        if (greenWeekly.length) {
-          const highestClose = Math.max(...greenWeekly
+        if (refGreen.length) {
+          const highestClose = Math.max(...refGreen
             .map(r => +r.Close)
             .filter(v => Number.isFinite(v)));
 
-          const highestRows = greenWeekly.filter(r => +r.Close === highestClose);
+          const highestRows = refGreen.filter(r => +r.Close === highestClose);
           const refRow = highestRows[highestRows.length - 1];
           const low = +refRow?.Low;
           if (Number.isFinite(low) && low !== 0) wslPrice = low;
