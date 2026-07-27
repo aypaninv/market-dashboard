@@ -16,22 +16,17 @@ const COLS_TFC = [
   "W_SL","M_SL",
   "D_BO","W_BO","M_BO",
   "W_CHG","M_CHG",
-  "CurPrice","Sector","MarketCap","Notes"
+  "W_E10","M_E10","CurPrice","Sector","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFC = {
-
-  "4H_XC": "4H_XC",
-  "D_XC": "D_XC",
-  "W_XC": "W_XC",
   "W_BO": "W_BO",
   "M_BO": "M_BO",
   "D_BO": "D_BO",
-  "M_XC": "M_XC",
-  "D_EMA20": "D_E20",
-  "W_EMA10": "W_E10",
   "W_SL": "W_SL",
   "M_SL": "M_SL",
+  "W_EMA10": "W_E10",
+  "M_EMA10": "M_E10",
 };
 
 let rawTFC = [];
@@ -50,10 +45,10 @@ function splitHighLowTFC(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const mBO = toNumberTFC(r.M_BO);
+    const mE10 = toNumberTFC(r.M_E10);
     const mSL = toNumberTFC(r.M_SL);
 
-    if (mBO >= 1 && mSL > 0 && mSL < 12) {
+    if (mE10 >= 1 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
