@@ -13,10 +13,11 @@ const CSV_TFC = "tfcore_report.csv";
 const COLS_TFC = [
   "Symbol","Chart","Folio",
   "DD_High",
-  "W_SL","M_SL",
   "D_BO","W_BO","M_BO",
   "W_CHG","M_CHG",
-  "W_EMA10","M_EMA10","CurPrice","Sector","MarketCap","Notes"
+  "W_EMA10","M_EMA10",
+  "W_SL","M_SL",
+  "CurPrice","Sector","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFC = {
@@ -48,7 +49,7 @@ function splitHighLowTFC(rows) {
     const wE10 = toNumberTFC(r.W_EMA10);
     const mSL = toNumberTFC(r.M_SL);
 
-    if (wE10 >= 1 && mSL > 0 && mSL < 12) {
+    if (wE10 > 0 && wE10 < 8 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);

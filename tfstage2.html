@@ -13,10 +13,10 @@ const CSV_TFS2 = "tfstage2_report.csv";
 const COLS_TFS2 = [
   "Symbol","Chart","Folio",
   "DD_High",
-  "W_SL","M_SL",
   "D_BO","W_BO","M_BO",
   "W_CHG","M_CHG",
   "W_EMA10","M_EMA10",
+  "W_SL","M_SL",
   "CurPrice","Sector","MarketCap","Notes"
 ];
 
@@ -46,9 +46,9 @@ function splitHighLowTFS2(rows) {
 
   rows.forEach(r => {
     const wSL = toNumberTFS2(r.W_SL);
-    const wE10 = toNumberTFS2(r.W_E10);
+    const wE10 = toNumberTFS2(r.W_EMA10);
 
-    if (wE10 >= 1 && wSL > 0 && wSL < 12) {
+    if (wE10 > 0 && wE10 < 8 && wSL > 0 && wSL < 10) {
       highRows.push(r);
     } else {
       lowRows.push(r);
