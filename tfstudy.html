@@ -47,10 +47,11 @@ function splitHighLowTFS(rows) {
 
   rows.forEach(r => {
     const wE10 = toNumberTFS(r.W_EMA10);
+    const mE10 = toNumberTFS(r.M_EMA10);
     const wSL = toNumberTFS(r.W_SL);
     const mSL = toNumberTFS(r.M_SL);
 
-    if (wE10 > 0 && wE10 < 8 && wSL > 0 && wSL < 12 ) {
+    if (wE10 > 0 && wE10 < 8 && mE10 > 0 && wSL > 0 && wSL < 12 ) {
       highRows.push(r);
     } else {
       lowRows.push(r);

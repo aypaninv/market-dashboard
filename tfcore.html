@@ -48,9 +48,10 @@ function splitHighLowTFC(rows) {
 
   rows.forEach(r => {
     const wE10 = toNumberTFC(r.W_EMA10);
+    const mE10 = toNumberTFC(r.M_EMA10);
     const mSL = toNumberTFC(r.M_SL);
 
-    if (wE10 > 0 && wE10 < 8 && mSL > 0 && mSL < 12) {
+    if (wE10 > 0 && wE10 < 8 && mE10 > 0 && mSL > 0 && mSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);

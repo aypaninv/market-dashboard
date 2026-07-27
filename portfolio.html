@@ -172,8 +172,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = { 
-  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0 || toNumber(d["W_EMA10"]) < 0),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0 || toNumber(d["W_EMA10"]) < 0),
 };
 
 const holdConditionsByFolio = {
@@ -182,18 +182,27 @@ const holdConditionsByFolio = {
 };
 
 const pullbackConditionsByFolio = {
-  // Pullback uses the shared default condition unless overridden per folio.
+  Sate: d => {
+    const dE10 = toNumber(d["D_EMA10"]);
+    const wSL = toNumber(d["W_SL"]);
+    return dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12;
+  },
+  Core: d => {
+    const wE10 = toNumber(d["W_EMA10"]);
+    const mSL = toNumber(d["M_SL"]);
+    return  wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12;
+  },
 };
 
 const exitConditionsByFolio = {
   Sate: d => (
-                toNumber(d["PNL"]) < -8
+                toNumber(d["PnL"]) < -8
               ) || (  
                 toNumber(d["IC"]) >= 0.5 && 
-                toNumber(d.M_SL) < 0
+                toNumber(d["M_SL"]) < 0
               ), 
   Core: d => (
-                toNumber(d["PNL"]) < -8
+                toNumber(d["PnL"]) < -8
               ) || ( 
                 toNumber(d["IC"]) >= 0.5 && 
                 toNumber(d["M_SL"]) < 0
@@ -222,11 +231,7 @@ function getExitCondition(folio) {
 }
 
 function defaultPullbackCondition(d) {
-  const dBO = toNumber(d["D_BO"]);
-  const mSL = toNumber(d["M_SL"]);
-  const ic = toNumber(d["IC"]);
-  const pnl = toNumber(d["PnL"]);
-  return dBO > 0 && dBO < 5 && mSL < 10 && meetsPnLThreshold(ic, pnl);
+  return pullbackConditionsByFolio[folio] || (() => false);
 }
 
 function getPullbackCondition(folio) {
