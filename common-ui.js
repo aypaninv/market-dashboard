@@ -689,12 +689,10 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.fillRect(cx - bW / 2, yTop, bW, bH);
     });
 
-    // Draw EMA lines — aligned by row index so lines always match candles
+    // Draw EMA10 line — single EMA(10) aligned by row index so line always matches candles
     const allCloses = allRows.map(r => r.Close);
-    const emaFastAll = calcEMA(allCloses, 6);
-    const emaSlowAll = calcEMA(allCloses, 12);
-    const visEmaFast = emaFastAll.slice(-candles.length);
-    const visEmaSlow = emaSlowAll.slice(-candles.length);
+    const ema10All = calcEMA(allCloses, 10);
+    const visEma10 = ema10All.slice(-candles.length);
 
     function drawEmaLine(emaValues, color) {
       ctx.strokeStyle = color;
@@ -711,8 +709,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.stroke();
     }
 
-    drawEmaLine(visEmaFast, "#2196F3");
-    drawEmaLine(visEmaSlow, "#FF4444");
+    drawEmaLine(visEma10, "#2196F3");
 
     // 52-week line from last 12 monthly candles high
     if (Number.isFinite(high52w)) {
