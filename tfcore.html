@@ -137,8 +137,8 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const { highRows, lowRows } = splitHighLowTFC([...data]);
   tfcSections = {
-    High: window.sortRowsByColumn(highRows, "M_SL", false),
-    Low: window.sortRowsByColumn(lowRows, "DD_High", false),
+    High: window.sortRowsByWEMA10(highRows, "W_EMA10", true),
+    Low: window.sortRowsByWEMA10(lowRows, "W_EMA10", true),
   };
   tfcColWidths = computeSharedColWidthsTFC([...highRows, ...lowRows]);
   tfcSortState = {};
@@ -186,7 +186,9 @@ function drawTFCTable(table, rows, sectionKey) {
   table.innerHTML = "";
   const sortInfo = tfcSortState[sectionKey];
   const data = sortInfo
-    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
+    ? (sortInfo.col === "W_EMA10" || sortInfo.col === "M_EMA10"
+        ? window.sortRowsByWEMA10(rows, sortInfo.col, sortInfo.asc)
+        : window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc))
     : rows;
 
   if (!data.length) {
