@@ -148,26 +148,29 @@ function meetsPnLThreshold(ic, pnl) {
 
 const addConditionsByFolio = {
   Trade: d => {
+    const ltDays = toNumber(d["LT_Days"]);
     const ltPert = toNumber(d.LT_Pert);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltPert > 4 && wSL > 0 && wSL < 12;
+    return ltDays > 5 && ltPert > 4 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
+    const ltDays = toNumber(d["LT_Days"]);
     const ltPert = toNumber(d.LT_Pert);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltDays > 5 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
+    const ltDays = toNumber(d["LT_Days"]);
     const ltPert = toNumber(d.LT_Pert);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltDays > 5 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -183,14 +186,16 @@ const holdConditionsByFolio = {
 
 const pullbackConditionsByFolio = {
   Sate: d => {
+    const ltDays = toNumber(d["LT_Days"]);
     const dE10 = toNumber(d["D_EMA10"]);
     const wSL = toNumber(d["W_SL"]);
-    return dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12;
+    return ltDays > 10 && dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12;
   },
   Core: d => {
+    const ltDays = toNumber(d["LT_Days"]);
     const wE10 = toNumber(d["W_EMA10"]);
     const mSL = toNumber(d["M_SL"]);
-    return  wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12;
+    return  ltDays > 10 && wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12;
   },
 };
 
