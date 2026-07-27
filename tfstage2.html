@@ -50,7 +50,7 @@ function splitHighLowTFS2(rows) {
     const wE10 = toNumberTFS2(r.W_EMA10);
     const mE10 = toNumberTFS2(r.M_EMA10);
 
-    if (wE10 > 0 && wE10 < 8 && mE10 > 0 && wSL > 0 && wSL < 10) {
+    if (wE10 > 0 && wE10 < 5 && mE10 > 0 && wSL > 0 && wSL < 10) {
       highRows.push(r);
     } else {
       lowRows.push(r);
