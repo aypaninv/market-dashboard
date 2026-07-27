@@ -186,13 +186,13 @@ const holdConditionsByFolio = {
 
 const pullbackConditionsByFolio = {
   Sate: d => {
-    const ltDays = toNumber(d["LT_Days"]);
+    const ltDays = toNumber(d["LT_days"]);
     const dE10 = toNumber(d["D_EMA10"]);
     const wSL = toNumber(d["W_SL"]);
     return ltDays > 10 && dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12;
   },
   Core: d => {
-    const ltDays = toNumber(d["LT_Days"]);
+    const ltDays = toNumber(d["LT_days"]);
     const wE10 = toNumber(d["W_EMA10"]);
     const mSL = toNumber(d["M_SL"]);
     return  ltDays > 10 && wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12;
