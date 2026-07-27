@@ -17,7 +17,7 @@ const DEFAULT_COLUMN_ORDER = [
   "D_XL","W_XL","M_XL",
   "D_XL","W_XL","M_XL",
   "D_CHG","W_CHG","M_CHG",
-  "W_SL","M_SL","W_EMA10","M_EMA10","AvgPrice","CurPrice",
+  "W_SL","M_SL","D_EMA10","W_EMA10","M_EMA10","AvgPrice","CurPrice",
   "Sector","MarketCap","Notes"
 ];
 
@@ -27,32 +27,33 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
+    // "D_BO","W_BO","M_BO",
+    "D_EMA10","W_EMA10","M_EMA10",
     "W_XL","M_XL",
-    "W_CHG","M_CHG",
-    "W_EMA10","M_EMA10",
     "W_SL","M_SL",
+    "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Notes"
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
+    // "D_BO","W_BO","M_BO",
+    "D_EMA10","W_EMA10","M_EMA10",
     "W_XL","M_XL",
-    "W_CHG","M_CHG",
-    "W_EMA10","M_EMA10",
     "W_SL","M_SL",
+    "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
-    "W_CHG","M_CHG",
-    "W_EMA10","M_EMA10",
+    // "D_BO","W_BO","M_BO",
+    "D_EMA10","W_EMA10","M_EMA10",
+    "W_XL","M_XL",
     "W_SL","M_SL",
+    "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
 };
@@ -66,6 +67,7 @@ const HEADER_LABELS = {
   "M_XL": "M_XL",
   "W_EMA10": "W_E10",
   "M_EMA10": "M_E10",
+  "D_EMA10": "D_E10",
   "W_BO": "W_BO",
   "M_BO": "M_BO",
   "D_BO": "D_BO",
