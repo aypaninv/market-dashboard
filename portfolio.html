@@ -150,9 +150,8 @@ const addConditionsByFolio = {
   Trade: d => {
     const ltDays = toNumber(d["LT_days"]);
     const ltPert = toNumber(d["LT_Pert"]);
-    const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltDays > 5 && ltPert > 4 && wSL > 0 && wSL < 12;
+    return ltDays > 4 && ltPert > 4 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
     const ltDays = toNumber(d["LT_days"]);
@@ -161,7 +160,7 @@ const addConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltDays > 5 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltDays > 4 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltDays = toNumber(d["LT_days"]);
@@ -170,7 +169,7 @@ const addConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltDays > 5 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltDays > 4 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
