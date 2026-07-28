@@ -149,14 +149,14 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Trade: d => {
     const ltDays = toNumber(d["LT_Days"]);
-    const ltPert = toNumber(d.LT_Pert);
+    const ltPert = toNumber(d["LT_Pert"]);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
     return ltDays > 5 && ltPert > 4 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
     const ltDays = toNumber(d["LT_Days"]);
-    const ltPert = toNumber(d.LT_Pert);
+    const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
@@ -165,7 +165,7 @@ const addConditionsByFolio = {
   },
   Core: d => {
     const ltDays = toNumber(d["LT_Days"]);
-    const ltPert = toNumber(d.LT_Pert);
+    const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
@@ -186,16 +186,20 @@ const holdConditionsByFolio = {
 
 const pullbackConditionsByFolio = {
   Sate: d => {
-    const ltDays = toNumber(d["LT_days"]);
+    const ic = toNumber(d["IC"]);
+    const pnl = toNumber(d["PnL"]);
+    const ltDays = toNumber(d["LT_Days"]);
     const dE10 = toNumber(d["D_EMA10"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltDays > 10 && dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12;
+    return ltDays > 10 && dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
-    const ltDays = toNumber(d["LT_days"]);
+    const ic = toNumber(d["IC"]);
+    const pnl = toNumber(d["PnL"]);
+    const ltDays = toNumber(d["LT_Days"]);
     const wE10 = toNumber(d["W_EMA10"]);
     const mSL = toNumber(d["M_SL"]);
-    return  ltDays > 10 && wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12;
+    return  ltDays > 10 && wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
