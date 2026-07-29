@@ -27,8 +27,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    // "D_BO","W_BO","M_BO",
-    "D_EMA10","W_EMA10","M_EMA10",
+    "D_BO","W_BO","M_BO",
+    // "D_EMA10","W_EMA10","M_EMA10",
     "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -38,8 +38,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    // "D_BO","W_BO","M_BO",
-    "D_EMA10","W_EMA10","M_EMA10",
+    "D_BO","W_BO","M_BO",
+    // "D_EMA10","W_EMA10","M_EMA10",
     "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -49,8 +49,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    // "D_BO","W_BO","M_BO",
-    "D_EMA10","W_EMA10","M_EMA10",
+    "D_BO","W_BO","M_BO",
+    // "D_EMA10","W_EMA10","M_EMA10",
     "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -148,34 +148,32 @@ function meetsPnLThreshold(ic, pnl) {
 
 const addConditionsByFolio = {
   Trade: d => {
-    const ltDays = toNumber(d["LT_days"]);
     const ltPert = toNumber(d["LT_Pert"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltDays > 4 && ltPert > 4 && wSL > 0 && wSL < 12;
+    const wBO = toNumber(d["W_BO"]);
+    return ltPert > 4 && wBO >= 0 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
-    const ltDays = toNumber(d["LT_days"]);
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltDays > 4 && ltPert > 4 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && wBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
-    const ltDays = toNumber(d["LT_days"]);
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltDays > 4 && ltPert > 4 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && wBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
 const sellConditionsByFolio = { 
-  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0 || toNumber(d["W_EMA10"]) < 0),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["W_SL"]) < 0 || toNumber(d["W_EMA10"]) < 0),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
 };
 
 const holdConditionsByFolio = {
@@ -188,17 +186,17 @@ const pullbackConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dE10 = toNumber(d["D_EMA10"]);
+    const dBO = toNumber(d["D_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltDays > 10 && dE10 > 0 && dE10 < 5 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ltDays > 10 && dBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const wE10 = toNumber(d["W_EMA10"]);
+    const dBO = toNumber(d["D_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return  ltDays > 10 && wE10 > 0 && wE10 <= 1 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return  ltDays > 10 && dBO >= 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -218,7 +216,7 @@ const exitConditionsByFolio = {
   Trade: d => (
                 toNumber(d["W_SL"]) < 0
               ) || (
-                toNumber(d["W_CHG"]) < -8
+                toNumber(d["M_CHG"]) < -8
               ),
 };
   
@@ -238,7 +236,7 @@ function getExitCondition(folio) {
   return exitConditionsByFolio[folio] || (() => false);
 }
 
-function defaultPullbackCondition(d) {
+function defaultPullbackCondition(folio) {
   return pullbackConditionsByFolio[folio] || (() => false);
 }
 
