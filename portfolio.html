@@ -28,8 +28,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "D_EMA10","W_EMA10","M_EMA10",
-    "W_XL","M_XL",
+    "W_EMA10","M_EMA10",
+    // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Notes"
@@ -39,8 +39,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "D_EMA10","W_EMA10","M_EMA10",
-    "W_XL","M_XL",
+    "W_EMA10","M_EMA10",
+    // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
@@ -50,8 +50,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "D_EMA10","W_EMA10","M_EMA10",
-    "W_XL","M_XL",
+    "W_EMA10","M_EMA10",
+    // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
@@ -151,23 +151,26 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d["LT_Pert"]);
     const wSL = toNumber(d["W_SL"]);
     const wBO = toNumber(d["W_BO"]);
-    return ltPert > 4 && wBO >= 0 && wSL > 0 && wSL < 12;
+    const mBO = toNumber(d["M_BO"]);
+    return ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 10;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
+    const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 4 && wBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wBO = toNumber(d["W_BO"]);
+    const mBO = toNumber(d["M_BO"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 4 && wBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && wBO >= 0 && mBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 

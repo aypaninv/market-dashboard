@@ -14,7 +14,7 @@ const COLS_TFC = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  // "D_EMA10","W_EMA10","M_EMA10",
+  "W_EMA10","M_EMA10",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -48,9 +48,10 @@ function splitHighLowTFC(rows) {
 
   rows.forEach(r => {
     const wBO = toNumberTFC(r.W_BO);
+    const mBO = toNumberTFC(r.M_BO);
     const mSL = toNumberTFC(r.M_SL);
 
-    if (wBO > 0 && mSL > 0 && mSL < 15) {
+    if (wBO > 0 && mBO >= 0 && mSL > 0 && mSL < 15) {
       highRows.push(r);
     } else {
       lowRows.push(r);
