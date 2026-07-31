@@ -14,7 +14,6 @@ const COLS_TFS2 = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  "4H_MACD","D_MACD","W_MACD","M_MACD",
   "W_EMA10","M_EMA10",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
@@ -47,11 +46,11 @@ function splitHighLowTFS2(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wMACD = toNumberTFS2(r.W_MACD);
-    const mMACD = toNumberTFS2(r.M_MACD);
+    const wBO = toNumberTFS2(r.W_BO);
+    const mBO = toNumberTFS2(r.M_BO);
     const wSL = toNumberTFS2(r.W_SL);
 
-    if (wMACD > 0 && wMACD < 5 && mMACD > 0 ) {
+    if (wBO > 0 && mBO >= 0 && wSL > 0 && wSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
