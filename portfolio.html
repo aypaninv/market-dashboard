@@ -178,8 +178,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = { 
-  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < 0 ),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < 0 ),
 };
 
 const holdConditionsByFolio = {
@@ -192,35 +192,35 @@ const pullbackConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dBO = toNumber(d["D_BO"]);
+    const wMACD = toNumber(d["W_MACD"]);
     const wSL = toNumber(d["W_SL"]);
-    return ltDays > 10 && dBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ltDays > 10 && wMACD > 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dBO = toNumber(d["D_BO"]);
+    const wMACD = toNumber(d["W_MACD"]);
     const mSL = toNumber(d["M_SL"]);
-    return  ltDays > 10 && dBO >= 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ltDays > 10 && wMACD > 0 && wMACD < 5 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
 const exitConditionsByFolio = {
   Sate: d => (
-                toNumber(d["PnL"]) < -8
+                toNumber(d["M_MACD"]) < 0
               ) || (  
                 toNumber(d["IC"]) >= 0.5 && 
                 toNumber(d["M_SL"]) < 0
               ), 
   Core: d => (
-                toNumber(d["PnL"]) < -8
+                toNumber(d["M_MACD"]) < 0
               ) || ( 
                 toNumber(d["IC"]) >= 0.5 && 
-                toNumber(d["M_SL"]) < 0
+                toNumber(d["M_SL"]) < -8
               ),
   Trade: d => (
-                toNumber(d["W_SL"]) < 0
+                toNumber(d["W_MACD"]) < 0
               ) || (
                 toNumber(d["M_CHG"]) < -8
               ),
