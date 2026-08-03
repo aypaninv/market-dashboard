@@ -28,7 +28,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "4H_MACD","D_MACD","W_MACD","M_MACD",
+    "4H_MACD","D_MACD","W_MACD","M_MACD",
     "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -40,7 +40,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "4H_MACD","D_MACD","W_MACD","M_MACD",
+    "4H_MACD","D_MACD","W_MACD","M_MACD",
     "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -52,7 +52,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
-    // "4H_MACD","D_MACD","W_MACD","M_MACD",
+    "4H_MACD","D_MACD","W_MACD","M_MACD",
     "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -152,28 +152,27 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d["LT_Pert"]);
-    const wSL = toNumber(d["W_SL"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
-    return ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 10;
+    const wMACD = toNumber(d["W_MACD"]);
+    const fhMACD = toNumber(d["4H_MACD"]);
+    return ltPert > 0 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
-    const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    const wMACD = toNumber(d["W_MACD"]);
+    const fhMACD = toNumber(d["4H_MACD"]);
+    return ic < 6 && ltPert > 0 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8&& meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
+    const mMACD = toNumber(d["M_MACD"]);
+    const wMACD = toNumber(d["W_MACD"]);
+    const fhMACD = toNumber(d["4H_MACD"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 4 && wBO >= 0 && mBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && wMACD >= 0 && mMACD >= 0 && fhMACD >= 0 && fhMACD < 8 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
