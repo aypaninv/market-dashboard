@@ -191,15 +191,15 @@ const pullbackConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dMACD = toNumber(d["D_MACD"]);
-    return ltDays > 10 && dMACD >= 0 && dMACD < 6 && meetsPnLThreshold(ic, pnl);
+    const wMACD = toNumber(d["W_MACD"]);
+    return ltDays > 10 && wMACD >= 0 && wMACD <= 2 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dMACD = toNumber(d["D_MACD"]);
-    return  ltDays > 10 && dMACD >= 0 && dMACD < 6 && meetsPnLThreshold(ic, pnl);
+    const wMACD = toNumber(d["W_MACD"]);
+    return ltDays > 10 && wMACD >= 0 && wMACD <= 2 && meetsPnLThreshold(ic, pnl);
   },
 };
 
