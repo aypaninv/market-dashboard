@@ -14,7 +14,6 @@ const COLS_TFW = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  "4H_MACD","D_MACD","W_MACD","M_MACD",
   "W_EMA10","M_EMA10",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
@@ -48,10 +47,11 @@ function splitHighLowTFW(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wMACD = toNumberTFW(r["W_MACD"]);
-    const fhMACD = toNumberTFW(r["4H_MACD"]);
+    const wBO = toNumberTFW(r.W_BO);
+    const mBO = toNumberTFW(r.M_BO);
+    const wSL = toNumberTFW(r.W_SL);
 
-    if (wMACD >= 0 && fhMACD >= 0 && fhMACD < 8) {
+    if (wBO >= 0 && wSL > 0 && wSL < 12 && mBO >= 0 ) {
       highRows.push(r);
     } else {
       lowRows.push(r);
@@ -288,7 +288,7 @@ function updateTFTime() {
   fetch(CSV_TFW, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
-      document.getElementById("updateTime_tfw").innerText =
+      document.getElementById("updateTime_tf").innerText =
         d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
         " / " +
         d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
