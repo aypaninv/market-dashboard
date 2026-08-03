@@ -27,9 +27,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
+    // "D_BO","W_BO","M_BO",
     "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_EMA10","M_EMA10",
+    // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -39,9 +39,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
+    // "D_BO","W_BO","M_BO",
     "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_EMA10","M_EMA10",
+    // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -51,9 +51,9 @@ const COLUMN_ORDER_BY_FOLIO = {
     "Symbol","Chart","Folio","IC","CC","PnL",
     "DD_High",
     "LT_Type","LT_days","LT_Pert",
-    "D_BO","W_BO","M_BO",
+    // "D_BO","W_BO","M_BO",
     "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_EMA10","M_EMA10",
+    // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -154,7 +154,7 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d["LT_Pert"]);
     const wMACD = toNumber(d["W_MACD"]);
     const fhMACD = toNumber(d["4H_MACD"]);
-    return ltPert > 4 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8;
+    return ltPert > 0 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -162,7 +162,7 @@ const addConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wMACD = toNumber(d["W_MACD"]);
     const fhMACD = toNumber(d["4H_MACD"]);
-    return ic < 6 && ltPert > 4 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8&& meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 0 && wMACD >= 0 && fhMACD >= 0 && fhMACD < 8&& meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -177,8 +177,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = { 
-  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < -1),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < -1),
 };
 
 const holdConditionsByFolio = {
@@ -191,17 +191,15 @@ const pullbackConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dBO = toNumber(d["D_BO"]);
-    const wSL = toNumber(d["W_SL"]);
-    return ltDays > 10 && dBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    const dMACD = toNumber(d["D_MACD"]);
+    return ltDays > 10 && dMACD >= 0 && dMACD < 6 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const ltDays = toNumber(d["LT_days"]);
-    const dBO = toNumber(d["D_BO"]);
-    const mSL = toNumber(d["M_SL"]);
-    return  ltDays > 10 && dBO >= 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    const dMACD = toNumber(d["D_MACD"]);
+    return  ltDays > 10 && dMACD >= 0 && dMACD < 6 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -221,7 +219,7 @@ const exitConditionsByFolio = {
   Trade: d => (
                 toNumber(d["W_SL"]) < 0
               ) || (
-                toNumber(d["M_CHG"]) < -8
+                toNumber(d["W_MACD"]) < -1
               ),
 };
   
