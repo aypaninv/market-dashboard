@@ -164,9 +164,6 @@ const CHART_CANDLE_COUNTS = {
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
 const BODY_MIN_PCT = 0.30;  // Minimum candle body size (body/range) for stoploss reference candle
-const MACD_FAST_PERIOD = 6;
-const MACD_SLOW_PERIOD = 12;
-const MACD_SIGNAL_PERIOD = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
@@ -244,41 +241,106 @@ function getRowDateLabel(row) {
   return (row?.Date || row?.Datetime || "").slice(0, 10);
 }
 
-function calculateEmaSeries(values, period) {
-  const result = new Array(values.length).fill(null);
-  const alpha = 2 / (period + 1);
-  let ema = null;
-
-  for (let i = 0; i < values.length; i++) {
-    const v = values[i];
+function calcEMA(closes, period) {
+  // Returns array of same length as closes; null for warmup/invalid entries.
+  const result = new Array(closes.length).fill(null);
+  const multiplier = 2 / (period + 1);
+  let count = 0, sum = 0, seedEnd = -1;
+  for (let i = 0; i < closes.length; i++) {
+    const v = +closes[i];
+    if (!Number.isFinite(v)) { count = 0; sum = 0; continue; }
+    sum += v;
+    count++;
+    if (count === period) { seedEnd = i; break; }
+  }
+  if (seedEnd < 0) return result;
+  let ema = sum / period;
+  result[seedEnd] = ema;
+  for (let i = seedEnd + 1; i < closes.length; i++) {
+    const v = +closes[i];
     if (!Number.isFinite(v)) continue;
-
-    if (ema === null) ema = v;
-    else ema = (alpha * v) + ((1 - alpha) * ema);
-
+    ema = v * multiplier + ema * (1 - multiplier);
     result[i] = ema;
   }
-
   return result;
 }
 
-function calculateMacdSeries(rows) {
-  const closes = rows.map(r => {
-    const v = +r.Close;
-    return Number.isFinite(v) ? v : null;
+function computeActiveFvgZones(rows) {
+  if (!Array.isArray(rows) || rows.length < 3) return [];
+
+  const zones = [];
+
+  for (let i = 2; i < rows.length; i++) {
+    const c1 = rows[i - 2];
+    const c2 = rows[i - 1];
+    const c3 = rows[i];
+
+    const h1 = +c1.High;
+    const l1 = +c1.Low;
+    const o2 = +c2.Open;
+    const h2 = +c2.High;
+    const l2 = +c2.Low;
+    const c2Close = +c2.Close;
+    const h3 = +c3.High;
+    const l3 = +c3.Low;
+
+    if (![h1, l1, o2, h2, l2, c2Close, h3, l3].every(Number.isFinite)) continue;
+
+    const c2Range = h2 - l2;
+    if (!(c2Range > 0)) continue;
+
+    // Filter weak/likely-fake gaps: require displacement body in candle-2.
+    const c2BodyRatio = Math.abs(c2Close - o2) / c2Range;
+    if (c2BodyRatio < 0.45) continue;
+
+    const minGap = Math.max(0.0001, Math.abs(c2Close) * 0.0015);
+
+    // Bullish FVG: candle-3 low above candle-1 high.
+    const bullGap = l3 - h1;
+    const isBull = bullGap >= minGap && c2Close > o2 && h2 > h1;
+
+    // Bearish FVG: candle-3 high below candle-1 low.
+    const bearGap = l1 - h3;
+    const isBear = bearGap >= minGap && c2Close < o2 && l2 < l1;
+
+    if (!isBull && !isBear) continue;
+
+    if (isBull) {
+      zones.push({
+        type: "bull",
+        startIndex: i,
+        lower: h1,
+        upper: l3,
+      });
+    }
+
+    if (isBear) {
+      zones.push({
+        type: "bear",
+        startIndex: i,
+        lower: h3,
+        upper: l1,
+      });
+    }
+  }
+
+  // Keep only undigested (unfilled) zones.
+  return zones.filter(zone => {
+    for (let j = zone.startIndex + 1; j < rows.length; j++) {
+      const rowLow = +rows[j].Low;
+      const rowHigh = +rows[j].High;
+      if (!Number.isFinite(rowLow) || !Number.isFinite(rowHigh)) continue;
+
+      if (zone.type === "bull" && rowLow <= zone.lower) {
+        return false;
+      }
+
+      if (zone.type === "bear" && rowHigh >= zone.upper) {
+        return false;
+      }
+    }
+    return true;
   });
-
-  const emaFast = calculateEmaSeries(closes, MACD_FAST_PERIOD);
-  const emaSlow = calculateEmaSeries(closes, MACD_SLOW_PERIOD);
-
-  const macd = closes.map((_, i) => {
-    if (!Number.isFinite(emaFast[i]) || !Number.isFinite(emaSlow[i])) return null;
-    return emaFast[i] - emaSlow[i];
-  });
-
-  const signal = calculateEmaSeries(macd, MACD_SIGNAL_PERIOD);
-
-  return { macd, signal };
 }
 
 function buildChartTitle(symbol, tf, candles) {
@@ -447,11 +509,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
   const cW = W - P.l - P.r, cH = H - P.t - P.b;
-  const panelGap = 10;
-  const macdPanelH = Math.max(88, Math.round(cH * 0.24));
-  const pricePanelH = Math.max(120, cH - macdPanelH - panelGap);
-  const priceTop = P.t;
-  const macdTop = priceTop + pricePanelH + panelGap;
   const dark = document.body.classList.contains("dark");
   const bgC    = dark ? "#161b22" : "#ffffff";
   const gridC  = dark ? "#2b313a" : "#e5e5e5";
@@ -486,14 +543,13 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
 
   const pad = (maxP - minP) * 0.05 || 1;
   const lo = minP - pad, hi = maxP + pad, rng = hi - lo;
-  const pyPrice = p => priceTop + pricePanelH * (1 - (p - lo) / rng);
+  const py = p => P.t + cH * (1 - (p - lo) / rng);
 
   const n = candles.length;
   const slotW = cW / n;
   const bW = Math.max(2, Math.floor(slotW * 0.62));
-  const macdAll = calculateMacdSeries(allRows);
-  const macdVisible = macdAll.macd.slice(-n);
-  const signalVisible = macdAll.signal.slice(-n);
+  const activeFvgZones = computeActiveFvgZones(allRows);
+  const visibleStartIndex = Math.max(0, allRows.length - candles.length);
 
   const infoEl = document.getElementById("chartInfo");
   const latest = candles[candles.length - 1] || null;
@@ -506,15 +562,13 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     return Number.isFinite(+v) ? String(Math.trunc(+v)) : "NA";
   }
 
-  function setInfo(row, rowIndex) {
+  function setInfo(row, hoverMode) {
     if (!infoEl || !row) return;
     const d = getRowDateLabel(row);
     const o = fmtCompact(row.Open);
     const h = fmtCompact(row.High);
     const l = fmtCompact(row.Low);
     const c = fmtCompact(row.Close);
-    const macdVal = Number.isFinite(macdVisible[rowIndex]) ? macdVisible[rowIndex].toFixed(2) : "NA";
-    const signalVal = Number.isFinite(signalVisible[rowIndex]) ? signalVisible[rowIndex].toFixed(2) : "NA";
     const rowClose = +row.Close;
     const pctFrom52w = (
       Number.isFinite(high52w) && high52w !== 0 && Number.isFinite(rowClose)
@@ -544,10 +598,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
         ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
         ' <span style="color:#dc2626;font-weight:700;">MSL:' + pctMslText + '</span>' +
         ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
-      '</div>' +
-      '<div style="margin-top:2px;">' +
-        ' <span style="color:#1d4ed8;font-weight:700;">MACD:' + macdVal + '</span>' +
-        ' <span style="color:#f97316;font-weight:700;">SIG:' + signalVal + '</span>' +
       '</div>';
   }
 
@@ -586,10 +636,42 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     ctx.textAlign = "right";
     for (let i = 0; i <= 4; i++) {
       const pv = lo + rng * i / 4;
-      const y  = pyPrice(pv);
+      const y  = py(pv);
       ctx.beginPath(); ctx.moveTo(P.l, y); ctx.lineTo(W - P.r, y); ctx.stroke();
       ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
     }
+
+    // Draw active, undigested FVG zones (1-3 gap) behind candles.
+    activeFvgZones.forEach(zone => {
+      if (zone.startIndex >= allRows.length) return;
+      if (zone.startIndex > allRows.length - 1) return;
+      if (zone.startIndex > visibleStartIndex + n - 1) return;
+
+      const fromVisibleIndex = Math.max(0, zone.startIndex - visibleStartIndex);
+      const x1 = P.l + fromVisibleIndex * slotW;
+      const x2 = W - P.r;
+
+      const yTop = py(zone.upper);
+      const yBottom = py(zone.lower);
+      const rectY = Math.min(yTop, yBottom);
+      const rectH = Math.max(1, Math.abs(yBottom - yTop));
+
+      const isBull = zone.type === "bull";
+      const fill = isBull ? "rgba(46, 204, 113, 0.14)" : "rgba(231, 76, 60, 0.14)";
+      const stroke = isBull ? "rgba(46, 204, 113, 0.55)" : "rgba(231, 76, 60, 0.55)";
+
+      ctx.fillStyle = fill;
+      ctx.fillRect(x1, rectY, Math.max(1, x2 - x1), rectH);
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x1, rectY, Math.max(1, x2 - x1), rectH);
+
+      const label = isBull ? "FVG+" : "FVG-";
+      ctx.font = "10px Courier New";
+      ctx.fillStyle = stroke;
+      ctx.textAlign = "left";
+      ctx.fillText(label, x1 + 4, Math.max(P.t + 10, rectY + 10));
+    });
 
     candles.forEach((c, i) => {
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
@@ -599,88 +681,39 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
 
       ctx.strokeStyle = col;
       ctx.lineWidth = 1.2;
-      ctx.beginPath(); ctx.moveTo(cx, pyPrice(h)); ctx.lineTo(cx, pyPrice(l)); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
-      const yTop = pyPrice(Math.max(o, cl));
-      const bH   = Math.max(1.5, pyPrice(Math.min(o, cl)) - yTop);
+      const yTop = py(Math.max(o, cl));
+      const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
       ctx.fillStyle = col;
       ctx.fillRect(cx - bW / 2, yTop, bW, bH);
     });
 
-    const macdVals = [...macdVisible, ...signalVisible].filter(v => Number.isFinite(v));
-    if (macdVals.length) {
-      let macdMin = Math.min(...macdVals);
-      let macdMax = Math.max(...macdVals);
-      if (macdMin === macdMax) {
-        const d = Math.abs(macdMin) * 0.1 || 0.1;
-        macdMin -= d;
-        macdMax += d;
-      }
+    // Draw EMA10 line — single EMA(10) aligned by row index so line always matches candles
+    const allCloses = allRows.map(r => r.Close);
+    const ema10All = calcEMA(allCloses, 10);
+    const visEma10 = ema10All.slice(-candles.length);
 
-      const macdPad = (macdMax - macdMin) * 0.2;
-      const macdLo = macdMin - macdPad;
-      const macdHi = macdMax + macdPad;
-      const macdRng = macdHi - macdLo;
-      const pyMacd = v => macdTop + macdPanelH * (1 - (v - macdLo) / macdRng);
-
-      ctx.strokeStyle = gridC;
-      ctx.lineWidth = 0.7;
+    function drawEmaLine(emaValues, color) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(P.l, macdTop);
-      ctx.lineTo(W - P.r, macdTop);
+      let started = false;
+      emaValues.forEach((v, i) => {
+        if (v === null) { started = false; return; }
+        const cx = P.l + (i + 0.5) * slotW;
+        const y = py(v);
+        if (!started) { ctx.moveTo(cx, y); started = true; }
+        else ctx.lineTo(cx, y);
+      });
       ctx.stroke();
-
-      const zeroY = pyMacd(0);
-      if (zeroY >= macdTop && zeroY <= macdTop + macdPanelH) {
-        ctx.setLineDash([4, 4]);
-        ctx.beginPath();
-        ctx.moveTo(P.l, zeroY);
-        ctx.lineTo(W - P.r, zeroY);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
-
-      ctx.fillStyle = labelC;
-      ctx.font = "10px Courier New";
-      ctx.textAlign = "right";
-      ctx.fillText(macdHi.toFixed(2), P.l - 5, macdTop + 10);
-      ctx.fillText("0.00", P.l - 5, Math.max(macdTop + 10, Math.min(macdTop + macdPanelH - 2, zeroY + 3)));
-      ctx.fillText(macdLo.toFixed(2), P.l - 5, macdTop + macdPanelH);
-
-      function drawMacdLine(values, color) {
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        let started = false;
-        values.forEach((v, i) => {
-          if (!Number.isFinite(v)) {
-            started = false;
-            return;
-          }
-          const cx = P.l + (i + 0.5) * slotW;
-          const y = pyMacd(v);
-          if (!started) {
-            ctx.moveTo(cx, y);
-            started = true;
-          } else {
-            ctx.lineTo(cx, y);
-          }
-        });
-        ctx.stroke();
-      }
-
-      drawMacdLine(macdVisible, "#1d4ed8");
-      drawMacdLine(signalVisible, "#f97316");
-
-      ctx.fillStyle = dark ? "#cbd5e1" : "#334155";
-      ctx.textAlign = "left";
-      ctx.font = "10px Courier New";
-      ctx.fillText("MACD(6,12) / SIG(6)", P.l + 4, macdTop + 12);
     }
+
+    drawEmaLine(visEma10, "#2196F3");
 
     // 52-week line from last 12 monthly candles high
     if (Number.isFinite(high52w)) {
-      const y52 = pyPrice(high52w);
+      const y52 = py(high52w);
       ctx.strokeStyle = "#f59e0b";
       ctx.lineWidth = 1.3;
       ctx.setLineDash([6, 4]);
@@ -704,7 +737,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
 
     // Stoploss line from monthly rule (latest highest-close green candle low)
     if (Number.isFinite(mslPrice)) {
-      const ySl = pyPrice(mslPrice);
+      const ySl = py(mslPrice);
       ctx.strokeStyle = "#dc2626";
       ctx.lineWidth = 1.3;
       ctx.setLineDash([5, 3]);
@@ -727,7 +760,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     }
 
     if (Number.isFinite(wslPrice)) {
-      const yWsl = pyPrice(wslPrice);
+      const yWsl = py(wslPrice);
       ctx.strokeStyle = "#0f766e";
       ctx.lineWidth = 1.3;
       ctx.setLineDash([5, 3]);
@@ -768,7 +801,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       const h = +row.High;
       const l = +row.Low;
       const cl = +row.Close;
-      const yClose = pyPrice(cl);
+      const yClose = py(cl);
 
       ctx.strokeStyle = dark ? "rgba(139,148,158,0.7)" : "rgba(80,90,100,0.6)";
       ctx.lineWidth = 1;
@@ -784,20 +817,20 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.stroke();
       ctx.setLineDash([]);
 
-      drawPricePointerLine(pyPrice(o), "#1976d2", "O " + fmt(o, 2));
-      drawPricePointerLine(pyPrice(h), "#2e7d32", "H " + fmt(h, 2));
-      drawPricePointerLine(pyPrice(l), "#d32f2f", "L " + fmt(l, 2));
-      drawPricePointerLine(pyPrice(cl), "#f59e0b", "C " + fmt(cl, 2));
+      drawPricePointerLine(py(o), "#1976d2", "O " + fmt(o, 2));
+      drawPricePointerLine(py(h), "#2e7d32", "H " + fmt(h, 2));
+      drawPricePointerLine(py(l), "#d32f2f", "L " + fmt(l, 2));
+      drawPricePointerLine(py(cl), "#f59e0b", "C " + fmt(cl, 2));
 
-      setInfo(row, hoverIndex);
+      setInfo(row, true);
     }
   }
 
-  setInfo(latest, n - 1);
+  setInfo(latest, false);
   drawChart(null);
   window.__chartRedraw = function() {
     drawChart(null);
-    setInfo(latest, n - 1);
+    setInfo(latest, false);
   };
 
   canvas.onmousemove = function(e) {
@@ -805,7 +838,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     const x = e.clientX - rect.left;
     if (x < P.l || x > W - P.r) {
       drawChart(null);
-      setInfo(latest, n - 1);
+      setInfo(latest, false);
       return;
     }
     const idx = Math.floor((x - P.l) / slotW);
@@ -816,7 +849,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
 
   canvas.onmouseleave = function() {
     drawChart(null);
-    setInfo(latest, n - 1);
+    setInfo(latest, false);
   };
 };
 
