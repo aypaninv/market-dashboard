@@ -51,7 +51,7 @@ function splitHighLowTFW(rows) {
     const wMACD = toNumberTFW(r["W_MACD"]);
     const fhMACD = toNumberTFW(r["4H_MACD"]);
 
-    if (wMACD >= 0 && fhMACD >= 0 && fhMACD < 8) {
+    if (wMACD > 0 && fhMACD > 0 && fhMACD < 8) {
       highRows.push(r);
     } else {
       lowRows.push(r);
