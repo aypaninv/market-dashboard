@@ -649,7 +649,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
 
       function drawMacdLine(values, color) {
         ctx.strokeStyle = color;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1;
         ctx.beginPath();
         let started = false;
         values.forEach((v, i) => {
