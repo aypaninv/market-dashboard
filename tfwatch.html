@@ -14,7 +14,8 @@ const COLS_TFW = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  "W_EMA10","M_EMA10",
+  "4H_MACD","W_MACD",
+  // "W_EMA10","M_EMA10",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -288,7 +289,7 @@ function updateTFTime() {
   fetch(CSV_TFW, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
-      document.getElementById("updateTime_tf").innerText =
+      document.getElementById("updateTime_tfw").innerText =
         d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
         " / " +
         d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
