@@ -156,36 +156,41 @@ const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const wSL = toNumber(d["W_SL"]);
+    const mSL = toNumber(d["M_SL"]);
+    const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
     const wMACD = toNumber(d["W_MACD"]);
     const fhMACD = toNumber(d["4H_MACD"]);
     // return ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 10;
-    return ltPert > 4 && fhMACD > 0 && wMACD > 0 && wSL > 0 && wSL < 10;
+    return ltPert > 4 && dBO > 0 && wSL < 12 && mSL < 15;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
+    const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
+    const mSL = toNumber(d["M_SL"]);
     const wMACD = toNumber(d["W_MACD"]);
     const fhMACD = toNumber(d["4H_MACD"]);
     // return ic < 6 && ltPert > 4 && wBO >= 0 && mBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
-    return ic < 6 && ltPert > 4 && fhMACD > 0 && wMACD > 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && dBO > 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
+    const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
     const mSL = toNumber(d["M_SL"]);
     const wMACD = toNumber(d["W_MACD"]);
     const fhMACD = toNumber(d["4H_MACD"]);
     // return ic < 7 && ltPert > 4 && wBO >= 0 && mBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
-    return ic < 7 && ltPert > 4 && fhMACD > 0 && wMACD > 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 4 && dBO > 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
