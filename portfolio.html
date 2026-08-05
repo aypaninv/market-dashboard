@@ -181,8 +181,8 @@ const addConditionsByFolio = {
 };
 
 const sellConditionsByFolio = { 
-  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
+  Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < 0 ),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_MACD"]) < 0 ),
 };
 
 const holdConditionsByFolio = {
@@ -225,7 +225,7 @@ const exitConditionsByFolio = {
   Trade: d => (
                 toNumber(d["W_SL"]) < 0
               ) || (
-                toNumber(d["M_CHG"]) < -8
+                toNumber(d["W_CHG"]) < -8
               ),
 };
   
