@@ -29,7 +29,6 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     // "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_MACD",
     // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -42,7 +41,6 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     // "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_MACD",
     // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -55,7 +53,6 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     // "4H_MACD","D_MACD","W_MACD","M_MACD",
-    "W_MACD",
     // "W_EMA10","M_EMA10",
     // "W_XL","M_XL",
     "W_SL","M_SL",
@@ -125,7 +122,7 @@ function defaultAddCondition(d) {
 }
 
 function defaultSellCondition(d) {
-  return toNumber(d.W_BO) < 0;
+  return toNumber(d.W_SL) < 0;
 }
 
 // Returns true when IC value is high but PnL hasn't caught up — triggers red highlight
@@ -160,8 +157,7 @@ const addConditionsByFolio = {
     const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
-    
-    return ltPert > 4 && dBO >= 0 && wSL < 12 && mSL < 15;
+    return ltPert > 4 && dBO >= 0 && wSL > 0 && wSL < 12 && mSL < 15;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -172,8 +168,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    
-    return ic < 6 && ltPert > 4 && dBO >= 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && dBO >= 0 && wSL > 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -183,7 +178,6 @@ const addConditionsByFolio = {
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
     const mSL = toNumber(d["M_SL"]);
-
     return ic < 7 && ltPert > 4 && dBO >= 0 && mSL > 0 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
