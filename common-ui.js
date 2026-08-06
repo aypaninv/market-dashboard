@@ -163,6 +163,7 @@ const CHART_CANDLE_COUNTS = {
 
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
+const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS };
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
@@ -332,12 +333,28 @@ window.renderCandleChart = function(symbol, tf) {
         if (Number.isFinite(low) && low !== 0) wslPrice = low;
       }
 
+      // Reference candle for current TF: HA-based highest-close green within lookback window
+      let refDate = null;
+      const tfRowsHA = computeHeikinAshi(rows);
+      const tfLookback = TF_LOOKBACK[tf] || 10;
+      const recentTfHA = tfRowsHA.slice(-tfLookback);
+      if (recentTfHA.length) {
+        const green = recentTfHA.filter(r => {
+          const o = +r.Open, c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+        const refPool = green.length ? green : [recentTfHA[0]];
+        const highestClose = Math.max(...refPool.map(r => +r.Close).filter(v => Number.isFinite(v)));
+        const refRow = refPool.filter(r => +r.Close === highestClose).slice(-1)[0];
+        if (refRow) refDate = getRowDateLabel(refRow);
+      }
+
       // Display candles: standard or Heikin Ashi based on toggle
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const displayRows = chartState.useHA
         ? computeHeikinAshi(rows).slice(-candleCount)
         : rows.slice(-candleCount);
-      window.showChart(symbol, tf, displayRows, rows, high52w, mslPrice, wslPrice);
+      window.showChart(symbol, tf, displayRows, rows, high52w, mslPrice, wslPrice, refDate);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
       updateChartModeButton();
@@ -349,7 +366,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf);
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice) {
+window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice, refDate) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -357,7 +374,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wsl
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -402,7 +419,7 @@ window.toggleChartMode = function() {
   }
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice) {
+window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -540,17 +557,30 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     candles.forEach((c, i) => {
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
       if (![o, h, l, cl].every(isFinite)) return;
-      const col = cl >= o ? "#26a69a" : "#ef5350";
+      const isRef = refDate && getRowDateLabel(c) === refDate;
+      const col = isRef ? "#ffd600" : (cl >= o ? "#26a69a" : "#ef5350");
       const cx  = P.l + (i + 0.5) * slotW;
 
       ctx.strokeStyle = col;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = isRef ? 1.6 : 1.2;
       ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
       const yTop = py(Math.max(o, cl));
       const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
       ctx.fillStyle = col;
       ctx.fillRect(cx - bW / 2, yTop, bW, bH);
+
+      // Downward triangle marker above wick for the reference candle
+      if (isRef) {
+        const mY = py(h) - 10;
+        ctx.fillStyle = "#ffd600";
+        ctx.beginPath();
+        ctx.moveTo(cx, mY + 7);
+        ctx.lineTo(cx - 4, mY);
+        ctx.lineTo(cx + 4, mY);
+        ctx.closePath();
+        ctx.fill();
+      }
     });
 
     // 52-week line from last 12 monthly candles high
