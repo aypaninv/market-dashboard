@@ -52,7 +52,7 @@ function splitHighLowTFS2(rows) {
     const mBO = toNumberTFS2(r.M_BO);
     const wSL = toNumberTFS2(r.W_SL);
 
-    if (ddHigh > -15 && mBO > 0 && wSL > 0 && wSL < 12) {
+    if ((wBO > 0 || mBO > 0) && wSL > 0 && wSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
