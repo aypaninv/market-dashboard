@@ -163,10 +163,32 @@ const CHART_CANDLE_COUNTS = {
 
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
+const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS };
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null };
+const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false };
+
+/* Convert standard OHLCV rows array to Heikin Ashi candle objects.
+   Each output row shares all original fields; Open/High/Low/Close are replaced with HA values. */
+function computeHeikinAshi(rows) {
+  if (!rows || !rows.length) return rows;
+  const out = new Array(rows.length);
+  let prevHaOpen = 0, prevHaClose = 0;
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i];
+    const o = +r.Open, h = +r.High, l = +r.Low, c = +r.Close;
+    if (![o, h, l, c].every(isFinite)) { out[i] = { ...r }; continue; }
+    const haClose = (o + h + l + c) / 4;
+    const haOpen  = i === 0 ? (o + c) / 2 : (prevHaOpen + prevHaClose) / 2;
+    const haHigh  = Math.max(h, haOpen, haClose);
+    const haLow   = Math.min(l, haOpen, haClose);
+    out[i] = { ...r, Open: haOpen, High: haHigh, Low: haLow, Close: haClose };
+    prevHaOpen  = haOpen;
+    prevHaClose = haClose;
+  }
+  return out;
+}
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -241,7 +263,8 @@ function getRowDateLabel(row) {
 }
 
 function buildChartTitle(symbol, tf, candles) {
-  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
+  const modeLabel = chartState.useHA ? "  [HA]" : "";
+  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + modeLabel + "  (" + candles.length + ")";
 }
 
 function setActiveChartTfButton(tf) {
@@ -271,54 +294,70 @@ window.renderCandleChart = function(symbol, tf) {
 
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
-      const last12Monthly = monthlyRows.slice(-12);
+      // 52w high from standard monthly High (actual price reference)
       let high52w = null;
       let mslPrice = null;
       let wslPrice = null;
+      const last12Monthly = monthlyRows.slice(-12);
       if (last12Monthly.length >= 12) {
-        const highs = last12Monthly
-          .map(r => +r.High)
-          .filter(v => Number.isFinite(v));
+        const highs = last12Monthly.map(r => +r.High).filter(v => Number.isFinite(v));
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      // Monthly SL: highest-close green candle within lookback; fall back to oldest candle if no green
-      const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
-      if (recentMonthly.length) {
-        const greenMonthly = recentMonthly.filter(r => {
+      // W_SL and M_SL always computed from Heikin Ashi candles
+      const monthlyRowsHA = computeHeikinAshi(monthlyRows);
+      const recentMonthlyHA = monthlyRowsHA.slice(-M_SL_LOOKBACK_MONTHS);
+      if (recentMonthlyHA.length) {
+        const green = recentMonthlyHA.filter(r => {
           const o = +r.Open, c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
-
-        const refCandles = greenMonthly.length ? greenMonthly : [recentMonthly[0]];
+        const refCandles = green.length ? green : [recentMonthlyHA[0]];
         const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const highestRows = refCandles.filter(r => +r.Close === highestClose);
-        const refRow = highestRows[highestRows.length - 1];
+        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
         const low = +refRow?.Low;
         if (Number.isFinite(low) && low !== 0) mslPrice = low;
       }
 
-      // Weekly SL: highest-close green candle within lookback; fall back to oldest candle if no green
-      const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
-      if (recentWeekly.length) {
-        const greenWeekly = recentWeekly.filter(r => {
+      const weeklyRowsHA = computeHeikinAshi(weeklyRows);
+      const recentWeeklyHA = weeklyRowsHA.slice(-W_SL_LOOKBACK_WEEKS);
+      if (recentWeeklyHA.length) {
+        const green = recentWeeklyHA.filter(r => {
           const o = +r.Open, c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
-
-        const refCandles = greenWeekly.length ? greenWeekly : [recentWeekly[0]];
+        const refCandles = green.length ? green : [recentWeeklyHA[0]];
         const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const highestRows = refCandles.filter(r => +r.Close === highestClose);
-        const refRow = highestRows[highestRows.length - 1];
+        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
         const low = +refRow?.Low;
         if (Number.isFinite(low) && low !== 0) wslPrice = low;
       }
 
+      // Reference candle for current TF: HA-based highest-close green within lookback window
+      let refDate = null;
+      const tfRowsHA = computeHeikinAshi(rows);
+      const tfLookback = TF_LOOKBACK[tf] || 10;
+      const recentTfHA = tfRowsHA.slice(-tfLookback);
+      if (recentTfHA.length) {
+        const green = recentTfHA.filter(r => {
+          const o = +r.Open, c = +r.Close;
+          return Number.isFinite(o) && Number.isFinite(c) && c > o;
+        });
+        const refPool = green.length ? green : [recentTfHA[0]];
+        const highestClose = Math.max(...refPool.map(r => +r.Close).filter(v => Number.isFinite(v)));
+        const refRow = refPool.filter(r => +r.Close === highestClose).slice(-1)[0];
+        if (refRow) refDate = getRowDateLabel(refRow);
+      }
+
+      // Display candles: standard or Heikin Ashi based on toggle
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
-      const visibleRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, visibleRows, rows, high52w, mslPrice, wslPrice);
+      const displayRows = chartState.useHA
+        ? computeHeikinAshi(rows).slice(-candleCount)
+        : rows.slice(-candleCount);
+      window.showChart(symbol, tf, displayRows, rows, high52w, mslPrice, wslPrice, refDate);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
+      updateChartModeButton();
     })
     .catch(() => alert("Failed to load chart data"));
 };
@@ -327,7 +366,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf);
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice) {
+window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice, refDate) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -335,7 +374,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wsl
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -362,7 +401,25 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf);
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice) {
+function updateChartModeButton() {
+  const btn = document.getElementById("chartModeBtn");
+  if (!btn) return;
+  const active = chartState.useHA;
+  btn.textContent = active ? "HA" : "STD";
+  btn.style.background    = active ? "var(--accent, #2563eb)" : "transparent";
+  btn.style.color         = active ? "#fff" : "var(--text)";
+  btn.style.borderColor   = active ? "var(--accent, #2563eb)" : "var(--grid)";
+}
+
+window.toggleChartMode = function() {
+  chartState.useHA = !chartState.useHA;
+  updateChartModeButton();
+  if (chartState.symbol && chartState.tf) {
+    window.renderCandleChart(chartState.symbol, chartState.tf);
+  }
+};
+
+window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -500,17 +557,30 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
     candles.forEach((c, i) => {
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
       if (![o, h, l, cl].every(isFinite)) return;
-      const col = cl >= o ? "#26a69a" : "#ef5350";
+      const isRef = refDate && getRowDateLabel(c) === refDate;
+      const col = isRef ? "#ffd600" : (cl >= o ? "#26a69a" : "#ef5350");
       const cx  = P.l + (i + 0.5) * slotW;
 
       ctx.strokeStyle = col;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = isRef ? 1.6 : 1.2;
       ctx.beginPath(); ctx.moveTo(cx, py(h)); ctx.lineTo(cx, py(l)); ctx.stroke();
 
       const yTop = py(Math.max(o, cl));
       const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
       ctx.fillStyle = col;
       ctx.fillRect(cx - bW / 2, yTop, bW, bH);
+
+      // Downward triangle marker above wick for the reference candle
+      if (isRef) {
+        const mY = py(h) - 10;
+        ctx.fillStyle = "#ffd600";
+        ctx.beginPath();
+        ctx.moveTo(cx, mY + 7);
+        ctx.lineTo(cx - 4, mY);
+        ctx.lineTo(cx + 4, mY);
+        ctx.closePath();
+        ctx.fill();
+      }
     });
 
     // 52-week line from last 12 monthly candles high
@@ -718,6 +788,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
+    const modeControls = document.createElement("div");
+    modeControls.style.cssText = "display:flex;align-items:center;flex-shrink:0;";
+    modeControls.appendChild(makeHeaderButton("chartModeBtn", "STD", () => window.toggleChartMode()));
+
+    rightControls.appendChild(modeControls);
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
     headerRow.appendChild(title);
