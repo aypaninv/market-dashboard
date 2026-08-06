@@ -166,28 +166,7 @@ const M_SL_LOOKBACK_MONTHS = 6;
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false };
-
-/* Convert standard OHLCV rows array to Heikin Ashi candle objects.
-   Each output row shares all original fields; Open/High/Low/Close are replaced with HA values. */
-function computeHeikinAshi(rows) {
-  if (!rows || !rows.length) return rows;
-  const out = new Array(rows.length);
-  let prevHaOpen = 0, prevHaClose = 0;
-  for (let i = 0; i < rows.length; i++) {
-    const r = rows[i];
-    const o = +r.Open, h = +r.High, l = +r.Low, c = +r.Close;
-    if (![o, h, l, c].every(isFinite)) { out[i] = { ...r }; continue; }
-    const haClose = (o + h + l + c) / 4;
-    const haOpen  = i === 0 ? (o + c) / 2 : (prevHaOpen + prevHaClose) / 2;
-    const haHigh  = Math.max(h, haOpen, haClose);
-    const haLow   = Math.min(l, haOpen, haClose);
-    out[i] = { ...r, Open: haOpen, High: haHigh, Low: haLow, Close: haClose };
-    prevHaOpen  = haOpen;
-    prevHaClose = haClose;
-  }
-  return out;
-}
+const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null };
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -262,8 +241,7 @@ function getRowDateLabel(row) {
 }
 
 function buildChartTitle(symbol, tf, candles) {
-  const modeLabel = chartState.useHA ? "  [HA]" : "";
-  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + modeLabel + "  (" + candles.length + ")";
+  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + "  (" + candles.length + ")";
 }
 
 function setActiveChartTfButton(tf) {
@@ -293,54 +271,54 @@ window.renderCandleChart = function(symbol, tf) {
 
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
-      // 52w high from standard monthly High (actual price reference)
+      const last12Monthly = monthlyRows.slice(-12);
       let high52w = null;
       let mslPrice = null;
       let wslPrice = null;
-      const last12Monthly = monthlyRows.slice(-12);
       if (last12Monthly.length >= 12) {
-        const highs = last12Monthly.map(r => +r.High).filter(v => Number.isFinite(v));
+        const highs = last12Monthly
+          .map(r => +r.High)
+          .filter(v => Number.isFinite(v));
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      // W_SL and M_SL always computed from Heikin Ashi candles
-      const monthlyRowsHA = computeHeikinAshi(monthlyRows);
-      const recentMonthlyHA = monthlyRowsHA.slice(-M_SL_LOOKBACK_MONTHS);
-      if (recentMonthlyHA.length) {
-        const green = recentMonthlyHA.filter(r => {
+      // Monthly SL: highest-close green candle within lookback; fall back to oldest candle if no green
+      const recentMonthly = monthlyRows.slice(-M_SL_LOOKBACK_MONTHS);
+      if (recentMonthly.length) {
+        const greenMonthly = recentMonthly.filter(r => {
           const o = +r.Open, c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
-        const refCandles = green.length ? green : [recentMonthlyHA[0]];
+
+        const refCandles = greenMonthly.length ? greenMonthly : [recentMonthly[0]];
         const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
+        const highestRows = refCandles.filter(r => +r.Close === highestClose);
+        const refRow = highestRows[highestRows.length - 1];
         const low = +refRow?.Low;
         if (Number.isFinite(low) && low !== 0) mslPrice = low;
       }
 
-      const weeklyRowsHA = computeHeikinAshi(weeklyRows);
-      const recentWeeklyHA = weeklyRowsHA.slice(-W_SL_LOOKBACK_WEEKS);
-      if (recentWeeklyHA.length) {
-        const green = recentWeeklyHA.filter(r => {
+      // Weekly SL: highest-close green candle within lookback; fall back to oldest candle if no green
+      const recentWeekly = weeklyRows.slice(-W_SL_LOOKBACK_WEEKS);
+      if (recentWeekly.length) {
+        const greenWeekly = recentWeekly.filter(r => {
           const o = +r.Open, c = +r.Close;
           return Number.isFinite(o) && Number.isFinite(c) && c > o;
         });
-        const refCandles = green.length ? green : [recentWeeklyHA[0]];
+
+        const refCandles = greenWeekly.length ? greenWeekly : [recentWeekly[0]];
         const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
+        const highestRows = refCandles.filter(r => +r.Close === highestClose);
+        const refRow = highestRows[highestRows.length - 1];
         const low = +refRow?.Low;
         if (Number.isFinite(low) && low !== 0) wslPrice = low;
       }
 
-      // Display candles: standard or Heikin Ashi based on toggle
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
-      const displayRows = chartState.useHA
-        ? computeHeikinAshi(rows).slice(-candleCount)
-        : rows.slice(-candleCount);
-      window.showChart(symbol, tf, displayRows, rows, high52w, mslPrice, wslPrice);
+      const visibleRows = rows.slice(-candleCount);
+      window.showChart(symbol, tf, visibleRows, rows, high52w, mslPrice, wslPrice);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
-      updateChartModeButton();
     })
     .catch(() => alert("Failed to load chart data"));
 };
@@ -382,24 +360,6 @@ window.navigateChartSymbol = function(direction) {
   if (!nextSymbol) return;
 
   window.renderCandleChart(nextSymbol, chartState.tf);
-};
-
-function updateChartModeButton() {
-  const btn = document.getElementById("chartModeBtn");
-  if (!btn) return;
-  const active = chartState.useHA;
-  btn.textContent = active ? "HA" : "STD";
-  btn.style.background    = active ? "var(--accent, #2563eb)" : "transparent";
-  btn.style.color         = active ? "#fff" : "var(--text)";
-  btn.style.borderColor   = active ? "var(--accent, #2563eb)" : "var(--grid)";
-}
-
-window.toggleChartMode = function() {
-  chartState.useHA = !chartState.useHA;
-  updateChartModeButton();
-  if (chartState.symbol && chartState.tf) {
-    window.renderCandleChart(chartState.symbol, chartState.tf);
-  }
 };
 
 window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice) {
@@ -758,11 +718,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
-    const modeControls = document.createElement("div");
-    modeControls.style.cssText = "display:flex;align-items:center;flex-shrink:0;";
-    modeControls.appendChild(makeHeaderButton("chartModeBtn", "STD", () => window.toggleChartMode()));
-
-    rightControls.appendChild(modeControls);
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
     headerRow.appendChild(title);
