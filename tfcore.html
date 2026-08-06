@@ -54,7 +54,7 @@ function splitHighLowTFC(rows) {
     const wSL = toNumberTFC(r.W_SL);
     const mSL = toNumberTFC(r.M_SL);
 
-    if (ddHigh > -15 && mBO > 0 && mSL > 0 && mSL < 15) {
+    if (mBO >= 0 && wSL > 0 && wSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
