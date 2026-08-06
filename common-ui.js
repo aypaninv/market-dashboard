@@ -558,7 +558,10 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
       if (![o, h, l, cl].every(isFinite)) return;
       const isRef = refDate && getRowDateLabel(c) === refDate;
-      const col = isRef ? "#ffd600" : (cl >= o ? "#26a69a" : "#ef5350");
+      const isBull = cl >= o;
+      const col = isRef
+        ? (isBull ? "#0f766e" : "#b91c1c")
+        : (isBull ? "#26a69a" : "#ef5350");
       const cx  = P.l + (i + 0.5) * slotW;
 
       ctx.strokeStyle = col;
@@ -569,18 +572,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       const bH   = Math.max(1.5, py(Math.min(o, cl)) - yTop);
       ctx.fillStyle = col;
       ctx.fillRect(cx - bW / 2, yTop, bW, bH);
-
-      // Downward triangle marker above wick for the reference candle
-      if (isRef) {
-        const mY = py(h) - 10;
-        ctx.fillStyle = "#ffd600";
-        ctx.beginPath();
-        ctx.moveTo(cx, mY + 7);
-        ctx.lineTo(cx - 4, mY);
-        ctx.lineTo(cx + 4, mY);
-        ctx.closePath();
-        ctx.fill();
-      }
     });
 
     // 52-week line from last 12 monthly candles high
