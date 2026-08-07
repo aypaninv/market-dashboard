@@ -14,7 +14,6 @@ const COLS_TFS = [
   "Symbol","Chart","Folio",
   "DD_High",
   "D_BO","W_BO","M_BO",
-  // "W_EMA10","M_EMA10",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
   "CurPrice","Sector","MarketCap","Notes"
@@ -25,9 +24,6 @@ const HEADER_LABELS_TFS = {
   "D_BO": "D_BO",
   "W_SL": "W_SL",
   "M_SL": "M_SL",
-  "W_EMA10": "W_E10",
-  "M_EMA10": "M_E10",
-  "D_EMA10": "D_E10",
 };
 
 let rawTFS = [];
@@ -141,8 +137,8 @@ window.registerTabs(addTab => {
 function renderTFS(data) {
   const { highRows, lowRows } = splitHighLowTFS([...data]);
   tfsSections = {
-    High: window.sortRowsByWEMA10(highRows, "W_EMA10", true),
-    Low: window.sortRowsByWEMA10(lowRows, "W_EMA10", true),
+    High: window.sortRowsByColumn(highRows, "D_BO", false),
+    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
   };
   tfsColWidths = computeSharedColWidthsTFS([...highRows, ...lowRows]);
   tfsSortState = {};
@@ -190,9 +186,7 @@ function drawTFSTable(table, rows, sectionKey) {
   table.innerHTML = "";
   const sortInfo = tfsSortState[sectionKey];
   const data = sortInfo
-    ? (sortInfo.col === "W_EMA10" || sortInfo.col === "M_EMA10"
-        ? window.sortRowsByWEMA10(rows, sortInfo.col, sortInfo.asc)
-        : window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc))
+    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
     : rows;
 
   if (!data.length) {

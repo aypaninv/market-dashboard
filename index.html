@@ -260,49 +260,18 @@ window.sortRowsByColumn = function (rows, column, asc) {
   return [...rows].sort((a, b) => window.compareCellValues(a?.[column], b?.[column], asc));
 };
 
-// Special sort for W_EMA10 / M_EMA10: positives first ascending (1,2,3...), then negatives ascending by abs (-1,-2,-3...), NaN last.
-window.sortRowsByWEMA10 = function(rows, col, asc = true) {
-  return [...rows].sort((a, b) => {
-    const av = parseFloat(a?.[col]);
-    const bv = parseFloat(b?.[col]);
-    const aNaN = !Number.isFinite(av);
-    const bNaN = !Number.isFinite(bv);
-    if (aNaN && bNaN) return 0;
-    if (aNaN) return 1;
-    if (bNaN) return -1;
-    const dir = asc ? 1 : -1;
-    // Positives before non-positives
-    if (av > 0 && bv <= 0) return -1 * dir;
-    if (av <= 0 && bv > 0) return 1 * dir;
-    // Both positive: ascending (1,2,3)
-    if (av > 0 && bv > 0) return (av - bv) * dir;
-    // Both negative: ascending by abs value (-1,-2,-3)
-    if (av < 0 && bv < 0) return (Math.abs(av) - Math.abs(bv)) * dir;
-    return (av - bv) * dir;
-  });
-};
-
 window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const num = parseFloat(value);
   const isNum = !isNaN(num);
 
   const chgColumns = options.chgColumns || ["D_CHG", "W_CHG", "M_CHG"];
-  const emaColumns = options.emaColumns || [];
   const crossColumns = options.crossColumns || [];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
   const slColumns = options.slColumns || ["W_SL", "M_SL"];
 
   if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
 
-  if (column.includes("MACD") && value !== "" && isNum) {
-    td.classList.add(num >= 0 ? "green" : "orange");
-  }
-
   if (chgColumns.includes(column) && isNum && num < -8) {
-    td.classList.add("orange");
-  }
-
-  if (emaColumns.includes(column) && isNum && num > 15) {
     td.classList.add("orange");
   }
 
@@ -310,10 +279,6 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("red");
   } else if (crossColumns.includes(column) && isNum) {
     td.classList.add("green");
-  }
-
-  if (["D_XL", "W_XL", "M_XL"].includes(column) && isNum && num < 0) {
-    td.classList.add("red");
   }
 
   if (["D_BO", "W_BO", "M_BO"].includes(column) && isNum && num >= 0) {
