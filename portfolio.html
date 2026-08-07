@@ -179,7 +179,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 5 && mBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 5 && mBO >= 0 && wSL > 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
