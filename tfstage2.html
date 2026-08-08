@@ -12,7 +12,7 @@ const CSV_TFS2 = "tfstage2_report.csv";
 
 const COLS_TFS2 = [
   "Symbol","Chart","Folio",
-  "DD_High",
+  "DD_52W",
   "D_BO","W_BO","M_BO",
   "W_SL","M_SL",
   "W_CHG","M_CHG",
@@ -42,7 +42,7 @@ function splitHighLowTFS2(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const ddHigh = toNumberTFS2(r.DD_High);
+    const ddHigh = toNumberTFS2(r.DD_52W);
     const dBO = toNumberTFS2(r.D_BO);
     const wBO = toNumberTFS2(r.W_BO);
     const mBO = toNumberTFS2(r.M_BO);

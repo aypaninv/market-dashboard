@@ -12,7 +12,7 @@ const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","IC","CC", "PnL",
-  "DD_High","D_BO","W_BO","M_BO",
+  "DD_52W","D_BO","W_BO","M_BO",
   "LT_Type","LT_days","LT_Pert",
   "D_CHG","W_CHG","M_CHG",
   "W_SL","M_SL","AvgPrice","CurPrice",
@@ -23,7 +23,7 @@ const DEFAULT_COLUMN_ORDER = [
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High",
+    "DD_52W",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
@@ -32,7 +32,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High",
+    "DD_52W",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
@@ -41,7 +41,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   ],
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
-    "DD_High",
+    "DD_52W",
     "LT_Type","LT_days","LT_Pert",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
@@ -54,11 +54,6 @@ const HEADER_LABELS = {
   "LT_Type": "LT_T",
   "LT_days": "LT_D",
   "LT_Pert": "LT_P",
-  "W_BO": "W_BO",
-  "M_BO": "M_BO",
-  "D_BO": "D_BO",
-  "W_SL": "W_SL",
-  "M_SL": "M_SL",
 };
 
 let rawData = [];

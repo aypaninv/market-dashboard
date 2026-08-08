@@ -269,7 +269,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
   const slColumns = options.slColumns || ["W_SL", "M_SL"];
 
-  if (column === "DD_High" && isNum && num < -15) td.classList.add("orange");
+  if (column === "DD_52W" && isNum && num < -15) td.classList.add("orange");
 
   if (chgColumns.includes(column) && isNum && num < -8) {
     td.classList.add("orange");
