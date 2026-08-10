@@ -135,7 +135,7 @@ const addConditionsByFolio = {
     const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
-    return ltPert > 5 && (wBO >= 0 || mBO >= 0) && wSL > 0 && wSL < 12;
+    return ltPert > 5 && wBO >= 0 && wSL > 0 && wSL < 12;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -146,7 +146,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 6 && ltPert > 5 && (wBO >= 0 || mBO >= 0) && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 5 && wBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -157,7 +157,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 5 && (wBO >= 0 || mBO >= 0) && wSL > 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 5 && wBO >= 0 && wSL > 0 && wSL < 12 && mSL < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
