@@ -204,7 +204,7 @@ const exitConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ( (ic >= 0.3 && pnl < 0 && mSL < 0) || mSL < 0 );
+    return ( (ic >= 0.3 && pnl < 0 && wSL < 0) || mSL < 0 );
   }
 };
   
