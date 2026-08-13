@@ -157,7 +157,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0 && mSL < 24 && meetsPnLThreshold(ic, pnl);
+    return ic < 7 && ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0 && mSL < 20 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -378,8 +378,8 @@ function renderFolioSections(folio, folioRows) {
     container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
     container.appendChild(createSection("Pullback", sortByDefault(pullbackRows, folio), `${folio}__Pullback`, true, colWidths, columnOrder));
     container.appendChild(createSection("Sell", sortByDefault(sellRows, folio), `${folio}__Sell`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
     container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
     container.appendChild(createSection("Others", sortByDefault(otherRows, folio), `${folio}__Others`, false, colWidths, columnOrder));
   }
 }
