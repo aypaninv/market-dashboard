@@ -135,7 +135,7 @@ const addConditionsByFolio = {
     const dBO = toNumber(d["D_BO"]);
     const wBO = toNumber(d["W_BO"]);
     const mBO = toNumber(d["M_BO"]);
-    return ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0;
+    return ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0 && wSL < 15;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -146,7 +146,7 @@ const addConditionsByFolio = {
     const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic < 6 && ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 5 && (dBO >= 0 || wBO >= 0 || mBO >= 0) && wSL > 0 && wSL < 15 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
@@ -163,7 +163,7 @@ const addConditionsByFolio = {
 
 const sellConditionsByFolio = { 
   Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_SL"]) < 0 ),
-  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_SL"]) < 0 ),
+  Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
 };
 
 const holdConditionsByFolio = {
@@ -191,23 +191,9 @@ const pullbackConditionsByFolio = {
 };
 
 const exitConditionsByFolio = {
-  Sate: d => (
-                toNumber(d["PnL"]) < -8
-              ) || (  
-                toNumber(d["IC"]) >= 0.5 && 
-                toNumber(d["M_SL"]) < 0
-              ), 
-  Core: d => (
-                toNumber(d["PnL"]) < -8
-              ) || ( 
-                toNumber(d["IC"]) >= 0.5 && 
-                toNumber(d["M_SL"]) < 0
-              ),
-  Trade: d => (
-                toNumber(d["W_SL"]) < 0
-              ) || (
-                toNumber(d["W_CHG"]) < -8
-              ),
+  Trade: d => ( toNumber(d["W_SL"]) < 0  || toNumber(d["W_CHG"]) < -8 ),
+  Sate:  d => ( toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0 ), 
+  Core:  d => ( toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0 ),
 };
   
 function getAddCondition(folio) {
