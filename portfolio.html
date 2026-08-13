@@ -197,14 +197,16 @@ const exitConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ( (ic >= 0.3 && pnl < 0 && wSL < 0) || mSL < 0 );
+    const mCHG = toNumber(d["M_CHG"]);
+    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -12 );
   },
   Core:  d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ( (ic >= 0.3 && pnl < 0 && wSL < 0) || mSL < 0 );
+    const mCHG = toNumber(d["M_CHG"]);
+    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -15 );
   }
 };
   
