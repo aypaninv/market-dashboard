@@ -192,8 +192,8 @@ const pullbackConditionsByFolio = {
 
 const exitConditionsByFolio = {
   Trade: d => ( toNumber(d["W_SL"]) < 0  || toNumber(d["W_CHG"]) < -8 ),
-  Sate:  d => ( toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0 ), 
-  Core:  d => ( toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0 ),
+  Sate:  d => ( toNumber(d["IC"]) >= 0.5 && (toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0) ),
+  Core:  d => ( toNumber(d["IC"]) >= 0.5 && (toNumber(d["PnL"]) < -8 || toNumber(d["M_SL"]) < 0) ),
 };
   
 function getAddCondition(folio) {
