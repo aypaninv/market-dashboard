@@ -271,8 +271,28 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
 
   if (column === "DD_52W" && isNum && num < -15) td.classList.add("orange");
 
-  if (chgColumns.includes(column) && isNum && num < -8) {
-    td.classList.add("orange");
+  if (slColumns.includes(column) && isNum) {
+    if (num < 0) {
+      td.classList.add("red");
+    } else if (num > 0 && num < 10) {
+      td.classList.add("green");
+    } else if (num >= 10 && num < 20) {
+      td.classList.add("teal");
+    } else if (num >= 20) {
+      td.classList.add("orange");
+    }
+  }
+
+  if (chgColumns.includes(column) && isNum) {
+    if (num < 0) {
+      td.classList.add("red");
+    } else if (num > 0 && num < 10) {
+      td.classList.add("green");
+    } else if (num >= 10 && num < 20) {
+      td.classList.add("teal");
+    } else if (num >= 20) {
+      td.classList.add("orange");
+    }
   }
 
   if (crossColumns.includes(column) && isNum && num < 0) {
@@ -291,13 +311,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("red");
   }
 
-  if (slColumns.includes(column) && isNum) {
-    if (num < 0) {
-      td.classList.add("red");
-    } else if (num > 0 && num < 10) {
-      td.classList.add("green");
-    }
-  }
+  // W_SL/M_SL are styled by slColumns thresholds above.
 
 };
 

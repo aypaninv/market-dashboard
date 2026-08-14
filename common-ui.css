@@ -178,6 +178,7 @@ tbody tr:nth-child(even) td {
 /* ---------- Heat colors ---------- */
 .green  { background: rgba(46, 204, 113, 0.25) !important; }
 .red    { background: rgba(231, 76, 60, 0.25) !important; }
+.teal   { background: rgba(20, 184, 166, 0.25) !important; }
 .orange { background: rgba(243, 156, 18, 0.25) !important; }
 
 td.red { font-weight: bold; }
