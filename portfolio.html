@@ -99,7 +99,7 @@ function defaultAddCondition(d) {
   );
 }
 
-function defaultSellCondition(d) {
+function defaultTrimCondition(d) {
   return toNumber(d.W_SL) < 0;
 }
 
@@ -152,7 +152,7 @@ const addConditionsByFolio = {
   },
 };
 
-const sellConditionsByFolio = { 
+const trimConditionsByFolio = { 
   Sate: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 || toNumber(d["W_SL"]) < 0 ),
   Core: d => toNumber(d["IC"]) >= 0.5 && (toNumber(d["M_CHG"]) < -8 ),
 };
@@ -205,8 +205,8 @@ function getAddCondition(folio) {
   return addConditionsByFolio[folio] || defaultAddCondition;
 }
 
-function getSellCondition(folio) {
-  return sellConditionsByFolio[folio] || defaultSellCondition;
+function getTrimCondition(folio) {
+  return trimConditionsByFolio[folio] || defaultTrimCondition;
 }
 
 function getHoldCondition(folio) {
@@ -349,42 +349,45 @@ function renderFolioSections(folio, folioRows) {
     container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
     container.appendChild(createSection("Holding", sortByDefault(holdingRows, folio), `${folio}__Holding`, true, colWidths, columnOrder));
   } else {
-    // Standard 6-section layout for other folios
+    // Standard section layout for other folios
     const addCondition = getAddCondition(folio);
-    const sellCondition = getSellCondition(folio);
+    const trimCondition = getTrimCondition(folio);
     const holdCondition = getHoldCondition(folio);
     const exitCondition = getExitCondition(folio);
     const pullbackCondition = getPullbackCondition(folio);
+    const showPullback = folio === "Core";
 
-    // Prioritize conditions: Add > Pullback > Exit > Hold > Sell > Others
+    // Prioritize conditions: Add > Pullback > Exit > Hold > Trim > Others
     const addRows = [];
     const exitRows = [];
     const holdRows = [];
-    const sellRows = [];
+    const trimRows = [];
     const pullbackRows = [];
     const otherRows = [];
 
     folioRows.forEach(d => {
       if (addCondition(d)) {
         addRows.push(d);
-      } else if (pullbackCondition(d)) {
+      } else if (showPullback && pullbackCondition(d)) {
         pullbackRows.push(d);
       } else if (exitCondition(d)) {
         exitRows.push(d);
       } else if (holdCondition(d)) {
         holdRows.push(d);
-      } else if (sellCondition(d)) {
-        sellRows.push(d);
+      } else if (trimCondition(d)) {
+        trimRows.push(d);
       } else {
         otherRows.push(d);
       }
     });
 
     container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Pullback", sortByDefault(pullbackRows, folio), `${folio}__Pullback`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Sell", sortByDefault(sellRows, folio), `${folio}__Sell`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Trim", sortByDefault(trimRows, folio), `${folio}__Trim`, true, colWidths, columnOrder));
     container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
+    if (showPullback) {
+      container.appendChild(createSection("Pullback", sortByDefault(pullbackRows, folio), `${folio}__Pullback`, true, colWidths, columnOrder));
+    }
     container.appendChild(createSection("Others", sortByDefault(otherRows, folio), `${folio}__Others`, false, colWidths, columnOrder));
   }
 }
