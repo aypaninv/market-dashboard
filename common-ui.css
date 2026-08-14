@@ -178,7 +178,7 @@ tbody tr:nth-child(even) td {
 /* ---------- Heat colors ---------- */
 .green  { background: rgba(46, 204, 113, 0.25) !important; }
 .red    { background: rgba(218, 105, 93, 0.25) !important; }
-.subtle_orange   { background: rgba(234, 191, 122, 0.242) !important; }
+.subtle_orange   { background: rgba(226, 192, 137, 0.242) !important; }
 .orange { background: rgba(243, 156, 18, 0.25) !important; }
 
 td.red { font-weight: bold; }
