@@ -130,34 +130,25 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Trade: d => {
     const ltPert = toNumber(d["LT_Pert"]);
-    const wSL = toNumber(d["W_SL"]);
-    const mSL = toNumber(d["M_SL"]);
-    const dBO = toNumber(d["D_BO"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
-    return ltPert > 5 && wBO >= 0;
+    const wCHG = toNumber(d["W_CHG"]);
+    const mCHG = toNumber(d["M_CHG"]);
+    return ltPert > 4 && wCHG > 0 && wCHG < 10;
   },
   Sate: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const dBO = toNumber(d["D_BO"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
-    const wSL = toNumber(d["W_SL"]);
-    const mSL = toNumber(d["M_SL"]);
-    return ic < 6 && ltPert > 5 && wBO >= 0 && meetsPnLThreshold(ic, pnl);
+    const wCHG = toNumber(d["W_CHG"]);
+    const mCHG = toNumber(d["M_CHG"]);
+    return ic < 4 && ltPert > 4 && wCHG > 0 && wCHG < 10 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const dBO = toNumber(d["D_BO"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
-    const wSL = toNumber(d["W_SL"]);
-    const mSL = toNumber(d["M_SL"]);
-    return ic < 7 && ltPert > 5 && mBO >= 0 && meetsPnLThreshold(ic, pnl);
+    const wCHG = toNumber(d["W_CHG"]);
+    const mCHG = toNumber(d["M_CHG"]);
+    return ic < 6 && ltPert > 4 && mCHG > 0 && mCHG < 15 && meetsPnLThreshold(ic, pnl);
   },
 };
 
