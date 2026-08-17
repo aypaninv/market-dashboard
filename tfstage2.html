@@ -42,10 +42,11 @@ function splitHighLowTFS2(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wBO = toNumberTFS2(r.W_BO);
+    const dBO = toNumberTFS2(r.D_BO);
     const wCHG = toNumberTFS2(r.W_CHG);
+    const mCHG = toNumberTFS2(r.M_CHG);
 
-    if ( wBO >= 2 && wCHG < 12) {
+    if (dBO >= 0 && mCHG > 0 && mCHG < 15) {
       highRows.push(r);
     } else {
       lowRows.push(r);
