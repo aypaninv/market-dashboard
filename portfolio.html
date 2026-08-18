@@ -12,7 +12,8 @@ const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","IC","CC", "PnL",
-  "DD_52W","D_BO","W_BO","M_BO",
+  "DD_52W","DD_ATH",
+  "D_BO","W_BO","M_BO",
   "LT_Type","LT_days","LT_Pert",
   "D_CHG","W_CHG","M_CHG",
   "W_SL","M_SL","AvgPrice","CurPrice",
@@ -24,7 +25,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
-    "DD_52W",
+    "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -33,7 +34,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   Sate: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
-    "DD_52W",
+    "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
@@ -42,7 +43,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   Core: [
     "Symbol","Chart","Folio","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
-    "DD_52W",
+    "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL",
     "W_CHG","M_CHG",
