@@ -47,7 +47,6 @@ function getActiveFeature() {
     "tfcoreFeature",
     "tfstudyFeature",
     "tfstage2Feature",
-    "summaryFeature",
   ];
 
   for (const id of featureIds) {
