@@ -160,7 +160,7 @@ const addConditionsByFolio = {
     const mCHG = toNumber(d["M_CHG"]);
     const mSL = toNumber(d["M_SL"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 0 && wSL > 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 0 && mSL > 0 && mSL < 12 && meetsPnLThreshold(ic, pnl);
   },
 };
 
