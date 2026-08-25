@@ -267,7 +267,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const chgColumns = options.chgColumns || ["D_CHG", "W_CHG", "M_CHG"];
   const crossColumns = options.crossColumns || [];
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
-  const slColumns = options.slColumns || ["W_SL", "M_SL"];
+  const slColumns = options.slColumns || ["W_SL", "M_SL", "W_PSL", "M_PSL"];
 
   if (["DD_52W", "DD_ATH"].includes(column) && isNum && num < -15) td.classList.add("orange");
 
