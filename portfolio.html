@@ -135,9 +135,10 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
+    const wCHG = toNumber(d["W_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const ltPertThreshold = ddATH >= -10 ? 4 : 8;
-    return ic < 4 && ltPert > 0 && wSL > 0 && wSL < 12 && dBO >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 0 && wSL > 0 && wSL < 10 && (dBO >= 0 || wCHG > 0) && meetsPnLThreshold(ic, pnl);
   },
   Sate: d => {
     const ddATH = toNumber(d["DD_ATH"]);
@@ -145,9 +146,10 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
+    const wCHG = toNumber(d["W_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const ltPertThreshold = ddATH >= -10 ? 4 : 8;
-    return ic < 4 && ltPert > 0 && wSL > 0 && wSL < 12 && dBO >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 0 && wSL > 0 && wSL < 10 && (dBO >= 0 || wCHG > 0) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
@@ -155,9 +157,9 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
+    const mCHG = toNumber(d["M_CHG"]);
     const mSL = toNumber(d["M_SL"]);
-    const wSL = toNumber(d["W_SL"]);
-    return ic < 6 && ltPert > 0 && mSL > 0 && mSL < 15 && dBO >= 0  && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 0 && mSL > 0 && mSL < 15 && (dBO >= 0 || mCHG > 0) && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -165,16 +167,16 @@ const trimConditionsByFolio = {
   Sate: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const mCHG = toNumber(d["M_CHG"]);
+    const wCHG = toNumber(d["W_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return isICAlert(ic, pnl) || (mCHG < -8 || (wSL < 0 && mSL > 5));
+    return ic > 0.3 && (isICAlert(ic, pnl) || wSL < 0);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return isICAlert(ic, pnl) || mCHG < -8;
+    return ic > 0.3 && (isICAlert(ic, pnl) || mCHG < -8);
   },
 };
 
@@ -195,9 +197,9 @@ const pullbackConditionsByFolio = {
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const wCHG = toNumber(d["W_CHG"]);
+    const dBO = toNumber(d["D_BO"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return wCHG > 0 && wCHG < 12 && mCHG < 0 && meetsPnLThreshold(ic, pnl);
+    return dBO >= 0 && mCHG < 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -209,7 +211,7 @@ const exitConditionsByFolio = {
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -12 );
+    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -8 );
   },
   Core:  d => {
     const ic = toNumber(d["IC"]);
