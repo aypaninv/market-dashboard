@@ -138,7 +138,7 @@ const addConditionsByFolio = {
     const mCHG = toNumber(d["M_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const ltPertThreshold = ddATH >= -10 ? 4 : 8;
-    return ic < 4 && ltPert > ltPertThreshold && wSL < 12 && wCHG > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 0 && wSL < 12 && wCHG > 0 && meetsPnLThreshold(ic, pnl);
   },
   Sate: d => {
     const ddATH = toNumber(d["DD_ATH"]);
@@ -149,7 +149,7 @@ const addConditionsByFolio = {
     const mCHG = toNumber(d["M_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const ltPertThreshold = ddATH >= -10 ? 4 : 8;
-    return ic < 4 && ltPert > ltPertThreshold && wSL < 12 && wCHG > 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 0 && wSL < 12 && wCHG > 0 && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
