@@ -45,10 +45,11 @@ function splitHighLowTFW(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const dBO = toNumberTFW(r.D_BO);
+    const wCHG = toNumberTFW(r.W_CHG);
     const wSL = toNumberTFW(r.W_SL);
+    const wPSL = toNumberTFW(r.W_PSL);
 
-    if ( wSL > 0 && wSL < 12 ) {
+    if ( wCHG > 0 && mSL > 0 && wPSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
