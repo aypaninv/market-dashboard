@@ -49,7 +49,7 @@ function splitHighLowTFW(rows) {
     const wSL = toNumberTFW(r.W_SL);
     const wPSL = toNumberTFW(r.W_PSL);
 
-    if ( wCHG > 0 && mSL > 0 && wPSL < 12) {
+    if ( wCHG > 0 && wSL > 0 && wPSL < 12) {
       highRows.push(r);
     } else {
       lowRows.push(r);
