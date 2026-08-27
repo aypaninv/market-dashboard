@@ -176,13 +176,14 @@ const trimConditionsByFolio = {
     const wCHG = toNumber(d["W_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic > 0.3 && (isICAlert(ic, pnl) || wSL < 0);
+    return ic > 0.3 && (wSL < 0 || wCHG < -8);
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
+    const wCHG = toNumber(d["W_CHG"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ic > 0.3 && (isICAlert(ic, pnl) || mCHG < -8);
+    return ic > 0.3 && (wSL < 0 || mCHG < -8);
   },
 };
 
