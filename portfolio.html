@@ -181,7 +181,7 @@ const trimConditionsByFolio = {
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const wCHG = toNumber(d["W_CHG"]);
+    const wSL = toNumber(d["W_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
     return ic > 0.3 && (wSL < 0 || mCHG < -8);
   },
