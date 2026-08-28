@@ -11,7 +11,7 @@
 const CSV_FILE = "portfolio_report.csv";
 
 const DEFAULT_COLUMN_ORDER = [
-  "Symbol","Chart","Folio","IC","CC", "PnL",
+  "Symbol","Chart","Folio","Category","IC","CC", "PnL",
   "DD_52W","DD_ATH",
   "D_BO","W_BO","M_BO",
   "LT_Type","LT_days","LT_Pert",
@@ -26,7 +26,7 @@ const DEFAULT_COLUMN_ORDER = [
 // Customize table columns per folio type.
 const COLUMN_ORDER_BY_FOLIO = {
   Trade: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Category","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
@@ -35,7 +35,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
   Sate: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Category","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
@@ -44,7 +44,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
   Core: [
-    "Symbol","Chart","Folio","IC","CC","PnL",
+    "Symbol","Chart","Folio","Category","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
@@ -132,41 +132,30 @@ function meetsPnLThreshold(ic, pnl) {
 }
 
 const addConditionsByFolio = {
-  Trade: d => {
-    const ddATH = toNumber(d["DD_ATH"]);
-    const ltPert = toNumber(d["LT_Pert"]);
-    const ic = toNumber(d["IC"]);
-    const pnl = toNumber(d["PnL"]);
-    const dBO = toNumber(d["D_BO"]);
-    const wCHG = toNumber(d["W_CHG"]);
-    const wSL = toNumber(d["W_SL"]);
-    const wPSL = toNumber(d["W_PSL"]);
-    const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 4 && ltPert > ltPertThreshold && wSL > 0 && wPSL < 10 && (dBO >= 0 || wCHG > 0) && meetsPnLThreshold(ic, pnl);
-  },
   Sate: d => {
     const ddATH = toNumber(d["DD_ATH"]);
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const dBO = toNumber(d["D_BO"]);
     const wCHG = toNumber(d["W_CHG"]);
+    const mCHG = toNumber(d["M_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const wPSL = toNumber(d["W_PSL"]);
+    const mSL = toNumber(d["M_SL"]);
+    const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 4 && ltPert > ltPertThreshold && wSL > 0 && wPSL < 10 && (dBO >= 0 || wCHG > 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && (( ddATH > -8 && wSL > 0 && wPSL < 10 && wCHG > 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 15 && mCHG > 0)) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const dBO = toNumber(d["D_BO"]);
     const mCHG = toNumber(d["M_CHG"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 6 && ltPert > ltPertThreshold && mSL > 0 && mPSL < 15 && (dBO >= 0 || mCHG > 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > ltPertThreshold && mSL > 0 && mPSL < 15 &&  mCHG > 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
