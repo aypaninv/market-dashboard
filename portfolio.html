@@ -25,31 +25,22 @@ const DEFAULT_COLUMN_ORDER = [
 
 // Customize table columns per folio type.
 const COLUMN_ORDER_BY_FOLIO = {
-  Trade: [
-    "Symbol","Chart","Category","IC","CC","PnL",
-    "LT_Type","LT_days","LT_Pert",
-    "DD_ATH","DD_52W",
-    "D_BO","W_BO","M_BO",
-    "W_SL","M_SL","W_PSL","M_PSL",
-    "D_CHG","W_CHG","M_CHG",
-    "AvgPrice","CurPrice","Sector","MarketCap","Notes"
-  ],
   Sate: [
     "Symbol","Chart","Category","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL","W_PSL","M_PSL",
-    "D_CHG","W_CHG","M_CHG",
+    "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
   Core: [
-    "Symbol","Chart","Folio","Category","IC","CC","PnL",
+    "Symbol","Chart","Category","IC","CC","PnL",
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL","W_PSL","M_PSL",
-    "D_CHG","W_CHG","M_CHG",
+    "W_CHG","M_CHG",
     "AvgPrice","CurPrice","Sector","MarketCap","Notes"
   ],
 };
@@ -144,7 +135,7 @@ const addConditionsByFolio = {
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 4 && (( ddATH > -8 && wSL > 0 && wPSL < 10 && wCHG > 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 15 && mCHG > 0)) && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 4 && (( ddATH > -8 && wSL > 0 && wPSL < 10 && wCHG > 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 10 && mCHG > 0)) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
