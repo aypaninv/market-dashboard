@@ -25,6 +25,7 @@ const COLS_SECTOR = [
   "Symbol", "Chart",
   "DD_ATH", "DD_52W",
   "D_BO", "W_BO", "M_BO",
+  "W_SL", "M_SL",
   "W_CHG", "M_CHG",
   "Close"
 ];
@@ -33,6 +34,7 @@ const COLS_SECTOR_DRILLDOWN = [
   "Symbol", "Chart", "MarketCap",
   "DD_ATH", "DD_52W",
   "D_BO", "W_BO", "M_BO",
+  "W_SL", "M_SL",
   "W_CHG", "M_CHG",
   "Close"
 ];
@@ -42,6 +44,10 @@ let symbolRows = [];
 let sectorLoaded = false;
 let sectorSortState = {};
 let sectorDrillSortState = {};
+
+function openTVChartSector(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
 
 function parseCSVSector(text) {
   const lines = text.trim().split("\n");
@@ -145,6 +151,7 @@ function drawSectorTable(table, rows) {
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+          slColumns: ["W_SL", "M_SL"],
         });
       }
 
@@ -221,7 +228,7 @@ function drawSectorDrilldownTable(table, rows, key) {
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
-        td.innerHTML = `<a href="#" onclick="openTVChart('${v}')">${v}</a>`;
+        td.innerHTML = `<a href="#" onclick="openTVChartSector('${v}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
         ["D", "W", "M"].forEach(tf => {
@@ -244,6 +251,7 @@ function drawSectorDrilldownTable(table, rows, key) {
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+          slColumns: ["W_SL", "M_SL"],
         });
       }
 

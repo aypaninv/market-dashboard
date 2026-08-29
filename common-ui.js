@@ -785,7 +785,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ["D", "W", "M"].forEach(tfKey => {
       const btn = makeHeaderButton("chartTfBtn_" + tfKey, tfKey, () => {
         if (!chartState.symbol) return;
-        window.renderCandleChart(chartState.symbol, tfKey);
+        window.renderCandleChart(chartState.symbol, tfKey, chartState.sourceType || "symbol");
       });
       tfControls.appendChild(btn);
     });
