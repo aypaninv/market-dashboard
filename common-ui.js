@@ -47,7 +47,6 @@ function getActiveFeature() {
     "tfcoreFeature",
     "tfstudyFeature",
     "tfstage2Feature",
-    "sectorFeature",
   ];
 
   for (const id of featureIds) {
@@ -150,17 +149,10 @@ document.addEventListener("touchmove", () => {}, { passive: true });
    CANDLESTICK CHART – SHARED ACROSS ALL FEATURES
    ========================================================= */
 
-const OHLC_FILES_BY_SOURCE = {
-  symbol: {
-    D: "nse_data/nse_daily.csv",
-    W: "nse_data/nse_weekly.csv",
-    M: "nse_data/nse_monthly.csv",
-  },
-  sector: {
-    D: "nse_data/sector_daily.csv",
-    W: "nse_data/sector_weekly.csv",
-    M: "nse_data/sector_monthly.csv",
-  },
+const OHLC_FILES = {
+  D: "nse_data/nse_daily.csv",
+  W: "nse_data/nse_weekly.csv",
+  M: "nse_data/nse_monthly.csv",
 };
 
 const CHART_CANDLE_COUNTS = {
@@ -175,7 +167,7 @@ const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS };
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false, sourceType: "symbol" };
+const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false };
 
 /* Convert standard OHLCV rows array to Heikin Ashi candle objects.
    Each output row shares all original fields; Open/High/Low/Close are replaced with HA values. */
@@ -259,13 +251,11 @@ function parseOHLC(text) {
   return bySymbol;
 }
 
-function loadOHLC(tf, sourceType = "symbol") {
-  const files = OHLC_FILES_BY_SOURCE[sourceType] || OHLC_FILES_BY_SOURCE.symbol;
-  const key = sourceType + ":" + tf;
-  if (ohlcCache[key]) return Promise.resolve(ohlcCache[key]);
-  return fetch(files[tf])
+function loadOHLC(tf) {
+  if (ohlcCache[tf]) return Promise.resolve(ohlcCache[tf]);
+  return fetch(OHLC_FILES[tf])
     .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-    .then(t => { ohlcCache[key] = parseOHLC(t); return ohlcCache[key]; });
+    .then(t => { ohlcCache[tf] = parseOHLC(t); return ohlcCache[tf]; });
 }
 
 function getRowDateLabel(row) {
@@ -288,17 +278,16 @@ function setActiveChartTfButton(tf) {
   });
 }
 
-window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
+window.renderCandleChart = function(symbol, tf) {
   const eventTarget = window.event?.target;
   const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable;
   chartState.sourceTable = sourceTable || null;
   chartState.symbol = symbol;
   chartState.tf = tf;
-  chartState.sourceType = sourceType;
   chartState.symbols = getActiveTableSymbols();
   chartState.index = chartState.symbols.indexOf(symbol);
 
-  Promise.all([loadOHLC(tf, sourceType), loadOHLC("W", sourceType), loadOHLC("M", sourceType)])
+  Promise.all([loadOHLC(tf), loadOHLC("W"), loadOHLC("M")])
     .then(([data, weeklyData, monthlyData]) => {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
@@ -374,7 +363,7 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
 };
 
 window.openCandleChart = function(symbol, tf) {
-  window.renderCandleChart(symbol, tf, "symbol");
+  window.renderCandleChart(symbol, tf);
 };
 
 window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice, refDate) {
@@ -397,7 +386,6 @@ window.closeChart = function() {
   chartState.symbols = [];
   chartState.index = -1;
   chartState.sourceTable = null;
-  chartState.sourceType = "symbol";
 };
 
 window.navigateChartSymbol = function(direction) {
@@ -410,7 +398,7 @@ window.navigateChartSymbol = function(direction) {
   const nextSymbol = chartState.symbols[nextIndex];
   if (!nextSymbol) return;
 
-  window.renderCandleChart(nextSymbol, chartState.tf, chartState.sourceType || "symbol");
+  window.renderCandleChart(nextSymbol, chartState.tf);
 };
 
 function updateChartModeButton() {
@@ -427,7 +415,7 @@ window.toggleChartMode = function() {
   chartState.useHA = !chartState.useHA;
   updateChartModeButton();
   if (chartState.symbol && chartState.tf) {
-    window.renderCandleChart(chartState.symbol, chartState.tf, chartState.sourceType || "symbol");
+    window.renderCandleChart(chartState.symbol, chartState.tf);
   }
 };
 
