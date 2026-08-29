@@ -25,7 +25,6 @@ const COLS_SECTOR = [
   "Symbol", "Chart",
   "DD_ATH", "DD_52W",
   "D_BO", "W_BO", "M_BO",
-  "W_SL", "M_SL",
   "W_CHG", "M_CHG",
   "Close"
 ];
@@ -34,7 +33,6 @@ const COLS_SECTOR_DRILLDOWN = [
   "Symbol", "Chart", "MarketCap",
   "DD_ATH", "DD_52W",
   "D_BO", "W_BO", "M_BO",
-  "W_SL", "M_SL",
   "W_CHG", "M_CHG",
   "Close"
 ];
@@ -147,7 +145,6 @@ function drawSectorTable(table, rows) {
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-          slColumns: ["W_SL", "M_SL"],
         });
       }
 
@@ -247,7 +244,6 @@ function drawSectorDrilldownTable(table, rows, key) {
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-          slColumns: ["W_SL", "M_SL"],
         });
       }
 
