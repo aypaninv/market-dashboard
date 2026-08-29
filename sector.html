@@ -1,0 +1,343 @@
+<!-- ===================== SECTOR FEATURE ===================== -->
+
+<div id="sectorFeature" style="display:none">
+  <div class="update-time" id="updateTime_sector"></div>
+  <div class="content" id="sectorContent">
+    <div id="sectorSummaryView">
+      <div id="sectorSections"></div>
+    </div>
+
+    <div id="sectorDrilldownView" style="display:none">
+      <div style="margin-bottom:10px; display:flex; align-items:center; gap:10px;">
+        <button id="sectorBackBtn" type="button">Back</button>
+        <div id="sectorDrilldownTitle" style="font-weight:700;"></div>
+      </div>
+      <div id="sectorDrilldownSections"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CSV_SECTOR = "technical_sector_data.csv";
+const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
+
+const COLS_SECTOR = [
+  "Symbol", "Chart",
+  "DD_ATH", "DD_52W",
+  "D_BO", "W_BO", "M_BO",
+  "W_SL", "M_SL",
+  "W_CHG", "M_CHG",
+  "Close"
+];
+
+const COLS_SECTOR_DRILLDOWN = [
+  "Symbol", "Chart", "MarketCap",
+  "DD_ATH", "DD_52W",
+  "D_BO", "W_BO", "M_BO",
+  "W_SL", "M_SL",
+  "W_CHG", "M_CHG",
+  "Close"
+];
+
+let sectorRows = [];
+let symbolRows = [];
+let sectorLoaded = false;
+let sectorSortState = {};
+let sectorDrillSortState = {};
+
+function parseCSVSector(text) {
+  const lines = text.trim().split("\n");
+  const headers = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const vals = r.split(",");
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = vals[i] ?? "");
+    return obj;
+  });
+}
+
+function sortSectorRows(rows, col, asc) {
+  return window.sortRowsByColumn(rows, col, asc);
+}
+
+function renderSectorSummary() {
+  const container = document.getElementById("sectorSections");
+  container.innerHTML = "";
+
+  const table = document.createElement("table");
+  drawSectorTable(table, sectorRows);
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+  wrapper.appendChild(table);
+  container.appendChild(wrapper);
+
+  document.getElementById("sectorSummaryView").style.display = "block";
+  document.getElementById("sectorDrilldownView").style.display = "none";
+}
+
+function drawSectorTable(table, rows) {
+  table.innerHTML = "";
+
+  const sortInfo = sectorSortState.summary;
+  const data = sortInfo ? sortSectorRows(rows, sortInfo.col, sortInfo.asc) : rows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.className = "text";
+    td.colSpan = COLS_SECTOR.length;
+    td.innerText = "No data";
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  const tr = document.createElement("tr");
+  COLS_SECTOR.forEach(h => {
+    if (h !== "Chart" && !(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = sectorSortState.summary;
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        sectorSortState.summary = { col: h, asc };
+        renderSectorSummary();
+      };
+    }
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_SECTOR.forEach(h => {
+      if (h !== "Chart" && !(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(v).replace(/'/g, "\\'")}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        ["D", "W", "M"].forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openSectorCandleChart(r.Symbol, tf);
+          };
+          td.appendChild(a);
+        });
+      } else {
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+          slColumns: ["W_SL", "M_SL"],
+        });
+      }
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function capBucket(v) {
+  const x = String(v || "").toLowerCase();
+  if (x.includes("large")) return "Large Cap";
+  if (x.includes("mid")) return "Mid Cap";
+  if (x.includes("small")) return "Small Cap";
+  return "Other";
+}
+
+function groupedByCap(rows) {
+  const groups = {
+    "Large Cap": [],
+    "Mid Cap": [],
+    "Small Cap": [],
+    "Other": [],
+  };
+
+  rows.forEach(r => {
+    groups[capBucket(r.MarketCap)].push(r);
+  });
+
+  return groups;
+}
+
+function drawSectorDrilldownTable(table, rows, key) {
+  table.innerHTML = "";
+
+  const sortInfo = sectorDrillSortState[key];
+  const data = sortInfo ? sortSectorRows(rows, sortInfo.col, sortInfo.asc) : rows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.className = "text";
+    td.colSpan = COLS_SECTOR_DRILLDOWN.length;
+    td.innerText = "No data";
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  const tr = document.createElement("tr");
+  COLS_SECTOR_DRILLDOWN.forEach(h => {
+    if (h !== "Chart" && !(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = h;
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = sectorDrillSortState[key];
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        sectorDrillSortState[key] = { col: h, asc };
+        openSectorDrilldown(document.getElementById("sectorDrilldownTitle").dataset.sectorName);
+      };
+    }
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_SECTOR_DRILLDOWN.forEach(h => {
+      if (h !== "Chart" && !(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openTVChart('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        ["D", "W", "M"].forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
+      } else {
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+          slColumns: ["W_SL", "M_SL"],
+        });
+      }
+
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+window.openSectorDrilldown = function(sectorName) {
+  const rows = symbolRows.filter(r => String(r.Sector || "") === String(sectorName || ""));
+  const groups = groupedByCap(rows);
+  const container = document.getElementById("sectorDrilldownSections");
+  container.innerHTML = "";
+
+  const title = document.getElementById("sectorDrilldownTitle");
+  title.innerText = `${sectorName} (${rows.length})`;
+  title.dataset.sectorName = sectorName;
+
+  ["Large Cap", "Mid Cap", "Small Cap", "Other"].forEach(groupName => {
+    const list = groups[groupName] || [];
+
+    const details = document.createElement("details");
+    details.className = "portfolio-dropdown";
+    details.open = groupName !== "Other";
+
+    const summary = document.createElement("summary");
+    summary.textContent = `${groupName} (${list.length})`;
+    summary.style.cursor = "pointer";
+    summary.onclick = (e) => {
+      e.preventDefault();
+      details.open = !details.open;
+    };
+    details.appendChild(summary);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "portfolio-dropdown-content";
+
+    const table = document.createElement("table");
+    drawSectorDrilldownTable(table, list, groupName);
+
+    wrapper.appendChild(table);
+    details.appendChild(wrapper);
+    container.appendChild(details);
+  });
+
+  document.getElementById("sectorSummaryView").style.display = "none";
+  document.getElementById("sectorDrilldownView").style.display = "block";
+};
+
+function updateSectorTime() {
+  fetch(CSV_SECTOR, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_sector").innerText =
+        d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false }) +
+        " / " +
+        d.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "2-digit" });
+    });
+}
+
+function loadSectorData() {
+  if (sectorLoaded) return Promise.resolve();
+
+  return Promise.all([
+    fetch(CSV_SECTOR).then(r => r.text()),
+    fetch(CSV_SYMBOL_TECH).then(r => r.text()),
+  ]).then(([sectorText, symbolText]) => {
+    sectorRows = parseCSVSector(sectorText);
+    symbolRows = parseCSVSector(symbolText);
+    sectorLoaded = true;
+    updateSectorTime();
+
+    const backBtn = document.getElementById("sectorBackBtn");
+    if (backBtn && !backBtn.dataset.bound) {
+      backBtn.onclick = () => renderSectorSummary();
+      backBtn.dataset.bound = "1";
+    }
+  });
+}
+
+window.openSectorCandleChart = function(symbol, tf) {
+  window.renderCandleChart(symbol, tf, "sector");
+};
+
+window.registerTabs(addTab => {
+  addTab("Sector", () => {
+    hideAllFeatures();
+    document.getElementById("sectorFeature").style.display = "block";
+    loadSectorData().then(() => renderSectorSummary());
+  });
+});
+</script>
