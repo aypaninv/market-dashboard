@@ -309,14 +309,17 @@ window.ensureSectorRsiMapLoaded = function () {
   return sectorRsiLookupPromise;
 };
 
-window.formatSectorWithRsi = function (sectorName) {
-  const sector = String(sectorName || "").trim();
-  if (!sector) return "";
-  const metrics = sectorRsiLookup?.[sector];
-  const w = String(metrics?.W_RSI ?? "").trim();
-  const m = String(metrics?.M_RSI ?? "").trim();
-  if (!w || !m) return sector;
-  return `${sector} (${w}/${m})`;
+window.attachSectorRsiColumns = function (rows) {
+  if (!Array.isArray(rows)) return [];
+  return rows.map(row => {
+    const sector = String(row?.Sector || "").trim();
+    const metrics = sectorRsiLookup?.[sector] || {};
+    return {
+      ...row,
+      W_RSI: String(metrics.W_RSI ?? "").trim(),
+      M_RSI: String(metrics.M_RSI ?? "").trim(),
+    };
+  });
 };
 
 window.applyCommonCellClasses = function (td, column, value, options = {}) {

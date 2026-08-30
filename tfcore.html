@@ -16,7 +16,7 @@ const COLS_TFC = [
   "D_BO","W_BO","M_BO",
   "W_SL","M_SL","W_PSL","M_PSL",
   "W_CHG","M_CHG",
-  "CurPrice","Sector","MarketCap","Notes"
+  "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFC = {
@@ -92,7 +92,7 @@ function computeSharedColWidthsTFC(allRows) {
     visibleCols.forEach(h => {
       const td = document.createElement("td");
       td.style.whiteSpace = "nowrap";
-      td.innerText = h === "Sector" ? window.formatSectorWithRsi(r[h] ?? "") : (r[h] ?? "");
+      td.innerText = r[h] ?? "";
       row.appendChild(td);
     });
     probe.appendChild(row);
@@ -124,7 +124,7 @@ window.registerTabs(addTab => {
     fetch(CSV_TFC).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawTFC = parseCSVCore(t);
+      rawTFC = window.attachSectorRsiColumns(parseCSVCore(t));
       [...new Set(rawTFC.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {
@@ -265,8 +265,6 @@ function drawTFCTable(table, rows, sectionKey) {
         // Format BO columns as integers
         if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
-        } else if (h === "Sector") {
-          td.innerText = window.formatSectorWithRsi(v);
         } else {
           td.innerText = v;
         }

@@ -18,7 +18,7 @@ const DEFAULT_COLUMN_ORDER = [
   "D_CHG","W_CHG","M_CHG",
   "W_SL","M_SL","W_PSL","M_PSL",
   "AvgPrice","CurPrice",
-  "Sector","MarketCap","Notes"
+  "Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 
@@ -32,7 +32,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL","W_PSL","M_PSL",
     "W_CHG","M_CHG",
-    "AvgPrice","CurPrice","Sector","MarketCap","Notes"
+    "AvgPrice","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
   ],
   Core: [
     "Symbol","Chart","Category","IC","CC","PnL",
@@ -41,7 +41,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL","W_PSL","M_PSL",
     "W_CHG","M_CHG",
-    "AvgPrice","CurPrice","Sector","MarketCap","Notes"
+    "AvgPrice","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
   ],
 };
 
@@ -245,7 +245,7 @@ window.registerTabs(addTab => {
     fetch(CSV_FILE).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawData = parseCSV(t);
+      rawData = window.attachSectorRsiColumns(parseCSV(t));
 
       const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))];
 
@@ -318,7 +318,7 @@ function computeSharedColWidths(allRows, columnOrder) {
     visibleCols.forEach(h => {
       const td = document.createElement("td");
       td.style.whiteSpace = "nowrap";
-      td.innerText = h === "Sector" ? window.formatSectorWithRsi(r[h] ?? "") : (r[h] ?? "");
+      td.innerText = r[h] ?? "";
       row.appendChild(td);
     });
     probe.appendChild(row);
@@ -507,8 +507,6 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         // Format BO columns as integers
         if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
-        } else if (h === "Sector") {
-          td.innerText = window.formatSectorWithRsi(v);
         } else {
           td.innerText = v;
         }

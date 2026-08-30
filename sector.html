@@ -133,11 +133,11 @@ function drawSectorTable(table, rows) {
         const num = parseFloat(v);
         if (!isNaN(num)) {
           if (deltaCols.has(h)) {
-            if (num >= 0) td.classList.add("cell-green");
-            else if (num < 0) td.classList.add("cell-red");
+            if (num >= 0) td.classList.add("green");
+            else if (num < 0) td.classList.add("red");
           } else {
-            if (num >= 50) td.classList.add("cell-green");
-            else td.classList.add("cell-red");
+            if (num >= 50) td.classList.add("green");
+            else td.classList.add("red");
           }
         }
       }
