@@ -20,6 +20,8 @@
 <script>
 const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
+const W_BO_MIN = 1;
+const M_BO_MIN = 1;
 
 const COLS_SECTOR = [
   "Sector", "Count", "W_BO", "M_BO", "W_RSI", "M_RSI", "WD_RSI", "MD_RSI"
@@ -73,8 +75,8 @@ function buildSectorBreakoutCounts(rows) {
     const wbo = parseFloat(r.W_BO);
     const mbo = parseFloat(r.M_BO);
 
-    if (!isNaN(wbo) && wbo >= 0) counts[sector].W_BO += 1;
-    if (!isNaN(mbo) && mbo >= 0) counts[sector].M_BO += 1;
+    if (!isNaN(wbo) && wbo >= W_BO_MIN) counts[sector].W_BO += 1;
+    if (!isNaN(mbo) && mbo >= M_BO_MIN) counts[sector].M_BO += 1;
   });
 
   return counts;
@@ -295,12 +297,12 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
   if (filterMode === "W_BO") {
     rows = rows.filter(r => {
       const v = parseFloat(r.W_BO);
-      return !isNaN(v) && v > 0;
+      return !isNaN(v) && v >= W_BO_MIN;
     });
   } else if (filterMode === "M_BO") {
     rows = rows.filter(r => {
       const v = parseFloat(r.M_BO);
-      return !isNaN(v) && v > 0;
+      return !isNaN(v) && v >= M_BO_MIN;
     });
   }
 
@@ -309,7 +311,9 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
   container.innerHTML = "";
 
   const title = document.getElementById("sectorDrilldownTitle");
-  const suffix = filterMode === "ALL" ? "" : ` | ${filterMode}>0`;
+  const suffix = filterMode === "ALL"
+    ? ""
+    : (filterMode === "W_BO" ? ` | ${filterMode}>=${W_BO_MIN}` : ` | ${filterMode}>=${M_BO_MIN}`);
   title.innerText = `${sectorName}${suffix} (${rows.length})`;
   title.dataset.sectorName = sectorName;
   title.dataset.filterMode = filterMode;
