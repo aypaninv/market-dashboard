@@ -23,11 +23,9 @@ const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 
 const COLS_SECTOR = [
   "Symbol", "Chart",
-  "DD_ATH", "DD_52W",
-  "D_BO", "W_BO", "M_BO",
+  "W_BO", "M_BO",
   "W_SL", "M_SL", "W_PSL", "M_PSL",
-  "W_CHG", "M_CHG",
-  "Close"
+  "W_CHG", "M_CHG"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -127,7 +125,7 @@ function drawSectorTable(table, rows) {
         td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(v).replace(/'/g, "\\'")}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
-        ["D", "W", "M"].forEach(tf => {
+        ["W", "M"].forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";
           a.textContent = tf;
@@ -140,7 +138,7 @@ function drawSectorTable(table, rows) {
           td.appendChild(a);
         });
       } else {
-        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        if (["W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
@@ -231,7 +229,7 @@ function drawSectorDrilldownTable(table, rows, key) {
         td.innerHTML = `<a href="#" onclick="openTVChartSector('${v}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
-        ["D", "W", "M"].forEach(tf => {
+        ["W", "M"].forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";
           a.textContent = tf;
