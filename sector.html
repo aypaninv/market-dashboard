@@ -103,7 +103,15 @@ function drawSectorTable(table, rows) {
   const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
   const sortInfo = sectorSortState.summary;
-  const data = sortInfo ? sortSectorRows(rows, sortInfo.col, sortInfo.asc) : rows;
+  const rowsWithBreakouts = rows.map(r => {
+    const sectorName = String(r.Sector || "").trim();
+    return {
+      ...r,
+      W_BO: breakoutCountsBySector[sectorName]?.W_BO ?? 0,
+      M_BO: breakoutCountsBySector[sectorName]?.M_BO ?? 0,
+    };
+  });
+  const data = sortInfo ? sortSectorRows(rowsWithBreakouts, sortInfo.col, sortInfo.asc) : rowsWithBreakouts;
 
   if (!data.length) {
     const tr = document.createElement("tr");
@@ -150,7 +158,7 @@ function drawSectorTable(table, rows) {
       } else if (breakoutCountCols.has(h)) {
         td.className = "num";
         const sectorName = String(r.Sector || "").trim();
-        const countVal = breakoutCountsBySector[sectorName]?.[h] ?? 0;
+        const countVal = Number.parseInt(String(v), 10) || 0;
         if (countVal > 0) {
           td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(sectorName).replace(/'/g, "\\'")}', '${h}')">${countVal}</a>`;
         } else {
