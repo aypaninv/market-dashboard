@@ -22,7 +22,7 @@ const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 
 const COLS_SECTOR = [
-  "Sector", "Count", "D_RSI", "W_RSI", "M_RSI", "DD_RSI", "WD_RSI", "MD_RSI"
+  "Sector", "Count", "W_BO", "M_BO", "D_RSI", "W_RSI", "M_RSI", "DD_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -59,6 +59,27 @@ function sortSectorRows(rows, col, asc) {
   return window.sortRowsByColumn(rows, col, asc);
 }
 
+function buildSectorBreakoutCounts(rows) {
+  const counts = {};
+
+  rows.forEach(r => {
+    const sector = String(r.Sector || "").trim();
+    if (!sector) return;
+
+    if (!counts[sector]) {
+      counts[sector] = { W_BO: 0, M_BO: 0 };
+    }
+
+    const wbo = parseFloat(r.W_BO);
+    const mbo = parseFloat(r.M_BO);
+
+    if (!isNaN(wbo) && wbo >= 0) counts[sector].W_BO += 1;
+    if (!isNaN(mbo) && mbo >= 0) counts[sector].M_BO += 1;
+  });
+
+  return counts;
+}
+
 function renderSectorSummary() {
   const container = document.getElementById("sectorSections");
   container.innerHTML = "";
@@ -78,6 +99,8 @@ function renderSectorSummary() {
 function drawSectorTable(table, rows) {
   table.innerHTML = "";
   const deltaCols = new Set(["DD_RSI", "WD_RSI", "MD_RSI"]);
+  const breakoutCountCols = new Set(["W_BO", "M_BO"]);
+  const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
   const sortInfo = sectorSortState.summary;
   const data = sortInfo ? sortSectorRows(rows, sortInfo.col, sortInfo.asc) : rows;
@@ -124,12 +147,21 @@ function drawSectorTable(table, rows) {
       } else if (h === "Count") {
         td.className = "num";
         td.innerText = v;
+      } else if (breakoutCountCols.has(h)) {
+        td.className = "num";
+        const sectorName = String(r.Sector || "").trim();
+        const countVal = breakoutCountsBySector[sectorName]?.[h] ?? 0;
+        if (countVal > 0) {
+          td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(sectorName).replace(/'/g, "\\'")}', '${h}')">${countVal}</a>`;
+        } else {
+          td.innerText = "-";
+        }
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h !== "Sector" && h !== "Count") {
+      if (h !== "Sector" && h !== "Count" && !breakoutCountCols.has(h)) {
         const num = parseFloat(v);
         if (!isNaN(num)) {
           if (deltaCols.has(h)) {
@@ -198,7 +230,8 @@ function drawSectorDrilldownTable(table, rows, key) {
         const existing = sectorDrillSortState[key];
         const asc = existing && existing.col === h ? !existing.asc : true;
         sectorDrillSortState[key] = { col: h, asc };
-        openSectorDrilldown(document.getElementById("sectorDrilldownTitle").dataset.sectorName);
+        const titleEl = document.getElementById("sectorDrilldownTitle");
+        openSectorDrilldown(titleEl.dataset.sectorName, titleEl.dataset.filterMode || "ALL");
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");
@@ -248,15 +281,30 @@ function drawSectorDrilldownTable(table, rows, key) {
   });
 }
 
-window.openSectorDrilldown = function(sectorName) {
-  const rows = symbolRows.filter(r => String(r.Sector || "") === String(sectorName || ""));
+window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
+  let rows = symbolRows.filter(r => String(r.Sector || "") === String(sectorName || ""));
+
+  if (filterMode === "W_BO") {
+    rows = rows.filter(r => {
+      const v = parseFloat(r.W_BO);
+      return !isNaN(v) && v >= 0;
+    });
+  } else if (filterMode === "M_BO") {
+    rows = rows.filter(r => {
+      const v = parseFloat(r.M_BO);
+      return !isNaN(v) && v >= 0;
+    });
+  }
+
   const groups = groupedByCap(rows);
   const container = document.getElementById("sectorDrilldownSections");
   container.innerHTML = "";
 
   const title = document.getElementById("sectorDrilldownTitle");
-  title.innerText = `${sectorName} (${rows.length})`;
+  const suffix = filterMode === "ALL" ? "" : ` | ${filterMode}>=0`;
+  title.innerText = `${sectorName}${suffix} (${rows.length})`;
   title.dataset.sectorName = sectorName;
+  title.dataset.filterMode = filterMode;
 
   ["Large Cap", "Mid Cap", "Small Cap", "Other"].forEach(groupName => {
     const list = groups[groupName] || [];
