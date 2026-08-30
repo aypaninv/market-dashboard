@@ -95,8 +95,14 @@ body {
     font-size: 12px;
   }
   
+  .filter-overlay {
+    right: auto;
+    left: 0;
+  }
+
   .filter-dialog {
-    width: min(92vw, 760px);
+    width: min(92vw, 420px);
+    max-height: 65vh;
   }
 }
 
@@ -137,19 +143,19 @@ body {
 
 .filter-overlay {
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  inset: auto 0 auto auto;
+  background: transparent;
   z-index: 1100;
-  align-items: center;
-  justify-content: center;
 }
 
 .filter-dialog {
-  width: min(92vw, 820px);
-  max-height: 82vh;
+  width: min(92vw, 430px);
+  max-height: 68vh;
   overflow: auto;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid var(--grid);
   border-radius: 12px;
   background: var(--panel);
@@ -167,16 +173,17 @@ body {
 
 .filter-metric-grid {
   display: grid;
-  grid-template-columns: 160px 44px 1fr 24px 1fr;
-  gap: 8px;
+  grid-template-columns: 112px 24px 78px 14px 78px;
+  gap: 6px;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .filter-metric-grid input {
   width: 100%;
   box-sizing: border-box;
-  padding: 6px 8px;
+  padding: 4px 6px;
+  font-size: 12px;
   border: 1px solid var(--grid);
   border-radius: 6px;
   background: var(--panel);
@@ -680,7 +687,7 @@ window.openFilterDialog = function () {
   if (!activeFeature) return;
   const metrics = detectNumericMetrics(activeFeature);
   buildFilterRows(activeFeature.id, metrics);
-  document.getElementById("filterOverlay").style.display = "flex";
+  document.getElementById("filterOverlay").style.display = "block";
 };
 
 window.closeFilterDialog = function () {
@@ -720,8 +727,9 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("click", e => {
-  const overlay = document.getElementById("filterOverlay");
-  if (e.target === overlay) closeFilterDialog();
+  const wrapper = document.querySelector(".filter-wrapper");
+  if (!wrapper) return;
+  if (!wrapper.contains(e.target)) closeFilterDialog();
 });
 
 /* =========================================================
