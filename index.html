@@ -329,8 +329,7 @@ function hideAllFeatures() {
     "tfwatchFeature",
     "tfcoreFeature",
     "tfstudyFeature",
-    "tfstage2Feature",
-    "sectorFeature"
+    "tfstage2Feature"
   ].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = "none";
@@ -397,8 +396,7 @@ function applyGlobalSearch(text) {
     "#tfwatchFeature:not([style*='display: none'])," +
     "#tfcoreFeature:not([style*='display: none'])," +
     "#tfstudyFeature:not([style*='display: none'])," +
-    "#tfstage2Feature:not([style*='display: none'])," +
-    "#sectorFeature:not([style*='display: none'])"
+    "#tfstage2Feature:not([style*='display: none'])"
   );
 
   if (!activeFeature) return;
@@ -450,8 +448,7 @@ loadFeature("portfolio.html")
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("tfcore.html"))
   .then(() => loadFeature("tfstudy.html"))
-  .then(() => loadFeature("tfstage2.html"))
-  .then(() => loadFeature("sector.html"));
+  .then(() => loadFeature("tfstage2.html"));
 </script>
 
 </body>
