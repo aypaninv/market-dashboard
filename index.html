@@ -238,25 +238,24 @@ body {
 
   <div class="filter-wrapper">
     <span class="filter-icon" onclick="openFilterDialog()">Filter</span>
+    <div id="filterOverlay" class="filter-overlay">
+      <div class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filterTitle">
+        <div class="filter-titlebar">
+          <div id="filterTitle">Filter Metrics</div>
+          <button type="button" class="filter-close-btn" onclick="closeFilterDialog()">Close</button>
+        </div>
+        <div id="filterRows"></div>
+        <div class="filter-actions">
+          <button type="button" onclick="clearMetricFilters()">Clear</button>
+          <button type="button" class="primary" onclick="applyMetricFilters()">Apply</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ===================== APP ===================== -->
 <div id="app"></div>
-
-<div id="filterOverlay" class="filter-overlay">
-  <div class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filterTitle">
-    <div class="filter-titlebar">
-      <div id="filterTitle">Filter Metrics</div>
-      <button type="button" class="filter-close-btn" onclick="closeFilterDialog()">Close</button>
-    </div>
-    <div id="filterRows"></div>
-    <div class="filter-actions">
-      <button type="button" onclick="clearMetricFilters()">Clear</button>
-      <button type="button" class="primary" onclick="applyMetricFilters()">Apply</button>
-    </div>
-  </div>
-</div>
 
 <script>
 /* =========================================================
