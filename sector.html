@@ -120,10 +120,10 @@ function drawSectorTable(table, rows) {
 
       if (h === "Sector") {
         td.className = "symbol-col text";
-        td.innerText = v;
+        td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(v).replace(/'/g, "\\'")}')">${v}</a>`;
       } else if (h === "Count") {
         td.className = "num";
-        td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(r.Sector).replace(/'/g, "\\'")}')">${v}</a>`;
+        td.innerText = v;
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
