@@ -95,8 +95,8 @@ body {
     font-size: 12px;
   }
   
-  .search-input input {
-    width: 150px;
+  .filter-dialog {
+    width: min(92vw, 760px);
   }
 }
 
@@ -107,13 +107,13 @@ body {
   }
 }
 
-/* ---------- Search ---------- */
-.search-wrapper {
+/* ---------- Filter ---------- */
+.filter-wrapper {
   margin-left: auto;
   position: relative;
 }
 
-.search-icon {
+.filter-icon {
   cursor: pointer;
   font-size: 14px;
   color: var(--text);
@@ -121,41 +121,89 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
+  min-width: 58px;
   height: 30px;
-  border-radius: 50%;
+  padding: 0 10px;
+  border-radius: 999px;
   border: 1px solid var(--grid);
   background: color-mix(in srgb, var(--panel) 88%, transparent);
   transition: transform 0.16s ease, background-color 0.16s ease;
 }
 
-.search-icon:hover {
+.filter-icon:hover {
   transform: scale(1.05);
   background: color-mix(in srgb, var(--accent) 16%, var(--panel));
 }
 
-.search-input {
-  position: absolute;
-  right: 0;
-  top: 24px;
+.filter-overlay {
   display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1100;
+  align-items: center;
+  justify-content: center;
 }
 
-.search-input input {
-  padding: 7px 10px;
-  font-size: 12px;
-  width: 200px;
-  border-radius: 8px;
+.filter-dialog {
+  width: min(92vw, 820px);
+  max-height: 82vh;
+  overflow: auto;
+  padding: 12px;
   border: 1px solid var(--grid);
+  border-radius: 12px;
   background: var(--panel);
   color: var(--text);
-  outline: none;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
 }
 
-.search-input input:focus {
+.filter-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.filter-metric-grid {
+  display: grid;
+  grid-template-columns: 160px 44px 1fr 24px 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.filter-metric-grid input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--grid);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.filter-actions button,
+.filter-close-btn {
+  border: 1px solid var(--grid);
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.filter-actions button.primary {
+  background: var(--accent);
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
+  color: #fff;
 }
 
 #app {
@@ -181,37 +229,29 @@ body {
 <div class="header">
   <div id="globalTabs"></div>
 
-  <div class="search-wrapper">
-    <span class="search-icon" onclick="toggleSearch()">🔍</span>
-    <div class="search-input" id="searchBox">
-      <input
-        type="text"
-        id="globalSearch"
-        placeholder="Search…"
-        onkeyup="debouncedSearch(this.value)"
-      />
-    </div>
+  <div class="filter-wrapper">
+    <span class="filter-icon" onclick="openFilterDialog()">Filter</span>
   </div>
 </div>
 
 <!-- ===================== APP ===================== -->
 <div id="app"></div>
 
+<div id="filterOverlay" class="filter-overlay">
+  <div class="filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filterTitle">
+    <div class="filter-titlebar">
+      <div id="filterTitle">Filter Metrics</div>
+      <button type="button" class="filter-close-btn" onclick="closeFilterDialog()">Close</button>
+    </div>
+    <div id="filterRows"></div>
+    <div class="filter-actions">
+      <button type="button" onclick="clearMetricFilters()">Clear</button>
+      <button type="button" class="primary" onclick="applyMetricFilters()">Apply</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* =========================================================
-   DEBOUNCE UTILITY
-   ========================================================= */
-
-function debounce(fn, delay) {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), delay);
-  };
-}
-
-window.debouncedSearch = debounce(applyGlobalSearch, 150);
-
 /* =========================================================
    SHARED TABLE UTILITIES
    ========================================================= */
@@ -413,9 +453,13 @@ function addGlobalTab(label, onClick) {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     div.classList.add("active");
 
-    clearSearch();
+    closeFilterDialog();
     hideAllFeatures();
     onClick();
+    setTimeout(() => {
+      const activeFeature = getActiveFeatureElement();
+      if (activeFeature) applyFiltersForFeature(activeFeature);
+    }, 0);
   };
 
   globalTabs.appendChild(div);
@@ -448,60 +492,236 @@ function loadFeature(file) {
 }
 
 /* =========================================================
-   GLOBAL SEARCH
+   DYNAMIC FILTER
    ========================================================= */
 
-function applyGlobalSearch(text) {
-  const q = text.toLowerCase();
+const FEATURE_IDS = [
+  "portfolioFeature",
+  "tfwatchFeature",
+  "tfcoreFeature",
+  "tfstudyFeature",
+  "tfstage2Feature",
+  "sectorFeature",
+];
 
-  const activeFeature = document.querySelector(
-    "#portfolioFeature:not([style*='display: none'])," +
-    "#tfwatchFeature:not([style*='display: none'])," +
-    "#tfcoreFeature:not([style*='display: none'])," +
-    "#tfstudyFeature:not([style*='display: none'])," +
-    "#tfstage2Feature:not([style*='display: none'])," +
-    "#sectorFeature:not([style*='display: none'])"
-  );
+const FILTER_EXCLUDED_COLUMNS = new Set([
+  "Symbol", "Chart", "Folio", "Category", "Sector", "MarketCap", "Notes",
+]);
 
-  if (!activeFeature) return;
+const FILTER_STORAGE_KEY = "metricFiltersByFeatureV1";
+const filterStateByFeature = (() => {
+  try {
+    return JSON.parse(localStorage.getItem(FILTER_STORAGE_KEY) || "{}") || {};
+  } catch (_) {
+    return {};
+  }
+})();
 
-  const tables = activeFeature.querySelectorAll("table");
-  if (!tables.length) return;
+function persistFilterState() {
+  try {
+    localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filterStateByFeature));
+  } catch (_) {
+    // Ignore storage errors.
+  }
+}
+
+function getActiveFeatureElement() {
+  for (const id of FEATURE_IDS) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    const style = window.getComputedStyle(el);
+    if (style.display !== "none" && style.visibility !== "hidden") return el;
+  }
+  return null;
+}
+
+function getVisibleFeatureTables(featureEl) {
+  return [...featureEl.querySelectorAll("table")].filter(t => t.offsetParent !== null);
+}
+
+function getTableHeaderMap(table) {
+  const headerRow = table.querySelector("tr");
+  if (!headerRow) return [];
+  const headers = [...headerRow.querySelectorAll("th")].map(th => String(th.textContent || "").trim());
+  return headers;
+}
+
+function detectNumericMetrics(featureEl) {
+  const metrics = [];
+  const seen = new Set();
+  const tables = getVisibleFeatureTables(featureEl);
 
   tables.forEach(table => {
-    const rows = table.querySelectorAll("tr");
+    const headers = getTableHeaderMap(table);
+    const rows = [...table.querySelectorAll("tr")].slice(1);
+
+    headers.forEach((header, colIdx) => {
+      if (!header || FILTER_EXCLUDED_COLUMNS.has(header) || seen.has(header)) return;
+
+      const hasNumeric = rows.some(row => {
+        if (row.querySelector("th")) return false;
+        const cells = [...row.querySelectorAll("td")];
+        if (!cells[colIdx]) return false;
+        const text = String(cells[colIdx].innerText || "").trim();
+        if (!text || text === "-") return false;
+        const v = parseFloat(text.replace(/,/g, ""));
+        return Number.isFinite(v);
+      });
+
+      if (hasNumeric) {
+        metrics.push(header);
+        seen.add(header);
+      }
+    });
+  });
+
+  return metrics;
+}
+
+function buildFilterRows(featureId, metrics) {
+  const host = document.getElementById("filterRows");
+  host.innerHTML = "";
+  const saved = filterStateByFeature[featureId] || {};
+
+  if (!metrics.length) {
+    const msg = document.createElement("div");
+    msg.textContent = "No numeric metrics available for this tab.";
+    host.appendChild(msg);
+    return;
+  }
+
+  metrics.forEach(metric => {
+    const row = document.createElement("div");
+    row.className = "filter-metric-grid";
+    row.setAttribute("data-metric", metric);
+
+    const name = document.createElement("div");
+    name.textContent = metric;
+
+    const gte = document.createElement("div");
+    gte.textContent = ">=";
+
+    const minInput = document.createElement("input");
+    minInput.type = "number";
+    minInput.step = "any";
+    minInput.placeholder = "value";
+    minInput.value = saved[metric]?.min ?? "";
+
+    const lt = document.createElement("div");
+    lt.textContent = "<";
+
+    const maxInput = document.createElement("input");
+    maxInput.type = "number";
+    maxInput.step = "any";
+    maxInput.placeholder = "value";
+    maxInput.value = saved[metric]?.max ?? "";
+
+    row.appendChild(name);
+    row.appendChild(gte);
+    row.appendChild(minInput);
+    row.appendChild(lt);
+    row.appendChild(maxInput);
+    host.appendChild(row);
+  });
+}
+
+function collectDialogFilters() {
+  const filters = {};
+  const rows = [...document.querySelectorAll("#filterRows .filter-metric-grid")];
+  rows.forEach(row => {
+    const metric = row.getAttribute("data-metric");
+    const inputs = row.querySelectorAll("input");
+    const minRaw = String(inputs[0]?.value ?? "").trim();
+    const maxRaw = String(inputs[1]?.value ?? "").trim();
+    if (!metric || (!minRaw && !maxRaw)) return;
+    filters[metric] = { min: minRaw, max: maxRaw };
+  });
+  return filters;
+}
+
+function tablePassesFilters(table, row, filters) {
+  const headers = getTableHeaderMap(table);
+  const cells = [...row.querySelectorAll("td")];
+
+  for (const metric of Object.keys(filters)) {
+    const cond = filters[metric];
+    const idx = headers.indexOf(metric);
+    if (idx < 0 || !cells[idx]) continue;
+
+    const text = String(cells[idx].innerText || "").trim();
+    const value = parseFloat(text.replace(/,/g, ""));
+    if (!Number.isFinite(value)) return false;
+
+    if (cond.min !== "" && value < parseFloat(cond.min)) return false;
+    if (cond.max !== "" && value >= parseFloat(cond.max)) return false;
+  }
+
+  return true;
+}
+
+function applyFiltersForFeature(featureEl) {
+  if (!featureEl) return;
+  const featureId = featureEl.id;
+  const filters = filterStateByFeature[featureId] || {};
+  const hasActiveFilters = Object.keys(filters).length > 0;
+
+  const tables = getVisibleFeatureTables(featureEl);
+  tables.forEach(table => {
+    const rows = [...table.querySelectorAll("tr")].slice(1);
     rows.forEach(row => {
       if (row.querySelector("th")) return;
-      row.style.display =
-        row.innerText.toLowerCase().includes(q) ? "" : "none";
+      row.style.display = hasActiveFilters && !tablePassesFilters(table, row, filters) ? "none" : "";
     });
   });
 }
 
-/* ---------- Search toggle ---------- */
-function toggleSearch() {
-  const box = document.getElementById("searchBox");
-  const input = document.getElementById("globalSearch");
+window.openFilterDialog = function () {
+  const activeFeature = getActiveFeatureElement();
+  if (!activeFeature) return;
+  const metrics = detectNumericMetrics(activeFeature);
+  buildFilterRows(activeFeature.id, metrics);
+  document.getElementById("filterOverlay").style.display = "flex";
+};
 
-  box.style.display = box.style.display === "block" ? "none" : "block";
-  if (box.style.display === "block") input.focus();
-}
+window.closeFilterDialog = function () {
+  document.getElementById("filterOverlay").style.display = "none";
+};
 
-function clearSearch() {
-  document.getElementById("globalSearch").value = "";
-  applyGlobalSearch("");
-  document.getElementById("searchBox").style.display = "none";
-}
+window.applyMetricFilters = function () {
+  const activeFeature = getActiveFeatureElement();
+  if (!activeFeature) return;
+  filterStateByFeature[activeFeature.id] = collectDialogFilters();
+  persistFilterState();
+  applyFiltersForFeature(activeFeature);
+  closeFilterDialog();
+};
 
-/* Close search on ESC */
+window.clearMetricFilters = function () {
+  const activeFeature = getActiveFeatureElement();
+  if (!activeFeature) return;
+  filterStateByFeature[activeFeature.id] = {};
+  persistFilterState();
+  const inputs = document.querySelectorAll("#filterRows input");
+  inputs.forEach(input => { input.value = ""; });
+  applyFiltersForFeature(activeFeature);
+};
+
+let filterApplyTimer;
+new MutationObserver(() => {
+  clearTimeout(filterApplyTimer);
+  filterApplyTimer = setTimeout(() => {
+    const activeFeature = getActiveFeatureElement();
+    if (activeFeature) applyFiltersForFeature(activeFeature);
+  }, 60);
+}).observe(document.getElementById("app"), { childList: true, subtree: true });
+
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") clearSearch();
+  if (e.key === "Escape") closeFilterDialog();
 });
 
 document.addEventListener("click", e => {
-  if (!e.target.closest(".search-wrapper")) {
-    document.getElementById("searchBox").style.display = "none";
-  }
+  const overlay = document.getElementById("filterOverlay");
+  if (e.target === overlay) closeFilterDialog();
 });
 
 /* =========================================================
