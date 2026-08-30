@@ -260,6 +260,65 @@ window.sortRowsByColumn = function (rows, column, asc) {
   return [...rows].sort((a, b) => window.compareCellValues(a?.[column], b?.[column], asc));
 };
 
+const SECTOR_SUMMARY_CSV = "technical_sector_data.csv";
+let sectorRsiLookup = null;
+let sectorRsiLookupPromise = null;
+
+function parseSimpleCsv(text) {
+  const lines = String(text || "").trim().split("\n");
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(",").map(h => h.trim());
+  return lines.slice(1).map(line => {
+    const values = line.split(",");
+    const row = {};
+    headers.forEach((h, i) => {
+      row[h] = (values[i] ?? "").trim();
+    });
+    return row;
+  });
+}
+
+window.ensureSectorRsiMapLoaded = function () {
+  if (sectorRsiLookup) return Promise.resolve(sectorRsiLookup);
+  if (sectorRsiLookupPromise) return sectorRsiLookupPromise;
+
+  sectorRsiLookupPromise = fetch(SECTOR_SUMMARY_CSV)
+    .then(r => {
+      if (!r.ok) throw new Error(String(r.status));
+      return r.text();
+    })
+    .then(text => {
+      const rows = parseSimpleCsv(text);
+      const lookup = {};
+      rows.forEach(r => {
+        const sector = String(r.Sector || "").trim();
+        if (!sector) return;
+        lookup[sector] = {
+          W_RSI: String(r.W_RSI ?? "").trim(),
+          M_RSI: String(r.M_RSI ?? "").trim(),
+        };
+      });
+      sectorRsiLookup = lookup;
+      return sectorRsiLookup;
+    })
+    .catch(() => {
+      sectorRsiLookup = {};
+      return sectorRsiLookup;
+    });
+
+  return sectorRsiLookupPromise;
+};
+
+window.formatSectorWithRsi = function (sectorName) {
+  const sector = String(sectorName || "").trim();
+  if (!sector) return "";
+  const metrics = sectorRsiLookup?.[sector];
+  const w = String(metrics?.W_RSI ?? "").trim();
+  const m = String(metrics?.M_RSI ?? "").trim();
+  if (!w || !m) return sector;
+  return `${sector} (${w}/${m})`;
+};
+
 window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const num = parseFloat(value);
   const isNum = !isNaN(num);

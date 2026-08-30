@@ -90,7 +90,7 @@ function computeSharedColWidthsTFS2(allRows) {
     visibleCols.forEach(h => {
       const td = document.createElement("td");
       td.style.whiteSpace = "nowrap";
-      td.innerText = r[h] ?? "";
+      td.innerText = h === "Sector" ? window.formatSectorWithRsi(r[h] ?? "") : (r[h] ?? "");
       row.appendChild(td);
     });
     probe.appendChild(row);
@@ -117,9 +117,11 @@ function parseCSVStage2(text) {
 }
 
 window.registerTabs(addTab => {
-  fetch(CSV_TFS2)
-    .then(r => r.text())
-    .then(t => {
+  Promise.all([
+    window.ensureSectorRsiMapLoaded(),
+    fetch(CSV_TFS2).then(r => r.text()),
+  ])
+    .then(([, t]) => {
       rawTFS2 = parseCSVStage2(t);
       [...new Set(rawTFS2.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
@@ -261,6 +263,8 @@ function drawTFS2Table(table, rows, sectionKey) {
         // Format BO columns as integers
         if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
+        } else if (h === "Sector") {
+          td.innerText = window.formatSectorWithRsi(v);
         } else {
           td.innerText = v;
         }

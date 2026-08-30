@@ -22,7 +22,7 @@ const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 
 const COLS_SECTOR = [
-  "Sector", "Count", "D_RSI", "DD_RSI", "W_RSI", "WD_RSI", "M_RSI", "MD_RSI"
+  "Sector", "Count", "D_RSI", "W_RSI", "M_RSI", "DD_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -133,12 +133,11 @@ function drawSectorTable(table, rows) {
         const num = parseFloat(v);
         if (!isNaN(num)) {
           if (deltaCols.has(h)) {
-            if (num > 0) td.classList.add("cell-green");
+            if (num >= 0) td.classList.add("cell-green");
             else if (num < 0) td.classList.add("cell-red");
           } else {
-            if (num >= 70) td.classList.add("cell-teal");
-            else if (num <= 30) td.classList.add("cell-red");
-            else td.classList.add("cell-green");
+            if (num >= 50) td.classList.add("cell-green");
+            else td.classList.add("cell-red");
           }
         }
       }

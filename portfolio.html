@@ -240,9 +240,11 @@ const CHART_TIMEFRAMES_PORTFOLIO = { Trade: ["D", "W", "M"], Sate: ["D", "W", "M
 // ==============================================================
 
 window.registerTabs(addTab => {
-  fetch(CSV_FILE)
-    .then(r => r.text())
-    .then(t => {
+  Promise.all([
+    window.ensureSectorRsiMapLoaded(),
+    fetch(CSV_FILE).then(r => r.text()),
+  ])
+    .then(([, t]) => {
       rawData = parseCSV(t);
 
       const uniqueFolios = [...new Set(rawData.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))];
@@ -316,7 +318,7 @@ function computeSharedColWidths(allRows, columnOrder) {
     visibleCols.forEach(h => {
       const td = document.createElement("td");
       td.style.whiteSpace = "nowrap";
-      td.innerText = r[h] ?? "";
+      td.innerText = h === "Sector" ? window.formatSectorWithRsi(r[h] ?? "") : (r[h] ?? "");
       row.appendChild(td);
     });
     probe.appendChild(row);
@@ -505,6 +507,8 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         // Format BO columns as integers
         if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
+        } else if (h === "Sector") {
+          td.innerText = window.formatSectorWithRsi(v);
         } else {
           td.innerText = v;
         }
