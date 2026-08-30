@@ -22,7 +22,7 @@ const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 
 const COLS_SECTOR = [
-  "Sector", "Count", "W_BO", "M_BO", "D_RSI", "W_RSI", "M_RSI", "DD_RSI", "WD_RSI", "MD_RSI"
+  "Sector", "Count", "W_BO", "M_BO", "W_RSI", "M_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -98,7 +98,7 @@ function renderSectorSummary() {
 
 function drawSectorTable(table, rows) {
   table.innerHTML = "";
-  const deltaCols = new Set(["DD_RSI", "WD_RSI", "MD_RSI"]);
+  const deltaCols = new Set(["WD_RSI", "MD_RSI"]);
   const breakoutCountCols = new Set(["W_BO", "M_BO"]);
   const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
@@ -295,12 +295,12 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
   if (filterMode === "W_BO") {
     rows = rows.filter(r => {
       const v = parseFloat(r.W_BO);
-      return !isNaN(v) && v >= 0;
+      return !isNaN(v) && v > 0;
     });
   } else if (filterMode === "M_BO") {
     rows = rows.filter(r => {
       const v = parseFloat(r.M_BO);
-      return !isNaN(v) && v >= 0;
+      return !isNaN(v) && v > 0;
     });
   }
 
@@ -309,7 +309,7 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
   container.innerHTML = "";
 
   const title = document.getElementById("sectorDrilldownTitle");
-  const suffix = filterMode === "ALL" ? "" : ` | ${filterMode}>=0`;
+  const suffix = filterMode === "ALL" ? "" : ` | ${filterMode}>0`;
   title.innerText = `${sectorName}${suffix} (${rows.length})`;
   title.dataset.sectorName = sectorName;
   title.dataset.filterMode = filterMode;
