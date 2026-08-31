@@ -14,8 +14,8 @@ Auto - Misc,9,44,3,48,0
 Auto - OEM Suppliers,44,46,-3,56,1
 Auto - PV/Trucks,6,37,1,48,-2
 Auto - Replacement,20,43,0,56,1
-Auto - Tyres,6,40,-4,54,1
-Batteries,4,43,-2,50,0
+Auto - Tyres,6,39,-5,54,1
+Batteries,4,43,-2,49,-1
 Beverages - Alcohol,11,45,1,49,0
 Chemicals - Bulk,23,53,2,48,2
 Chemicals - Dyes,12,57,-1,54,5
@@ -53,16 +53,16 @@ Healthcare - Biotech,5,39,-6,48,0
 Healthcare - Diagnostics,6,53,-2,62,0
 Healthcare - Equipments,3,61,-2,50,0
 Healthcare - Hospitals,17,49,0,55,-2
-Healthcare - Pharma,98,57,1,56,2
+Healthcare - Pharma,98,56,0,56,2
 Human Resources,5,38,-13,45,-1
 IT - Education,6,51,0,43,1
 IT - Equipments,9,50,-4,56,0
 IT - Product/Platform,42,53,4,50,1
 IT - Services,31,42,-1,44,1
 IT - Software/Consulting,52,45,-1,45,0
-Industrial - Bearings,6,62,11,53,2
+Industrial - Bearings,6,62,12,53,2
 Industrial - Consumables,15,51,1,54,1
-Industrial - Pumps/Engines,13,50,0,53,0
+Industrial - Pumps/Engines,13,50,1,53,0
 Infra - Cement,32,35,-1,45,0
 Infra - Ceramics,8,44,2,52,1
 Infra - Construction,55,41,-1,46,0
@@ -75,7 +75,7 @@ Leisure - Hotels,19,41,2,48,0
 Leisure - Misc,7,40,-6,44,3
 Leisure - Restaurants,8,42,-16,45,7
 Media - Entertainment,4,37,-7,47,1
-Media - Entertaintment,2,56,4,56,-2
+Media - Entertaintment,2,57,6,56,-2
 Media - Films,6,44,-3,46,0
 Media - Misc,3,41,4,45,0
 Media - Publishing,10,45,4,46,-1
@@ -83,7 +83,7 @@ Media - TV Broadcast,9,40,5,36,-1
 Metals - Aluminium,4,42,-2,60,2
 Metals - Casting/Forging,19,57,1,58,3
 Metals - Copper,4,52,1,65,4
-Metals - Iron & Steel,41,51,1,56,2
+Metals - Iron & Steel,41,51,0,56,2
 Metals - Misc,22,45,-1,53,1
 Metals - Pipe & Tube,13,47,-4,56,4
 Oil and Gas,12,55,-2,55,4
