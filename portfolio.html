@@ -40,7 +40,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
-    "M_SL","M_PSL",
+    "W_SL","M_SL","M_PSL",
     "M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
     "CurPrice","Notes"
@@ -131,14 +131,12 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
-    const wBO = toNumber(d["W_BO"]);
-    const mBO = toNumber(d["M_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const wPSL = toNumber(d["W_PSL"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 4 && ltPert > 4 && (( ddATH > -8 && wSL > 0 && wPSL < 10 && dBO >= 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 12 && dBO >= 0)) && meetsPnLThreshold(ic, pnl);
+    return ic < 4 && ltPert > 4 && (( ddATH > -8 && wSL > 0 && wPSL < 12 && dBO >= 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 12 && dBO >= 0)) && meetsPnLThreshold(ic, pnl);
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
@@ -150,7 +148,7 @@ const addConditionsByFolio = {
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 6 && ltPert > ltPertThreshold && mSL > 0 && mPSL < 15 &&  dBO >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && mSL > 0 && mPSL < 15 &&  dBO >= 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
@@ -167,7 +165,8 @@ const trimConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ic > 0.3 && mCHG < -8;
+    const wSL = toNumber(d["W_SL"]);
+    return ic > 0.3 && (mCHG < -8 || (pnl < 0 && wSL < 0));
   },
 };
 
@@ -202,7 +201,7 @@ const exitConditionsByFolio = {
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -8 );
+    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -8 || (pnl < 0 && wSL < 0) );
   },
   Core:  d => {
     const ic = toNumber(d["IC"]);
