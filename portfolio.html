@@ -39,8 +39,8 @@ const COLUMN_ORDER_BY_FOLIO = {
     "LT_Type","LT_days","LT_Pert",
     "DD_ATH","DD_52W",
     "D_BO","W_BO","M_BO",
-    "W_SL","M_SL","W_PSL","M_PSL",
-    "W_CHG","M_CHG",
+    "M_SL","M_PSL",
+    "M_CHG",
     "AvgPrice","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
   ],
 };
@@ -162,9 +162,8 @@ const trimConditionsByFolio = {
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const wSL = toNumber(d["W_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ic > 0.3 && (wSL < 0 || mCHG < -8);
+    return ic > 0.3 && mCHG < -8;
   },
 };
 
