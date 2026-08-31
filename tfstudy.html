@@ -44,12 +44,11 @@ function splitHighLowTFS(rows) {
   const lowRows = [];
 
   rows.forEach(r => {
-    const wCHG = toNumberTFS(r.W_CHG);
-    const wSL = toNumberTFS(r.W_SL);
+    const dBO = toNumberTFS(r.D_BO);
     const mSL = toNumberTFS(r.M_SL);
     const mPSL = toNumberTFS(r.M_PSL);
 
-    if ( wCHG > 0 && mSL > 0 && mPSL < 12) {
+    if ( dBO >= 0 && mSL > 0 && mPSL < 15) {
       highRows.push(r);
     } else {
       lowRows.push(r);
