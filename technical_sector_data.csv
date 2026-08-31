@@ -8,20 +8,20 @@ Agri - Sugar,22,68,7,50,10
 Agri - Tea/Coffee,10,51,1,49,3
 Agrichem - Fertilizers,20,50,-1,52,1
 Agrichem - Protection,20,37,0,44,0
-Auto - 2W,4,53,-1,67,1
+Auto - 2W,4,52,-2,67,1
 Auto - CV,5,49,0,59,0
 Auto - Misc,9,44,3,48,0
 Auto - OEM Suppliers,44,46,-3,56,1
 Auto - PV/Trucks,6,37,1,48,-2
 Auto - Replacement,20,43,0,56,1
-Auto - Tyres,6,40,-4,54,1
+Auto - Tyres,6,39,-5,54,1
 Batteries,4,43,-2,49,-1
 Beverages - Alcohol,11,45,1,49,0
 Chemicals - Bulk,23,53,2,48,2
 Chemicals - Dyes,12,57,-1,54,5
 Chemicals - Misc,8,40,-2,43,0
 Chemicals - Petro,9,46,-1,51,1
-Chemicals - Specialty,46,52,0,52,2
+Chemicals - Specialty,46,52,0,51,1
 Consumption - Appliances,17,44,-1,44,-1
 Consumption - Dairy,6,61,-4,59,6
 Consumption - Electronics,9,47,-1,48,1
@@ -29,7 +29,7 @@ Consumption - FMCG,11,42,-4,49,-1
 Consumption - Footwear,8,44,-4,43,1
 Consumption - Jewelry,18,53,1,59,1
 Consumption - Luggage,2,43,0,36,1
-Consumption - Misc,28,43,0,46,0
+Consumption - Misc,28,43,0,45,-1
 Consumption - Paints,8,47,-2,47,1
 Consumption - Personal,9,33,-1,45,-3
 Consumption - Retail,9,39,-5,44,0
@@ -50,19 +50,19 @@ Financials - PSU Bank,12,29,-1,46,1
 Financials - Private Bank,29,48,0,55,1
 Financials - Ratings,3,51,4,52,2
 Healthcare - Biotech,5,39,-6,48,0
-Healthcare - Diagnostics,6,53,-2,62,0
+Healthcare - Diagnostics,6,54,-1,62,0
 Healthcare - Equipments,3,61,-2,50,0
 Healthcare - Hospitals,17,49,0,55,-2
-Healthcare - Pharma,98,57,1,56,2
+Healthcare - Pharma,98,56,0,56,2
 Human Resources,5,38,-13,45,-1
 IT - Education,6,51,0,43,1
 IT - Equipments,9,50,-4,56,0
 IT - Product/Platform,42,53,4,50,1
 IT - Services,31,42,-1,44,1
 IT - Software/Consulting,52,45,-1,45,0
-Industrial - Bearings,6,62,12,53,2
+Industrial - Bearings,6,62,11,53,2
 Industrial - Consumables,15,51,1,54,1
-Industrial - Pumps/Engines,13,50,1,53,0
+Industrial - Pumps/Engines,13,50,0,53,0
 Infra - Cement,32,35,-1,45,0
 Infra - Ceramics,8,44,2,52,1
 Infra - Construction,55,41,-1,46,0
@@ -75,7 +75,7 @@ Leisure - Hotels,19,41,2,48,0
 Leisure - Misc,7,40,-6,44,3
 Leisure - Restaurants,8,42,-16,45,7
 Media - Entertainment,4,37,-7,47,1
-Media - Entertaintment,2,55,4,56,-2
+Media - Entertaintment,2,54,2,55,-3
 Media - Films,6,44,-3,46,0
 Media - Misc,3,41,4,45,0
 Media - Publishing,10,45,4,46,-1
@@ -83,7 +83,7 @@ Media - TV Broadcast,9,40,5,36,-1
 Metals - Aluminium,4,42,-2,60,2
 Metals - Casting/Forging,19,57,1,58,3
 Metals - Copper,4,52,1,65,4
-Metals - Iron & Steel,41,51,0,56,2
+Metals - Iron & Steel,41,51,1,56,2
 Metals - Misc,22,45,-1,53,1
 Metals - Pipe & Tube,13,47,-4,56,4
 Oil and Gas,12,55,-2,55,4
