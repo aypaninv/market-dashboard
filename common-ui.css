@@ -251,7 +251,7 @@ tr.sector-break td {
 .update-time {
   position: fixed;
   top: 9px;
-  right: 52px;
+  right: 86px;
   font-size: 11px;
   color: var(--muted);
   z-index: 22;

@@ -29,8 +29,8 @@ const HEADER_LABELS_NSEALL = {
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
 const NSEALL_FILTER = {
-  W_BO:   r => parseFloat(r.W_BO)   > 0,
-  W_SL:   r => parseFloat(r.W_SL)   < 10,
+  W_BO:   r => parseFloat(r.W_BO)   >= 0,
+  W_SL:   r => parseFloat(r.W_SL)   < 12,
   DD_ATH: r => parseFloat(r.DD_ATH) > -15,
 };
 
@@ -142,6 +142,7 @@ function drawNseAllTable(rows) {
   wrapper.appendChild(countEl);
 
   const table = document.createElement("table");
+  table.className = "portfolio-section-table";
   buildNseAllTable(table, rows);
   wrapper.appendChild(table);
   container.appendChild(wrapper);
@@ -227,6 +228,7 @@ function buildNseAllTable(table, rows) {
           td.innerText = v;
         }
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        td.style.whiteSpace = "nowrap";
       }
 
       if (h !== "Chart") {
@@ -248,10 +250,13 @@ function updateNseAllTime() {
   fetch(CSV_NSEALL, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
-      document.getElementById("updateTime_nseall").innerText =
-        d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false }) +
-        " / " +
-        d.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "2-digit" });
+      if (Number.isNaN(d.getTime())) return;
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      document.getElementById("updateTime_nseall").innerText = `${y}-${m}-${day}:${hh}:${mm}`;
     });
 }
 </script>
