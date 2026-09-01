@@ -143,12 +143,12 @@ const addConditionsByFolio = {
     const ltPert = toNumber(d["LT_Pert"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    const mBO = toNumber(d["M_BO"]);
+    const wBO = toNumber(d["W_BO"]);
     const mCHG = toNumber(d["M_CHG"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 6 && ltPert > 4 && mSL > 0 && mPSL < 15 &&  mBO >= 0 && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && ltPert > 4 && mSL > 0 && mPSL < 15 &&  wBO >= 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
