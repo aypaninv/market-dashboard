@@ -1,0 +1,259 @@
+<!-- ===================== NSEALL FEATURE ===================== -->
+
+<div id="nseallFeature" style="display:none">
+  <div class="update-time" id="updateTime_nseall"></div>
+  <div class="content">
+    <div id="nseallSection"></div>
+  </div>
+</div>
+
+<script>
+const CSV_NSEALL = "nseall_report.csv";
+
+const COLS_NSEALL = [
+  "Symbol","Chart","Folio",
+  "DD_ATH","DD_52W",
+  "D_BO","W_BO","M_BO",
+  "W_SL","M_SL",
+  "W_CHG","M_CHG",
+  "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
+];
+
+const HEADER_LABELS_NSEALL = {
+  "W_BO": "W_BO",
+  "D_BO": "D_BO",
+  "W_SL": "W_SL",
+  "M_SL": "M_SL",
+};
+
+// ── Hardcoded entry-quality filter ──────────────────────────────────────────
+// Only symbols passing ALL conditions are shown in the table.
+const NSEALL_FILTER = {
+  W_RSI:  r => parseFloat(r.W_RSI)  > 50,
+  M_RSI:  r => parseFloat(r.M_RSI)  > 50,
+  W_BO:   r => parseFloat(r.W_BO)   > 0,
+  W_SL:   r => parseFloat(r.W_SL)   < 10,
+  DD_ATH: r => parseFloat(r.DD_ATH) > -15,
+};
+
+let rawNseAll = [];
+let nseallSortState = { col: "D_BO", asc: false };
+let nseallColWidths = {};
+
+function toNumberNseAll(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function applyNseAllFilter(rows) {
+  return rows.filter(r =>
+    Object.values(NSEALL_FILTER).every(fn => {
+      const result = fn(r);
+      return result && !isNaN(result === true ? 1 : result);
+    })
+  );
+}
+
+function computeNseAllColWidths(rows) {
+  if (!rows.length) return {};
+  const visibleCols = COLS_NSEALL.filter(h => h !== "Chart" && h in rows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute", visibility: "hidden",
+    top: "-9999px", left: "-9999px",
+    tableLayout: "auto", width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_NSEALL[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  rows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
+function parseCSVNseAll(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    const o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  Promise.all([
+    window.ensureSectorRsiMapLoaded(),
+    fetch(CSV_NSEALL).then(r => r.text()),
+  ])
+    .then(([, t]) => {
+      rawNseAll = window.attachSectorRsiColumns(parseCSVNseAll(t));
+      addTab("NSEAll", () => {
+        hideAllFeatures();
+        document.getElementById("nseallFeature").style.display = "block";
+        renderNseAll(rawNseAll);
+      });
+      updateNseAllTime();
+    });
+});
+
+function renderNseAll(data) {
+  const filtered = applyNseAllFilter([...data]);
+  const sorted   = window.sortRowsByColumn(filtered, nseallSortState.col, nseallSortState.asc);
+  nseallColWidths = computeNseAllColWidths(sorted);
+  drawNseAllTable(sorted);
+}
+
+function drawNseAllTable(rows) {
+  const container = document.getElementById("nseallSection");
+  container.innerHTML = "";
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "portfolio-dropdown-content";
+
+  const countEl = document.createElement("div");
+  countEl.style.cssText = "padding:4px 8px;font-size:0.85em;color:var(--text-muted,#888)";
+  countEl.textContent = `${rows.length} symbols`;
+  wrapper.appendChild(countEl);
+
+  const table = document.createElement("table");
+  buildNseAllTable(table, rows);
+  wrapper.appendChild(table);
+  container.appendChild(wrapper);
+}
+
+function buildNseAllTable(table, rows) {
+  table.innerHTML = "";
+
+  if (!rows.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No symbols match the filter criteria.";
+    td.className = "text";
+    td.colSpan = COLS_NSEALL.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  if (nseallColWidths && Object.keys(nseallColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_NSEALL.forEach(h => {
+      const col = document.createElement("col");
+      if (h === "Chart") {
+        col.style.width = "42px";
+      } else if (h in rows[0] && nseallColWidths[h]) {
+        col.style.width = nseallColWidths[h] + "px";
+      }
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
+  }
+
+  // Header row
+  const tr = document.createElement("tr");
+  COLS_NSEALL.forEach(h => {
+    if (h !== "Chart" && !(h in rows[0])) return;
+    const th = document.createElement("th");
+    th.innerText = HEADER_LABELS_NSEALL[h] || h;
+    if (h !== "Chart") {
+      th.onclick = () => {
+        if (nseallSortState.col === h) {
+          nseallSortState.asc = !nseallSortState.asc;
+        } else {
+          nseallSortState = { col: h, asc: false };
+        }
+        renderNseAll(rawNseAll);
+      };
+    }
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  // Data rows
+  rows.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_NSEALL.forEach(h => {
+      if (h !== "Chart" && !(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openChartNseAll('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        ["D", "W", "M"].forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
+      } else {
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+      }
+
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+        });
+      }
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function openChartNseAll(symbol) {
+  window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
+}
+
+function updateNseAllTime() {
+  fetch(CSV_NSEALL, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_nseall").innerText =
+        d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false }) +
+        " / " +
+        d.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "2-digit" });
+    });
+}
+</script>

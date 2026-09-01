@@ -46,7 +46,7 @@ function getActiveFeature() {
     "tfwatchFeature",
     "tfcoreFeature",
     "tfstudyFeature",
-    "tfstage2Feature",
+    "nseallFeature",
     "sectorFeature",
   ];
 
