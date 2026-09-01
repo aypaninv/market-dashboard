@@ -31,7 +31,7 @@ const HEADER_LABELS_NSEALL = {
 const NSEALL_FILTER = {
   W_BO:   r => parseFloat(r.W_BO)   >= 0,
   W_SL:   r => parseFloat(r.W_SL)   < 12,
-  DD_ATH: r => parseFloat(r.DD_ATH) > -15,
+  DD_52W: r => parseFloat(r.DD_52W) > -12,
 };
 
 let rawNseAll = [];
