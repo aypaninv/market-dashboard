@@ -29,8 +29,6 @@ const HEADER_LABELS_NSEALL = {
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
 const NSEALL_FILTER = {
-  W_RSI:  r => parseFloat(r.W_RSI)  > 50,
-  M_RSI:  r => parseFloat(r.M_RSI)  > 50,
   W_BO:   r => parseFloat(r.W_BO)   > 0,
   W_SL:   r => parseFloat(r.W_SL)   < 10,
   DD_ATH: r => parseFloat(r.DD_ATH) > -15,
