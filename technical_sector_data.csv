@@ -6,7 +6,7 @@ Agri - Rice,3,57,-1,55,0
 Agri - Seeds,3,47,-3,29,-1
 Agri - Sugar,22,60,-2,34,-1
 Agri - Tea/Coffee,11,47,-3,53,-2
-Agrichem - Fertilizers,20,50,-3,46,0
+Agrichem - Fertilizers,20,50,-3,45,-1
 Agrichem - Protection,21,38,0,41,0
 Auto - 2W,4,38,-2,45,-2
 Auto - CV,5,46,-1,52,0
@@ -22,7 +22,7 @@ Chemicals - Dyes,11,60,3,51,1
 Chemicals - Misc,9,45,-1,32,0
 Chemicals - Petro,9,53,4,42,1
 Chemicals - Specialty,46,53,-2,43,-1
-Consumption - Appliances,17,46,-2,38,-1
+Consumption - Appliances,17,47,-1,38,-1
 Consumption - Dairy,7,62,0,54,0
 Consumption - Electronics,9,46,0,42,0
 Consumption - FMCG,11,46,-1,42,0
@@ -38,7 +38,7 @@ Defense - Ship Building,3,34,-3,43,-1
 Defense - Technology,6,46,-1,60,0
 Electronic - Equipment,19,60,-2,59,0
 Engineering,58,50,0,44,0
-Financials - AMC,6,45,-1,59,0
+Financials - AMC,6,44,-2,58,-1
 Financials - Broking,17,42,-1,49,0
 Financials - Housing,12,41,-1,37,1
 Financials - Life,5,31,-3,35,-1
@@ -92,7 +92,7 @@ Packaging,27,54,0,51,1
 Paper,21,43,-2,37,-1
 Petro - Lubricants,7,62,1,46,1
 Petro - Refineries,6,33,2,32,1
-Power - Equipment,27,48,-2,53,-1
+Power - Equipment,27,49,-1,54,0
 Power - Green,14,47,-3,37,-1
 Power - Misc,20,45,-1,35,1
 Power - Wiring,19,51,0,51,-1
@@ -100,7 +100,7 @@ Railways,12,33,0,36,0
 Real Estate,48,43,-1,40,-1
 Rubber,1,65,2,60,1
 Tech - BPO,7,46,-3,41,-2
-Telecom,14,47,-1,43,0
+Telecom,14,46,-2,43,0
 Textile - Apparels,20,51,1,45,0
 Textile - Innerwear,6,38,-1,32,0
 Textile - Misc,21,48,0,45,0
