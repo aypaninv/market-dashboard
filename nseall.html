@@ -14,7 +14,7 @@ const COLS_NSEALL = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
-  "W_SL","M_SL",
+  "W_SL","M_SL","W_PSL","M_PSL",
   "W_CHG","M_CHG",
   "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
@@ -30,7 +30,7 @@ const HEADER_LABELS_NSEALL = {
 // Only symbols passing ALL conditions are shown in the table.
 const NSEALL_FILTER = {
   M_BO:   r => parseFloat(r.M_BO)   >= 0,
-  W_SL:   r => parseFloat(r.W_SL)   < 12,
+  W_PSL:   r => parseFloat(r.W_PSL) < 10,
   DD_52W: r => parseFloat(r.DD_52W) > -12,
 };
 
