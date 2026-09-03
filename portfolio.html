@@ -131,12 +131,21 @@ const addConditionsByFolio = {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mBO = toNumber(d["M_BO"]);
+    const dBO = toNumber(d["D_BO"]);
     const wSL = toNumber(d["W_SL"]);
     const wPSL = toNumber(d["W_PSL"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 4 && ltPert > 4 && (( ddATH > -8 && wSL > 0 && wPSL < 12 && mBO >= 0) || ( ddATH <= -8 && mSL > 0 && mPSL < 12 && mBO >= 0)) && meetsPnLThreshold(ic, pnl);
+    return (  ic < 4 &&  meetsPnLThreshold(ic, pnl) &&
+              ( dBO >= 0 ||
+                ( ltPert > 4 && 
+                  ( ( ddATH > -8 && wSL > 0 && wPSL < 12 && mBO >= 0) || 
+                    ( ddATH <= -8 && mSL > 0 && mPSL < 12 && mBO >= 0)
+                  )
+                )
+              )   
+            );
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
@@ -148,7 +157,13 @@ const addConditionsByFolio = {
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH >= -15 ? 4 : 8;
-    return ic < 6 && ltPert > 4 && mSL > 0 && mPSL < 15 &&  mBO >= 0 && meetsPnLThreshold(ic, pnl);
+    // return ic < 6 && ltPert > 4 && mSL > 0 && mPSL < 15 &&  mBO >= 0 && meetsPnLThreshold(ic, pnl);
+    return (  ic < 6 &&  meetsPnLThreshold(ic, pnl) &&
+              ( dBO >= 0 ||
+                ( ltPert > 4 && mSL > 0 && mPSL < 15 && mBO >= 0  )
+              )   
+            );
+
   },
 };
 
