@@ -166,7 +166,7 @@ const trimConditionsByFolio = {
     const pnl = toNumber(d["PnL"]);
     const mCHG = toNumber(d["M_CHG"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic > 0.3 && mCHG < -8;
+    return ic > 0.3 && wSL < 0 && mCHG < -8;
   },
 };
 
