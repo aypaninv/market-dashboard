@@ -159,14 +159,14 @@ const trimConditionsByFolio = {
     const wCHG = toNumber(d["W_CHG"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    return ic > 0.3 && (wSL < 0 || wCHG < -8);
+    return ic > 0.3 && wSL < 0;
   },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const mCHG = toNumber(d["M_CHG"]);
     const wSL = toNumber(d["W_SL"]);
-    return ic > 0.3 && (mCHG < -8 || (pnl < 0 && wSL < 0));
+    return ic > 0.3 && mCHG < -8;
   },
 };
 
@@ -176,32 +176,33 @@ const holdConditionsByFolio = {
 };
 
 const pullbackConditionsByFolio = {
-  // Sate: d => {
-  //   const ic = toNumber(d["IC"]);
-  //   const pnl = toNumber(d["PnL"]);
-  //   const ltDays = toNumber(d["LT_days"]);
-  //   const dBO = toNumber(d["D_BO"]);
-  //   const wSL = toNumber(d["W_SL"]);
-  //   return ltDays > 10 && dBO >= 0 && wSL > 0 && wSL < 12 && meetsPnLThreshold(ic, pnl);
-  // },
+  Sate: d => {
+    const ic = toNumber(d["IC"]);
+    const pnl = toNumber(d["PnL"]);
+    const ltDays = toNumber(d["LT_days"]);
+    const dBO = toNumber(d["D_BO"]);
+    const wSL = toNumber(d["W_SL"]);
+    const mCHG = toNumber(d["M_CHG"]);
+    return dBO >= 0 && wSL < 12 && mCHG < 0 && meetsPnLThreshold(ic, pnl);
+  },
   Core: d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
+    const wSL = toNumber(d["W_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return dBO >= 0 && mCHG < 0 && meetsPnLThreshold(ic, pnl);
+    return dBO >= 0 && wSL < 12 && mCHG < 0 && meetsPnLThreshold(ic, pnl);
   },
 };
 
 const exitConditionsByFolio = {
-  Trade: d => ( toNumber(d["W_SL"]) < 0  || toNumber(d["W_CHG"]) < -8 ),
   Sate:  d => {
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -8 || (pnl < 0 && wSL < 0) );
+    return mSL < 0 || (ic > 0.3 && (pnl < -8 || mCHG < -8));
   },
   Core:  d => {
     const ic = toNumber(d["IC"]);
@@ -209,7 +210,7 @@ const exitConditionsByFolio = {
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
     const mCHG = toNumber(d["M_CHG"]);
-    return ( (ic >= 0.3 && pnl < -8) || mSL < 0 || mCHG < -15 );
+    return mSL < 0 || (ic > 0.3 && (pnl < -8 || mCHG < -15));
   }
 };
   
