@@ -9,9 +9,9 @@ Agri - Tea/Coffee,11,48,-2,54,-1
 Agrichem - Fertilizers,20,51,-2,46,0
 Agrichem - Protection,21,39,1,41,0
 Auto - 2W,4,37,-3,45,-2
-Auto - CV,5,48,1,52,0
+Auto - CV,5,48,1,53,1
 Auto - Misc,9,42,1,45,0
-Auto - OEM Suppliers,44,50,0,47,-1
+Auto - OEM Suppliers,44,49,-1,47,-1
 Auto - PV/Trucks,7,33,-2,41,-1
 Auto - Replacement,20,45,0,46,-1
 Auto - Tyres,6,42,-2,37,0
@@ -50,19 +50,19 @@ Financials - PSU Bank,12,30,1,45,1
 Financials - Private Bank,29,45,0,50,0
 Financials - Ratings,3,46,1,59,0
 Healthcare - Biotech,5,47,2,47,0
-Healthcare - Diagnostics,6,59,-1,61,-1
+Healthcare - Diagnostics,6,58,-2,60,-2
 Healthcare - Equipments,3,59,1,50,0
 Healthcare - Hospitals,19,52,-1,54,0
 Healthcare - Pharma,99,58,1,53,0
 Human Resources,9,49,0,40,2
 IT - Education,6,50,-3,27,-1
-IT - Equipments,9,55,-2,48,0
+IT - Equipments,9,56,-1,48,0
 IT - Product/Platform,43,49,-2,45,-1
 IT - Services,31,46,-1,40,0
 IT - Software/Consulting,52,46,-1,38,0
 Industrial - Bearings,6,48,-1,42,0
 Industrial - Consumables,16,49,-1,47,-1
-Industrial - Pumps/Engines,13,47,0,53,1
+Industrial - Pumps/Engines,13,48,1,53,1
 Infra - Cement,32,35,-1,40,-1
 Infra - Ceramics,8,46,3,37,1
 Infra - Construction,56,42,0,36,0
@@ -95,12 +95,12 @@ Petro - Refineries,6,34,3,32,1
 Power - Equipment,27,49,-1,54,0
 Power - Green,14,48,-2,38,0
 Power - Misc,20,44,-2,35,1
-Power - Wiring,19,52,1,52,0
+Power - Wiring,19,52,1,51,-1
 Railways,12,33,0,37,1
 Real Estate,48,44,0,41,0
 Rubber,1,67,4,61,2
 Tech - BPO,7,46,-3,42,-1
-Telecom,14,46,-2,43,0
+Telecom,14,47,-1,43,0
 Textile - Apparels,20,52,2,45,0
 Textile - Innerwear,6,38,-1,32,0
 Textile - Misc,21,49,1,46,1
