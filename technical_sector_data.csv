@@ -1,14 +1,14 @@
 Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
 Agri - Animal Feed,4,50,1,49,4
 Agri - Edible Oil,10,43,0,45,0
-Agri - Misc,11,44,-1,38,-1
+Agri - Misc,11,44,-1,39,0
 Agri - Rice,3,59,2,56,1
 Agri - Seeds,3,48,0,29,-1
 Agri - Sugar,22,61,2,34,-1
 Agri - Tea/Coffee,11,50,1,55,0
 Agrichem - Fertilizers,20,52,1,46,0
 Agrichem - Protection,21,39,0,41,0
-Auto - 2W,4,37,0,44,-3
+Auto - 2W,4,37,0,45,-2
 Auto - CV,5,47,-1,52,0
 Auto - Misc,9,44,2,46,1
 Auto - OEM Suppliers,44,50,0,48,0
@@ -24,7 +24,7 @@ Chemicals - Petro,9,55,0,43,2
 Chemicals - Specialty,46,53,0,44,0
 Consumption - Appliances,17,46,0,38,-1
 Consumption - Dairy,7,62,0,54,0
-Consumption - Electronics,9,45,0,42,0
+Consumption - Electronics,9,44,-1,42,0
 Consumption - FMCG,11,46,0,42,0
 Consumption - Footwear,8,45,-1,35,1
 Consumption - Jewelry,20,55,1,52,2
