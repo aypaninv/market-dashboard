@@ -1,16 +1,16 @@
 Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
-Agri - Animal Feed,4,51,2,49,4
+Agri - Animal Feed,4,52,3,50,5
 Agri - Edible Oil,10,43,0,45,0
-Agri - Misc,11,44,-1,38,-1
+Agri - Misc,11,45,0,38,-1
 Agri - Rice,3,60,3,56,1
 Agri - Seeds,3,47,-1,29,-1
 Agri - Sugar,22,59,0,34,-1
-Agri - Tea/Coffee,11,48,-1,54,-1
+Agri - Tea/Coffee,11,49,0,54,-1
 Agrichem - Fertilizers,20,50,-1,46,0
 Agrichem - Protection,21,39,0,41,0
-Auto - 2W,4,37,0,45,-2
+Auto - 2W,4,38,1,45,-2
 Auto - CV,5,48,0,52,0
-Auto - Misc,9,41,-1,45,0
+Auto - Misc,9,42,0,45,0
 Auto - OEM Suppliers,44,50,0,48,0
 Auto - PV/Trucks,7,33,0,41,-1
 Auto - Replacement,20,44,1,46,-1
@@ -18,7 +18,7 @@ Auto - Tyres,6,41,0,36,-1
 Batteries,4,42,1,34,-1
 Beverages - Alcohol,12,40,-1,40,-1
 Chemicals - Bulk,24,53,1,45,0
-Chemicals - Dyes,11,65,4,55,5
+Chemicals - Dyes,11,64,3,55,5
 Chemicals - Misc,9,47,0,33,1
 Chemicals - Petro,9,57,2,45,4
 Chemicals - Specialty,46,55,2,45,1
@@ -31,7 +31,7 @@ Consumption - Jewelry,20,54,0,52,2
 Consumption - Luggage,2,33,-1,25,1
 Consumption - Misc,28,42,-1,38,0
 Consumption - Paints,7,45,-1,44,0
-Consumption - Personal,9,33,1,38,0
+Consumption - Personal,9,32,0,38,0
 Consumption - Retail,10,46,0,30,0
 Defense - Misc,14,50,3,54,2
 Defense - Ship Building,3,35,0,44,0
@@ -39,23 +39,23 @@ Defense - Technology,6,49,2,61,1
 Electronic - Equipment,19,63,2,61,3
 Engineering,58,51,0,45,1
 Financials - AMC,6,46,1,59,0
-Financials - Broking,17,43,-1,49,0
+Financials - Broking,17,44,0,49,0
 Financials - Housing,12,42,-1,37,1
 Financials - Life,5,31,-2,34,-2
-Financials - MFI,5,42,-1,34,0
-Financials - Misc,48,45,-2,49,0
+Financials - MFI,5,43,0,34,0
+Financials - Misc,48,44,-3,49,0
 Financials - NBFC,39,46,-1,42,0
 Financials - Non-Life,4,45,-4,30,1
-Financials - PSU Bank,12,29,-1,43,-1
+Financials - PSU Bank,12,29,-1,44,0
 Financials - Private Bank,29,45,0,49,-1
 Financials - Ratings,3,46,-1,59,0
 Healthcare - Biotech,5,48,2,48,1
 Healthcare - Diagnostics,6,59,-1,61,-1
-Healthcare - Equipments,3,56,-1,49,-1
+Healthcare - Equipments,3,55,-2,49,-1
 Healthcare - Hospitals,19,52,0,54,0
 Healthcare - Pharma,99,58,1,54,1
 Human Resources,9,48,-2,40,2
-IT - Education,6,52,1,28,0
+IT - Education,6,51,0,28,0
 IT - Equipments,9,57,0,49,1
 IT - Product/Platform,43,49,-1,45,-1
 IT - Services,31,47,1,40,0
@@ -68,24 +68,24 @@ Infra - Ceramics,8,45,0,37,1
 Infra - Construction,56,41,-1,36,0
 Infra - Granites/Marbles,4,34,0,31,1
 Infra - Home Furnish,6,36,0,29,1
-Infra - Laminates,9,45,0,39,0
-Infra - Plastic Pipes,8,55,0,44,1
+Infra - Laminates,9,46,1,39,0
+Infra - Plastic Pipes,8,56,1,44,1
 Leather Products,5,51,-1,54,-1
 Leisure - Hotels,19,40,0,42,0
-Leisure - Misc,7,48,0,33,0
+Leisure - Misc,7,47,-1,33,0
 Leisure - Restaurants,8,50,-1,37,0
 Media - Entertainment,4,41,-1,35,0
 Media - Entertaintment,2,60,0,55,1
 Media - Films,6,41,0,32,1
 Media - Misc,3,38,-1,21,1
 Media - Publishing,10,43,1,37,0
-Media - TV Broadcast,9,37,0,26,-1
-Metals - Aluminium,4,41,0,59,-1
+Media - TV Broadcast,9,36,-1,26,-1
+Metals - Aluminium,4,40,-1,59,-1
 Metals - Casting/Forging,19,51,-3,44,-2
 Metals - Copper,4,42,2,62,-1
 Metals - Iron & Steel,42,51,0,46,1
-Metals - Misc,22,46,0,45,1
-Metals - Pipe & Tube,13,53,0,48,1
+Metals - Misc,22,47,1,45,1
+Metals - Pipe & Tube,13,54,1,48,1
 Oil and Gas,12,59,1,53,4
 Others,40,54,-1,48,1
 Packaging,27,53,-1,50,0
@@ -97,17 +97,17 @@ Power - Green,14,48,-1,38,0
 Power - Misc,20,44,-1,35,1
 Power - Wiring,19,51,0,51,-1
 Railways,12,35,1,38,2
-Real Estate,48,44,-1,40,-1
+Real Estate,48,43,-2,40,-1
 Rubber,1,64,-2,60,1
 Tech - BPO,7,45,-2,41,-2
-Telecom,14,49,0,44,1
+Telecom,14,48,-1,44,1
 Textile - Apparels,20,51,-1,45,0
 Textile - Innerwear,6,37,-1,31,-1
 Textile - Misc,21,49,0,46,1
-Textile - Spinning/Yarn,32,52,-1,48,0
-Textiles - Polyester,4,54,-1,49,1
-Textiles - Processing,7,41,-1,42,0
+Textile - Spinning/Yarn,32,52,-1,49,1
+Textiles - Polyester,4,55,0,49,1
+Textiles - Processing,7,40,-2,42,0
 Transport - Logistics,31,47,0,41,1
-Transport - Shipping,6,46,0,46,1
-Utility - Gas,9,52,-1,37,0
-Utility - Misc,3,65,3,45,3
+Transport - Shipping,6,45,-1,46,1
+Utility - Gas,9,53,0,37,0
+Utility - Misc,3,65,3,44,2
