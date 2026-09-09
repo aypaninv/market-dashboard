@@ -30,7 +30,7 @@ const COLS_SECTOR_DRILLDOWN = [
   "Symbol", "Chart", "MarketCap",
   "DD_ATH", "DD_52W",
   "D_BO", "W_BO", "M_BO",
-  "W_SL", "M_SL", "W_PSL", "M_PSL",
+  "W_SL", "W_PSL",
   "W_CHG", "M_CHG",
   "Close"
 ];
@@ -260,7 +260,7 @@ function drawSectorDrilldownTable(table, rows, key) {
         td.innerHTML = `<a href="#" onclick="openTVChartSector('${v}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
-        ["W", "M"].forEach(tf => {
+        ["D", "W", "M"].forEach(tf => {
           const a = document.createElement("a");
           a.href = "#";
           a.textContent = tf;
