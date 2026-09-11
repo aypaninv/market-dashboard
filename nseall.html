@@ -29,9 +29,8 @@ const HEADER_LABELS_NSEALL = {
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
 const NSEALL_FILTER = {
-  M_BO:   r => parseFloat(r.M_BO)   >= 0,
-  W_PSL:   r => parseFloat(r.W_PSL) < 10,
-  DD_52W: r => parseFloat(r.DD_52W) > -12,
+  M_SL:   r => parseFloat(r.M_SL) >= 0 && parseFloat(r.M_SL) < 15,
+  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
 };
 
 let rawNseAll = [];
