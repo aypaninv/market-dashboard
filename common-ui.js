@@ -272,9 +272,36 @@ function getRowDateLabel(row) {
   return (row?.Date || row?.Datetime || "").slice(0, 10);
 }
 
+function getSectorForSymbolFromTable(symbol, table) {
+  if (!symbol || !table) return "";
+
+  const headerCells = [...table.querySelectorAll("tr:first-child th")];
+  if (!headerCells.length) return "";
+
+  const colNames = headerCells.map(th => String(th.textContent || "").trim().toUpperCase());
+  const symbolIdx = colNames.indexOf("SYMBOL");
+  const sectorIdx = colNames.indexOf("SECTOR");
+  if (symbolIdx < 0 || sectorIdx < 0) return "";
+
+  const rows = [...table.querySelectorAll("tr")].slice(1);
+  for (const row of rows) {
+    const cells = [...row.querySelectorAll("td")];
+    if (!cells[symbolIdx] || !cells[sectorIdx]) continue;
+    const rowSymbol = String(cells[symbolIdx].textContent || "").trim();
+    if (rowSymbol !== symbol) continue;
+    return String(cells[sectorIdx].textContent || "").trim();
+  }
+
+  return "";
+}
+
 function buildChartTitle(symbol, tf, candles) {
   const modeLabel = chartState.useHA ? "  [HA]" : "";
-  return symbol + "  \u2014  " + (OHLC_LABELS[tf] || tf) + modeLabel + "  (" + candles.length + ")";
+  if (chartState.sourceType === "symbol") {
+    const sectorName = getSectorForSymbolFromTable(symbol, chartState.sourceTable || getActiveTable());
+    if (sectorName) return symbol + " - (" + sectorName + ")" + modeLabel;
+  }
+  return symbol + modeLabel;
 }
 
 function setActiveChartTfButton(tf) {
