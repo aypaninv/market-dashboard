@@ -29,31 +29,13 @@ const HEADER_LABELS_TFC = {
 };
 
 let rawTFC = [];
-let tfcSections = { ALL: [], Week: [], Daily: [] };
-let tfcSortState = {};
-let tfcSectionOpenState = { High: true, Low: false };
+let tfcRows = [];
+let tfcSortState = null;
 let tfcColWidths = {};
 
 function toNumberTFC(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
-}
-
-function splitHighLowTFC(rows) {
-  const highRows = [];
-  const lowRows = [];
-
-  rows.forEach(r => {
-    const mSL = toNumberTFC(r.M_SL);
-
-    if ( mSL > 0 ) {
-      highRows.push(r);
-    } else {
-      lowRows.push(r);
-    }
-  });
-
-  return { highRows, lowRows };
 }
 
 function computeSharedColWidthsTFC(allRows) {
@@ -134,59 +116,23 @@ window.registerTabs(addTab => {
 });
 
 function renderTFC(data) {
-  const { highRows, lowRows } = splitHighLowTFC([...data]);
-  tfcSections = {
-    High: window.sortRowsByColumn(highRows, "D_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
-  };
-  tfcColWidths = computeSharedColWidthsTFC([...highRows, ...lowRows]);
-  tfcSortState = {};
-  tfcSectionOpenState = { High: true, Low: false };
-  drawTFCSections();
+  const filteredRows = data.filter(r => toNumberTFC(r.M_SL) >= 0);
+  tfcRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
+  tfcColWidths = computeSharedColWidthsTFC(tfcRows);
+  tfcSortState = null;
+  drawTFCTable();
 }
 
-function drawTFCSections() {
+function drawTFCTable() {
   const container = document.getElementById("tfcoreSections");
   container.innerHTML = "";
-
-  container.appendChild(createTFCSection("High", tfcSections.High, "High"));
-  container.appendChild(createTFCSection("Low", tfcSections.Low, "Low"));
-}
-
-function createTFCSection(title, rows, sectionKey) {
-  const details = document.createElement("details");
-  details.className = "portfolio-dropdown";
-  details.open = Boolean(tfcSectionOpenState[sectionKey]);
-  details.addEventListener("toggle", () => {
-    tfcSectionOpenState[sectionKey] = details.open;
-  });
-
-  const summary = document.createElement("summary");
-  summary.textContent = `${title} (${rows.length})`;
-  summary.style.cursor = "pointer";
-  summary.onclick = (e) => {
-    e.preventDefault();
-    details.open = !details.open;
-  };
-  details.appendChild(summary);
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "portfolio-dropdown-content";
-
   const table = document.createElement("table");
-  drawTFCTable(table, rows, sectionKey);
+  container.appendChild(table);
 
-  wrapper.appendChild(table);
-  details.appendChild(wrapper);
-  return details;
-}
-
-function drawTFCTable(table, rows, sectionKey) {
-  table.innerHTML = "";
-  const sortInfo = tfcSortState[sectionKey];
+  const sortInfo = tfcSortState;
   const data = sortInfo
-    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
-    : rows;
+    ? window.sortRowsByColumn(tfcRows, sortInfo.col, sortInfo.asc)
+    : tfcRows;
 
   if (!data.length) {
     const tr = document.createElement("tr");
@@ -222,11 +168,10 @@ function drawTFCTable(table, rows, sectionKey) {
     th.innerText = HEADER_LABELS_TFC[h] || h;
     if (h !== "Chart") {
       th.onclick = () => {
-        const existing = tfcSortState[sectionKey];
+        const existing = tfcSortState;
         const asc = existing && existing.col === h ? !existing.asc : true;
-        tfcSortState[sectionKey] = { col: h, asc };
-        tfcSectionOpenState[sectionKey] = true;
-        drawTFCSections();
+        tfcSortState = { col: h, asc };
+        drawTFCTable();
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");

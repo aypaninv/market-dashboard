@@ -26,33 +26,13 @@ const HEADER_LABELS_TFS = {
 };
 
 let rawTFS = [];
-let tfsSections = { ALL: [], Week: [], Daily: [] };
-let tfsSortState = {};
-let tfsSectionOpenState = { High: true, Low: false };
+let tfsRows = [];
+let tfsSortState = null;
 let tfsColWidths = {};
 
 function toNumberTFS(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
-}
-
-function splitHighLowTFS(rows) {
-  const highRows = [];
-  const lowRows = [];
-
-  rows.forEach(r => {
-    const mBO = toNumberTFS(r.M_BO);
-    const wSL = toNumberTFS(r.W_SL);
-    const wPSL = toNumberTFS(r.W_PSL);
-
-    if ( mBO >= 0 && wSL > 0 && wPSL < 12) {
-      highRows.push(r);
-    } else {
-      lowRows.push(r);
-    }
-  });
-
-  return { highRows, lowRows };
 }
 
 function computeSharedColWidthsTFS(allRows) {
@@ -133,59 +113,23 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  const { highRows, lowRows } = splitHighLowTFS([...data]);
-  tfsSections = {
-    High: window.sortRowsByColumn(highRows, "D_BO", false),
-    Low: window.sortRowsByColumn(lowRows, "D_BO", false),
-  };
-  tfsColWidths = computeSharedColWidthsTFS([...highRows, ...lowRows]);
-  tfsSortState = {};
-  tfsSectionOpenState = { High: true, Low: false };
-  drawTFSSections();
+  const filteredRows = data.filter(r => toNumberTFS(r.M_SL) >= 0);
+  tfsRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
+  tfsColWidths = computeSharedColWidthsTFS(tfsRows);
+  tfsSortState = null;
+  drawTFSTable();
 }
 
-function drawTFSSections() {
+function drawTFSTable() {
   const container = document.getElementById("tfstudySections");
   container.innerHTML = "";
-
-  container.appendChild(createTFSSection("High", tfsSections.High, "High"));
-  container.appendChild(createTFSSection("Low", tfsSections.Low, "Low"));
-}
-
-function createTFSSection(title, rows, sectionKey) {
-  const details = document.createElement("details");
-  details.className = "portfolio-dropdown";
-  details.open = Boolean(tfsSectionOpenState[sectionKey]);
-  details.addEventListener("toggle", () => {
-    tfsSectionOpenState[sectionKey] = details.open;
-  });
-
-  const summary = document.createElement("summary");
-  summary.textContent = `${title} (${rows.length})`;
-  summary.style.cursor = "pointer";
-  summary.onclick = (e) => {
-    e.preventDefault();
-    details.open = !details.open;
-  };
-  details.appendChild(summary);
-
-  const wrapper = document.createElement("div");
-  wrapper.className = "portfolio-dropdown-content";
-
   const table = document.createElement("table");
-  drawTFSTable(table, rows, sectionKey);
+  container.appendChild(table);
 
-  wrapper.appendChild(table);
-  details.appendChild(wrapper);
-  return details;
-}
-
-function drawTFSTable(table, rows, sectionKey) {
-  table.innerHTML = "";
-  const sortInfo = tfsSortState[sectionKey];
+  const sortInfo = tfsSortState;
   const data = sortInfo
-    ? window.sortRowsByColumn(rows, sortInfo.col, sortInfo.asc)
-    : rows;
+    ? window.sortRowsByColumn(tfsRows, sortInfo.col, sortInfo.asc)
+    : tfsRows;
 
   if (!data.length) {
     const tr = document.createElement("tr");
@@ -221,11 +165,10 @@ function drawTFSTable(table, rows, sectionKey) {
     th.innerText = HEADER_LABELS_TFS[h] || h;
     if (h !== "Chart") {
       th.onclick = () => {
-        const existing = tfsSortState[sectionKey];
+        const existing = tfsSortState;
         const asc = existing && existing.col === h ? !existing.asc : true;
-        tfsSortState[sectionKey] = { col: h, asc };
-        tfsSectionOpenState[sectionKey] = true;
-        drawTFSSections();
+        tfsSortState = { col: h, asc };
+        drawTFSTable();
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");
