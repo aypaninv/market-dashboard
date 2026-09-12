@@ -99,7 +99,7 @@ window.registerTabs(addTab => {
     fetch(CSV_TFS).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawTFS = window.attachSectorRsiColumns(parseCSVStudy(t));
+      rawTFS = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVStudy(t)));
       [...new Set(rawTFS.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {

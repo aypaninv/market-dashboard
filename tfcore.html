@@ -101,7 +101,7 @@ window.registerTabs(addTab => {
     fetch(CSV_TFC).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawTFC = window.attachSectorRsiColumns(parseCSVCore(t));
+      rawTFC = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVCore(t)));
       [...new Set(rawTFC.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
         .forEach(folio =>
           addTab(folio, () => {

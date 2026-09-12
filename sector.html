@@ -367,7 +367,7 @@ function loadSectorData() {
     fetch(CSV_SYMBOL_TECH).then(r => r.text()),
   ]).then(([sectorText, symbolText]) => {
     sectorRows = parseCSVSector(sectorText);
-    symbolRows = parseCSVSector(symbolText);
+    symbolRows = window.normalizeDrawdownRows(parseCSVSector(symbolText));
     sectorLoaded = true;
     updateSectorTime();
 

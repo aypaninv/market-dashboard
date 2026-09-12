@@ -110,7 +110,7 @@ window.registerTabs(addTab => {
     fetch(CSV_NSEALL).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawNseAll = window.attachSectorRsiColumns(parseCSVNseAll(t));
+      rawNseAll = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVNseAll(t)));
       addTab("NSEAll", () => {
         hideAllFeatures();
         document.getElementById("nseallFeature").style.display = "block";

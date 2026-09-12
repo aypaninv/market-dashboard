@@ -319,6 +319,7 @@ window.sortRowsByColumn = function (rows, column, asc) {
 const SECTOR_SUMMARY_CSV = "technical_sector_data.csv";
 let sectorRsiLookup = null;
 let sectorRsiLookupPromise = null;
+const DD_COLUMNS = new Set(["DD_52W", "DD_ATH"]);
 
 function parseSimpleCsv(text) {
   const lines = String(text || "").trim().split("\n");
@@ -378,6 +379,26 @@ window.attachSectorRsiColumns = function (rows) {
   });
 };
 
+window.normalizeDrawdownValue = function (value) {
+  const num = parseFloat(value);
+  if (!Number.isFinite(num)) return value;
+  return Math.abs(num).toFixed(1);
+};
+
+window.normalizeDrawdownRows = function (rows) {
+  if (!Array.isArray(rows)) return [];
+  return rows.map(row => {
+    if (!row || typeof row !== "object") return row;
+    const next = { ...row };
+    DD_COLUMNS.forEach(col => {
+      if (col in next) {
+        next[col] = window.normalizeDrawdownValue(next[col]);
+      }
+    });
+    return next;
+  });
+};
+
 window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const num = parseFloat(value);
   const isNum = !isNaN(num);
@@ -387,7 +408,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
   const profitColumns = options.profitColumns || ["PNL", "LT_Pert"];
   const slColumns = options.slColumns || ["W_SL", "M_SL", "W_PSL", "M_PSL"];
 
-  if (["DD_52W", "DD_ATH"].includes(column) && isNum && num < -15) td.classList.add("orange");
+  if (DD_COLUMNS.has(column) && isNum && Math.abs(num) > 15) td.classList.add("orange");
 
   if (slColumns.includes(column) && isNum) {
     if (num < 0) {
