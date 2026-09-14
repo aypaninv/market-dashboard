@@ -16,7 +16,7 @@ const COLS_TFW = [
   "D_BO","W_BO","M_BO",
   "W_SL","W_PSL",
   "M_SL","M_PSL",
-  "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
+  "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFW = {
@@ -26,7 +26,6 @@ const HEADER_LABELS_TFW = {
   "M_SL": "M_SL",
   "W_PSL": "W_PSL",
   "M_PSL": "M_PSL",
-  "Trend": "TD",
 };
 
 let rawTF = [];
@@ -204,26 +203,13 @@ function drawTFTable() {
           td.appendChild(a);
         });
       } else {
-        if (h === "Trend" && v !== "") {
-          td.className = "num";
-          const a = document.createElement("a");
-          a.href = "#";
-          a.textContent = String(Math.round(parseFloat(v)));
-          a.onclick = e => {
-            e.preventDefault();
-            e.stopPropagation();
-            openCandleChart(r.Symbol, "Y");
-          };
-          td.appendChild(a);
-        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
-          // BO columns are discrete levels; display as integer.
+        // Format BO columns as integers
+        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
         }
-        if (h !== "Trend") {
-          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
-        }
+        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
       if (h !== "Chart") {
