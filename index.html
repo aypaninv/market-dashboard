@@ -753,6 +753,21 @@ new MutationObserver(() => {
 }).observe(document.getElementById("app"), { childList: true, subtree: true });
 
 document.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const overlay = document.getElementById("filterOverlay");
+    const isFilterOpen = overlay && overlay.style.display === "block";
+    if (isFilterOpen) {
+      const inFilterDialog = e.target && typeof e.target.closest === "function"
+        ? e.target.closest(".filter-dialog")
+        : null;
+      if (inFilterDialog) {
+        e.preventDefault();
+        applyMetricFilters();
+        return;
+      }
+    }
+  }
+
   if (e.key === "Escape") closeFilterDialog();
 });
 
