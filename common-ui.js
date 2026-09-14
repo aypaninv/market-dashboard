@@ -155,6 +155,7 @@ const OHLC_FILES_BY_SOURCE = {
     D: "nse_data/nse_daily.csv",
     W: "nse_data/nse_weekly.csv",
     M: "nse_data/nse_monthly.csv",
+    Y: "nse_data/nse_yearly.csv",
   },
   sector: {
     D: "nse_data/sector_daily.csv",
@@ -167,13 +168,14 @@ const CHART_CANDLE_COUNTS = {
   D: 45,
   W: 30,
   M: 30,
+  Y: 15,
 };
 
 const W_SL_LOOKBACK_WEEKS = 10;
 const M_SL_LOOKBACK_MONTHS = 6;
-const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS };
+const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS, Y: 10 };
 
-const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly" };
+const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly", Y: "Yearly" };
 const ohlcCache = {};
 const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false, sourceType: "symbol" };
 
@@ -305,7 +307,7 @@ function buildChartTitle(symbol, tf, candles) {
 }
 
 function setActiveChartTfButton(tf) {
-  ["D", "W", "M"].forEach(key => {
+  ["D", "W", "M", "Y"].forEach(key => {
     const btn = document.getElementById("chartTfBtn_" + key);
     if (!btn) return;
     const active = key === tf;
@@ -809,7 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
     navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
     navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
 
-    ["D", "W", "M"].forEach(tfKey => {
+    ["D", "W", "M", "Y"].forEach(tfKey => {
       const btn = makeHeaderButton("chartTfBtn_" + tfKey, tfKey, () => {
         if (!chartState.symbol) return;
         window.renderCandleChart(chartState.symbol, tfKey, chartState.sourceType || "symbol");

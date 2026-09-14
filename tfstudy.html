@@ -201,13 +201,26 @@ function drawTFSTable() {
           td.appendChild(a);
         });
       } else {
-        // Format BO columns as integers
-        if (["D_BO", "W_BO", "M_BO", "Trend"].includes(h) && v !== "") {
+        if (h === "Trend" && v !== "") {
+          td.className = "num";
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = String(Math.round(parseFloat(v)));
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCandleChart(r.Symbol, "Y");
+          };
+          td.appendChild(a);
+        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
         }
-        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        if (h !== "Trend") {
+          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        }
       }
 
       if (h !== "Chart") {
