@@ -15,7 +15,7 @@ const COLS_TFC = [
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
   "W_SL","W_PSL","M_SL","M_PSL",
-  "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
+  "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFC = {
@@ -26,6 +26,7 @@ const HEADER_LABELS_TFC = {
   "M_SL": "M_SL",
   "W_PSL": "W_PSL",
   "M_PSL": "M_PSL",
+  "Trend": "TD",
 };
 
 let rawTFC = [];
@@ -203,7 +204,7 @@ function drawTFCTable() {
         });
       } else {
         // Format BO columns as integers
-        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        if (["D_BO", "W_BO", "M_BO", "Trend"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
