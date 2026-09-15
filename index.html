@@ -533,6 +533,7 @@ function loadFeature(file) {
    ========================================================= */
 
 const FEATURE_IDS = [
+  "indexFeature",
   "portfolioFeature",
   "tfwatchFeature",
   "tfcoreFeature",
@@ -781,7 +782,8 @@ document.addEventListener("click", e => {
    LOAD FEATURES (ORDER MATTERS)
    ========================================================= */
 
-loadFeature("portfolio.html")
+loadFeature("index_page.html")
+  .then(() => loadFeature("portfolio.html"))
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("tfcore.html"))
   .then(() => loadFeature("tfstudy.html"))
