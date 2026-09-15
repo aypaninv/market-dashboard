@@ -42,7 +42,6 @@ window.applyStickyTableBehavior = function (table) {
 /* ---------- Active table ---------- */
 function getActiveFeature() {
   const featureIds = [
-    "indexFeature",
     "portfolioFeature",
     "tfwatchFeature",
     "tfcoreFeature",
