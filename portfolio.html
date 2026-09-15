@@ -17,7 +17,7 @@ const DEFAULT_COLUMN_ORDER = [
   "LT_Type","LT_days","LT_Pert",
   "D_CHG","W_CHG","M_CHG",
   "W_SL","M_SL","W_PSL","M_PSL",
-  "AvgPrice","CurPrice",
+  "AvgPrice","Trend","CurPrice",
   "Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
@@ -33,7 +33,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_SL","W_PSL","M_PSL",
     "W_CHG","M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
-    "CurPrice","Notes"
+    "Trend","CurPrice","Notes"
   ],
   Core: [
     "Symbol","Chart","Category","IC","CC","PnL",
@@ -43,7 +43,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "W_SL","M_SL","M_PSL",
     "M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
-    "CurPrice","Notes"
+    "Trend","CurPrice","Notes"
   ],
 };
 
@@ -51,6 +51,7 @@ const HEADER_LABELS = {
   "LT_Type": "LT_T",
   "LT_days": "LT_D",
   "LT_Pert": "LT_P",
+  "Trend": "TD",
 };
 
 let rawData = [];
@@ -138,7 +139,7 @@ const addConditionsByFolio = {
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH <= 15 ? 4 : 8;
-    return ic < 6 && wSL > 0 && wPSL < 12 && (mBO >= 0 || dBO >= 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && wSL > 0 && wPSL < 12 && (mBO >= 0 || wBO >= 0 || dBO >= 0) && meetsPnLThreshold(ic, pnl);
     // return (  ic < 4 &&  meetsPnLThreshold(ic, pnl) &&
     //           ( (dBO >= 0 && mBO < 0) ||
     //             ( ltPert > 4 && 
@@ -161,7 +162,7 @@ const addConditionsByFolio = {
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
     const ltPertThreshold = ddATH <= 15 ? 4 : 8;
-    return ic < 6 && mSL > 0 && mPSL < 15 &&  (mBO >= 0 || dBO >= 0) && meetsPnLThreshold(ic, pnl);
+    return ic < 6 && mSL > 0 && mPSL < 15 &&  (mBO >= 0 || wBO >= 0 || dBO >= 0) && meetsPnLThreshold(ic, pnl);
     // return (  ic < 6 &&  meetsPnLThreshold(ic, pnl) &&
     //           ( (dBO >= 0 && mBO < 0) ||
     //             ( ltPert > 4 && mSL > 0 && mPSL < 15 && mBO >= 0  )
@@ -273,9 +274,7 @@ function sortByDefault(data, folio) {
 
 function getSortedSectionRows(rows, sectionKey) {
   const sortInfo = sectionSortState[sectionKey];
-  if (!sortInfo) {
-    return rows;
-  }
+  if (!sortInfo) return rows;
 
   const { col, asc } = sortInfo;
   return window.sortRowsByColumn(rows, col, asc);
@@ -490,13 +489,26 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
           td.appendChild(a);
         });
       } else {
-        // Format BO columns as integers
-        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        if (h === "Trend" && v !== "") {
+          td.className = "num";
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = String(Math.round(parseFloat(v)));
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCandleChart(r.Symbol, "Y");
+          };
+          td.appendChild(a);
+        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
         }
-        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        if (h !== "Trend") {
+          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        }
       }
 
       if (h !== "Chart") {

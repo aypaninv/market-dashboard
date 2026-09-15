@@ -15,7 +15,7 @@ const COLS_NSEALL = [
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
   "W_SL","W_PSL","M_SL", "M_PSL",
-  "CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
+  "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_NSEALL = {
@@ -23,6 +23,7 @@ const HEADER_LABELS_NSEALL = {
   "D_BO": "D_BO",
   "W_SL": "W_SL",
   "M_SL": "M_SL",
+  "Trend": "TD",
 };
 
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
@@ -220,12 +221,26 @@ function buildNseAllTable(table, rows) {
           td.appendChild(a);
         });
       } else {
-        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        if (h === "Trend" && v !== "") {
+          td.className = "num";
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = String(Math.round(parseFloat(v)));
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCandleChart(r.Symbol, "Y");
+          };
+          td.appendChild(a);
+        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
         }
-        td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        if (h !== "Trend") {
+          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        }
         td.style.whiteSpace = "nowrap";
       }
 
