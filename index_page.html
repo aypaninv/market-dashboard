@@ -1,0 +1,240 @@
+<!-- ===================== INDEX FEATURE ===================== -->
+
+<div id="indexFeature" style="display:none">
+  <div class="update-time" id="updateTime_idx"></div>
+  <div class="content">
+    <div id="indexSections"></div>
+  </div>
+</div>
+
+<script>
+const CSV_IDX = "index_report.csv";
+
+const COLS_IDX = [
+  "Symbol","Chart","Folio",
+  "DD_ATH","DD_52W",
+  "D_BO","W_BO","M_BO",
+  "W_SL","W_PSL",
+  "M_SL","M_PSL",
+  "Trend","CurPrice","Notes"
+];
+
+const HEADER_LABELS_IDX = {
+  "W_BO": "W_BO",
+  "D_BO": "D_BO",
+  "W_SL": "W_SL",
+  "W_PSL": "W_PSL",
+  "Trend": "TD",
+};
+
+let rawIDX = [];
+let idxRows = [];
+let idxSortState = null;
+let idxColWidths = {};
+
+function toNumberIDX(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function computeSharedColWidthsIDX(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_IDX.filter(h => h !== "Chart" && h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_IDX[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
+function parseCSVIndex(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  fetch(CSV_IDX).then(r => r.text())
+    .then(t => {
+      rawIDX = window.normalizeDrawdownRows(parseCSVIndex(t));
+      addTab("Index", () => {
+        hideAllFeatures();
+        document.getElementById("indexFeature").style.display = "block";
+        renderIDX(rawIDX);
+      });
+      updateIDXTime();
+    })
+    .catch(err => console.error("Error loading index data:", err));
+});
+
+function renderIDX(data) {
+  idxRows = window.sortRowsByColumn(data, "Symbol", true);
+  idxColWidths = computeSharedColWidthsIDX(idxRows);
+  idxSortState = null;
+  drawIDXTable();
+}
+
+function drawIDXTable() {
+  const container = document.getElementById("indexSections");
+  container.innerHTML = "";
+  const table = document.createElement("table");
+  container.appendChild(table);
+
+  const sortInfo = idxSortState;
+  const data = sortInfo
+    ? window.sortRowsByColumn(idxRows, sortInfo.col, sortInfo.asc)
+    : idxRows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLS_IDX.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  if (idxColWidths && Object.keys(idxColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_IDX.forEach(h => {
+      const col = document.createElement("col");
+      if (h === "Chart") {
+        col.style.width = "42px";
+      } else if (h in data[0] && idxColWidths[h]) {
+        col.style.width = idxColWidths[h] + "px";
+      }
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
+  }
+
+  const tr = document.createElement("tr");
+  COLS_IDX.forEach(h => {
+    if (h !== "Chart" && !(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = HEADER_LABELS_IDX[h] || h;
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = idxSortState;
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        idxSortState = { col: h, asc };
+        drawIDXTable();
+      };
+    }
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_IDX.forEach(h => {
+      if (h !== "Chart" && !(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openTVChart2('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        const tfs = ["D", "W", "M"];
+        tfs.forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
+      } else {
+        if (h === "Trend" && v !== "") {
+          td.className = "num";
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = String(Math.round(parseFloat(v)));
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCandleChart(r.Symbol, "Y");
+          };
+          td.appendChild(a);
+        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+          // BO columns are discrete levels; display as integer.
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
+        if (h !== "Trend") {
+          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        }
+      }
+
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v, {
+          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
+        });
+      }
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function updateIDXTime() {
+  fetch(CSV_IDX, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_idx").innerText =
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>
