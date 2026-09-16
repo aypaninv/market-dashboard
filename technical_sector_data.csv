@@ -3,12 +3,12 @@ Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
 Abrasives & Bearings,1,54,-4,,
 Agri - Animal Feed,4,40,-5,47,2
 Agri - Edible Oil,10,35,-2,43,-2
-Agri - Misc,11,37,-4,36,-3
+Agri - Misc,11,38,-3,36,-3
 Agri - Rice,3,49,-10,51,-4
 Agri - Seeds,3,29,-1,28,-2
 Agri - Sugar,22,52,-7,31,-4
 Agri - Tea/Coffee,11,42,-4,52,-3
-Agrichem - Fertilizers,21,40,-4,44,-2
+Agrichem - Fertilizers,21,41,-3,44,-2
 Agrichem - Protection,21,36,-3,40,-1
 Aluminium Copper & Zinc Products,1,46,-4,,
 Auto - 2W,4,49,-4,43,-4
@@ -19,7 +19,7 @@ Auto - PV/Trucks,7,36,-2,40,-2
 Auto - Replacement,20,43,-4,44,-3
 Auto - Tyres,6,42,-4,34,-3
 Auto Components & Equipments,1,51,-3,84,-5
-Batteries,4,39,-2,33,-2
+Batteries,4,40,-1,33,-2
 Beverages - Alcohol,12,40,-2,39,-2
 Cables - Electricals,2,59,-12,,
 Chemicals - Bulk,24,47,-3,43,-2
@@ -27,7 +27,7 @@ Chemicals - Dyes,11,59,-4,51,1
 Chemicals - Misc,9,38,-2,32,0
 Chemicals - Petro,9,52,-6,41,0
 Chemicals - Specialty,46,47,-5,42,-2
-Consumption - Appliances,18,37,-3,36,-2
+Consumption - Appliances,18,38,-2,36,-2
 Consumption - Dairy,7,59,-4,54,0
 Consumption - Electronics,9,42,-3,40,-2
 Consumption - FMCG,12,44,-2,40,-2
@@ -40,18 +40,18 @@ Consumption - Personal,9,36,0,38,0
 Consumption - Retail,12,47,-3,33,-2
 Defense - Misc,15,47,-7,50,-2
 Defense - Ship Building,4,35,-6,44,-5
-Defense - Technology,6,44,-8,56,-4
+Defense - Technology,6,46,-6,57,-3
 Diversified Commercial Services,1,55,-8,76,
 E-Learning,1,55,-7,,
 E-Retail/ E-Commerce,1,67,-7,,
-Electronic - Equipment,19,52,-9,57,-1
+Electronic - Equipment,19,53,-8,58,0
 Engineering,65,45,-5,44,-2
 Financial Technology (Fintech),1,50,-9,,
 Financials - AMC,6,44,-5,56,-3
 Financials - Broking,17,41,-3,48,-1
 Financials - Housing,13,44,-3,37,-2
 Financials - Life,5,31,-2,33,-3
-Financials - MFI,5,43,-4,33,-1
+Financials - MFI,5,44,-3,33,-1
 Financials - Misc,51,42,-3,47,-2
 Financials - NBFC,40,41,-3,40,-2
 Financials - Non-Life,4,37,-4,28,-1
@@ -60,10 +60,10 @@ Financials - Private Bank,29,49,-3,47,-3
 Financials - Ratings,3,40,-3,56,-3
 Gems Jewellery And Watches,2,48,-6,,
 Healthcare - Biotech,5,46,-6,47,0
-Healthcare - Diagnostics,6,51,-5,57,-5
+Healthcare - Diagnostics,6,52,-4,58,-4
 Healthcare - Equipments,3,53,-3,48,-2
-Healthcare - Hospitals,19,52,-4,52,-2
-Healthcare - Pharma,103,52,-6,52,-1
+Healthcare - Hospitals,19,53,-3,52,-2
+Healthcare - Pharma,103,53,-5,52,-1
 Healthcare Service Provider,1,56,-10,,
 Heavy Electrical Equipment,1,54,-7,,
 Hospital,1,57,-2,,
@@ -72,7 +72,7 @@ Household Appliances,1,48,-2,,
 Housing Finance Company,1,60,-6,,
 Human Resources,9,43,-4,38,0
 IT - Education,6,45,-1,28,0
-IT - Equipments,10,48,-5,50,0
+IT - Equipments,10,49,-4,50,0
 IT - Product/Platform,43,46,-3,44,-2
 IT - Services,31,41,-2,39,-1
 IT - Software/Consulting,54,44,-1,37,-1
@@ -94,7 +94,7 @@ Leisure - Misc,8,43,-3,32,-3
 Leisure - Restaurants,8,54,-4,36,-1
 Life Insurance,1,43,-4,,
 Media - Entertainment,4,34,-1,34,-1
-Media - Entertaintment,2,49,-4,54,0
+Media - Entertaintment,2,51,-2,55,1
 Media - Films,6,44,-2,32,1
 Media - Misc,3,36,-1,20,0
 Media - Publishing,10,37,-3,34,-3
@@ -117,7 +117,7 @@ Paper,21,44,-4,40,2
 Petro - Lubricants,7,47,-5,43,-2
 Petro - Refineries,6,36,-4,31,0
 Pharmaceuticals,2,63,-8,,
-Power - Equipment,27,43,-5,51,-3
+Power - Equipment,27,43,-5,52,-2
 Power - Green,15,35,-2,37,-2
 Power - Misc,20,33,-3,33,-1
 Power - Wiring,19,48,-4,49,-3
