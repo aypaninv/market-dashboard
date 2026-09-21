@@ -47,7 +47,8 @@ function getActiveFeature() {
     "tfwatchFeature",
     "tfcoreFeature",
     "tfstudyFeature",
-    "nseallFeature",
+    "nseboFeature",
+    "nsetrendFeature",
     "sectorFeature",
   ];
 

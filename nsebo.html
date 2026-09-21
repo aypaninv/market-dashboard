@@ -1,16 +1,16 @@
-<!-- ===================== NSEALL FEATURE ===================== -->
+<!-- ===================== NSEBO FEATURE ===================== -->
 
-<div id="nseallFeature" style="display:none">
-  <div class="update-time" id="updateTime_nseall"></div>
+<div id="nseboFeature" style="display:none">
+  <div class="update-time" id="updateTime_nsebo"></div>
   <div class="content">
-    <div id="nseallSection"></div>
+    <div id="nseboSection"></div>
   </div>
 </div>
 
 <script>
-const CSV_NSEALL = "nseall_report.csv";
+const CSV_NSEBO = "nsebo_report.csv";
 
-const COLS_NSEALL = [
+const COLS_NSEBO = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
@@ -18,7 +18,7 @@ const COLS_NSEALL = [
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
-const HEADER_LABELS_NSEALL = {
+const HEADER_LABELS_NSEBO = {
   "W_BO": "W_BO",
   "D_BO": "D_BO",
   "W_SL": "W_SL",
@@ -28,34 +28,34 @@ const HEADER_LABELS_NSEALL = {
 
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
-const NSEALL_FILTER = {
+const NSEBO_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) < 15,
   TD: r => parseFloat(r.Trend) >= 5,
   M_SL:   r => parseFloat(r.M_SL) >= 0,
   BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
 };
 
-let rawNseAll = [];
-let nseallSortState = { col: "D_BO", asc: false };
-let nseallColWidths = {};
+let rawNseBo = [];
+let nseboSortState = { col: "D_BO", asc: false };
+let nseboColWidths = {};
 
-function toNumberNseAll(value) {
+function toNumberNseBo(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
 }
 
-function applyNseAllFilter(rows) {
+function applyNseboFilter(rows) {
   return rows.filter(r =>
-    Object.values(NSEALL_FILTER).every(fn => {
+    Object.values(NSEBO_FILTER).every(fn => {
       const result = fn(r);
       return result && !isNaN(result === true ? 1 : result);
     })
   );
 }
 
-function computeNseAllColWidths(rows) {
+function computeNseboColWidths(rows) {
   if (!rows.length) return {};
-  const visibleCols = COLS_NSEALL.filter(h => h !== "Chart" && h in rows[0]);
+  const visibleCols = COLS_NSEBO.filter(h => h !== "Chart" && h in rows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
@@ -71,7 +71,7 @@ function computeNseAllColWidths(rows) {
   visibleCols.forEach(h => {
     const th = document.createElement("th");
     th.style.whiteSpace = "nowrap";
-    th.innerText = HEADER_LABELS_NSEALL[h] || h;
+    th.innerText = HEADER_LABELS_NSEBO[h] || h;
     hrow.appendChild(th);
   });
   probe.appendChild(hrow);
@@ -96,7 +96,7 @@ function computeNseAllColWidths(rows) {
   return widths;
 }
 
-function parseCSVNseAll(text) {
+function parseCSVNseBo(text) {
   const lines = text.trim().split("\n");
   const h = lines[0].split(",");
   return lines.slice(1).map(r => {
@@ -110,28 +110,28 @@ function parseCSVNseAll(text) {
 window.registerTabs(addTab => {
   Promise.all([
     window.ensureSectorRsiMapLoaded(),
-    fetch(CSV_NSEALL).then(r => r.text()),
+    fetch(CSV_NSEBO).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawNseAll = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVNseAll(t)));
-      addTab("NSEAll", () => {
+      rawNseBo = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVNseBo(t)));
+      addTab("NSEBO", () => {
         hideAllFeatures();
-        document.getElementById("nseallFeature").style.display = "block";
-        renderNseAll(rawNseAll);
+        document.getElementById("nseboFeature").style.display = "block";
+        renderNseBo(rawNseBo);
       });
-      updateNseAllTime();
+      updateNseboTime();
     });
 });
 
-function renderNseAll(data) {
-  const filtered = applyNseAllFilter([...data]);
-  const sorted   = window.sortRowsByColumn(filtered, nseallSortState.col, nseallSortState.asc);
-  nseallColWidths = computeNseAllColWidths(sorted);
-  drawNseAllTable(sorted);
+function renderNseBo(data) {
+  const filtered = applyNseboFilter([...data]);
+  const sorted   = window.sortRowsByColumn(filtered, nseboSortState.col, nseboSortState.asc);
+  nseboColWidths = computeNseboColWidths(sorted);
+  drawNseboTable(sorted);
 }
 
-function drawNseAllTable(rows) {
-  const container = document.getElementById("nseallSection");
+function drawNseboTable(rows) {
+  const container = document.getElementById("nseboSection");
   container.innerHTML = "";
 
   const wrapper = document.createElement("div");
@@ -144,12 +144,12 @@ function drawNseAllTable(rows) {
 
   const table = document.createElement("table");
   table.className = "portfolio-section-table";
-  buildNseAllTable(table, rows);
+  buildNseboTable(table, rows);
   wrapper.appendChild(table);
   container.appendChild(wrapper);
 }
 
-function buildNseAllTable(table, rows) {
+function buildNseboTable(table, rows) {
   table.innerHTML = "";
 
   if (!rows.length) {
@@ -157,20 +157,20 @@ function buildNseAllTable(table, rows) {
     const td = document.createElement("td");
     td.innerText = "No symbols match the filter criteria.";
     td.className = "text";
-    td.colSpan = COLS_NSEALL.length;
+    td.colSpan = COLS_NSEBO.length;
     tr.appendChild(td);
     table.appendChild(tr);
     return;
   }
 
-  if (nseallColWidths && Object.keys(nseallColWidths).length) {
+  if (nseboColWidths && Object.keys(nseboColWidths).length) {
     const colgroup = document.createElement("colgroup");
-    COLS_NSEALL.forEach(h => {
+    COLS_NSEBO.forEach(h => {
       const col = document.createElement("col");
       if (h === "Chart") {
         col.style.width = "42px";
-      } else if (h in rows[0] && nseallColWidths[h]) {
-        col.style.width = nseallColWidths[h] + "px";
+      } else if (h in rows[0] && nseboColWidths[h]) {
+        col.style.width = nseboColWidths[h] + "px";
       }
       colgroup.appendChild(col);
     });
@@ -181,18 +181,18 @@ function buildNseAllTable(table, rows) {
 
   // Header row
   const tr = document.createElement("tr");
-  COLS_NSEALL.forEach(h => {
+  COLS_NSEBO.forEach(h => {
     if (h !== "Chart" && !(h in rows[0])) return;
     const th = document.createElement("th");
-    th.innerText = HEADER_LABELS_NSEALL[h] || h;
+    th.innerText = HEADER_LABELS_NSEBO[h] || h;
     if (h !== "Chart") {
       th.onclick = () => {
-        if (nseallSortState.col === h) {
-          nseallSortState.asc = !nseallSortState.asc;
+        if (nseboSortState.col === h) {
+          nseboSortState.asc = !nseboSortState.asc;
         } else {
-          nseallSortState = { col: h, asc: false };
+          nseboSortState = { col: h, asc: false };
         }
-        renderNseAll(rawNseAll);
+        renderNseBo(rawNseBo);
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");
@@ -203,14 +203,14 @@ function buildNseAllTable(table, rows) {
   // Data rows
   rows.forEach(r => {
     const row = document.createElement("tr");
-    COLS_NSEALL.forEach(h => {
+    COLS_NSEBO.forEach(h => {
       if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
-        td.innerHTML = `<a href="#" onclick="openChartNseAll('${v}')">${v}</a>`;
+        td.innerHTML = `<a href="#" onclick="openChartNseBo('${v}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
@@ -257,12 +257,12 @@ function buildNseAllTable(table, rows) {
   });
 }
 
-function openChartNseAll(symbol) {
+function openChartNseBo(symbol) {
   window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
 }
 
-function updateNseAllTime() {
-  fetch(CSV_NSEALL, { method: "HEAD" })
+function updateNseboTime() {
+  fetch(CSV_NSEBO, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       if (Number.isNaN(d.getTime())) return;
@@ -271,7 +271,7 @@ function updateNseAllTime() {
       const day = String(d.getDate()).padStart(2, "0");
       const hh = String(d.getHours()).padStart(2, "0");
       const mm = String(d.getMinutes()).padStart(2, "0");
-      document.getElementById("updateTime_nseall").innerText = `${y}-${m}-${day}:${hh}:${mm}`;
+      document.getElementById("updateTime_nsebo").innerText = `${y}-${m}-${day}:${hh}:${mm}`;
     });
 }
 </script>
