@@ -450,6 +450,17 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("red");
   }
 
+  // Trend (TD) column styling: <5 red, 5-6 orange, 7-10 green
+  if (column === "Trend" && isNum) {
+    if (num < 5) {
+      td.classList.add("red");
+    } else if (num >= 5 && num <= 6) {
+      td.classList.add("orange");
+    } else if (num > 6 && num <= 10) {
+      td.classList.add("green");
+    }
+  }
+
   // W_SL/M_SL are styled by slColumns thresholds above.
 
 };
