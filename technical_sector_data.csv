@@ -19,7 +19,7 @@ Auto - PV/Trucks,7,38,0,40,-2
 Auto - Replacement,20,46,0,45,-2
 Auto - Tyres,6,44,-1,35,-2
 Auto Components & Equipments,1,62,3,90,1
-Batteries,4,41,0,34,-1
+Batteries,4,42,1,34,-1
 Beverages - Alcohol,12,43,-1,41,0
 Cables - Electricals,2,63,0,,
 Chemicals - Bulk,24,52,2,45,0
@@ -60,7 +60,7 @@ Financials - Private Bank,29,51,-1,48,-2
 Financials - Ratings,3,42,0,57,-2
 Gems Jewellery And Watches,2,54,4,,
 Healthcare - Biotech,5,53,3,49,2
-Healthcare - Diagnostics,6,58,2,61,-1
+Healthcare - Diagnostics,6,57,1,61,-1
 Healthcare - Equipments,3,57,1,50,0
 Healthcare - Hospitals,19,58,-1,55,1
 Healthcare - Pharma,103,59,1,54,1
@@ -117,7 +117,7 @@ Paper,21,47,-1,41,3
 Petro - Lubricants,7,52,0,46,1
 Petro - Refineries,6,40,0,31,0
 Pharmaceuticals,2,64,-2,,
-Power - Equipment,27,47,-1,54,0
+Power - Equipment,27,47,-1,53,-1
 Power - Green,15,39,2,39,0
 Power - Misc,20,35,0,34,0
 Power - Wiring,19,53,1,52,0
