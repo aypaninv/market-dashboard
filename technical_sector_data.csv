@@ -4,7 +4,7 @@ Abrasives & Bearings,1,66,-9,,
 Agri - Animal Feed,4,51,-1,47,2
 Agri - Edible Oil,10,53,3,45,0
 Agri - Misc,11,56,0,37,-2
-Agri - Rice,3,68,0,53,-2
+Agri - Rice,3,69,1,53,-2
 Agri - Seeds,3,62,0,28,-2
 Agri - Sugar,22,59,0,32,-3
 Agri - Tea/Coffee,11,55,0,53,-2
@@ -19,7 +19,7 @@ Auto - PV/Trucks,7,42,-1,40,-2
 Auto - Replacement,20,56,0,46,-1
 Auto - Tyres,6,42,-1,35,-2
 Auto Components & Equipments,1,63,4,90,1
-Batteries,4,55,0,34,-1
+Batteries,4,56,1,34,-1
 Beverages - Alcohol,12,55,1,41,0
 Cables - Electricals,2,57,-1,,
 Chemicals - Bulk,24,61,1,45,0
@@ -28,14 +28,14 @@ Chemicals - Misc,9,59,2,34,2
 Chemicals - Petro,9,69,1,44,3
 Chemicals - Specialty,46,61,0,44,0
 Consumption - Appliances,18,47,0,36,-2
-Consumption - Dairy,7,68,0,55,1
+Consumption - Dairy,7,67,-1,55,1
 Consumption - Electronics,9,53,0,41,-1
 Consumption - FMCG,12,51,-1,40,-2
 Consumption - Footwear,8,55,1,35,1
 Consumption - Jewelry,21,65,0,51,2
 Consumption - Luggage,2,49,-1,24,0
 Consumption - Misc,29,52,0,39,0
-Consumption - Paints,7,54,-1,42,-2
+Consumption - Paints,7,55,0,42,-2
 Consumption - Personal,9,47,0,38,0
 Consumption - Retail,12,55,-1,34,-1
 Defense - Misc,15,64,0,53,1
@@ -47,11 +47,11 @@ E-Retail/ E-Commerce,1,78,7,,
 Electronic - Equipment,19,65,-1,61,3
 Engineering,65,63,1,47,1
 Financial Technology (Fintech),1,62,0,,
-Financials - AMC,6,52,0,57,-2
+Financials - AMC,6,51,-1,57,-2
 Financials - Broking,17,59,1,50,1
 Financials - Housing,13,49,0,38,-1
 Financials - Life,5,35,1,36,0
-Financials - MFI,5,51,-1,33,-1
+Financials - MFI,5,50,-2,33,-1
 Financials - Misc,51,56,-1,49,0
 Financials - NBFC,40,54,0,41,-1
 Financials - Non-Life,4,50,0,28,-1
@@ -79,7 +79,7 @@ IT - Software/Consulting,54,58,-1,37,-1
 IT Enabled Services,1,65,2,,
 Industrial - Bearings,6,57,-1,44,2
 Industrial - Consumables,16,55,-1,46,-2
-Industrial - Pumps/Engines,13,58,0,52,0
+Industrial - Pumps/Engines,13,58,0,51,-1
 Industrial Gases,1,64,-1,24,
 Infra - Cement,32,50,0,40,-1
 Infra - Ceramics,8,48,2,37,1
@@ -94,7 +94,7 @@ Leisure - Misc,8,64,1,35,0
 Leisure - Restaurants,8,64,1,38,1
 Life Insurance,1,64,-1,,
 Media - Entertainment,4,52,0,35,0
-Media - Entertaintment,2,63,2,56,2
+Media - Entertaintment,2,62,1,56,2
 Media - Films,6,60,-2,33,2
 Media - Misc,3,44,0,21,1
 Media - Publishing,10,53,-1,36,-1
@@ -117,7 +117,7 @@ Paper,21,62,-2,41,3
 Petro - Lubricants,7,65,-1,46,1
 Petro - Refineries,6,48,1,31,0
 Pharmaceuticals,2,62,-5,,
-Power - Equipment,27,55,-1,53,-1
+Power - Equipment,27,54,-2,53,-1
 Power - Green,15,56,2,39,0
 Power - Misc,20,44,0,34,0
 Power - Wiring,19,62,1,52,0
