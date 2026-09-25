@@ -1,17 +1,17 @@
 Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
-2/3 Wheelers,1,60,-11,80,-14
-Abrasives & Bearings,1,73,-2,,
+2/3 Wheelers,1,61,-10,80,-14
+Abrasives & Bearings,1,72,-3,,
 Agri - Animal Feed,4,51,-1,47,2
-Agri - Edible Oil,10,53,3,45,0
+Agri - Edible Oil,10,54,4,45,0
 Agri - Misc,11,55,-1,37,-2
 Agri - Rice,3,69,1,53,-2
 Agri - Seeds,3,66,4,30,0
 Agri - Sugar,23,63,4,34,-1
-Agri - Tea/Coffee,12,55,0,53,-2
+Agri - Tea/Coffee,12,56,1,53,-2
 Agrichem - Fertilizers,21,58,1,46,0
 Agrichem - Protection,21,55,-1,41,0
 Aluminium Copper & Zinc Products,1,55,3,,
-Asset Management Company,2,37,-1,,
+Asset Management Company,2,36,-2,,
 Auto - 2W,5,50,-1,43,-4
 Auto - CV,5,62,1,53,1
 Auto - Misc,9,53,0,44,-1
@@ -19,7 +19,7 @@ Auto - OEM Suppliers,49,60,0,49,1
 Auto - PV/Trucks,7,41,-2,40,-2
 Auto - Replacement,20,57,1,46,-1
 Auto - Tyres,7,40,-3,34,-3
-Auto Components & Equipments,3,62,3,90,1
+Auto Components & Equipments,3,63,4,90,1
 Batteries,4,54,-1,33,-2
 Beverages - Alcohol,12,56,2,41,0
 Breweries & Distilleries,1,50,3,37,
@@ -28,7 +28,7 @@ Cement & Cement Products,1,41,-2,,
 Chemicals - Bulk,25,61,1,45,0
 Chemicals - Dyes,11,71,-1,54,4
 Chemicals - Misc,9,57,0,34,2
-Chemicals - Petro,9,70,2,44,3
+Chemicals - Petro,9,69,1,44,3
 Chemicals - Specialty,47,61,0,45,1
 Civil Construction,4,46,3,,
 Coal,1,,,,
@@ -38,7 +38,7 @@ Computers - Software & Consulting,1,,,,
 Consumption - Appliances,19,46,-1,36,-2
 Consumption - Dairy,7,67,-1,54,0
 Consumption - Electronics,9,53,0,41,-1
-Consumption - FMCG,15,49,-3,39,-3
+Consumption - FMCG,15,50,-2,40,-2
 Consumption - Footwear,8,53,-1,35,1
 Consumption - Jewelry,22,65,0,51,2
 Consumption - Luggage,2,49,-1,24,0
@@ -74,7 +74,7 @@ Granites & Marbles,1,,,,
 Healthcare - Biotech,5,52,-1,48,1
 Healthcare - Diagnostics,6,63,-1,61,-1
 Healthcare - Equipments,4,71,2,50,0
-Healthcare - Hospitals,19,59,-3,54,0
+Healthcare - Hospitals,19,60,-2,54,0
 Healthcare - Pharma,105,63,0,54,1
 Healthcare Service Provider,1,58,-9,,
 Heavy Electrical Equipment,3,49,1,68,1
@@ -82,17 +82,17 @@ Hospital,1,58,2,,
 Hotels & Resorts,2,73,1,73,-6
 Household Appliances,1,37,2,,
 Houseware,1,,,,
-Housing Finance Company,1,45,-7,,
+Housing Finance Company,1,44,-8,,
 Human Resources,9,56,-2,39,1
 IT - Education,6,57,0,28,0
-IT - Equipments,13,58,-2,50,0
+IT - Equipments,13,57,-3,50,0
 IT - Product/Platform,45,58,-2,45,-1
 IT - Services,32,57,0,40,0
 IT - Software,1,,,,
 IT - Software/Consulting,59,57,-1,37,-1
 IT Enabled Services,3,46,-1,66,-4
 Index,5,53,-3,50,-2
-Industrial - Bearings,6,58,0,44,2
+Industrial - Bearings,6,57,-1,44,2
 Industrial - Consumables,16,55,-1,46,-2
 Industrial - Pumps/Engines,13,57,-1,52,0
 Industrial Gases,1,63,-2,24,
@@ -103,26 +103,26 @@ Infra - Construction,61,54,-1,36,0
 Infra - Granites/Marbles,4,49,2,30,0
 Infra - Home Furnish,7,52,0,28,0
 Infra - Laminates,9,60,-1,38,-1
-Infra - Plastic Pipes,8,53,-3,44,1
+Infra - Plastic Pipes,8,54,-2,44,1
 Internet & Catalogue Retail,1,,,,
 Iron & Steel Products,1,35,-4,,
 Leather Products,5,59,-2,54,-1
 Leisure - Hotels,23,60,-2,41,0
 Leisure - Misc,9,64,1,35,0
 Leisure - Restaurants,8,61,-2,37,0
-Life Insurance,1,60,-5,,
+Life Insurance,1,61,-4,,
 Media - Entertainment,4,52,0,35,0
 Media - Entertaintment,2,61,0,55,1
 Media - Films,7,58,-4,32,1
-Media - Misc,3,43,-1,21,1
-Media - Publishing,10,53,-1,36,-1
-Media - TV Broadcast,9,51,2,27,0
+Media - Misc,3,43,-1,20,0
+Media - Publishing,10,54,0,36,-1
+Media - TV Broadcast,9,51,2,26,-1
 Medical Equipment & Supplies,1,,,,
 Metals - Aluminium,4,53,-1,57,-3
 Metals - Casting/Forging,19,58,-1,44,-2
 Metals - Copper,4,66,4,67,4
 Metals - Iron & Steel,43,63,1,46,1
-Metals - Misc,22,56,0,44,0
+Metals - Misc,22,55,-1,44,0
 Metals - Pipe & Tube,14,64,0,49,2
 Non Banking Financial Company (NBFC),6,46,-6,,
 Oil Storage & Transportation,1,60,-11,54,3
@@ -134,10 +134,10 @@ Other Food Products,1,,,,
 Other Telecom Services,1,90,4,,
 Others,45,57,0,49,1
 Packaging,30,62,1,49,-1
-Paper,21,62,-2,41,3
+Paper,21,61,-3,41,3
 Petro - Lubricants,7,66,0,46,1
 Petro - Refineries,6,45,-2,31,0
-Pharmaceuticals,2,61,-6,,
+Pharmaceuticals,2,60,-7,,
 Power - Equipment,27,53,-3,53,-1
 Power - Green,17,55,1,39,0
 Power - Misc,20,43,-1,34,0
@@ -148,19 +148,19 @@ Residential Commercial Projects,1,76,1,,
 Residential- Commercial Projects,2,71,8,37,
 Restaurants,1,61,-4,83,
 Rubber,1,64,-6,58,-1
-Shipping,1,82,4,,
+Shipping,1,81,3,,
 Software Products,1,,,,
-Speciality Retail,2,67,0,,
-Stockbroking & Allied,2,50,-4,,
+Speciality Retail,2,68,1,,
+Stockbroking & Allied,2,51,-3,,
 Tech - BPO,9,63,0,43,1
 Telecom,15,57,-1,44,1
 Telecom - Infrastructure,1,,,,
-Textile - Apparels,21,59,0,42,0
+Textile - Apparels,21,58,-1,42,0
 Textile - Innerwear,6,62,1,33,1
 Textile - Misc,21,60,0,46,1
 Textile - Spinning/Yarn,34,62,1,48,0
-Textiles - Polyester,5,72,3,55,7
-Textiles - Processing,7,55,0,41,-1
+Textiles - Polyester,5,71,2,55,7
+Textiles - Processing,7,54,-1,40,-2
 Transport - Logistics,33,56,-1,40,0
 Transport - Shipping,7,57,0,51,0
 Utility - Gas,9,57,-3,37,0
