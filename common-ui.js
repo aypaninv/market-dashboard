@@ -167,7 +167,7 @@ const OHLC_FILES_BY_SOURCE = {
 };
 
 const CHART_CANDLE_COUNTS = {
-  D: 45,
+  D: 60,
   W: 30,
   M: 30,
   Y: 15,
