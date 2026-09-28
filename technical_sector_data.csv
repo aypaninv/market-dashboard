@@ -2,9 +2,9 @@ Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
 2/3 Wheelers,1,,,,
 Abrasives & Bearings,1,,,,
 Agri - Animal Feed,4,,,,
-Agri - Edible Oil,10,57,-5,57,-2
+Agri - Edible Oil,10,58,-4,57,-2
 Agri - Misc,11,65,-1,69,-2
-Agri - Rice,3,61,-5,55,-4
+Agri - Rice,3,62,-4,55,-4
 Agri - Seeds,3,,,,
 Agri - Sugar,23,,,,
 Agri - Tea/Coffee,12,,,,
@@ -13,7 +13,7 @@ Agrichem - Protection,21,,,,
 Aluminium Copper & Zinc Products,1,,,,
 Asset Management Company,2,,,,
 Auto - 2W,5,,,,
-Auto - CV,5,81,-2,62,3
+Auto - CV,5,80,-3,62,3
 Auto - Misc,9,,,,
 Auto - OEM Suppliers,49,60,-1,65,-4
 Auto - PV/Trucks,7,,,,
@@ -21,11 +21,11 @@ Auto - Replacement,20,67,-2,67,-4
 Auto - Tyres,7,,,,
 Auto Components & Equipments,3,,,,
 Batteries,4,53,-2,55,-4
-Beverages - Alcohol,12,77,-1,76,3
+Beverages - Alcohol,12,78,0,76,3
 Breweries & Distilleries,1,,,,
 Cables - Electricals,2,,,,
 Cement & Cement Products,1,,,,
-Chemicals - Bulk,25,65,-4,74,-4
+Chemicals - Bulk,25,64,-5,74,-4
 Chemicals - Dyes,11,65,-3,58,-3
 Chemicals - Misc,9,,,,
 Chemicals - Petro,9,,,,
@@ -36,7 +36,7 @@ Commercial Services & Supplies,1,,,,
 Compressors- Pumps & Diesel Engines,1,,,,
 Computers - Software & Consulting,1,,,,
 Consumption - Appliances,19,51,-1,57,-4
-Consumption - Dairy,7,76,1,55,2
+Consumption - Dairy,7,75,0,55,2
 Consumption - Electronics,9,,,,
 Consumption - FMCG,15,,,,
 Consumption - Footwear,8,,,,
@@ -54,7 +54,7 @@ Diversified Metals,1,,,,
 E-Learning,2,,,,
 E-Retail/ E-Commerce,1,,,,
 Electronic - Equipment,20,79,0,80,3
-Engineering,74,72,-2,61,11
+Engineering,74,73,-1,62,12
 Financial Technology (Fintech),1,,,,
 Financials - AMC,6,,,,
 Financials - Broking,17,,,,
@@ -72,7 +72,7 @@ Gems Jewellery And Watches,2,,,,
 Gems- Jewellery And Watches,1,,,,
 Granites & Marbles,1,,,,
 Healthcare - Biotech,5,,,,
-Healthcare - Diagnostics,6,64,-3,66,-2
+Healthcare - Diagnostics,6,64,-3,67,-1
 Healthcare - Equipments,4,,,,
 Healthcare - Hospitals,19,75,-1,59,1
 Healthcare - Pharma,105,66,-1,68,2
@@ -87,14 +87,14 @@ Human Resources,9,,,,
 IT - Education,6,,,,
 IT - Equipments,13,,,,
 IT - Product/Platform,45,69,-3,67,-3
-IT - Services,32,56,0,63,2
+IT - Services,32,57,1,63,2
 IT - Software,1,,,,
 IT - Software/Consulting,59,63,-2,53,-3
 IT Enabled Services,3,,,,
 Index,5,64,0,71,-2
 Industrial - Bearings,6,80,1,70,5
 Industrial - Consumables,16,,,,
-Industrial - Pumps/Engines,13,51,-3,53,-4
+Industrial - Pumps/Engines,13,52,-2,53,-4
 Industrial Gases,1,,,,
 Industrial Products,1,,,,
 Infra - Cement,32,,,,
@@ -119,7 +119,7 @@ Media - Publishing,10,,,,
 Media - TV Broadcast,9,,,,
 Medical Equipment & Supplies,1,,,,
 Metals - Aluminium,4,,,,
-Metals - Casting/Forging,19,63,-4,59,-1
+Metals - Casting/Forging,19,64,-3,59,-1
 Metals - Copper,4,,,,
 Metals - Iron & Steel,43,81,-1,69,2
 Metals - Misc,22,,,,
@@ -162,6 +162,6 @@ Textile - Spinning/Yarn,34,,,,
 Textiles - Polyester,5,,,,
 Textiles - Processing,7,,,,
 Transport - Logistics,33,,,,
-Transport - Shipping,7,62,2,61,8
+Transport - Shipping,7,62,2,62,9
 Utility - Gas,9,,,,
 Utility - Misc,3,,,,
