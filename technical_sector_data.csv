@@ -13,7 +13,7 @@ Agrichem - Protection,21,41,1,42,0
 Aluminium Copper & Zinc Products,1,59,3,,
 Asset Management Company,2,46,2,,
 Auto - 2W,5,45,-1,50,-2
-Auto - CV,5,55,1,57,-2
+Auto - CV,5,54,0,57,-2
 Auto - Misc,9,45,3,46,0
 Auto - OEM Suppliers,49,52,0,53,-2
 Auto - PV/Trucks,7,39,1,45,-1
@@ -24,7 +24,7 @@ Batteries,4,43,0,46,0
 Beverages - Alcohol,12,45,2,49,0
 Breweries & Distilleries,1,46,2,36,0
 Cables - Electricals,2,59,2,,
-Cement & Cement Products,1,38,3,20,
+Cement & Cement Products,1,37,2,20,
 Chemicals - Bulk,25,52,2,48,0
 Chemicals - Dyes,11,62,1,56,-1
 Chemicals - Misc,9,45,1,43,-1
@@ -51,10 +51,10 @@ Defense - Ship Building,4,46,2,51,0
 Defense - Technology,6,51,2,57,1
 Diversified Commercial Services,2,45,-1,44,-34
 Diversified Metals,1,40,2,,
-E-Learning,2,45,4,,
+E-Learning,2,44,3,,
 E-Retail/ E-Commerce,1,81,4,,
 Electronic - Equipment,20,58,1,61,-1
-Engineering,74,51,1,51,-1
+Engineering,74,50,0,51,-1
 Financial Technology (Fintech),1,56,1,,
 Financials - AMC,6,47,3,55,1
 Financials - Broking,17,52,4,53,1
@@ -64,14 +64,14 @@ Financials - MFI,5,44,1,49,-1
 Financials - Misc,53,48,1,51,0
 Financials - NBFC,41,44,1,47,0
 Financials - Non-Life,4,42,1,46,-1
-Financials - PSU Bank,12,40,2,42,0
+Financials - PSU Bank,12,40,2,43,1
 Financials - Private Bank,29,50,1,52,0
 Financials - Ratings,3,42,1,47,0
 Furniture- Home Furnishing,1,30,-2,,
 Gems Jewellery And Watches,2,67,3,74,
-Gems- Jewellery And Watches,1,52,0,,
+Gems- Jewellery And Watches,1,53,1,,
 Granites & Marbles,1,39,10,,
-Healthcare - Biotech,5,47,-1,48,-1
+Healthcare - Biotech,5,46,-2,47,-2
 Healthcare - Diagnostics,6,54,0,59,0
 Healthcare - Equipments,4,52,-1,40,-1
 Healthcare - Hospitals,19,47,-3,50,-2
@@ -81,30 +81,30 @@ Heavy Electrical Equipment,3,55,2,68,1
 Hospital,1,53,2,,
 Hotels & Resorts,2,53,1,61,0
 Household Appliances,1,60,2,,
-Houseware,1,39,0,18,
+Houseware,1,38,-1,18,
 Housing Finance Company,1,52,0,,
 Human Resources,9,49,1,46,0
 IT - Education,6,51,4,44,2
 IT - Equipments,13,50,1,52,1
 IT - Product/Platform,45,48,2,48,0
 IT - Services,32,45,0,41,-1
-IT - Software,1,32,8,,
+IT - Software,1,34,10,,
 IT - Software/Consulting,59,45,1,44,0
 IT Enabled Services,3,44,2,65,0
-Index,5,47,4,59,1
+Index,5,46,3,59,1
 Industrial - Bearings,6,53,1,53,0
 Industrial - Consumables,16,50,1,53,1
 Industrial - Pumps/Engines,13,51,1,53,0
 Industrial Gases,1,59,2,22,0
 Industrial Products,1,51,7,12,2
 Infra - Cement,32,38,1,41,-1
-Infra - Ceramics,8,47,0,50,-1
+Infra - Ceramics,8,48,1,50,-1
 Infra - Construction,61,44,1,45,0
 Infra - Granites/Marbles,4,37,0,38,0
-Infra - Home Furnish,7,39,1,36,0
+Infra - Home Furnish,7,38,0,36,0
 Infra - Laminates,9,48,2,49,0
 Infra - Plastic Pipes,8,50,3,47,0
-Internet & Catalogue Retail,1,39,0,47,0
+Internet & Catalogue Retail,1,40,1,47,0
 Iron & Steel Products,1,38,-1,,
 Leather Products,5,50,1,52,0
 Leisure - Hotels,23,45,1,46,0
@@ -116,7 +116,7 @@ Media - Entertaintment,2,57,2,56,-1
 Media - Films,7,45,1,45,0
 Media - Misc,3,38,0,44,0
 Media - Publishing,10,44,0,44,-1
-Media - TV Broadcast,9,41,1,36,1
+Media - TV Broadcast,9,41,1,35,0
 Medical Equipment & Supplies,1,39,-1,55,0
 Metals - Aluminium,4,42,1,54,-1
 Metals - Casting/Forging,19,52,1,55,-1
@@ -145,9 +145,9 @@ Power - Wiring,19,58,3,54,1
 Railways,12,41,-1,44,-1
 Real Estate,48,45,1,47,0
 Residential Commercial Projects,1,73,3,73,
-Residential- Commercial Projects,2,50,2,28,0
+Residential- Commercial Projects,2,50,2,29,1
 Restaurants,1,43,-1,82,0
-Rubber,1,51,1,56,-1
+Rubber,1,51,1,57,0
 Shipping,1,84,1,76,
 Software Products,1,60,4,,
 Speciality Retail,2,40,1,8,0
@@ -158,7 +158,7 @@ Telecom - Infrastructure,1,41,0,,
 Textile - Apparels,21,50,1,47,0
 Textile - Innerwear,6,45,3,39,1
 Textile - Misc,21,52,1,51,0
-Textile - Spinning/Yarn,34,51,1,51,1
+Textile - Spinning/Yarn,34,51,1,50,0
 Textiles - Polyester,5,56,1,55,0
 Textiles - Processing,7,43,1,47,0
 Transport - Logistics,33,48,1,46,0
