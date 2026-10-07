@@ -119,7 +119,7 @@ window.registerTabs(addTab => {
 
 function renderTF(data) {
   const filteredRows = data.filter(r => toNumberTFW(r.M_SL) >= 0);
-  tfRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
+  tfRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
   tfColWidths = computeSharedColWidthsTFW(tfRows);
   tfSortState = null;
   drawTFTable();

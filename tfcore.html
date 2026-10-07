@@ -118,7 +118,7 @@ window.registerTabs(addTab => {
 
 function renderTFC(data) {
   const filteredRows = data.filter(r => toNumberTFC(r.M_SL) >= 0);
-  tfcRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
+  tfcRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
   tfcColWidths = computeSharedColWidthsTFC(tfcRows);
   tfcSortState = null;
   drawTFCTable();

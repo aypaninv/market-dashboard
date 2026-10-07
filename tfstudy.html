@@ -116,7 +116,7 @@ window.registerTabs(addTab => {
 
 function renderTFS(data) {
   const filteredRows = data.filter(r => toNumberTFS(r.M_SL) >= 0);
-  tfsRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
+  tfsRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
   tfsColWidths = computeSharedColWidthsTFS(tfsRows);
   tfsSortState = null;
   drawTFSTable();
