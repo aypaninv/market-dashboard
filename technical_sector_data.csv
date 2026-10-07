@@ -8,12 +8,12 @@ Agri - Rice,3,52,4,51,1
 Agri - Seeds,3,37,-1,35,-1
 Agri - Sugar,23,54,4,47,1
 Agri - Tea/Coffee,12,47,-2,48,-1
-Agrichem - Fertilizers,21,46,2,50,-1
+Agrichem - Fertilizers,21,46,2,51,0
 Agrichem - Protection,21,41,1,42,0
 Aluminium Copper & Zinc Products,1,61,5,,
 Asset Management Company,2,46,2,,
 Auto - 2W,5,44,-2,49,-3
-Auto - CV,5,53,-1,56,-3
+Auto - CV,5,54,0,57,-2
 Auto - Misc,9,44,2,45,-1
 Auto - OEM Suppliers,49,52,0,53,-2
 Auto - PV/Trucks,7,38,0,44,-2
@@ -72,7 +72,7 @@ Gems Jewellery And Watches,2,68,4,74,
 Gems- Jewellery And Watches,1,52,0,,
 Granites & Marbles,1,45,16,,
 Healthcare - Biotech,5,45,-3,47,-2
-Healthcare - Diagnostics,6,53,-1,58,-1
+Healthcare - Diagnostics,6,54,0,58,-1
 Healthcare - Equipments,4,53,0,41,0
 Healthcare - Hospitals,19,47,-3,50,-2
 Healthcare - Pharma,105,56,0,56,0
@@ -94,7 +94,7 @@ IT Enabled Services,3,45,3,65,0
 Index,5,46,3,58,0
 Industrial - Bearings,6,52,0,53,0
 Industrial - Consumables,16,50,1,53,1
-Industrial - Pumps/Engines,13,50,0,53,0
+Industrial - Pumps/Engines,13,51,1,53,0
 Industrial Gases,1,60,3,22,0
 Industrial Products,1,57,13,14,4
 Infra - Cement,32,37,0,41,-1
@@ -112,7 +112,7 @@ Leisure - Misc,9,49,1,48,0
 Leisure - Restaurants,8,57,2,45,1
 Life Insurance,1,49,-2,,
 Media - Entertainment,4,39,0,45,0
-Media - Entertaintment,2,56,1,55,-2
+Media - Entertaintment,2,57,2,56,-1
 Media - Films,7,45,1,45,0
 Media - Misc,3,38,0,44,0
 Media - Publishing,10,44,0,44,-1
@@ -157,7 +157,7 @@ Telecom,15,54,3,56,2
 Telecom - Infrastructure,1,40,-1,,
 Textile - Apparels,21,50,1,47,0
 Textile - Innerwear,6,45,3,39,1
-Textile - Misc,21,51,0,51,0
+Textile - Misc,21,52,1,51,0
 Textile - Spinning/Yarn,34,51,1,51,1
 Textiles - Polyester,5,57,2,56,1
 Textiles - Processing,7,43,1,47,0
