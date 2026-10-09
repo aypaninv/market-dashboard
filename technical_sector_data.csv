@@ -3,17 +3,17 @@ Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
 Abrasives & Bearings,1,45,-4,,
 Agri - Animal Feed,4,43,-1,47,0
 Agri - Edible Oil,10,44,0,47,0
-Agri - Misc,11,43,1,43,-1
+Agri - Misc,11,44,2,44,0
 Agri - Rice,3,52,4,51,1
 Agri - Seeds,3,36,-2,35,-1
 Agri - Sugar,23,52,2,46,0
 Agri - Tea/Coffee,12,45,-4,47,-2
-Agrichem - Fertilizers,21,44,0,49,-2
+Agrichem - Fertilizers,21,43,-1,49,-2
 Agrichem - Protection,21,39,-1,41,-1
 Aluminium Copper & Zinc Products,1,62,6,,
 Asset Management Company,2,44,0,,
 Auto - 2W,5,43,-3,49,-3
-Auto - CV,5,51,-3,55,-4
+Auto - CV,5,50,-4,55,-4
 Auto - Misc,9,41,-1,44,-2
 Auto - OEM Suppliers,49,50,-2,52,-3
 Auto - PV/Trucks,7,36,-2,44,-2
@@ -29,7 +29,7 @@ Chemicals - Bulk,25,49,-1,47,-1
 Chemicals - Dyes,11,59,-2,55,-2
 Chemicals - Misc,9,44,0,43,-1
 Chemicals - Petro,9,53,0,52,-1
-Chemicals - Specialty,47,53,1,51,0
+Chemicals - Specialty,47,52,0,51,0
 Civil Construction,4,38,2,21,
 Coal,1,48,-1,,
 Commercial Services & Supplies,1,24,-2,,
@@ -47,8 +47,8 @@ Consumption - Paints,7,44,0,44,-1
 Consumption - Personal,10,42,4,44,0
 Consumption - Retail,13,43,-1,44,-2
 Defense - Misc,17,54,0,56,0
-Defense - Ship Building,4,44,0,51,0
-Defense - Technology,6,47,-2,54,-2
+Defense - Ship Building,4,43,-1,50,-1
+Defense - Technology,6,46,-3,54,-2
 Diversified Commercial Services,2,42,-4,43,-35
 Diversified Metals,1,38,0,,
 E-Learning,2,45,4,,
@@ -72,10 +72,10 @@ Gems Jewellery And Watches,2,68,4,75,
 Gems- Jewellery And Watches,1,51,-1,,
 Granites & Marbles,1,38,9,,
 Healthcare - Biotech,5,42,-6,46,-3
-Healthcare - Diagnostics,6,50,-4,56,-3
+Healthcare - Diagnostics,6,50,-4,57,-2
 Healthcare - Equipments,4,51,-2,40,-1
 Healthcare - Hospitals,19,45,-5,50,-2
-Healthcare - Pharma,105,53,-3,54,-2
+Healthcare - Pharma,105,52,-4,54,-2
 Healthcare Service Provider,1,47,-5,,
 Heavy Electrical Equipment,3,52,-1,65,-2
 Hospital,1,49,-2,,
@@ -94,7 +94,7 @@ IT Enabled Services,3,43,1,65,0
 Index,5,44,1,58,0
 Industrial - Bearings,6,49,-3,51,-2
 Industrial - Consumables,16,48,-1,52,0
-Industrial - Pumps/Engines,13,46,-4,51,-2
+Industrial - Pumps/Engines,13,46,-4,52,-1
 Industrial Gases,1,59,2,22,0
 Industrial Products,1,54,10,13,3
 Infra - Cement,32,35,-2,40,-2
@@ -112,7 +112,7 @@ Leisure - Misc,9,47,-1,47,-1
 Leisure - Restaurants,8,53,-2,43,-1
 Life Insurance,1,49,-2,,
 Media - Entertainment,4,36,-3,44,-1
-Media - Entertaintment,2,52,-3,54,-3
+Media - Entertaintment,2,53,-2,54,-3
 Media - Films,7,44,0,44,-1
 Media - Misc,3,35,-3,43,-1
 Media - Publishing,10,42,-2,43,-2
