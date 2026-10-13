@@ -13,7 +13,7 @@ Agrichem - Protection,21,39,0,41,-1
 Aluminium Copper & Zinc Products,1,60,-1,,
 Asset Management Company,2,43,-1,,
 Auto - 2W,5,45,2,50,-2
-Auto - CV,5,50,0,55,-4
+Auto - CV,5,49,-1,54,-5
 Auto - Misc,9,41,0,44,-2
 Auto - OEM Suppliers,49,50,1,52,-3
 Auto - PV/Trucks,7,37,1,44,-2
@@ -29,14 +29,14 @@ Chemicals - Bulk,25,49,0,47,-1
 Chemicals - Dyes,11,60,1,56,-1
 Chemicals - Misc,9,42,-1,42,-2
 Chemicals - Petro,9,52,-1,51,-2
-Chemicals - Specialty,47,54,1,52,1
+Chemicals - Specialty,47,53,0,51,0
 Civil Construction,4,37,-1,22,
 Coal,1,47,-1,,
 Commercial Services & Supplies,1,23,-1,,
 Compressors- Pumps & Diesel Engines,1,30,1,43,-1
 Computers - Software & Consulting,1,25,-1,,
 Consumption - Appliances,19,41,0,42,0
-Consumption - Dairy,7,57,0,58,0
+Consumption - Dairy,7,56,-1,58,0
 Consumption - Electronics,9,42,0,45,-1
 Consumption - FMCG,15,40,1,44,-1
 Consumption - Footwear,8,40,0,41,0
@@ -46,17 +46,17 @@ Consumption - Misc,29,42,0,44,0
 Consumption - Paints,7,45,1,44,-1
 Consumption - Personal,10,41,-1,44,0
 Consumption - Retail,13,43,0,44,-2
-Defense - Misc,17,56,2,57,1
-Defense - Ship Building,4,45,2,51,0
+Defense - Misc,17,55,1,57,1
+Defense - Ship Building,4,44,1,51,0
 Defense - Technology,6,49,2,56,0
 Diversified Commercial Services,2,41,-1,42,-36
 Diversified Metals,1,40,0,,
 E-Learning,2,45,-1,,
 E-Retail/ E-Commerce,1,79,-1,,
-Electronic - Equipment,20,56,0,61,-1
+Electronic - Equipment,20,56,0,60,-2
 Engineering,74,48,0,50,-2
 Financial Technology (Fintech),1,51,0,,
-Financials - AMC,6,45,1,54,0
+Financials - AMC,6,44,0,54,0
 Financials - Broking,17,50,0,52,0
 Financials - Housing,16,41,1,44,1
 Financials - Life,7,43,2,47,1
@@ -92,7 +92,7 @@ IT - Software,1,24,-1,,
 IT - Software/Consulting,59,45,0,44,0
 IT Enabled Services,3,44,0,64,-1
 Index,5,44,0,58,0
-Industrial - Bearings,6,49,0,50,-3
+Industrial - Bearings,6,48,-1,50,-3
 Industrial - Consumables,16,49,1,52,0
 Industrial - Pumps/Engines,13,47,1,52,-1
 Industrial Gases,1,59,0,22,0
@@ -112,7 +112,7 @@ Leisure - Misc,9,46,-1,46,-2
 Leisure - Restaurants,8,53,0,43,-1
 Life Insurance,1,45,-2,,
 Media - Entertainment,4,37,0,44,-1
-Media - Entertaintment,2,58,5,57,0
+Media - Entertaintment,2,56,3,56,-1
 Media - Films,7,45,2,45,0
 Media - Misc,3,36,-1,44,0
 Media - Publishing,10,43,1,43,-2
@@ -120,8 +120,8 @@ Media - TV Broadcast,9,41,1,35,0
 Medical Equipment & Supplies,1,34,-1,53,-2
 Metals - Aluminium,4,37,-1,52,-3
 Metals - Casting/Forging,19,52,2,54,-2
-Metals - Copper,4,63,10,59,-9
-Metals - Iron & Steel,43,52,1,55,-1
+Metals - Copper,4,62,9,58,-10
+Metals - Iron & Steel,43,52,1,54,-2
 Metals - Misc,22,45,1,50,-2
 Metals - Pipe & Tube,14,50,1,54,-1
 Non Banking Financial Company (NBFC),6,45,1,44,4
@@ -138,7 +138,7 @@ Paper,21,50,2,47,0
 Petro - Lubricants,7,59,-1,60,0
 Petro - Refineries,6,42,-1,51,-1
 Pharmaceuticals,2,56,-1,,
-Power - Equipment,27,50,2,55,1
+Power - Equipment,27,49,1,55,1
 Power - Green,17,40,0,45,-2
 Power - Misc,20,35,0,43,-1
 Power - Wiring,19,56,0,53,0
@@ -162,6 +162,6 @@ Textile - Spinning/Yarn,34,49,1,49,-1
 Textiles - Polyester,5,56,-1,55,0
 Textiles - Processing,7,41,-1,46,-1
 Transport - Logistics,33,47,0,45,-1
-Transport - Shipping,7,50,1,60,5
+Transport - Shipping,7,49,0,60,5
 Utility - Gas,9,48,0,46,-1
 Utility - Misc,3,48,-1,55,-2
