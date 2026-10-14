@@ -13,7 +13,7 @@ Agrichem - Protection,21,40,1,41,-1
 Aluminium Copper & Zinc Products,1,60,-1,,
 Asset Management Company,2,43,-1,,
 Auto - 2W,5,46,3,50,-2
-Auto - CV,5,51,1,55,-4
+Auto - CV,5,50,0,55,-4
 Auto - Misc,9,41,0,43,-3
 Auto - OEM Suppliers,49,50,1,52,-3
 Auto - PV/Trucks,7,37,1,44,-2
@@ -26,7 +26,7 @@ Breweries & Distilleries,1,43,-1,35,-1
 Cables - Electricals,2,58,2,,
 Cement & Cement Products,1,36,0,20,
 Chemicals - Bulk,25,49,0,47,-1
-Chemicals - Dyes,11,61,2,56,-1
+Chemicals - Dyes,11,60,1,56,-1
 Chemicals - Misc,9,43,0,42,-2
 Chemicals - Petro,9,53,0,52,-1
 Chemicals - Specialty,47,54,1,52,1
@@ -121,7 +121,7 @@ Medical Equipment & Supplies,1,34,-1,53,-2
 Metals - Aluminium,4,37,-1,52,-3
 Metals - Casting/Forging,19,52,2,54,-2
 Metals - Copper,4,63,10,59,-9
-Metals - Iron & Steel,43,52,1,55,-1
+Metals - Iron & Steel,43,52,1,54,-2
 Metals - Misc,22,45,1,50,-2
 Metals - Pipe & Tube,14,50,1,54,-1
 Non Banking Financial Company (NBFC),6,46,2,45,5
@@ -138,7 +138,7 @@ Paper,21,50,2,47,0
 Petro - Lubricants,7,60,0,60,0
 Petro - Refineries,6,43,0,51,-1
 Pharmaceuticals,2,56,-1,,
-Power - Equipment,27,49,1,55,1
+Power - Equipment,27,50,2,55,1
 Power - Green,17,40,0,45,-2
 Power - Misc,20,35,0,43,-1
 Power - Wiring,19,56,0,53,0
