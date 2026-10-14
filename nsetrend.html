@@ -29,8 +29,10 @@ const HEADER_LABELS_NSETREND = {
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
 const NSETREND_FILTER = {
+  DD_ATH: r => parseFloat(r.DD_ATH) >= 15,
   M_SL:   r => parseFloat(r.M_SL) >= 0,
-  TD: r => parseFloat(r.Trend) >= 5,
+  // TD: r => parseFloat(r.Trend) >= 5,
+  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
 };
 
 let rawNseTrend = [];
