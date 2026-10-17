@@ -297,6 +297,29 @@ function setActiveChartTfButton(tf) {
   });
 }
 
+function getChartRowMetaFromTable(symbol, sourceTable) {
+  if (!sourceTable) return {};
+  const headerRow = sourceTable.querySelector("tr");
+  if (!headerRow) return {};
+  const headers = [...headerRow.querySelectorAll("th")].map(th => String(th.textContent || "").trim()).filter(Boolean);
+  const rowEls = [...sourceTable.querySelectorAll("tr")].slice(1);
+  const matchRow = rowEls.find(row => {
+    const cells = [...row.querySelectorAll("td")];
+    const firstCell = cells[0] || null;
+    const link = firstCell && firstCell.querySelector("a");
+    const text = String((link ? link.textContent : firstCell?.textContent || "")).trim();
+    return text === String(symbol).trim();
+  });
+  if (!matchRow) return {};
+  const cells = [...matchRow.querySelectorAll("td")];
+  const values = {};
+  headers.forEach((header, idx) => {
+    if (!cells[idx]) return;
+    values[header] = String(cells[idx].textContent || "").trim();
+  });
+  return values;
+}
+
 window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
   const eventTarget = window.event?.target;
   const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable;
@@ -312,15 +335,9 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
 
+      const rowMeta = getChartRowMetaFromTable(symbol, sourceTable || getActiveTable());
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
-      // 52w high from standard monthly High (actual price reference)
-      let high52w = null;
-      const last12Monthly = monthlyRows.slice(-12);
-      if (last12Monthly.length >= 12) {
-        const highs = last12Monthly.map(r => +r.High).filter(v => Number.isFinite(v));
-        if (highs.length) high52w = Math.max(...highs);
-      }
 
       // Reference candle for current TF: newest highest-close standard candle in the recent lookback window
       let refDate = null;
@@ -334,7 +351,11 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const displayRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, displayRows, rows, high52w, refDate);
+      const chartMeta = {
+        boP: rowMeta.BO_P ? parseFloat(rowMeta.BO_P) : null,
+        slP: rowMeta.SL_P ? parseFloat(rowMeta.SL_P) : null,
+      };
+      window.showChart(symbol, tf, displayRows, rows, refDate, chartMeta);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
     })
@@ -345,7 +366,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf, "symbol");
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w, refDate) {
+window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {}) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -353,7 +374,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, refDate) {
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, refDate);
+  window.drawCandles(canvas, candles, allRows, tf, refDate, chartMeta);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -381,7 +402,7 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf, chartState.sourceType || "symbol");
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
+window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta = {}) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -400,11 +421,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
     if (isFinite(h)) maxP = Math.max(maxP, h);
     if (isFinite(l))  minP = Math.min(minP, l);
   });
-
-  if (Number.isFinite(high52w)) {
-    maxP = Math.max(maxP, high52w);
-    minP = Math.min(minP, high52w);
-  }
 
   if (!isFinite(minP)) return;
 
@@ -434,13 +450,8 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
     const h = fmtCompact(row.High);
     const l = fmtCompact(row.Low);
     const c = fmtCompact(row.Close);
-    const rowClose = +row.Close;
-    const pctFrom52w = (
-      Number.isFinite(high52w) && high52w !== 0 && Number.isFinite(rowClose)
-        ? ((rowClose - high52w) / high52w) * 100
-        : null
-    );
-    const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
+    const boText = Number.isFinite(chartMeta.boP) ? ' <span style="color:#10b981;font-weight:700;">BO:' + chartMeta.boP.toFixed(1) + '</span>' : '';
+    const slText = Number.isFinite(chartMeta.slP) ? ' <span style="color:#ef4444;font-weight:700;">SL:' + chartMeta.slP.toFixed(1) + '</span>' : '';
     infoEl.innerHTML =
       '<div>Date:' + d +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
@@ -448,7 +459,8 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
       ' <span style="color:#d32f2f;">L:' + l + '</span>' +
       ' <span style="color:#f59e0b;">C:' + c + '</span></div>' +
       '<div style="margin-top:2px;">' +
-        ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
+        boText +
+        slText +
       '</div>';
   }
 
@@ -522,28 +534,48 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
       }
     });
 
-    // 52-week line from last 12 monthly candles high
-    if (Number.isFinite(high52w)) {
-      const y52 = py(high52w);
-      ctx.strokeStyle = "#f59e0b";
-      ctx.lineWidth = 1.3;
-      ctx.setLineDash([6, 4]);
-      ctx.beginPath();
-      ctx.moveTo(P.l, y52);
-      ctx.lineTo(W - P.r, y52);
-      ctx.stroke();
-      ctx.setLineDash([]);
+    if (tf === "D") {
+      if (Number.isFinite(chartMeta.boP)) {
+        const yBo = py(chartMeta.boP);
+        ctx.strokeStyle = "#10b981";
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(P.l, yBo);
+        ctx.lineTo(W - P.r, yBo);
+        ctx.stroke();
+        ctx.setLineDash([]);
 
-      const tag = "52W " + high52w.toFixed(2);
-      ctx.font = "10px Courier New";
-      const tw = ctx.measureText(tag).width + 8;
-      const tx = P.l + 6;
-      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y52 - 5));
-      ctx.fillStyle = "rgba(245, 158, 11, 0.16)";
-      ctx.fillRect(tx, ty - 10, tw, 13);
-      ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
-      ctx.textAlign = "left";
-      ctx.fillText(tag, tx + 4, ty);
+        const label = "BO " + chartMeta.boP.toFixed(1);
+        ctx.font = "10px Courier New";
+        const tw = ctx.measureText(label).width + 8;
+        ctx.fillStyle = "rgba(16, 185, 129, 0.16)";
+        ctx.fillRect(W - P.r - tw - 6, P.t + 10, tw, 13);
+        ctx.fillStyle = "#10b981";
+        ctx.textAlign = "left";
+        ctx.fillText(label, W - P.r - tw - 2, P.t + 20);
+      }
+
+      if (Number.isFinite(chartMeta.slP)) {
+        const ySl = py(chartMeta.slP);
+        ctx.strokeStyle = "#ef4444";
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(P.l, ySl);
+        ctx.lineTo(W - P.r, ySl);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const label = "SL " + chartMeta.slP.toFixed(1);
+        ctx.font = "10px Courier New";
+        const tw = ctx.measureText(label).width + 8;
+        ctx.fillStyle = "rgba(239, 68, 68, 0.16)";
+        ctx.fillRect(W - P.r - tw - 6, P.t + 30, tw, 13);
+        ctx.fillStyle = "#ef4444";
+        ctx.textAlign = "left";
+        ctx.fillText(label, W - P.r - tw - 2, P.t + 40);
+      }
     }
 
     // X-axis date labels (every ~4 candles)
