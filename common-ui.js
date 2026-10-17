@@ -173,34 +173,13 @@ const CHART_CANDLE_COUNTS = {
   Y: 15,
 };
 
-const W_SL_LOOKBACK_WEEKS = 10;
-const M_SL_LOOKBACK_MONTHS = 6;
-const TF_LOOKBACK = { D: 14, W: W_SL_LOOKBACK_WEEKS, M: M_SL_LOOKBACK_MONTHS, Y: 10 };
+const W_LOOKBACK_WEEKS = 10;
+const M_LOOKBACK_MONTHS = 6;
+const TF_LOOKBACK = { D: 14, W: W_LOOKBACK_WEEKS, M: M_LOOKBACK_MONTHS, Y: 10 };
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly", Y: "Yearly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, useHA: false, sourceType: "symbol" };
-
-/* Convert standard OHLCV rows array to Heikin Ashi candle objects.
-   Each output row shares all original fields; Open/High/Low/Close are replaced with HA values. */
-function computeHeikinAshi(rows) {
-  if (!rows || !rows.length) return rows;
-  const out = new Array(rows.length);
-  let prevHaOpen = 0, prevHaClose = 0;
-  for (let i = 0; i < rows.length; i++) {
-    const r = rows[i];
-    const o = +r.Open, h = +r.High, l = +r.Low, c = +r.Close;
-    if (![o, h, l, c].every(isFinite)) { out[i] = { ...r }; continue; }
-    const haClose = (o + h + l + c) / 4;
-    const haOpen  = i === 0 ? (o + c) / 2 : (prevHaOpen + prevHaClose) / 2;
-    const haHigh  = Math.max(h, haOpen, haClose);
-    const haLow   = Math.min(l, haOpen, haClose);
-    out[i] = { ...r, Open: haOpen, High: haHigh, Low: haLow, Close: haClose };
-    prevHaOpen  = haOpen;
-    prevHaClose = haClose;
-  }
-  return out;
-}
+const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, sourceType: "symbol" };
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -300,12 +279,11 @@ function getSectorForSymbolFromTable(symbol, table) {
 }
 
 function buildChartTitle(symbol, tf, candles) {
-  const modeLabel = chartState.useHA ? "  [HA]" : "";
   if (chartState.sourceType === "symbol") {
     const sectorName = getSectorForSymbolFromTable(symbol, chartState.sourceTable || getActiveTable());
-    if (sectorName) return symbol + " - (" + sectorName + ")" + modeLabel;
+    if (sectorName) return symbol + " - (" + sectorName + ")";
   }
-  return symbol + modeLabel;
+  return symbol;
 }
 
 function setActiveChartTfButton(tf) {
@@ -338,68 +316,27 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       const monthlyRows = monthlyData[symbol] || [];
       // 52w high from standard monthly High (actual price reference)
       let high52w = null;
-      let mslPrice = null;
-      let wslPrice = null;
       const last12Monthly = monthlyRows.slice(-12);
       if (last12Monthly.length >= 12) {
         const highs = last12Monthly.map(r => +r.High).filter(v => Number.isFinite(v));
         if (highs.length) high52w = Math.max(...highs);
       }
 
-      // W_SL and M_SL always computed from Heikin Ashi candles
-      const monthlyRowsHA = computeHeikinAshi(monthlyRows);
-      const recentMonthlyHA = monthlyRowsHA.slice(-M_SL_LOOKBACK_MONTHS);
-      if (recentMonthlyHA.length) {
-        const green = recentMonthlyHA.filter(r => {
-          const o = +r.Open, c = +r.Close;
-          return Number.isFinite(o) && Number.isFinite(c) && c > o;
-        });
-        const refCandles = green.length ? green : [recentMonthlyHA[0]];
-        const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
-        const low = +refRow?.Low;
-        if (Number.isFinite(low) && low !== 0) mslPrice = low;
-      }
-
-      const weeklyRowsHA = computeHeikinAshi(weeklyRows);
-      const recentWeeklyHA = weeklyRowsHA.slice(-W_SL_LOOKBACK_WEEKS);
-      if (recentWeeklyHA.length) {
-        const green = recentWeeklyHA.filter(r => {
-          const o = +r.Open, c = +r.Close;
-          return Number.isFinite(o) && Number.isFinite(c) && c > o;
-        });
-        const refCandles = green.length ? green : [recentWeeklyHA[0]];
-        const highestClose = Math.max(...refCandles.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const refRow = refCandles.filter(r => +r.Close === highestClose).slice(-1)[0];
-        const low = +refRow?.Low;
-        if (Number.isFinite(low) && low !== 0) wslPrice = low;
-      }
-
-      // Reference candle for current TF: HA-based highest-close green within lookback window
+      // Reference candle for current TF: newest highest-close standard candle in the recent lookback window
       let refDate = null;
-      const tfRowsHA = computeHeikinAshi(rows);
       const tfLookback = TF_LOOKBACK[tf] || 10;
-      const recentTfHA = tfRowsHA.slice(-tfLookback);
-      if (recentTfHA.length) {
-        const green = recentTfHA.filter(r => {
-          const o = +r.Open, c = +r.Close;
-          return Number.isFinite(o) && Number.isFinite(c) && c > o;
-        });
-        const refPool = green.length ? green : [recentTfHA[0]];
-        const highestClose = Math.max(...refPool.map(r => +r.Close).filter(v => Number.isFinite(v)));
-        const refRow = refPool.filter(r => +r.Close === highestClose).slice(-1)[0];
+      const recentTf = rows.slice(-tfLookback);
+      if (recentTf.length) {
+        const highestClose = Math.max(...recentTf.map(r => +r.Close).filter(v => Number.isFinite(v)));
+        const refRow = recentTf.filter(r => +r.Close === highestClose).slice(-1)[0];
         if (refRow) refDate = getRowDateLabel(refRow);
       }
 
-      // Display candles: standard or Heikin Ashi based on toggle
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
-      const displayRows = chartState.useHA
-        ? computeHeikinAshi(rows).slice(-candleCount)
-        : rows.slice(-candleCount);
-      window.showChart(symbol, tf, displayRows, rows, high52w, mslPrice, wslPrice, refDate);
+      const displayRows = rows.slice(-candleCount);
+      window.showChart(symbol, tf, displayRows, rows, high52w, refDate);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
-      updateChartModeButton();
     })
     .catch(() => alert("Failed to load chart data"));
 };
@@ -408,7 +345,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf, "symbol");
 };
 
-window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wslPrice, refDate) {
+window.showChart = function(symbol, tf, candles, allRows, high52w, refDate) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -416,7 +353,7 @@ window.showChart = function(symbol, tf, candles, allRows, high52w, mslPrice, wsl
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate);
+  window.drawCandles(canvas, candles, allRows, tf, high52w, refDate);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -444,25 +381,7 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf, chartState.sourceType || "symbol");
 };
 
-function updateChartModeButton() {
-  const btn = document.getElementById("chartModeBtn");
-  if (!btn) return;
-  const active = chartState.useHA;
-  btn.textContent = active ? "HA" : "STD";
-  btn.style.background    = active ? "var(--accent, #2563eb)" : "transparent";
-  btn.style.color         = active ? "#fff" : "var(--text)";
-  btn.style.borderColor   = active ? "var(--accent, #2563eb)" : "var(--grid)";
-}
-
-window.toggleChartMode = function() {
-  chartState.useHA = !chartState.useHA;
-  updateChartModeButton();
-  if (chartState.symbol && chartState.tf) {
-    window.renderCandleChart(chartState.symbol, chartState.tf, chartState.sourceType || "symbol");
-  }
-};
-
-window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, wslPrice, refDate) {
+window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -485,16 +404,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
   if (Number.isFinite(high52w)) {
     maxP = Math.max(maxP, high52w);
     minP = Math.min(minP, high52w);
-  }
-
-  if (Number.isFinite(mslPrice)) {
-    maxP = Math.max(maxP, mslPrice);
-    minP = Math.min(minP, mslPrice);
-  }
-
-  if (Number.isFinite(wslPrice)) {
-    maxP = Math.max(maxP, wslPrice);
-    minP = Math.min(minP, wslPrice);
   }
 
   if (!isFinite(minP)) return;
@@ -531,19 +440,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
         ? ((rowClose - high52w) / high52w) * 100
         : null
     );
-    const pctFromMsl = (
-      Number.isFinite(mslPrice) && mslPrice !== 0 && Number.isFinite(rowClose)
-        ? ((rowClose - mslPrice) / mslPrice) * 100
-        : null
-    );
-    const pctFromWsl = (
-      Number.isFinite(wslPrice) && wslPrice !== 0 && Number.isFinite(rowClose)
-        ? ((rowClose - wslPrice) / wslPrice) * 100
-        : null
-    );
     const pct52Text = pctFrom52w === null ? "NA" : Math.trunc(pctFrom52w) + "%";
-    const pctMslText = pctFromMsl === null ? "NA" : Math.trunc(pctFromMsl) + "%";
-    const pctWslText = pctFromWsl === null ? "NA" : Math.trunc(pctFromWsl) + "%";
     infoEl.innerHTML =
       '<div>Date:' + d +
       ' <span style="color:#1976d2;">O:' + o + '</span>' +
@@ -552,8 +449,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ' <span style="color:#f59e0b;">C:' + c + '</span></div>' +
       '<div style="margin-top:2px;">' +
         ' <span style="color:#f59e0b;font-weight:700;">52W:' + pct52Text + '</span>' +
-        ' <span style="color:#dc2626;font-weight:700;">MSL:' + pctMslText + '</span>' +
-        ' <span style="color:#0f766e;font-weight:700;">WSL:' + pctWslText + '</span>' +
       '</div>';
   }
 
@@ -647,53 +542,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, mslPrice, w
       ctx.fillStyle = "rgba(245, 158, 11, 0.16)";
       ctx.fillRect(tx, ty - 10, tw, 13);
       ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
-      ctx.textAlign = "left";
-      ctx.fillText(tag, tx + 4, ty);
-    }
-
-    // Stoploss line from monthly rule (latest highest-close green candle low)
-    if (Number.isFinite(mslPrice)) {
-      const ySl = py(mslPrice);
-      ctx.strokeStyle = "#dc2626";
-      ctx.lineWidth = 1.3;
-      ctx.setLineDash([5, 3]);
-      ctx.beginPath();
-      ctx.moveTo(P.l, ySl);
-      ctx.lineTo(W - P.r, ySl);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      const tag = "MSL " + mslPrice.toFixed(2);
-      ctx.font = "10px Courier New";
-      const tw = ctx.measureText(tag).width + 8;
-      const tx = P.l + 6;
-      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, ySl - 5));
-      ctx.fillStyle = dark ? "rgba(127, 29, 29, 0.2)" : "rgba(220, 38, 38, 0.12)";
-      ctx.fillRect(tx, ty - 10, tw, 13);
-      ctx.fillStyle = "#dc2626";
-      ctx.textAlign = "left";
-      ctx.fillText(tag, tx + 4, ty);
-    }
-
-    if (Number.isFinite(wslPrice)) {
-      const yWsl = py(wslPrice);
-      ctx.strokeStyle = "#0f766e";
-      ctx.lineWidth = 1.3;
-      ctx.setLineDash([5, 3]);
-      ctx.beginPath();
-      ctx.moveTo(P.l, yWsl);
-      ctx.lineTo(W - P.r, yWsl);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      const tag = "WSL " + wslPrice.toFixed(2);
-      ctx.font = "10px Courier New";
-      const tw = ctx.measureText(tag).width + 8;
-      const tx = P.l + 6;
-      const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, yWsl - 5));
-      ctx.fillStyle = dark ? "rgba(13, 78, 74, 0.2)" : "rgba(15, 118, 110, 0.12)";
-      ctx.fillRect(tx, ty - 10, tw, 13);
-      ctx.fillStyle = "#0f766e";
       ctx.textAlign = "left";
       ctx.fillText(tag, tx + 4, ty);
     }
@@ -832,11 +680,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
-    const modeControls = document.createElement("div");
-    modeControls.style.cssText = "display:flex;align-items:center;flex-shrink:0;";
-    modeControls.appendChild(makeHeaderButton("chartModeBtn", "STD", () => window.toggleChartMode()));
-
-    rightControls.appendChild(modeControls);
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
     headerRow.appendChild(title);

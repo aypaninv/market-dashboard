@@ -14,18 +14,12 @@ const COLS_TFW = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
-  "W_SL","W_PSL",
-  "M_SL","M_PSL",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFW = {
   "W_BO": "W_BO",
   "D_BO": "D_BO",
-  "W_SL": "W_SL",
-  "M_SL": "M_SL",
-  "W_PSL": "W_PSL",
-  "M_PSL": "M_PSL",
   "Trend": "TD",
 };
 
@@ -118,7 +112,7 @@ window.registerTabs(addTab => {
 });
 
 function renderTF(data) {
-  const filteredRows = data.filter(r => toNumberTFW(r.M_SL) >= 0);
+  const filteredRows = data;
   tfRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
   tfColWidths = computeSharedColWidthsTFW(tfRows);
   tfSortState = null;
@@ -227,9 +221,7 @@ function drawTFTable() {
       }
 
       if (h !== "Chart") {
-        window.applyCommonCellClasses(td, h, v, {
-          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-        });
+        window.applyCommonCellClasses(td, h, v);
       }
       row.appendChild(td);
     });

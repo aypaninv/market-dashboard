@@ -15,8 +15,6 @@ const DEFAULT_COLUMN_ORDER = [
   "DD_52W","DD_ATH",
   "D_BO","W_BO","M_BO",
   "LB_D","LB_P",
-  "D_CHG","W_CHG","M_CHG",
-  "W_SL","M_SL","W_PSL","M_PSL",
   "AvgPrice","Trend","CurPrice",
   "Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
@@ -30,8 +28,6 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
-    "W_SL","W_PSL","M_PSL",
-    "W_CHG","M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
   ],
@@ -40,8 +36,6 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
-    "W_SL","M_SL","M_PSL",
-    "M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
   ],  
@@ -94,8 +88,8 @@ function defaultAddCondition(d) {
   );
 }
 
-function defaultTrimOrExitCondition(d) {
-  return toNumber(d.W_SL) < 0;
+function defaultTrimOrExitCondition() {
+  return false;
 }
 
 // Returns true when IC value is high but PnL hasn't caught up — triggers red highlight
@@ -428,7 +422,6 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
 
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
-          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
           profitColumns: ["PnL", "LB_P"],
         });
       }

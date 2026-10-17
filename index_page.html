@@ -14,16 +14,12 @@ const COLS_IDX = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
-  "W_SL","W_PSL",
-  "M_SL","M_PSL",
   "Trend","CurPrice","Notes"
 ];
 
 const HEADER_LABELS_IDX = {
   "W_BO": "W_BO",
   "D_BO": "D_BO",
-  "W_SL": "W_SL",
-  "W_PSL": "W_PSL",
   "Trend": "TD",
 };
 
@@ -217,9 +213,7 @@ function drawIDXTable() {
       }
 
       if (h !== "Chart") {
-        window.applyCommonCellClasses(td, h, v, {
-          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-        });
+        window.applyCommonCellClasses(td, h, v);
       }
       row.appendChild(td);
     });

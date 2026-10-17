@@ -14,15 +14,12 @@ const COLS_NSEALL = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
-  "W_SL","W_PSL","M_SL", "M_PSL",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_NSEALL = {
   "W_BO": "W_BO",
   "D_BO": "D_BO",
-  "W_SL": "W_SL",
-  "M_SL": "M_SL",
   "Trend": "TD",
 };
 
@@ -31,7 +28,6 @@ const HEADER_LABELS_NSEALL = {
 const NSEALL_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) < 15,
   TD: r => parseFloat(r.Trend) >= 5,
-  M_SL:   r => parseFloat(r.M_SL) >= 0,
   BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
 };
 
@@ -247,9 +243,7 @@ function buildNseAllTable(table, rows) {
       }
 
       if (h !== "Chart") {
-        window.applyCommonCellClasses(td, h, v, {
-          chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-        });
+        window.applyCommonCellClasses(td, h, v);
       }
       row.appendChild(td);
     });
