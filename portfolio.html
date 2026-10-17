@@ -126,19 +126,14 @@ const addConditionsByFolio = {
   Sate: d => {
     const lbPert = toNumber(d["LB_P"]);
     const ic = toNumber(d["IC"]);
-    const pnl = toNumber(d["PnL"]);
-
-    const lbPertThreshold = ddATH <= 15 ? 4 : 8;
-    
-    return (  ic < 4 && lbPert >= 8 && meetsPnLThreshold(ic, pnl))
+    const pnl = toNumber(d["PnL"]);    
+    return ( ic < 4 && lbPert >= 8 && meetsPnLThreshold(ic, pnl))
   },
   Core: d => {
     const lbPert = toNumber(d["LB_P"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    
-    return (  ic < 6 && lbPert >= 8 && meetsPnLThreshold(ic, pnl))
-
+    return ( ic < 6 && lbPert >= 8 && meetsPnLThreshold(ic, pnl))
   },
 };
 
