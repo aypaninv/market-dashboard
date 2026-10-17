@@ -13,7 +13,7 @@ const CSV_TFC = "tfcore_report.csv";
 const COLS_TFC = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
-  "D_BO","W_BO","M_BO",
+  "D_BO",//"W_BO","M_BO",
   "MA20","MA50","MA100",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
@@ -113,8 +113,11 @@ window.registerTabs(addTab => {
 });
 
 function renderTFC(data) {
-  const filteredRows = data;
-  tfcRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
+  const filteredRows = (data || []).filter(row => {
+    const ma100 = Number(row.MA100);
+    return Number.isFinite(ma100) && ma100 > 0;
+  });
+  tfcRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
   tfcColWidths = computeSharedColWidthsTFC(tfcRows);
   tfcSortState = null;
   drawTFCTable();

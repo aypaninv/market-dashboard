@@ -13,7 +13,7 @@ const CSV_TFS = "tfstudy_report.csv";
 const COLS_TFS = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
-  "D_BO","W_BO","M_BO",
+  "D_BO",//"W_BO","M_BO",
   "MA20","MA50","MA100",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
@@ -112,8 +112,11 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  const filteredRows = data;
-  tfsRows = window.sortRowsByColumn(filteredRows, "W_BO", false);
+  const filteredRows = (data || []).filter(row => {
+    const ma100 = Number(row.MA100);
+    return Number.isFinite(ma100) && ma100 > 0;
+  });
+  tfsRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
   tfsColWidths = computeSharedColWidthsTFS(tfsRows);
   tfsSortState = null;
   drawTFSTable();
