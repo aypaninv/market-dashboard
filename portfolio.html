@@ -14,7 +14,7 @@ const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","Category","IC","CC", "PnL",
   "DD_52W","DD_ATH",
   "D_BO","W_BO","M_BO",
-  "LT_Type","LT_days","LT_Pert",
+  "LB_D","LB_P",
   "D_CHG","W_CHG","M_CHG",
   "W_SL","M_SL","W_PSL","M_PSL",
   "AvgPrice","Trend","CurPrice",
@@ -28,7 +28,7 @@ const COLUMN_ORDER_BY_FOLIO = {
   Sate: [
     "Symbol","Chart","Category","IC","CC","PnL",
     "DD_ATH","DD_52W",
-    "LT_days","LT_Pert","LT_Type",
+    "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
     "W_SL","W_PSL","M_PSL",
     "W_CHG","M_CHG",
@@ -38,19 +38,16 @@ const COLUMN_ORDER_BY_FOLIO = {
   Core: [
     "Symbol","Chart","Category","IC","CC","PnL",
     "DD_ATH","DD_52W",
-    "LT_days","LT_Pert","LT_Type",
+    "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
     "W_SL","M_SL","M_PSL",
     "M_CHG",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
-  ],
+  ],  
 };
 
 const HEADER_LABELS = {
-  "LT_Type": "LT_T",
-  "LT_days": "LT_D",
-  "LT_Pert": "LT_P",
   "Trend": "TD",
 };
 
@@ -89,11 +86,11 @@ function getColumnOrderForFolio(folio) {
 }
 
 function defaultAddCondition(d) {
-  const ltPert = toNumber(d.LT_Pert);
+  const lbPert = toNumber(d.LB_P);
   const wBO = toNumber(d["W_BO"]);
 
   return (
-    ltPert > 4 && wBO > 0
+    lbPert > 4 && wBO > 0
   );
 }
 
@@ -128,7 +125,7 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Sate: d => {
     const ddATH = toNumber(d["DD_ATH"]);
-    const ltPert = toNumber(d["LT_Pert"]);
+    const lbPert = toNumber(d["LB_P"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
@@ -138,13 +135,13 @@ const addConditionsByFolio = {
     const wPSL = toNumber(d["W_PSL"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
-    const ltPertThreshold = ddATH <= 15 ? 4 : 8;
+    const lbPertThreshold = ddATH <= 15 ? 4 : 8;
     
-    return (  ic < 4 && ltPert > 0 && dBO >= 0 && meetsPnLThreshold(ic, pnl))
+    return (  ic < 4 && lbPert >= 8 && dBO >= 0 && meetsPnLThreshold(ic, pnl))
   },
   Core: d => {
     const ddATH = toNumber(d["DD_ATH"]);
-    const ltPert = toNumber(d["LT_Pert"]);
+    const lbPert = toNumber(d["LB_P"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
     const dBO = toNumber(d["D_BO"]);
@@ -153,9 +150,9 @@ const addConditionsByFolio = {
     const mCHG = toNumber(d["M_CHG"]);
     const mSL = toNumber(d["M_SL"]);
     const mPSL = toNumber(d["M_PSL"]);
-    const ltPertThreshold = ddATH <= 15 ? 4 : 8;
+    const lbPertThreshold = ddATH <= 15 ? 4 : 8;
     
-    return (  ic < 4 && ltPert > 0 && dBO >= 0 && meetsPnLThreshold(ic, pnl))
+    return (  ic < 6 && lbPert >= 8 && dBO >= 0 && meetsPnLThreshold(ic, pnl))
 
   },
 };
@@ -176,11 +173,6 @@ const trimConditionsByFolio = {
     const wSL = toNumber(d["W_SL"]);
     return ic > 0.3 && wSL < 0 && mCHG < -8;
   },
-};
-
-const holdConditionsByFolio = {
-  Sate: d => toNumber(d["IC"]) >= 0.3 && d.LT_Type === "Sell",
-  Core: d => toNumber(d["IC"]) >= 0.3 && d.LT_Type === "Sell",
 };
 
 const exitConditionsByFolio = {
@@ -208,10 +200,6 @@ function getAddCondition(folio) {
 
 function getTrimCondition(folio) {
   return trimConditionsByFolio[folio] || defaultTrimCondition;
-}
-
-function getHoldCondition(folio) {
-  return holdConditionsByFolio[folio] || (() => false);
 }
 
 function getExitCondition(folio) {
@@ -326,7 +314,7 @@ function renderFolioSections(folio, folioRows) {
     const exitCondition = getExitCondition(folio);
     const addRows = [];
     const exitRows = [];
-    const holdingRows = [];
+    const otherRows = [];
 
     folioRows.forEach(d => {
       if (addCondition(d)) {
@@ -334,24 +322,22 @@ function renderFolioSections(folio, folioRows) {
       } else if (exitCondition(d)) {
         exitRows.push(d);
       } else {
-        holdingRows.push(d);
+        otherRows.push(d);
       }
     });
 
     container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
     container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Holding", sortByDefault(holdingRows, folio), `${folio}__Holding`, true, colWidths, columnOrder));
+    container.appendChild(createSection("Others", sortByDefault(otherRows, folio), `${folio}__Others`, false, colWidths, columnOrder));
   } else {
     // Standard section layout for other folios
     const addCondition = getAddCondition(folio);
     const trimCondition = getTrimCondition(folio);
-    const holdCondition = getHoldCondition(folio);
     const exitCondition = getExitCondition(folio);
 
-    // Prioritize conditions: Add > Exit > Hold > Trim > Others
+    // Prioritize conditions: Add > Trim > Exit > Others
     const addRows = [];
     const exitRows = [];
-    const holdRows = [];
     const trimRows = [];
     const otherRows = [];
 
@@ -360,8 +346,6 @@ function renderFolioSections(folio, folioRows) {
         addRows.push(d);
       } else if (exitCondition(d)) {
         exitRows.push(d);
-      } else if (holdCondition(d)) {
-        holdRows.push(d);
       } else if (trimCondition(d)) {
         trimRows.push(d);
       } else {
@@ -371,7 +355,6 @@ function renderFolioSections(folio, folioRows) {
 
     container.appendChild(createSection("Add", sortByDefault(addRows, folio), `${folio}__Add`, true, colWidths, columnOrder));
     container.appendChild(createSection("Trim", sortByDefault(trimRows, folio), `${folio}__Trim`, true, colWidths, columnOrder));
-    container.appendChild(createSection("Hold", sortByDefault(holdRows, folio), `${folio}__Hold`, true, colWidths, columnOrder));
     container.appendChild(createSection("Exit", sortByDefault(exitRows, folio), `${folio}__Exit`, true, colWidths, columnOrder));
     container.appendChild(createSection("Others", sortByDefault(otherRows, folio), `${folio}__Others`, false, colWidths, columnOrder));
   }
@@ -502,7 +485,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
       if (h !== "Chart") {
         window.applyCommonCellClasses(td, h, v, {
           chgColumns: ["D_CHG", "W_CHG", "M_CHG"],
-          profitColumns: ["PnL", "LT_Pert"],
+          profitColumns: ["PnL", "LB_P"],
         });
       }
 
