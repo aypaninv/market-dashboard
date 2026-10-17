@@ -1,19 +1,20 @@
-<!-- ===================== INDEX FEATURE ===================== -->
+<!-- ===================== INDICES FEATURE ===================== -->
 
-<div id="indexFeature" style="display:none">
+<div id="indicesFeature" style="display:none">
   <div class="update-time" id="updateTime_idx"></div>
   <div class="content">
-    <div id="indexSections"></div>
+    <div id="indicesSections"></div>
   </div>
 </div>
 
 <script>
-const CSV_IDX = "index_report.csv";
+const CSV_IDX = "indices_report.csv";
 
 const COLS_IDX = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
-  "D_BO","W_BO","M_BO",
+  "D_BO",//"W_BO","M_BO",
+  "MA20","MA50","MA100",
   "Trend","CurPrice","Notes"
 ];
 
@@ -79,7 +80,7 @@ function computeSharedColWidthsIDX(allRows) {
   return widths;
 }
 
-function parseCSVIndex(text) {
+function parseCSVIndices(text) {
   const lines = text.trim().split("\n");
   const h = lines[0].split(",");
   return lines.slice(1).map(r => {
@@ -93,15 +94,15 @@ function parseCSVIndex(text) {
 window.registerTabs(addTab => {
   fetch(CSV_IDX).then(r => r.text())
     .then(t => {
-      rawIDX = window.normalizeDrawdownRows(parseCSVIndex(t));
-      addTab("Index", () => {
+      rawIDX = window.normalizeDrawdownRows(parseCSVIndices(t));
+      addTab("Indices", () => {
         hideAllFeatures();
-        document.getElementById("indexFeature").style.display = "block";
+        document.getElementById("indicesFeature").style.display = "block";
         renderIDX(rawIDX);
       });
       updateIDXTime();
     })
-    .catch(err => console.error("Error loading index data:", err));
+    .catch(err => console.error("Error loading indices data:", err));
 });
 
 function renderIDX(data) {
@@ -112,7 +113,7 @@ function renderIDX(data) {
 }
 
 function drawIDXTable() {
-  const container = document.getElementById("indexSections");
+  const container = document.getElementById("indicesSections");
   container.innerHTML = "";
   const table = document.createElement("table");
   container.appendChild(table);
@@ -202,7 +203,6 @@ function drawIDXTable() {
           };
           td.appendChild(a);
         } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
-          // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;

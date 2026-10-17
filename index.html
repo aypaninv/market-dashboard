@@ -454,7 +454,7 @@ let firstTabActivated = false;
 /* ---------- Hide all features ---------- */
 function hideAllFeatures() {
   [
-    "indexFeature",
+    "indicesFeature",
     "portfolioFeature",
     "tfwatchFeature",
     "tfcoreFeature",
@@ -525,7 +525,7 @@ function loadFeature(file) {
    ========================================================= */
 
 const FEATURE_IDS = [
-  "indexFeature",
+  "indicesFeature",
   "portfolioFeature",
   "tfwatchFeature",
   "tfcoreFeature",
@@ -775,7 +775,7 @@ document.addEventListener("click", e => {
    LOAD FEATURES (ORDER MATTERS)
    ========================================================= */
 
-loadFeature("index_page.html")
+loadFeature("indices.html")
   .then(() => loadFeature("portfolio.html"))
   .then(() => loadFeature("tfwatch.html"))
   .then(() => loadFeature("tfcore.html"))
