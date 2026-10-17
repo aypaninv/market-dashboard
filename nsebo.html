@@ -28,11 +28,11 @@ const HEADER_LABELS_NSEBO = {
 // Only symbols passing ALL conditions are shown in the table.
 const NSEBO_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) < 15,
-  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
+  MA100: r => parseFloat(r.MA100) > 0,
 };
 
 let rawNseBo = [];
-let nseboSortState = { col: "W_BO", asc: false };
+let nseboSortState = { col: "D_BO", asc: false };
 let nseboColWidths = {};
 
 function toNumberNseBo(value) {

@@ -1,16 +1,16 @@
-<!-- ===================== NSETREND FEATURE ===================== -->
+<!-- ===================== NSERC FEATURE ===================== -->
 
-<div id="nsetrendFeature" style="display:none">
-  <div class="update-time" id="updateTime_nsetrend"></div>
+<div id="nsercFeature" style="display:none">
+  <div class="update-time" id="updateTime_nserc"></div>
   <div class="content">
-    <div id="nsetrendSection"></div>
+    <div id="nsercSection"></div>
   </div>
 </div>
 
 <script>
-const CSV_NSETREND = "nsetrend_report.csv";
+const CSV_NSERC = "nserc_report.csv";
 
-const COLS_NSETREND = [
+const COLS_NSERC = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
   "D_BO","W_BO","M_BO",
@@ -18,40 +18,38 @@ const COLS_NSETREND = [
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
-const HEADER_LABELS_NSETREND = {
+const HEADER_LABELS_NSERC = {
   "W_BO": "W_BO",
   "D_BO": "D_BO",
   "Trend": "TD",
 };
 
-// ── Hardcoded entry-quality filter ──────────────────────────────────────────
-// Only symbols passing ALL conditions are shown in the table.
-const NSETREND_FILTER = {
+const NSERC_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) >= 15,
-  BO_ANY: r => parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
+  MA100: r => parseFloat(r.MA100) > 0,
 };
 
-let rawNseTrend = [];
-let nsetrendSortState = { col: "Trend", asc: false };
-let nsetrendColWidths = {};
+let rawNseRcr = [];
+let nsercSortState = { col: "D_BO", asc: false };
+let nsercColWidths = {};
 
-function toNumberNseTrend(value) {
+function toNumberNseRcr(value) {
   const num = parseFloat(value);
   return Number.isFinite(num) ? num : NaN;
 }
 
-function applyNsetrendFilter(rows) {
+function applyNsercFilter(rows) {
   return rows.filter(r =>
-    Object.values(NSETREND_FILTER).every(fn => {
+    Object.values(NSERC_FILTER).every(fn => {
       const result = fn(r);
       return result && !isNaN(result === true ? 1 : result);
     })
   );
 }
 
-function computeNsetrendColWidths(rows) {
+function computeNsercColWidths(rows) {
   if (!rows.length) return {};
-  const visibleCols = COLS_NSETREND.filter(h => h !== "Chart" && h in rows[0]);
+  const visibleCols = COLS_NSERC.filter(h => h !== "Chart" && h in rows[0]);
   if (!visibleCols.length) return {};
 
   const probe = document.createElement("table");
@@ -67,7 +65,7 @@ function computeNsetrendColWidths(rows) {
   visibleCols.forEach(h => {
     const th = document.createElement("th");
     th.style.whiteSpace = "nowrap";
-    th.innerText = HEADER_LABELS_NSETREND[h] || h;
+    th.innerText = HEADER_LABELS_NSERC[h] || h;
     hrow.appendChild(th);
   });
   probe.appendChild(hrow);
@@ -92,7 +90,7 @@ function computeNsetrendColWidths(rows) {
   return widths;
 }
 
-function parseCSVNseTrend(text) {
+function parseCSVNseRcr(text) {
   const lines = text.trim().split("\n");
   const h = lines[0].split(",");
   return lines.slice(1).map(r => {
@@ -106,28 +104,28 @@ function parseCSVNseTrend(text) {
 window.registerTabs(addTab => {
   Promise.all([
     window.ensureSectorRsiMapLoaded(),
-    fetch(CSV_NSETREND).then(r => r.text()),
+    fetch(CSV_NSERC).then(r => r.text()),
   ])
     .then(([, t]) => {
-      rawNseTrend = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVNseTrend(t)));
-      addTab("NSETREND", () => {
+      rawNseRcr = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVNseRcr(t)));
+      addTab("NSERC", () => {
         hideAllFeatures();
-        document.getElementById("nsetrendFeature").style.display = "block";
-        renderNseTrend(rawNseTrend);
+        document.getElementById("nsercFeature").style.display = "block";
+        renderNseRcr(rawNseRcr);
       });
-      updateNsetrendTime();
+      updateNsercTime();
     });
 });
 
-function renderNseTrend(data) {
-  const filtered = applyNsetrendFilter([...data]);
-  const sorted   = window.sortRowsByColumn(filtered, nsetrendSortState.col, nsetrendSortState.asc);
-  nsetrendColWidths = computeNsetrendColWidths(sorted);
-  drawNsetrendTable(sorted);
+function renderNseRcr(data) {
+  const filtered = applyNsercFilter([...data]);
+  const sorted = window.sortRowsByColumn(filtered, nsercSortState.col, nsercSortState.asc);
+  nsercColWidths = computeNsercColWidths(sorted);
+  drawNseRcrTable(sorted);
 }
 
-function drawNsetrendTable(rows) {
-  const container = document.getElementById("nsetrendSection");
+function drawNseRcrTable(rows) {
+  const container = document.getElementById("nsercSection");
   container.innerHTML = "";
 
   const wrapper = document.createElement("div");
@@ -140,12 +138,12 @@ function drawNsetrendTable(rows) {
 
   const table = document.createElement("table");
   table.className = "portfolio-section-table";
-  buildNsetrendTable(table, rows);
+  buildNseRcrTable(table, rows);
   wrapper.appendChild(table);
   container.appendChild(wrapper);
 }
 
-function buildNsetrendTable(table, rows) {
+function buildNseRcrTable(table, rows) {
   table.innerHTML = "";
 
   if (!rows.length) {
@@ -153,20 +151,20 @@ function buildNsetrendTable(table, rows) {
     const td = document.createElement("td");
     td.innerText = "No symbols match the filter criteria.";
     td.className = "text";
-    td.colSpan = COLS_NSETREND.length;
+    td.colSpan = COLS_NSERC.length;
     tr.appendChild(td);
     table.appendChild(tr);
     return;
   }
 
-  if (nsetrendColWidths && Object.keys(nsetrendColWidths).length) {
+  if (nsercColWidths && Object.keys(nsercColWidths).length) {
     const colgroup = document.createElement("colgroup");
-    COLS_NSETREND.forEach(h => {
+    COLS_NSERC.forEach(h => {
       const col = document.createElement("col");
       if (h === "Chart") {
         col.style.width = "42px";
-      } else if (h in rows[0] && nsetrendColWidths[h]) {
-        col.style.width = nsetrendColWidths[h] + "px";
+      } else if (h in rows[0] && nsercColWidths[h]) {
+        col.style.width = nsercColWidths[h] + "px";
       }
       colgroup.appendChild(col);
     });
@@ -175,20 +173,19 @@ function buildNsetrendTable(table, rows) {
     table.style.width = "max-content";
   }
 
-  // Header row
   const tr = document.createElement("tr");
-  COLS_NSETREND.forEach(h => {
+  COLS_NSERC.forEach(h => {
     if (h !== "Chart" && !(h in rows[0])) return;
     const th = document.createElement("th");
-    th.innerText = HEADER_LABELS_NSETREND[h] || h;
+    th.innerText = HEADER_LABELS_NSERC[h] || h;
     if (h !== "Chart") {
       th.onclick = () => {
-        if (nsetrendSortState.col === h) {
-          nsetrendSortState.asc = !nsetrendSortState.asc;
+        if (nsercSortState.col === h) {
+          nsercSortState.asc = !nsercSortState.asc;
         } else {
-          nsetrendSortState = { col: h, asc: false };
+          nsercSortState = { col: h, asc: false };
         }
-        renderNseTrend(rawNseTrend);
+        renderNseRcr(rawNseRcr);
       };
     }
     if (h === "Symbol") th.classList.add("symbol-col");
@@ -196,17 +193,16 @@ function buildNsetrendTable(table, rows) {
   });
   table.appendChild(tr);
 
-  // Data rows
   rows.forEach(r => {
     const row = document.createElement("tr");
-    COLS_NSETREND.forEach(h => {
+    COLS_NSERC.forEach(h => {
       if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
 
       if (h === "Symbol") {
         td.className = "symbol-col text";
-        td.innerHTML = `<a href="#" onclick="openChartNseTrend('${v}')">${v}</a>`;
+        td.innerHTML = `<a href="#" onclick="openChartNseRcr('${v}')">${v}</a>`;
       } else if (h === "Chart") {
         td.className = "text";
         td.style.whiteSpace = "nowrap";
@@ -231,7 +227,6 @@ function buildNsetrendTable(table, rows) {
           };
           td.appendChild(a);
         } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
-          // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
@@ -251,12 +246,12 @@ function buildNsetrendTable(table, rows) {
   });
 }
 
-function openChartNseTrend(symbol) {
+function openChartNseRcr(symbol) {
   window.open(`https://in.tradingview.com/chart/?symbol=NSE:${encodeURIComponent(symbol)}`, "_blank");
 }
 
-function updateNsetrendTime() {
-  fetch(CSV_NSETREND, { method: "HEAD" })
+function updateNsercTime() {
+  fetch(CSV_NSERC, { method: "HEAD" })
     .then(res => {
       const d = new Date(res.headers.get("Last-Modified"));
       if (Number.isNaN(d.getTime())) return;
@@ -265,7 +260,7 @@ function updateNsetrendTime() {
       const day = String(d.getDate()).padStart(2, "0");
       const hh = String(d.getHours()).padStart(2, "0");
       const mm = String(d.getMinutes()).padStart(2, "0");
-      document.getElementById("updateTime_nsetrend").innerText = `${y}-${m}-${day}:${hh}:${mm}`;
+      document.getElementById("updateTime_nserc").innerText = `${y}-${m}-${day}:${hh}:${mm}`;
     });
 }
 </script>
