@@ -14,6 +14,7 @@ const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","Category","IC","CC", "PnL",
   "DD_52W","DD_ATH",
   "D_BO","W_BO","M_BO",
+  "MA20","MA50","MA100",
   "LB_D","LB_P",
   "AvgPrice","Trend","CurPrice",
   "Sector","W_RSI","M_RSI","MarketCap","Notes"
@@ -28,6 +29,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
+    "MA20","MA50","MA100",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
   ],
@@ -36,6 +38,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO","W_BO","M_BO",
+    "MA20","MA50","MA100",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
   ],  
@@ -412,6 +415,9 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
+        } else if (["MA20", "MA50", "MA100"].includes(h) && v !== "") {
+          const num = parseFloat(v);
+          td.innerText = Number.isFinite(num) ? num.toFixed(1) : v;
         } else {
           td.innerText = v;
         }

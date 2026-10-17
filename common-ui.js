@@ -475,6 +475,60 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
     ctx.fillText(tag, tx + 4, ty);
   }
 
+  function drawMovingAverageOverlay() {
+    if (tf !== "D") return;
+
+    const maConfigs = [
+      { key: 20, color: "#60a5fa" },
+      { key: 50, color: "#a78bfa" },
+      { key: 100, color: "#f59e0b" },
+    ];
+
+    maConfigs.forEach(({ key, color }) => {
+      const values = [];
+      const closes = candles.map(c => +c.Close).filter(v => Number.isFinite(v));
+      for (let i = 0; i < candles.length; i++) {
+        const start = Math.max(0, i - key + 1);
+        const slice = closes.slice(start, i + 1);
+        if (slice.length < key) {
+          values.push(null);
+          continue;
+        }
+        const sum = slice.reduce((acc, v) => acc + v, 0);
+        values.push(sum / slice.length);
+      }
+
+      const points = [];
+      values.forEach((value, idx) => {
+        if (!Number.isFinite(value)) return;
+        const x = P.l + (idx + 0.5) * slotW;
+        const y = py(value);
+        points.push([x, y]);
+      });
+
+      if (points.length < 2) return;
+
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      points.forEach(([x, y], idx) => {
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      const lastPoint = points[points.length - 1];
+      if (!lastPoint) return;
+      const labelY = lastPoint[1] - 6;
+      ctx.font = "10px Courier New";
+      ctx.textAlign = "left";
+      ctx.fillStyle = color;
+      ctx.fillText("MA" + key, lastPoint[0] + 4, labelY);
+    });
+  }
+
   // Horizontal grid + price labels
   function drawChart(hoverIndex) {
     ctx.fillStyle = bgC;
@@ -544,6 +598,10 @@ window.drawCandles = function(canvas, candles, allRows, tf, high52w, refDate) {
       ctx.fillStyle = dark ? "#fbbf24" : "#92400e";
       ctx.textAlign = "left";
       ctx.fillText(tag, tx + 4, ty);
+    }
+
+    if (tf === "D") {
+      drawMovingAverageOverlay();
     }
 
     // X-axis date labels (every ~4 candles)
