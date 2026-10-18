@@ -14,6 +14,7 @@ const DEFAULT_COLUMN_ORDER = [
   "Symbol","Chart","Folio","Category","IC","CC", "PnL",
   "DD_52W","DD_ATH",
   "D_BO","W_BO","M_BO",
+  "BO_P","SL_P","BO_TH","SL_TH",
   "MA20","MA50","MA100",
   "LB_D","LB_P",
   "AvgPrice","Trend","CurPrice",
@@ -29,6 +30,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO",//"W_BO","M_BO",
+    "BO_P","SL_P",
     "MA20","MA50","MA100",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
@@ -38,6 +40,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "DD_ATH","DD_52W",
     "LB_D","LB_P",
     "D_BO",//"W_BO","M_BO",
+    "BO_P","SL_P",
     "MA20","MA50","MA100",
     "Sector","W_RSI","M_RSI","MarketCap",
     "Trend","CurPrice","Notes"
@@ -412,7 +415,7 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
             openCandleChart(r.Symbol, "Y");
           };
           td.appendChild(a);
-        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        } else if (["D_BO", "W_BO", "M_BO", "BO_P", "SL_P", "BO_TH", "SL_TH"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else if (["MA20", "MA50", "MA100"].includes(h) && v !== "") {

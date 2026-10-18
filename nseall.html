@@ -231,7 +231,7 @@ function buildNseAllTable(table, rows) {
             openCandleChart(r.Symbol, "Y");
           };
           td.appendChild(a);
-        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        } else if (["D_BO", "W_BO", "M_BO", "BO_P", "SL_P"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {

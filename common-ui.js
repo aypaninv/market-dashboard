@@ -312,6 +312,7 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
 
+      const rowMeta = getChartRowMetaFromTable(symbol, chartState.sourceTable || getActiveTable());
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
 
@@ -327,7 +328,11 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const displayRows = rows.slice(-candleCount);
-      window.showChart(symbol, tf, displayRows, rows, refDate);
+      const chartMeta = {
+        boP: rowMeta.BO_P ? parseFloat(rowMeta.BO_P) : null,
+        slP: rowMeta.SL_P ? parseFloat(rowMeta.SL_P) : null,
+      };
+      window.showChart(symbol, tf, displayRows, rows, refDate, chartMeta);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
     })
@@ -338,7 +343,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf, "symbol");
 };
 
-window.showChart = function(symbol, tf, candles, allRows, refDate) {
+window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {}) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -346,7 +351,7 @@ window.showChart = function(symbol, tf, candles, allRows, refDate) {
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, refDate);
+  window.drawCandles(canvas, candles, allRows, tf, refDate, chartMeta);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -374,7 +379,7 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf, chartState.sourceType || "symbol");
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, refDate) {
+window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta = {}) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -499,6 +504,54 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate) {
         ctx.fill();
       }
     });
+
+    if (tf === "D") {
+      if (Number.isFinite(chartMeta.boP)) {
+        const yBo = py(chartMeta.boP);
+        ctx.strokeStyle = "#22c55e";
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(P.l, yBo);
+        ctx.lineTo(W - P.r, yBo);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const label = "BO_P " + chartMeta.boP.toFixed(2);
+        ctx.font = "10px Courier New";
+        const tw = ctx.measureText(label).width + 8;
+        const tx = P.l + 6;
+        const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, yBo + 4));
+        ctx.fillStyle = "rgba(34, 197, 94, 0.16)";
+        ctx.fillRect(tx, ty - 10, tw, 13);
+        ctx.fillStyle = "#22c55e";
+        ctx.textAlign = "left";
+        ctx.fillText(label, tx + 4, ty);
+      }
+
+      if (Number.isFinite(chartMeta.slP)) {
+        const ySl = py(chartMeta.slP);
+        ctx.strokeStyle = "#ef4444";
+        ctx.lineWidth = 1.4;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(P.l, ySl);
+        ctx.lineTo(W - P.r, ySl);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const label = "SL_P " + chartMeta.slP.toFixed(2);
+        ctx.font = "10px Courier New";
+        const tw = ctx.measureText(label).width + 8;
+        const tx = P.l + 6;
+        const ty = Math.max(P.t + 24, Math.min(H - P.b - 2, ySl + 4));
+        ctx.fillStyle = "rgba(239, 68, 68, 0.16)";
+        ctx.fillRect(tx, ty - 10, tw, 13);
+        ctx.fillStyle = "#ef4444";
+        ctx.textAlign = "left";
+        ctx.fillText(label, tx + 4, ty);
+      }
+    }
 
     // X-axis date labels (every ~4 candles)
     ctx.fillStyle = labelC;
