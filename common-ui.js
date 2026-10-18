@@ -330,7 +330,7 @@ function setActiveChartTfButton(tf) {
 
 window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
   const eventTarget = window.event?.target;
-  const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable;
+  const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable || getActiveTable();
   chartState.sourceTable = sourceTable || null;
   chartState.symbol = symbol;
   chartState.tf = tf;
