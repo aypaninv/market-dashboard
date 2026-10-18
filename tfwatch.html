@@ -12,14 +12,10 @@ const CSV_TFW = "tfwatch_report.csv";
 
 const COLS_TFW = [
   "Symbol","Chart","Folio",
-  "DD_52W","DD_ATH",
+  "DD_ATH","DD_52W",
   "D_BO",//"W_BO","M_BO",
-  "BO_TH","SL_TH",
   "MA20","MA50","MA100",
-  "Trend",
-  "BO_P","SL_P","CurPrice",
-  "MarketCap","Sector","W_RSI","M_RSI",
-  "Notes"
+  "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_TFW = {
@@ -217,7 +213,7 @@ function drawTFTable() {
             openCandleChart(r.Symbol, "Y");
           };
           td.appendChild(a);
-        } else if (["D_BO", "W_BO", "M_BO", "BO_P", "SL_P", "BO_TH", "SL_TH"].includes(h) && v !== "") {
+        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {
