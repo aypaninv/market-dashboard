@@ -278,6 +278,37 @@ function getSectorForSymbolFromTable(symbol, table) {
   return "";
 }
 
+function getChartRowMetaFromTable(symbol, table) {
+  if (!symbol || !table) return {};
+
+  const headerCells = [...table.querySelectorAll("tr:first-child th")];
+  if (!headerCells.length) return {};
+
+  const headerNames = headerCells.map(th => String(th.textContent || "").trim().toUpperCase());
+  const symbolIdx = headerNames.indexOf("SYMBOL");
+  if (symbolIdx < 0) return {};
+
+  const metaFields = ["BO_P", "SL_P", "BO_TH", "SL_TH", "D_BO", "W_BO", "M_BO"];
+  const rows = [...table.querySelectorAll("tr")].slice(1);
+  for (const row of rows) {
+    const cells = [...row.querySelectorAll("td")];
+    if (!cells[symbolIdx]) continue;
+    const rowSymbol = String(cells[symbolIdx].textContent || "").trim();
+    if (rowSymbol !== symbol) continue;
+
+    const meta = {};
+    metaFields.forEach(field => {
+      const idx = headerNames.indexOf(field.toUpperCase());
+      if (idx >= 0 && cells[idx]) {
+        meta[field] = cells[idx].textContent.trim();
+      }
+    });
+    return meta;
+  }
+
+  return {};
+}
+
 function buildChartTitle(symbol, tf, candles) {
   if (chartState.sourceType === "symbol") {
     const sectorName = getSectorForSymbolFromTable(symbol, chartState.sourceTable || getActiveTable());
