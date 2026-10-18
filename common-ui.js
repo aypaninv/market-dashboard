@@ -538,39 +538,13 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
 
     if (tf === "D") {
       if (Number.isFinite(chartMeta.boP)) {
-        const yBo = py(chartMeta.boP);
-        ctx.strokeStyle = "#22c55e";
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([6, 4]);
-        ctx.beginPath();
-        ctx.moveTo(P.l, yBo);
-        ctx.lineTo(W - P.r, yBo);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const label = "BO_P " + chartMeta.boP.toFixed(1);
-        ctx.font = "10px Courier New";
-        ctx.fillStyle = "#22c55e";
-        ctx.textAlign = "left";
-        ctx.fillText(label, P.l + 6, Math.max(P.t + 10, Math.min(H - P.b - 2, yBo + 4)));
+        const yBo = Math.min(Math.max(py(chartMeta.boP), P.t + 10), H - P.b - 10);
+        drawPricePointerLine(yBo, "#22c55e", "BO_P " + chartMeta.boP.toFixed(1));
       }
 
       if (Number.isFinite(chartMeta.slP)) {
-        const ySl = py(chartMeta.slP);
-        ctx.strokeStyle = "#ef4444";
-        ctx.lineWidth = 1.4;
-        ctx.setLineDash([6, 4]);
-        ctx.beginPath();
-        ctx.moveTo(P.l, ySl);
-        ctx.lineTo(W - P.r, ySl);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const label = "SL_P " + chartMeta.slP.toFixed(1);
-        ctx.font = "10px Courier New";
-        ctx.fillStyle = "#ef4444";
-        ctx.textAlign = "left";
-        ctx.fillText(label, P.l + 6, Math.max(P.t + 24, Math.min(H - P.b - 2, ySl + 4)));
+        const ySl = Math.min(Math.max(py(chartMeta.slP), P.t + 10), H - P.b - 10);
+        drawPricePointerLine(ySl, "#ef4444", "SL_P " + chartMeta.slP.toFixed(1));
       }
     }
 
