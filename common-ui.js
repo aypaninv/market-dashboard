@@ -278,37 +278,6 @@ function getSectorForSymbolFromTable(symbol, table) {
   return "";
 }
 
-function getChartRowMetaFromTable(symbol, table) {
-  if (!symbol || !table) return {};
-
-  const headerCells = [...table.querySelectorAll("tr:first-child th")];
-  if (!headerCells.length) return {};
-
-  const headerNames = headerCells.map(th => String(th.textContent || "").trim().toUpperCase());
-  const symbolIdx = headerNames.indexOf("SYMBOL");
-  if (symbolIdx < 0) return {};
-
-  const metaFields = ["BO_P", "SL_P", "BO_TH", "SL_TH", "D_BO", "W_BO", "M_BO"];
-  const rows = [...table.querySelectorAll("tr")].slice(1);
-  for (const row of rows) {
-    const cells = [...row.querySelectorAll("td")];
-    if (!cells[symbolIdx]) continue;
-    const rowSymbol = String(cells[symbolIdx].textContent || "").trim();
-    if (rowSymbol !== symbol) continue;
-
-    const meta = {};
-    metaFields.forEach(field => {
-      const idx = headerNames.indexOf(field.toUpperCase());
-      if (idx >= 0 && cells[idx]) {
-        meta[field] = cells[idx].textContent.trim();
-      }
-    });
-    return meta;
-  }
-
-  return {};
-}
-
 function buildChartTitle(symbol, tf, candles) {
   if (chartState.sourceType === "symbol") {
     const sectorName = getSectorForSymbolFromTable(symbol, chartState.sourceTable || getActiveTable());
@@ -330,7 +299,7 @@ function setActiveChartTfButton(tf) {
 
 window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
   const eventTarget = window.event?.target;
-  const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable || getActiveTable();
+  const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable;
   chartState.sourceTable = sourceTable || null;
   chartState.symbol = symbol;
   chartState.tf = tf;
@@ -343,7 +312,6 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       const rows = data[symbol];
       if (!rows || !rows.length) { alert("No " + (OHLC_LABELS[tf] || tf) + " data for " + symbol); return; }
 
-      const rowMeta = getChartRowMetaFromTable(symbol, chartState.sourceTable || getActiveTable());
       const weeklyRows = weeklyData[symbol] || [];
       const monthlyRows = monthlyData[symbol] || [];
 
@@ -359,11 +327,7 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
 
       const candleCount = CHART_CANDLE_COUNTS[tf] || 30;
       const displayRows = rows.slice(-candleCount);
-      const chartMeta = {
-        boP: rowMeta.BO_P ? parseFloat(rowMeta.BO_P) : null,
-        slP: rowMeta.SL_P ? parseFloat(rowMeta.SL_P) : null,
-      };
-      window.showChart(symbol, tf, displayRows, rows, refDate, chartMeta);
+      window.showChart(symbol, tf, displayRows, rows, refDate);
       setActiveChartTfButton(tf);
       updateChartNavButtons();
     })
@@ -374,7 +338,7 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf, "symbol");
 };
 
-window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {}) {
+window.showChart = function(symbol, tf, candles, allRows, refDate) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
@@ -382,7 +346,7 @@ window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
-  window.drawCandles(canvas, candles, allRows, tf, refDate, chartMeta);
+  window.drawCandles(canvas, candles, allRows, tf, refDate);
   document.getElementById("chartOverlay").style.display = "flex";
 };
 
@@ -410,7 +374,7 @@ window.navigateChartSymbol = function(direction) {
   window.renderCandleChart(nextSymbol, chartState.tf, chartState.sourceType || "symbol");
 };
 
-window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta = {}) {
+window.drawCandles = function(canvas, candles, allRows, tf, refDate) {
   const ctx = canvas.getContext("2d");
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
@@ -535,18 +499,6 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
         ctx.fill();
       }
     });
-
-    if (tf === "D") {
-      if (Number.isFinite(chartMeta.boP)) {
-        const yBo = Math.min(Math.max(py(chartMeta.boP), P.t + 10), H - P.b - 10);
-        drawPricePointerLine(yBo, "#22c55e", "BO_P " + chartMeta.boP.toFixed(1));
-      }
-
-      if (Number.isFinite(chartMeta.slP)) {
-        const ySl = Math.min(Math.max(py(chartMeta.slP), P.t + 10), H - P.b - 10);
-        drawPricePointerLine(ySl, "#ef4444", "SL_P " + chartMeta.slP.toFixed(1));
-      }
-    }
 
     // X-axis date labels (every ~4 candles)
     ctx.fillStyle = labelC;
