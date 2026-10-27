@@ -13,14 +13,16 @@ const CSV_NSEALL = "nseall_report.csv";
 const COLS_NSEALL = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
-  "D_BO","W_BO","M_BO",
+  "W_BO","F_BO","D_BO","M_BO",
   "MA20","MA50","MA100",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_NSEALL = {
   "W_BO": "W_BO",
+  "F_BO": "F_BO",
   "D_BO": "D_BO",
+  "M_BO": "M_BO",
   "Trend": "TD",
 };
 
@@ -29,7 +31,7 @@ const HEADER_LABELS_NSEALL = {
 const NSEALL_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) < 15,
   TD: r => parseFloat(r.Trend) >= 5,
-  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.M_BO) >= 0,
+  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.F_BO) >= 0 || parseFloat(r.M_BO) >= 0,
 };
 
 let rawNseAll = [];
@@ -233,7 +235,7 @@ function buildNseAllTable(table, rows) {
           td.appendChild(a);
         } else if (["BO_P", "SL_P"].includes(h) && v !== "") {
           td.innerText = Number.parseFloat(v).toFixed(1);
-        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        } else if (["F_BO", "D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
         } else {

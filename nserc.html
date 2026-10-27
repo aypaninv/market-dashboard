@@ -13,7 +13,7 @@ const CSV_NSERC = "nserc_report.csv";
 const COLS_NSERC = [
   "Symbol","Chart","Folio",
   "DD_52W","DD_ATH",
-  "D_BO",//"W_BO","M_BO",
+  "W_BO","F_BO","D_BO","M_BO",
   "BO_TH","SL_TH",
   "MA20","MA50","MA100",
   "Trend",
@@ -24,7 +24,9 @@ const COLS_NSERC = [
 
 const HEADER_LABELS_NSERC = {
   "W_BO": "W_BO",
+  "F_BO": "F_BO",
   "D_BO": "D_BO",
+  "M_BO": "M_BO",
   "Trend": "TD",
 };
 
@@ -232,7 +234,7 @@ function buildNseRcrTable(table, rows) {
           td.appendChild(a);
         } else if (["BO_P", "SL_P"].includes(h) && v !== "") {
           td.innerText = Number.parseFloat(v).toFixed(1);
-        } else if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        } else if (["F_BO", "D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;

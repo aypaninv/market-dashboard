@@ -288,7 +288,7 @@ function getChartRowMetaFromTable(symbol, table) {
   const symbolIdx = headerNames.indexOf("SYMBOL");
   if (symbolIdx < 0) return {};
 
-  const metaFields = ["BO_P", "SL_P", "BO_TH", "SL_TH", "D_BO", "W_BO", "M_BO"];
+  const metaFields = ["BO_P", "SL_P", "BO_TH", "SL_TH", "F_BO", "D_BO", "W_BO", "M_BO"];
   const rows = [...table.querySelectorAll("tr")].slice(1);
   for (const row of rows) {
     const cells = [...row.querySelectorAll("td")];
