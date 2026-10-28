@@ -1,5 +1,7 @@
 Symbol,Folio,DD_52W,DD_ATH,W_BO,F_BO,D_BO,M_BO,BO_P,SL_P,BO_T,SL_T,BO_TH,SL_TH,MA20,MA50,MA100,Trend,CurPrice,Sector,MarketCap,Notes
 EXIDEIND,TFWatch,31.9,45.5,-9,-17,-48,-2,,,,,,,-11.4,-18.4,-19.2,4,338.25,Batteries,Small Cap,ResearchReport
+MCX,TFWatch,8.5,8.5,-2,-10,-21,-2,,,,,,,-1.1,-1.4,5.7,5,3186.8,IT - Product/Platform,Small Cap,ResearchReport
+MOTILALOFS,TFWatch,11.1,39.0,-1,-14,-14,-1,,,,,,,-4.5,-4.0,0.8,1,969.0,Financials - Broking,Mid Cap,ResearchReport
 COFORGE,TFWatch,1.2,1.2,-8,0,-39,0,,,,,,,6.4,6.8,16.9,7,1997.0,IT - Software/Consulting,Mid Cap,ResearchReport
 TIIL,TFWatch,26.2,33.1,-9,-18,-43,-1,,,,,,,-1.7,-11.8,-5.1,5,2632.6,Metals - Casting/Forging,Small Cap,ResearchReport
 ANANDRATHI,TFWatch,0.4,0.4,0,1,1,0,,,,,,,5.1,3.9,8.6,8,2259.0,Financials - Misc,Small Cap,ResearchReport
@@ -17,11 +19,14 @@ TRENT,TFWatch,40.3,66.2,-2,-9,-9,-3,,,,,,,0.4,-0.4,-3.3,7,2820.6,Consumption - R
 MSTCLTD,TFWatch,30.9,52.3,-4,-20,-33,-1,,,,,,,-15.5,-20.4,-16.1,5,556.05,IT - Product/Platform,Small Cap,ResearchReport
 HSCL,TFWatch,33.9,33.9,-5,-20,-48,-3,,,,,,,-13.6,-17.9,-20.9,3,541.5,Chemicals - Specialty,Small Cap,ResearchReport
 MINDACORP,TFWatch,20.7,20.7,-9,-17,-47,-1,,,,,,,-4.9,-10.2,-10.4,5,609.85,Auto - OEM Suppliers,Small Cap,ResearchReport
+NRBBEARING,TFWatch,18.4,18.4,-3,-16,-16,-1,,,,,,,-9.1,-7.4,-0.6,4,457.15,Industrial - Bearings,Small Cap,ResearchReport
 CGPOWER,TFWatch,14.8,14.8,-6,-14,-31,-3,,,,,,,-2.2,-4.5,-6.4,5,835.4,Power - Equipment,Large Cap,ResearchReport
 POCL,TFWatch,39.8,39.8,-9,-18,-41,-5,,,,,,,-9.9,-15.7,-21.5,5,389.75,Metals - Misc,Small Cap,ResearchReport
 VENUSPIPES,TFWatch,23.7,26.9,-5,-14,-25,-1,,,,,,,-10.7,-5.4,1.5,6,1790.6,Metals - Iron & Steel,Small Cap,ResearchReport
+SMSPHARMA,TFWatch,10.4,10.4,-3,-18,-23,-1,,,,,,,-1.1,5.9,10.3,5,442.8,Healthcare - Pharma,Small Cap,ResearchReport
 AXISCADES,TFWatch,16.8,16.8,-3,-16,-16,-1,,,,,,,-5.7,5.3,10.9,5,1963.1,IT - Services,Small Cap,GREEN-Oct-26
 ONEPOINT,TFWatch,16.5,16.5,-1,-6,-6,-1,,,,,,,-5.7,11.0,19.1,5,73.14,Tech - BPO,Small Cap,GREEN-Oct-26
+TEGA,TFWatch,19.3,23.8,-3,-13,-24,-1,,,,,,,-8.4,-2.9,1.6,5,1774.5,Engineering,Small Cap,GREEN-Oct-26
 GMMPFAUDLR,TFWatch,18.1,45.4,-4,-20,-24,-1,,,,,,,-6.8,-0.3,20.9,3,1255.6,Engineering,Small Cap,GREEN-Oct-26
 LLOYDSENGG,TFWatch,19.5,19.5,-3,-15,-15,-1,,,,,,,-10.9,-6.3,-4.3,5,83.84,Metals - Iron & Steel,Small Cap,GREEN-Oct-26
 MTARTECH,TFWatch,22.6,22.6,-4,-13,-13,-4,,,,,,,-7.8,-6.2,-5.8,2,6742.0,Defense - Misc,Small Cap,GREEN-Oct-26
@@ -36,6 +41,7 @@ KOPRAN,TFWatch,15.7,32.7,-3,-18,-18,-1,,,,,,,-6.8,1.5,14.2,3,249.3,Healthcare - 
 EMIL,TFWatch,25.4,39.5,-3,-13,-13,-1,,,,,,,-14.1,-14.4,0.3,2,158.55,Consumption - Retail,Small Cap,BLUE-Oct-26
 ALICON,TFWatch,12.8,44.1,-3,-13,-13,-1,,,,,,,2.0,12.6,20.6,4,861.35,Auto - OEM Suppliers,Small Cap,BLUE-Oct-26
 ESAFSFB,TFWatch,15.0,52.6,-4,-18,-39,-1,,,,,,,-7.8,-6.5,2.0,0,39.08,Financials - Private Bank,Small Cap,BLUE-Oct-26
+FINCABLES,TFWatch,22.3,31.5,-4,-13,-13,-1,,,,,,,-14.1,-13.1,-3.2,3,1164.4,Power - Wiring,Small Cap,BLUE-Oct-26
 INDOTECH,TFWatch,29.8,29.8,-9,-14,-44,-1,,,,,,,-7.6,-16.1,-13.4,3,2830.6,Power - Equipment,Small Cap,BLUE-Oct-26
 AKUMS,TFWatch,14.3,38.8,-4,-13,-22,-1,,,,,,,-5.1,-6.0,1.7,3,719.25,Healthcare - Pharma,Small Cap,BLUE-Oct-26
 MOREPENLAB,TFWatch,12.3,12.3,-3,-13,-13,0,,,,,,,3.4,14.1,51.6,4,132.18,Healthcare - Pharma,Small Cap,ORANGE-Oct-26
@@ -44,10 +50,14 @@ RPEL,TFWatch,10.4,10.4,-6,-9,-35,-1,,,,,,,-1.1,1.7,17.9,7,1742.5,Consumption - M
 RAYMOND,TFWatch,19.3,69.1,-3,-15,-15,-1,,,,,,,-6.9,13.6,39.8,3,1081.2,Textile - Apparels,Small Cap,ORANGE-Oct-26
 SIGMAADV,TFWatch,26.1,26.1,-3,-12,-12,-1,,,,,,,-11.5,2.3,26.6,4,861.3,IT - Product/Platform,Small Cap,ORANGE-Oct-26
 ROSSTECH,TFWatch,15.7,15.7,-3,-13,-13,-1,,,,,,,-4.9,8.3,23.0,7,1432.7,Defense - Misc,Small Cap,ORANGE-Oct-26
+AZAD,TFWatch,17.6,17.6,-2,-14,-14,-1,,,,,,,-7.9,-7.6,1.8,5,2577.5,Engineering,Small Cap,ORANGE-Oct-26
 MAININDS,TFWatch,,,,,,,,,,,,,,,,,,,,ORANGE-Oct-26
+MARINE,TFWatch,13.4,13.4,-2,-14,-14,-1,,,,,,,-3.6,2.5,23.7,7,425.25,Electronic - Equipment,Small Cap,ORANGE-Oct-26
 BODALCHEM,TFWatch,31.6,31.6,-4,-20,-20,-1,,,,,,,-17.1,-6.4,30.2,1,142.13,Chemicals - Dyes,Small Cap,ORANGE-Oct-26
 QPOWER,TFWatch,20.4,20.4,-3,-14,-14,-1,,,,,,,-10.6,-7.8,2.0,5,1338.1,Power - Equipment,Small Cap,ORANGE-Oct-26
 ANTELOPUS,TFWatch,15.5,15.5,-5,-20,-20,-1,,,,,,,-0.2,7.2,18.2,5,1091.2,Oil and Gas,Small Cap,ORANGE-Oct-26
+CYIENTDLM,TFWatch,28.5,28.5,-2,-8,-8,-1,,,,,,,-15.5,-12.4,6.5,2,758.55,Electronic - Equipment,Small Cap,ORANGE-Oct-26
+SKYGOLD,TFWatch,13.7,13.7,-1,-6,-6,0,,,,,,,0.5,9.9,28.5,5,935.15,Consumption - Jewelry,Small Cap,ORANGE-Oct-26
 BLISSGVS,TFWatch,13.6,13.6,-7,-19,-19,-1,,,,,,,-3.5,-1.1,13.4,2,639.25,Healthcare - Pharma,Small Cap,ORANGE-Oct-26
 TBZ,TFWatch,14.4,14.4,-1,-6,-6,0,,,,,,,2.7,31.0,82.8,4,675.1,Consumption - Jewelry,Small Cap,ORANGE-Oct-26
 GNA,TFWatch,10.5,10.5,-4,-14,-21,-1,,,,,,,3.7,4.0,12.6,4,579.65,Auto - OEM Suppliers,Small Cap,ORANGE-Oct-26

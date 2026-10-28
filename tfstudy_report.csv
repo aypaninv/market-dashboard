@@ -1,4 +1,5 @@
 Symbol,Folio,DD_52W,DD_ATH,W_BO,F_BO,D_BO,M_BO,BO_P,SL_P,BO_T,SL_T,BO_TH,SL_TH,MA20,MA50,MA100,Trend,CurPrice,Sector,MarketCap,Notes
+VINCOFE,TFStudy,18.9,18.9,-4,-14,-14,-1,,,,,,,-10.0,-9.3,-4.8,3,155.26,Agri - Tea/Coffee,Small Cap,
 PDSL,TFStudy,20.7,50.1,-9,-20,-48,-2,,,,,,,-2.2,-5.3,-5.4,6,332.05,Textile - Misc,Small Cap,IAS-2026
 SAMBHV,TFStudy,3.9,3.9,-1,-6,-6,0,,,,,,,4.0,16.4,30.1,5,168.57,Metals - Iron & Steel,Small Cap,IAS-2026
 QPOWER,TFStudy,20.4,20.4,-3,-14,-14,-1,,,,,,,-10.6,-7.8,2.0,5,1338.1,Power - Equipment,Small Cap,IAS-2026
@@ -7,6 +8,7 @@ GUFICBIO,TFStudy,10.1,16.6,-7,-18,-34,-1,,,,,,,1.9,-0.1,4.3,4,420.45,Healthcare 
 NKE,TFStudy,,,,,,,,,,,,,,,,,,,,IAS-2026
 REPCOHOME,TFStudy,33.4,67.1,-9,-19,-40,-3,,,,,,,-7.8,-12.2,-17.9,1,303.65,Financials - Housing,Small Cap,IAS-2026
 EDELWEISS,TFStudy,15.9,33.6,-3,-17,-17,-1,,,,,,,-6.3,-6.1,-1.6,1,122.81,Financials - Misc,Small Cap,IAS-2026
+NEOGEN,TFStudy,21.6,21.6,-1,-8,-8,-1,,,,,,,-9.1,-6.0,0.2,4,2182.4,Chemicals - Specialty,Small Cap,IAS-2026
 RKFORGE,TFStudy,19.3,41.4,-8,-14,-48,-1,,,,,,,-8.1,-11.6,-4.8,5,623.3,Metals - Casting/Forging,Small Cap,IAS-2026
 ORCHPHARMA,TFStudy,26.9,68.5,-4,-13,-23,-1,,,,,,,-11.3,-14.4,-14.8,4,835.35,Healthcare - Pharma,Small Cap,IAS-2026
 GOCOLORS,TFStudy,60.4,82.3,-9,-14,-43,-3,,,,,,,-9.3,-16.7,-22.0,3,257.5,Textile - Apparels,Small Cap,IAS-2026
@@ -56,11 +58,12 @@ KIRLOSENG,TFStudy,30.6,30.6,-3,-18,-18,-3,,,,,,,-10.2,-11.1,-12.5,5,1888.4,Indus
 SCHNEIDER,TFStudy,26.3,26.3,-3,-16,-16,-3,,,,,,,-3.9,-5.2,-10.0,4,1141.3,Power - Equipment,Small Cap,DataCentre-Power
 POLYCAB,TFStudy,23.8,23.8,-8,-20,-38,-3,,,,,,,-4.2,-8.6,-13.4,9,7718.0,Power - Wiring,Large Cap,DataCentre-Cables
 KEI,TFStudy,34.4,34.4,-9,-13,-48,-2,,,,,,,-12.0,-19.7,-23.2,7,3870.5,Power - Wiring,Mid Cap,DataCentre-Cables
+FINCABLES,TFStudy,22.3,31.5,-4,-13,-13,-1,,,,,,,-14.1,-13.1,-3.2,3,1164.4,Power - Wiring,Small Cap,DataCentre-Cables
 RRKABEL,TFStudy,26.5,26.5,-9,-14,-38,-1,,,,,,,-12.3,-14.9,-12.0,2,2194.4,Power - Wiring,Small Cap,DataCentre-Cables
 PRIMECAB,TFStudy,,,,,,,,,,,,,,,,,,,,DataCentre-Cables
 BLUESTARCO,TFStudy,24.8,36.9,-4,-8,-8,-5,,,,,,,-1.4,0.3,-3.2,5,1526.0,Consumption - Appliances,Small Cap,DataCentre-Cooling
 VOLTAS,TFStudy,40.2,51.3,-9,-19,-49,-5,,,,,,,-8.3,-15.6,-22.2,5,946.2,Consumption - Appliances,Mid Cap,DataCentre-Cooling
-VOLTAMP,TFStudy,21.1,31.4,-7,-8,-34,-5,,,,,,,-2.0,-4.4,-0.5,7,10149.0,Power - Equipment,Small Cap,DataCentre-Cooling
+VOLTAMP,TFStudy,21.1,31.4,-7,-8,-34,-5,,,,,,,-2.0,-4.4,-0.5,6,10149.0,Power - Equipment,Small Cap,DataCentre-Cooling
 KRN,TFStudy,33.4,33.4,-8,-13,-32,-1,,,,,,,-12.9,-20.8,-15.0,7,1122.8,Engineering,Small Cap,DataCentre-Cooling
 DIXON,TFStudy,28.8,41.3,-9,-19,-42,-2,,,,,,,-9.8,-16.2,-15.2,4,11233.0,Consumption - Electronics,Mid Cap,DataCentre-EMS
 KAYNES,TFStudy,51.4,57.2,-9,-19,-41,-5,,,,,,,0.6,-4.9,-2.7,4,3350.4,Electronic - Equipment,Small Cap,DataCentre-EMS
