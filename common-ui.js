@@ -179,7 +179,58 @@ const TF_LOOKBACK = { D: 14, W: W_LOOKBACK_WEEKS, M: M_LOOKBACK_MONTHS, Y: 10 };
 
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly", Y: "Yearly" };
 const ohlcCache = {};
-const chartState = { symbol: null, tf: null, symbols: [], index: -1, sourceTable: null, sourceType: "symbol" };
+const chartState = {
+  symbol: null,
+  tf: null,
+  symbols: [],
+  index: -1,
+  sourceTable: null,
+  sourceType: "symbol",
+  chartMode: "STD",
+};
+
+function toHeikinAshiSeries(rows) {
+  if (!Array.isArray(rows) || !rows.length) return [];
+
+  const ha = rows.map((row, idx) => ({
+    Date: row.Date || row.Datetime || "",
+    Symbol: row.Symbol || "",
+    Open: Number(row.Open),
+    High: Number(row.High),
+    Low: Number(row.Low),
+    Close: Number(row.Close),
+  }));
+
+  if (!ha.length) return [];
+
+  let prevOpen = null;
+  let prevClose = null;
+
+  return ha.map((row, idx) => {
+    const open = Number.isFinite(row.Open) ? row.Open : 0;
+    const high = Number.isFinite(row.High) ? row.High : 0;
+    const low = Number.isFinite(row.Low) ? row.Low : 0;
+    const close = Number.isFinite(row.Close) ? row.Close : 0;
+
+    const haClose = (open + high + low + close) / 4;
+    const haOpen = idx === 0
+      ? (open + close) / 2
+      : (prevOpen + prevClose) / 2;
+    const haHigh = Math.max(high, haOpen, haClose);
+    const haLow = Math.min(low, haOpen, haClose);
+
+    prevOpen = haOpen;
+    prevClose = haClose;
+
+    return {
+      ...row,
+      Open: haOpen,
+      High: haHigh,
+      Low: haLow,
+      Close: haClose,
+    };
+  });
+}
 
 function getTableSymbols(table) {
   if (!table) return [];
@@ -328,6 +379,26 @@ function setActiveChartTfButton(tf) {
   });
 }
 
+function setActiveChartModeButton(mode) {
+  ["STD", "HA"].forEach(key => {
+    const btn = document.getElementById("chartModeBtn_" + key);
+    if (!btn) return;
+    const active = key === mode;
+    btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
+    btn.style.color = active ? "#fff" : "var(--text)";
+    btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
+  });
+}
+
+window.setChartMode = function(mode) {
+  const nextMode = mode === "HA" ? "HA" : "STD";
+  chartState.chartMode = nextMode;
+  setActiveChartModeButton(nextMode);
+  if (chartState.symbol && chartState.tf) {
+    window.renderCandleChart(chartState.symbol, chartState.tf, chartState.sourceType || "symbol");
+  }
+};
+
 window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
   const eventTarget = window.event?.target;
   const sourceTable = eventTarget?.closest?.("table") || chartState.sourceTable || getActiveTable();
@@ -365,6 +436,7 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       };
       window.showChart(symbol, tf, displayRows, rows, refDate, chartMeta);
       setActiveChartTfButton(tf);
+      setActiveChartModeButton(chartState.chartMode || "STD");
       updateChartNavButtons();
     })
     .catch(() => alert("Failed to load chart data"));
@@ -412,6 +484,8 @@ window.navigateChartSymbol = function(direction) {
 
 window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta = {}) {
   const ctx = canvas.getContext("2d");
+  const mode = chartState.chartMode || "STD";
+  const visibleCandles = mode === "HA" ? toHeikinAshiSeries(candles) : candles;
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
   const cW = W - P.l - P.r, cH = H - P.t - P.b;
@@ -424,7 +498,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
   ctx.fillRect(0, 0, W, H);
 
   let minP = Infinity, maxP = -Infinity;
-  candles.forEach(c => {
+  visibleCandles.forEach(c => {
     const h = +c.High, l = +c.Low;
     if (isFinite(h)) maxP = Math.max(maxP, h);
     if (isFinite(l))  minP = Math.min(minP, l);
@@ -436,7 +510,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
   const lo = minP - pad, hi = maxP + pad, rng = hi - lo;
   const py = p => P.t + cH * (1 - (p - lo) / rng);
 
-  const n = candles.length;
+  const n = visibleCandles.length;
   const slotW = cW / n;
   const bW = Math.max(2, Math.floor(slotW * 0.62));
 
@@ -506,7 +580,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
       ctx.fillText(pv.toFixed(1), P.l - 5, y + 3);
     }
 
-    candles.forEach((c, i) => {
+    visibleCandles.forEach((c, i) => {
       const o = +c.Open, h = +c.High, l = +c.Low, cl = +c.Close;
       if (![o, h, l, cl].every(isFinite)) return;
       const isRef = refDate && getRowDateLabel(c) === refDate;
@@ -553,7 +627,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
     ctx.font = "10px Courier New";
     ctx.textAlign = "center";
     const step = Math.max(1, Math.floor(n / 5));
-    candles.forEach((c, i) => {
+    visibleCandles.forEach((c, i) => {
       if (i % step !== 0) return;
       const d = (c.Date || c.Datetime || "").slice(0, 10).slice(5);
       ctx.fillText(d, P.l + (i + 0.5) * slotW, H - 8);
@@ -646,6 +720,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const tfControls = document.createElement("div");
     tfControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
 
+    const modeControls = document.createElement("div");
+    modeControls.style.cssText = "display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-shrink:0;";
+
     const makeHeaderButton = (id, text, onClick) => {
       const btn = document.createElement("button");
       btn.id = id;
@@ -663,6 +740,13 @@ document.addEventListener("DOMContentLoaded", () => {
     navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
     navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
 
+    ["STD", "HA"].forEach(modeKey => {
+      const btn = makeHeaderButton("chartModeBtn_" + modeKey, modeKey, () => {
+        window.setChartMode(modeKey);
+      });
+      modeControls.appendChild(btn);
+    });
+
     ["D", "W", "M", "Y"].forEach(tfKey => {
       const btn = makeHeaderButton("chartTfBtn_" + tfKey, tfKey, () => {
         if (!chartState.symbol) return;
@@ -670,7 +754,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       tfControls.appendChild(btn);
     });
-    
+
     const title = document.createElement("div");
     title.id = "chartTitle";
     title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);min-width:0;";
@@ -682,6 +766,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";
     
+    rightControls.appendChild(modeControls);
     rightControls.appendChild(tfControls);
     rightControls.appendChild(navControls);
     headerRow.appendChild(title);
