@@ -32,7 +32,7 @@ const HEADER_LABELS_NSERC = {
 
 const NSERC_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) >= 15,
-  MA100: r => parseFloat(r.W_HA) > 0,
+  MA100: r => parseFloat(r.MA100) > 0,
 };
 
 let rawNseRcr = [];
