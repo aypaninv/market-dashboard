@@ -140,9 +140,10 @@ const addConditionsByFolio = {
   },
   Core: d => {
     const lbPert = toNumber(d["LB_P"]);
+    const wHA = toNumber(d["W_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ( ic < 6 && lbPert >= 8 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 6 && lbPert >= 8 && wHA > 0 && meetsPnLThreshold(ic, pnl))
   },
 };
 
