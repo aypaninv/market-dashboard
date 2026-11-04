@@ -7,7 +7,7 @@ Symbol,DD_52W,DD_ATH,F_BO,D_BO,W_BO,M_BO,D_HA,W_HA,M_HA,BO_P,SL_P,BO_T,SL_T,BO_T
 3PLAND,25.7,62.0,-14,-42,-8,-3,2,1,-7,,,,,,,0.3,-0.3,-1.6,5,31.2,Financials - Misc,Small Cap
 5PAISA,21.9,57.0,-14,-48,-9,-3,2,-3,-3,,,,,,,-2.5,-2.6,-6.7,3,325.8,Financials - Broking,Small Cap
 63MOONS,5.8,18.1,-2,-2,-1,-1,-2,4,5,,,,,,,4.2,8.3,16.0,5,925.0,IT - Software/Consulting,Small Cap
-AAATECH,19.7,35.9,-5,-5,-1,-1,-2,7,3,,,,,,,-6.8,2.6,6.1,7,103.14,Others,Small Cap
+AAATECH,19.7,35.9,-5,-5,-1,-1,-2,7,3,,,,,,,-6.8,2.6,6.1,9,103.14,Others,Small Cap
 AADHARHFC,23.6,23.6,-9,-40,-9,-5,1,-17,-4,,,,,,,-2.5,-5.1,-10.4,3,430.0,Financials - Housing,Small Cap
 AAREYDRUGS,5.1,5.1,-12,-12,-2,0,-2,1,4,,,,,,,1.2,8.0,19.1,7,109.0,Healthcare - Pharma,Small Cap
 AARON,28.2,47.7,-2,-36,8,-4,7,2,1,,,,,,,6.0,6.2,6.5,7,135.0,Engineering,Small Cap
@@ -27,7 +27,7 @@ ABINFRA,49.5,49.5,-13,-13,-3,-1,-5,-2,-1,,,,,,,-6.3,-2.5,4.4,4,11.9,Engineering,
 ABLBL,44.6,56.1,-6,-44,-8,-5,3,1,-6,,,,,,,2.1,-5.4,-14.6,0,73.81,Speciality Retail,Small Cap
 ABMINTLLTD,31.9,80.4,9,-21,-8,-2,5,2,-1,,,,,,,2.7,3.1,,1,49.6,Others,Small Cap
 ABREL,42.3,66.2,-12,-49,-9,-3,2,-10,-3,,,,,,,0.1,-10.9,-17.6,2,1060.6,Paper,Small Cap
-ABSLAMC,30.9,30.9,-19,-35,-8,-4,1,-7,-4,,,,,,,-7.9,-14.3,-18.4,3,846.25,Financials - AMC,Small Cap
+ABSLAMC,30.9,30.9,-19,-35,-8,-4,1,-7,-4,,,,,,,-7.9,-14.3,-18.4,2,846.25,Financials - AMC,Small Cap
 ACC,36.6,58.3,-12,-47,-9,-5,3,1,-12,,,,,,,2.7,-2.3,-7.6,3,1185.0,Infra - Cement,Mid Cap
 ACCELYA,32.5,55.6,-13,-43,-9,-3,2,-13,-3,,,,,,,-6.3,-12.1,-14.2,2,945.5,IT - Software/Consulting,Small Cap
 ACE,13.1,35.0,-20,-28,-6,-1,2,-5,-1,,,,,,,0.2,-3.6,1.1,5,1102.15,Auto - CV,Small Cap
@@ -38,7 +38,7 @@ ACMESOLAR,11.8,11.8,-20,-30,-6,-1,7,1,9,,,,,,,2.5,1.1,7.1,7,420.65,Power - Green
 ADANIENSOL,21.1,66.7,1,-46,-9,-3,7,1,1,,,,,,,6.8,2.8,-5.2,5,1411.0,Power - Misc,Large Cap
 ADANIENT,16.7,35.5,-14,-46,-9,-4,5,1,-2,,,,,,,3.4,-4.3,-8.1,5,2702.5,Metals - Misc,Large Cap
 ADANIGREEN,15.3,54.7,18,18,6,-4,7,1,1,1341.4,1171.0,3.0,17.98,3.0,18.0,7.2,7.2,0.9,4,1381.6,Power - Green,Large Cap
-ADANIPORTS,0.9,0.9,3,3,0,0,7,2,3,,,,,,,7.1,8.5,8.0,7,1904.0,Infra - Construction,Large Cap
+ADANIPORTS,0.9,0.7,3,3,0,0,7,2,3,,,,,,,7.1,8.5,8.0,7,1904.0,Infra - Construction,Large Cap
 ADANIPOWER,20.9,20.9,-20,-46,-9,-5,7,1,-5,,,,,,,5.4,0.8,-3.3,8,200.95,Power - Misc,Large Cap
 ADFFOODS,24.1,25.6,-20,-20,-3,-4,3,-3,-4,,,,,,,0.6,-1.5,-5.9,5,263.36,Consumption - Misc,Small Cap
 ADL,24.8,53.4,-16,-16,-9,-1,3,-4,-2,,,,,,,-1.1,-3.6,-3.6,6,68.37,Infra - Laminates,Small Cap
@@ -77,9 +77,9 @@ AKSHARCHEM,22.4,61.2,-13,-38,-9,-2,-4,-2,6,,,,,,,-5.6,-4.6,16.9,0,366.2,Chemical
 AKUMS,10.4,36.1,-19,-28,-5,-2,7,1,10,,,,,,,2.0,-1.7,4.7,3,751.35,Healthcare - Pharma,Small Cap
 ALBERTDAVD,17.6,56.2,-20,-45,-9,-2,2,-5,-1,,,,,,,-2.1,-7.6,-1.5,5,768.2,Healthcare - Pharma,Small Cap
 ALEMBICLTD,19.7,44.1,-14,-38,-8,-1,6,1,-2,,,,,,,1.3,-5.0,0.1,4,94.55,Healthcare - Pharma,Small Cap
-ALGOQUANT,,0.7,1,1,0,0,15,4,5,,,,,,,9.7,15.5,21.3,0,80.19,Other Financial Services,Small Cap
+ALGOQUANT,,0.0,1,1,0,0,15,4,5,,,,,,,9.7,15.5,21.3,0,80.19,Other Financial Services,Small Cap
 ALICON,5.6,44.3,-19,-19,-4,-2,2,1,4,,,,,,,0.2,10.1,18.1,4,858.2,Auto - OEM Suppliers,Small Cap
-ALIVUS,0.7,0.7,0,0,5,0,7,2,11,,,,,,,12.3,10.9,18.6,5,1518.1,Healthcare - Pharma,Small Cap
+ALIVUS,0.7,0.9,0,0,5,0,7,2,11,,,,,,,12.3,10.9,18.6,5,1518.1,Healthcare - Pharma,Small Cap
 ALKALI,26.2,54.9,-16,-29,-6,-2,-1,-3,-1,,,,,,,-5.6,-3.7,-1.4,4,78.5,Chemicals - Specialty,Small Cap
 ALKEM,12.7,19.5,-19,-31,-7,-3,7,1,-4,,,,,,,1.0,-0.6,-3.6,5,5181.0,Healthcare - Pharma,Mid Cap
 ALKYLAMINE,24.8,66.5,-20,-47,-9,-3,-1,-3,-2,,,,,,,-8.3,-13.7,-13.9,5,1591.1,Chemicals - Specialty,Small Cap
@@ -99,7 +99,7 @@ AMDIND,39.3,57.4,-20,-34,-7,-2,1,-7,-2,,,,,,,-4.5,-15.6,-10.6,3,45.15,Packaging,
 AMJLAND,36.0,54.2,-18,-41,-9,-2,-1,-5,-3,,,,,,,-1.1,-5.4,-7.2,4,35.0,Real Estate,Small Cap
 AMNPLST,36.5,58.9,-20,-48,-9,-3,2,-4,-4,,,,,,,-4.6,-10.7,-18.0,2,148.0,Chemicals - Specialty,Small Cap
 AMRUTANJAN,27.5,50.1,-12,-47,-2,-5,2,1,-13,,,,,,,2.2,1.5,-0.9,4,511.7,Healthcare - Pharma,Small Cap
-ANANDRATHI,0.3,0.3,1,1,0,0,16,3,18,,,,,,,5.0,5.3,9.0,8,2302.6,Financials - Misc,Small Cap
+ANANDRATHI,0.3,0.2,1,1,0,0,16,3,18,,,,,,,5.0,5.3,9.0,8,2302.6,Financials - Misc,Small Cap
 ANANTRAJ,29.1,51.5,-20,-39,-9,-3,-19,-6,-2,,,,,,,-8.5,-18.6,-19.7,5,460.0,Real Estate,Small Cap
 ANDHRAPAP,20.1,52.7,-15,-31,-6,-1,-3,-5,-1,,,,,,,-4.7,-5.9,-1.6,3,63.78,Paper,Small Cap
 ANDHRSUGAR,19.9,51.7,-20,-41,-8,-2,2,-9,-2,,,,,,,1.4,-6.3,-4.1,2,85.85,Chemicals - Bulk,Small Cap
@@ -135,7 +135,7 @@ ARMANFIN,26.6,40.9,-15,-40,-9,-3,5,1,-2,,,,,,,3.4,-10.4,-12.7,6,1583.8,Financial
 AROGRANITE,37.9,76.9,-13,-46,-8,-4,2,-3,-6,,,,,,,-0.9,-3.5,-7.4,1,22.59,Infra - Granites/Marbles,Small Cap
 ARROWGREEN,20.0,30.6,-20,-29,-6,-1,3,-5,-1,,,,,,,-0.0,-4.2,3.4,1,762.35,Packaging,Small Cap
 ARSSBL,31.9,38.8,-19,-19,-3,-4,3,1,-6,,,,,,,-1.5,-3.4,-6.2,0,486.35,Financials - Broking,Small Cap
-ARTEMISMED,20.3,20.3,-19,-24,-5,-2,1,-5,-2,,,,,,,0.5,-6.0,-0.3,6,301.9,Healthcare - Hospitals,Small Cap
+ARTEMISMED,20.7,20.7,-19,-24,-5,-2,1,-5,-2,,,,,,,-0.0,-6.6,-0.8,6,300.25,Healthcare - Hospitals,Small Cap
 ARTNIRMAN,32.8,82.0,-15,-15,-9,-4,-1,-1,-6,,,,,,,-8.0,-10.4,-11.5,1,35.31,Real Estate,Small Cap
 ARVEE,25.0,30.8,-13,-28,-3,-1,6,1,4,,,,,,,7.0,10.7,21.2,8,218.0,Chemicals - Bulk,Small Cap
 ARVIND,17.8,17.8,-14,-38,-7,-5,2,-7,-2,,,,,,,-1.2,-6.3,-6.5,4,499.3,Textile - Apparels,Small Cap
@@ -202,7 +202,7 @@ BAJAJHFL,22.9,56.8,-14,-31,-7,-4,3,-7,-4,,,,,,,1.0,-1.1,-3.5,0,81.42,Financials 
 BAJAJHIND,27.8,59.3,-14,-49,-8,-2,2,-3,-2,,,,,,,-3.3,-8.0,-2.8,4,18.76,Agri - Sugar,Small Cap
 BAJAJHLDNG,12.0,29.4,-9,-44,-9,-3,2,-2,-2,,,,,,,-3.2,-4.9,-4.5,6,10427.0,Financials - Misc,Large Cap
 BAJEL,23.5,50.0,-12,-46,-9,-5,1,1,-5,,,,,,,3.1,-3.5,-8.1,2,164.89,Engineering,Small Cap
-BAJFINANCE,15.6,15.6,14,-48,-9,-3,5,1,-3,,,,,,,4.3,-0.5,-2.7,7,992.35,Financials - NBFC,Large Cap
+BAJFINANCE,15.6,15.6,14,-48,-9,-3,5,1,-3,,,,,,,4.3,-0.5,-2.7,6,992.35,Financials - NBFC,Large Cap
 BALAJITELE,33.0,56.7,-10,-32,-8,-3,5,-3,-2,,,,,,,-1.1,-3.8,-2.3,1,87.79,Media - Entertainment,Small Cap
 BALAXI,45.7,90.6,-16,-42,-8,-5,2,-8,-6,,,,,,,-4.3,-9.8,-12.6,3,20.2,Healthcare - Pharma,Small Cap
 BALKRISHNA,29.5,81.7,-13,-41,-8,-4,5,1,-4,,,,,,,2.1,-2.3,-7.5,1,15.73,Paper,Small Cap
@@ -286,7 +286,7 @@ BOROLTD,6.6,39.5,-20,-23,3,1,4,1,5,,,,,,,16.8,18.6,24.6,3,312.0,Consumption - Mi
 BORORENEW,41.9,53.3,-20,-39,-9,-5,-4,-16,-4,,,,,,,-4.7,-14.0,-25.1,2,389.45,Power - Green,Small Cap
 BOROSCI,41.0,53.6,-19,-41,-9,-4,2,-17,-4,,,,,,,-0.1,-7.9,-20.4,0,106.71,Packaging,Small Cap
 BOSCH-HCIL,15.3,50.5,-17,-17,-4,-1,1,-3,-1,,,,,,,-3.5,-2.8,7.4,1,1724.6,Consumption - Appliances,Small Cap
-BOSCHLTD,1.2,1.2,0,43,6,2,7,2,8,50000.0,42675.0,1.22,18.59,1.2,18.6,10.6,7.9,13.5,4,50610.0,Auto - Replacement,Large Cap
+BOSCHLTD,1.2,0.2,0,43,6,2,7,2,8,50000.0,42675.0,1.22,18.59,1.2,18.6,10.6,7.9,13.5,4,50610.0,Auto - Replacement,Large Cap
 BPCL,22.6,22.6,19,-44,-9,-3,3,1,-3,,,,,,,4.3,0.3,-1.5,3,303.1,Petro - Refineries,Large Cap
 BPL,41.8,76.0,-19,-47,-9,-5,-1,1,-4,,,,,,,0.9,-6.2,-14.7,1,42.47,Consumption - Electronics,Small Cap
 BRIGADE,26.4,50.4,-14,-41,-8,-2,1,-8,-2,,,,,,,-2.4,-9.8,-6.4,5,541.05,Real Estate,Small Cap
@@ -323,7 +323,7 @@ CARYSIL,25.1,25.1,-14,-37,-7,-4,-1,-8,-3,,,,,,,-3.7,-9.8,-14.4,5,959.0,Consumpti
 CASTROLIND,3.9,31.3,-20,-26,-5,-2,3,-4,8,,,,,,,0.7,1.4,3.2,2,195.4,Petro - Lubricants,Small Cap
 CCAVENUE,34.7,70.2,-15,-28,-7,-4,2,-6,-3,,,,,,,-4.7,-13.0,-17.3,1,127.48,IT - Product/Platform,Small Cap
 CCCL,45.6,61.2,-14,-34,-9,-4,1,-12,-5,,,,,,,-6.7,-15.2,-23.3,3,11.2,Infra - Construction,Small Cap
-CCL,22.3,22.3,-14,-38,-9,-4,2,-16,-4,,,,,,,-2.1,-7.1,-12.4,6,964.8,Consumption - Misc,Small Cap
+CCL,22.3,22.3,-14,-38,-9,-4,2,-16,-4,,,,,,,-2.1,-7.1,-12.4,5,964.8,Consumption - Misc,Small Cap
 CDSL,19.3,33.5,-13,-47,-9,-3,7,1,-3,,,,,,,4.9,0.6,-0.6,4,1322.8,IT - Product/Platform,Small Cap
 CEATLTD,17.2,23.0,13,-47,-9,-4,3,1,-3,,,,,,,5.8,3.1,-1.0,4,3418.0,Auto - Tyres,Small Cap
 CEINSYS,,48.2,-20,-49,-9,-5,1,-20,-7,,,,,,,0.3,-4.2,-16.5,0,647.0,IT - Software,Small Cap
@@ -360,7 +360,7 @@ CLEAN,28.6,75.7,-20,-42,-6,-2,-4,-7,-2,,,,,,,-12.5,-17.4,-16.5,0,656.7,Chemicals
 CLEDUCATE,42.7,62.9,-12,-45,-9,-2,2,-9,-2,,,,,,,3.3,-7.2,-8.6,3,50.83,IT - Education,Small Cap
 CLSEL,13.1,36.9,-19,-48,-8,-3,3,1,-2,,,,,,,3.6,-1.7,-1.4,5,282.15,Agri - Rice,Small Cap
 CMSINFO,40.5,64.7,-15,-42,-8,-5,3,1,-6,,,,,,,2.7,-3.5,-13.1,5,217.35,IT - Services,Small Cap
-CNL,0.7,2.3,3,43,8,1,2,1,7,1279.6,975.0,8.55,42.46,8.5,42.5,24.3,22.4,34.1,8,1389.0,Textile - Apparels,Small Cap
+CNL,0.7,4.6,3,43,8,1,2,1,7,1279.6,975.0,8.55,42.46,8.5,42.5,24.3,22.4,34.1,8,1389.0,Textile - Apparels,Small Cap
 COALINDIA,18.7,26.6,-14,-37,-5,-5,-1,-5,-6,,,,,,,-1.6,-3.2,-4.9,4,399.15,Utility - Misc,Large Cap
 COASTCORP,50.5,69.2,-16,-41,-8,-5,-1,-3,-6,,,,,,,-6.5,-11.5,-23.1,0,33.0,Consumption - Misc,Small Cap
 COCHINSHIP,33.0,58.5,-15,-37,-9,-4,5,-9,-6,,,,,,,3.4,-7.3,-11.2,3,1235.5,Defense - Ship Building,Small Cap
@@ -376,7 +376,7 @@ CONTROLPR,23.9,44.0,-20,-20,-4,-5,1,1,-7,,,,,,,1.3,0.5,-1.1,2,597.0,IT - Equipme
 CORALFINAC,39.8,73.7,-15,-41,-9,-3,2,-10,-3,,,,,,,-4.4,-10.2,-12.4,0,28.02,Financials - Housing,Small Cap
 CORDSCABLE,29.2,29.2,-20,-29,-7,-2,-3,-6,-1,,,,,,,-1.2,-7.4,9.8,3,288.1,Power - Wiring,Small Cap
 COROMANDEL,26.6,32.5,0,-31,-7,-3,3,1,-3,,,,,,,5.3,-0.5,-5.5,5,1834.3,Agrichem - Fertilizers,Mid Cap
-CORONA,1.9,1.9,0,0,6,2,2,2,11,,,,,,,14.9,14.3,16.7,5,2410.1,Pharmaceuticals,Small Cap
+CORONA,1.9,5.1,0,0,6,2,2,2,11,,,,,,,14.9,14.3,16.7,5,2410.1,Pharmaceuticals,Small Cap
 COSMOFIRST,20.0,44.2,-16,-42,-9,-2,2,-9,-2,,,,,,,2.2,-5.6,-6.1,3,797.0,Packaging,Small Cap
 CPCAP,18.2,74.0,-16,-16,-3,0,2,-3,8,,,,,,,-3.3,3.8,16.3,4,148.0,IT - Education,Small Cap
 CPPLUS,13.4,13.4,-14,-14,-3,1,2,-3,10,,,,,,,-0.3,4.8,8.6,5,3999.6,Others,Small Cap
@@ -433,7 +433,7 @@ DEVIT,55.0,75.1,-20,-49,-9,-4,5,-13,-7,,,,,,,0.5,-12.4,-22.1,5,19.0,IT - Service
 DEVYANI,25.7,47.9,-14,-48,-7,-2,-4,-7,-2,,,,,,,-1.8,-9.6,-5.6,3,118.61,Leisure - Restaurants,Mid Cap
 DGCONTENT,40.9,66.5,-14,-24,-5,-5,4,1,-6,,,,,,,-0.6,-4.0,-7.1,5,22.95,Media - Misc,Small Cap
 DHAMPURSUG,22.6,70.9,-14,-14,-3,-2,2,-3,-1,,,,,,,-6.0,-2.5,5.5,3,169.98,Agri - Sugar,Small Cap
-DHANBANK,16.4,46.2,-9,-9,-1,-5,-9,-2,1,,,,,,,-4.9,0.5,-2.3,4,31.76,Financials - Private Bank,Small Cap
+DHANBANK,16.4,46.2,-9,-9,-1,-5,-9,-2,1,,,,,,,-4.9,0.5,-2.3,3,31.76,Financials - Private Bank,Small Cap
 DHANUKA,25.4,52.2,-3,-39,-8,-5,-1,2,-6,,,,,,,6.8,0.8,-4.3,4,943.85,Agrichem - Protection,Small Cap
 DHARMAJ,17.7,35.4,-19,-27,-5,-5,-2,-5,-2,,,,,,,-1.4,-5.6,-5.4,2,251.7,Agrichem - Protection,Small Cap
 DHRUV,66.7,88.7,-17,-47,-3,-5,-2,-3,-7,,,,,,,-7.3,-11.2,-19.8,3,19.0,IT - Software/Consulting,Small Cap
@@ -447,7 +447,7 @@ DIGISPICE,38.9,85.7,3,-45,-7,-5,1,1,1,,,,,,,5.5,2.2,-6.0,2,16.35,IT - Services,S
 DIGITIDE,57.5,77.7,-19,-46,-9,-3,-5,-12,-3,,,,,,,-9.3,-22.3,-29.9,0,62.31,IT Enabled Services,Small Cap
 DIGJAMLMTD,24.3,91.9,1,-34,-7,0,-1,4,1,,,,,,,7.3,5.1,12.1,1,55.38,Textile - Misc,Small Cap
 DIVGIITTS,29.0,29.0,-12,-43,-8,-2,-1,-5,-2,,,,,,,-1.9,-13.3,-9.3,0,943.75,Auto - Misc,Small Cap
-DIVISLAB,0.4,0.4,-2,-2,0,0,7,2,8,,,,,,,6.6,7.4,19.5,7,10029.5,Healthcare - Pharma,Large Cap
+DIVISLAB,0.4,0.3,-2,-2,0,0,7,2,8,,,,,,,6.6,7.4,19.5,7,10029.5,Healthcare - Pharma,Large Cap
 DIXON,18.3,36.0,-20,-48,-9,-3,3,-10,-2,,,,,,,1.6,-6.3,-7.5,4,12261.0,Consumption - Electronics,Mid Cap
 DJML,44.6,67.0,-15,-37,-7,-4,-4,-14,-4,,,,,,,-1.2,-5.5,-25.1,2,69.15,Transport - Logistics,Small Cap
 DLF,1.3,25.7,0,0,0,0,7,4,6,,,,,,,7.0,7.6,9.0,4,719.2,Real Estate,Large Cap
@@ -475,7 +475,7 @@ DYNPRO,22.4,71.3,-12,-12,-2,-3,-3,-2,-3,,,,,,,-4.9,-4.4,-6.3,2,220.15,Chemicals 
 E2E,32.1,32.1,-11,-11,-4,-2,-11,-3,-1,,,,,,,-18.2,-16.8,-4.9,7,519.35,IT - Software/Consulting,Small Cap
 EASEMYTRIP,42.6,83.5,-2,-2,-9,-5,8,2,-6,,,,,,,4.8,3.1,-5.0,2,6.08,IT - Product/Platform,Small Cap
 EASTSILK,35.0,35.0,-20,-20,-3,-1,-1,1,4,,,,,,,-5.0,-1.1,8.6,3,64.51,Textile - Misc,Small Cap
-EBGNG,5.9,5.9,-19,-19,3,1,2,1,10,,,,,,,4.8,8.7,18.3,5,730.45,Electronic - Equipment,Small Cap
+EBGNG,5.9,1.3,-19,-19,3,1,2,1,10,,,,,,,4.8,8.7,18.3,5,730.45,Electronic - Equipment,Small Cap
 ECLERX,37.4,37.4,-13,-42,-3,-3,-12,-2,-2,,,,,,,-14.6,-16.7,-12.1,5,1563.5,IT - Software/Consulting,Small Cap
 EDELWEISS,16.4,34.0,-13,-23,-4,-2,-1,-5,-1,,,,,,,-3.9,-6.7,-2.9,1,121.99,Financials - Misc,Small Cap
 EFCIL,47.1,53.8,-14,-47,-9,-2,-2,-9,-3,,,,,,,-2.7,-8.2,-10.7,0,165.0,Diversified Commercial Services,Small Cap
@@ -494,12 +494,12 @@ ELECTHERM,52.6,58.4,-20,-49,-9,-4,2,-10,-3,,,,,,,-6.6,-25.5,-35.6,2,605.35,Metal
 ELGIEQUIP,13.9,29.6,-19,-40,-8,-3,3,-8,-2,,,,,,,2.7,-4.2,-4.7,5,562.55,Industrial - Pumps/Engines,Small Cap
 ELGIRUBCO,25.0,67.7,-19,-37,-9,-3,1,-9,-2,,,,,,,-3.8,-9.9,-10.2,3,50.0,Others,Small Cap
 ELIN,59.4,73.8,-15,-45,-9,-5,3,-10,-12,,,,,,,-0.9,-13.1,-21.0,0,73.9,Consumption - Appliances,Small Cap
-ELLEN,14.1,46.0,-19,-35,-7,-1,3,1,5,,,,,,,4.2,1.3,10.0,5,344.1,Industrial Gases,Small Cap
+ELLEN,14.1,46.0,-19,-35,-7,-1,3,1,5,,,,,,,4.2,1.3,10.0,0,344.1,Industrial Gases,Small Cap
 EMAMILTD,30.8,55.7,-20,-49,-6,-4,2,1,-15,,,,,,,2.2,1.2,-2.8,1,381.0,Consumption - Personal,Mid Cap
 EMAMIPAP,12.1,12.1,-14,-14,-2,-2,-3,-1,7,,,,,,,1.2,1.5,9.4,3,117.48,Paper,Small Cap
 EMAMIREAL,40.1,83.0,-7,-36,-5,-5,2,-3,-6,,,,,,,0.8,1.1,-7.0,1,69.07,Real Estate,Small Cap
 EMBDL,33.6,80.7,-20,-45,-9,-5,-1,-6,-3,,,,,,,-1.7,-7.4,-12.6,1,52.02,Infra - Construction,Small Cap
-EMCURE,1.1,1.1,0,30,5,2,8,1,1,2003.8,1716.0,7.32,25.32,7.3,25.3,15.6,13.3,14.3,3,2150.5,Healthcare - Pharma,Small Cap
+EMCURE,1.1,2.4,0,30,5,2,8,1,1,2003.8,1716.0,7.32,25.32,7.3,25.3,15.6,13.3,14.3,3,2150.5,Healthcare - Pharma,Small Cap
 EMIL,24.6,38.8,-19,-19,-4,-2,2,-4,-1,,,,,,,-6.4,-11.5,-0.4,2,160.35,Consumption - Retail,Small Cap
 EMKAY,20.7,36.9,-5,-25,-4,-2,-1,-4,-1,,,,,,,-3.8,-2.0,-0.7,2,258.5,Financials - Broking,Small Cap
 EMMBI,33.5,71.4,-20,-43,-8,-4,2,-7,-2,,,,,,,-6.4,-11.8,-14.0,1,74.89,Packaging,Small Cap
@@ -537,11 +537,11 @@ FACT,27.6,35.4,19,-48,-9,-5,3,1,-5,,,,,,,7.7,1.1,-4.8,5,766.35,Agrichem - Fertil
 FAIRCHEMOR,19.3,72.1,-15,-15,-2,-4,2,-2,-1,,,,,,,-5.1,0.4,0.5,1,683.2,Chemicals - Specialty,Small Cap
 FAZE3Q,16.7,27.6,0,38,8,-5,5,1,1,500.9,390.8,8.17,38.66,8.2,38.7,26.5,20.6,7.3,4,541.8,Textiles - Processing,Small Cap
 FDC,11.3,40.5,0,0,0,-5,7,4,1,,,,,,,10.8,12.5,5.0,4,392.0,Healthcare - Pharma,Small Cap
-FEDFINA,11.2,11.2,-12,-39,-2,-5,2,1,-2,,,,,,,4.2,2.8,3.0,5,158.43,Financials - NBFC,Small Cap
+FEDFINA,11.2,11.2,-12,-39,-2,-5,2,1,-2,,,,,,,4.2,2.8,3.0,2,158.43,Financials - NBFC,Small Cap
 FIBERWEB,42.4,59.8,-16,-16,-9,-5,1,1,-9,,,,,,,3.4,2.2,-4.4,2,26.78,Textile - Misc,Small Cap
 FIEMIND,29.7,29.7,-12,-48,-9,-3,4,1,-3,,,,,,,5.9,-0.9,-10.8,5,1881.1,Auto - OEM Suppliers,Small Cap
 FILATEX,20.0,20.0,-14,-24,-3,-1,-5,-3,8,,,,,,,-8.3,-2.3,13.4,5,91.71,Textiles - Polyester,Small Cap
-FINCABLES,20.5,29.9,-19,-19,-5,-2,1,-4,-1,,,,,,,-5.9,-9.9,-1.5,4,1192.0,Power - Wiring,Small Cap
+FINCABLES,20.5,29.9,-19,-19,-5,-2,1,-4,-1,,,,,,,-5.9,-9.9,-1.5,3,1192.0,Power - Wiring,Small Cap
 FINEORG,9.5,30.0,-19,-19,-2,-5,-1,-3,8,,,,,,,-2.5,-1.7,0.0,4,5129.0,Chemicals - Specialty,Small Cap
 FINKURVE,41.4,52.2,-17,-49,-9,-2,2,-7,-2,,,,,,,-1.8,-6.9,-4.3,0,64.5,Non Banking Financial Company (NBFC),Small Cap
 FINOPB,63.4,79.5,-18,-49,-9,-3,1,-3,-3,,,,,,,-6.1,-9.9,-16.4,0,119.59,Financials - Private Bank,Small Cap
@@ -659,7 +659,7 @@ GUFICBIO,8.0,14.7,19,-40,-8,-2,1,1,7,,,,,,,4.7,2.3,5.9,4,430.3,Healthcare - Phar
 GUJALKALI,30.2,45.5,-20,-49,-8,-2,2,-8,-3,,,,,,,-0.6,-10.2,-11.0,3,569.0,Chemicals - Bulk,Small Cap
 GUJAPOLLO,26.3,37.0,-13,-40,-8,-3,-3,4,1,,,,,,,1.7,2.3,-0.1,4,350.1,Engineering,Small Cap
 GUJGASLTD,,,,,,,,,,,,,,,,,,,,,,
-GUJRAFFIA,39.6,60.7,-13,-13,-2,-5,-2,-2,-1,,,,,,,-14.0,-4.9,-1.3,1,41.56,Packaging,Small Cap
+GUJRAFFIA,37.6,59.5,-13,-13,-2,-5,-2,-2,-1,,,,,,,-11.2,-1.8,1.9,1,42.91,Packaging,Small Cap
 GUJTHEM,17.8,19.3,-20,-38,-6,-2,7,1,-2,,,,,,,6.0,-1.9,1.0,0,386.5,Healthcare - Pharma,Small Cap
 GULFOILLUB,11.8,28.3,-19,-49,-9,-1,3,1,-2,,,,,,,1.7,0.0,0.5,2,1085.0,Petro - Lubricants,Small Cap
 GULFPETRO,10.6,37.4,-6,-48,-3,-2,-5,-1,8,,,,,,,0.0,0.3,18.4,1,65.0,Petro - Lubricants,Small Cap
@@ -743,7 +743,7 @@ ICICIAMC,20.2,20.2,-20,-48,-6,-5,3,1,-5,,,,,,,1.3,-4.1,-7.1,5,2880.0,Asset Manag
 ICICIBANK,3.9,5.2,-7,-44,-8,-3,4,4,1,,,,,,,3.0,3.2,2.1,8,1422.4,Financials - Private Bank,Large Cap
 ICICIGI,21.3,30.8,-14,-14,-4,-5,2,-2,-1,,,,,,,-2.1,1.5,-2.8,5,1591.9,Financials - Non-Life,Large Cap
 ICICIPRULI,42.0,48.6,-15,-43,-9,-3,-15,-10,-3,,,,,,,-5.6,-11.5,-15.0,5,409.7,Financials - Life,Large Cap
-ICIL,1.0,1.0,19,27,7,1,7,1,8,476.6,384.5,11.11,37.71,11.1,37.7,20.0,19.6,24.6,4,529.5,Textile - Spinning/Yarn,Small Cap
+ICIL,1.0,9.0,19,27,7,1,7,1,8,476.6,384.5,11.11,37.71,11.1,37.7,20.0,19.6,24.6,4,529.5,Textile - Spinning/Yarn,Small Cap
 ICRA,31.6,42.5,-15,-48,-8,-5,1,-2,-16,,,,,,,-0.1,-2.9,-8.4,3,4444.4,Financials - Ratings,Small Cap
 IDBI,33.0,33.0,-14,-47,-9,-2,-2,-3,-2,,,,,,,-2.4,-5.8,-5.6,2,79.29,Financials - Private Bank,Large Cap
 IDEA,21.2,83.3,-20,-39,-8,-2,3,1,-2,,,,,,,1.1,-7.9,-9.2,1,12.44,Telecom,Mid Cap
@@ -778,7 +778,7 @@ INDIANB,14.4,14.5,-4,-44,-8,-3,-2,4,1,,,,,,,1.4,1.0,1.1,5,855.55,Financials - PS
 INDIANCARD,27.0,57.5,-4,-40,-9,-5,-4,-1,-4,,,,,,,1.8,-3.5,-8.7,2,192.0,Others,Small Cap
 INDIANHUME,27.5,49.0,-12,-39,-8,-3,2,-10,-2,,,,,,,-3.3,-10.9,-12.6,1,313.0,Engineering,Small Cap
 INDIASHLTR,27.6,36.8,-6,-31,-6,-4,2,-1,-6,,,,,,,1.7,-1.0,-8.3,5,639.3,Financials - Housing,Small Cap
-INDIGO,13.0,17.4,19,-44,8,-5,7,1,1,,,,,,,7.9,4.9,1.8,7,5148.2,Transport - Logistics,Large Cap
+INDIGO,13.0,17.4,19,-44,8,-5,7,1,1,,,,,,,7.9,4.9,1.8,6,5148.2,Transport - Logistics,Large Cap
 INDIGOPNTS,34.3,74.1,-20,-47,-9,-3,-6,-6,-2,,,,,,,-13.6,-19.5,-19.5,0,864.0,Consumption - Paints,Small Cap
 INDIGRID,5.7,5.7,-12,-49,-8,-3,5,1,-3,,,,,,,1.2,-0.6,-2.2,5,170.52,Financials - Misc,Small Cap
 INDIQUBE,17.2,23.0,-20,-38,-7,-2,7,1,-2,,,,,,,5.6,-0.6,3.4,0,187.73,Human Resources,Small Cap
@@ -828,7 +828,7 @@ ISFT,1.2,85.9,1,1,0,0,7,8,4,,,,,,,13.9,24.0,36.5,1,120.55,IT - Product/Platform,
 ISGEC,17.1,44.9,-2,-2,-4,-5,-1,2,2,,,,,,,1.7,8.2,7.5,3,923.65,Engineering,Small Cap
 ITC,31.5,44.9,0,0,4,-4,5,1,1,,,,,,,6.5,6.2,2.4,5,280.45,Consumption - Misc,Large Cap
 ITCHOTELS,18.3,33.8,0,0,0,-4,8,3,2,,,,,,,7.0,8.0,4.8,0,173.2,Leisure - Hotels,Mid Cap
-ITDC,24.2,33.0,-20,-29,-8,-3,3,-5,-2,,,,,,,-2.1,-4.5,-6.5,3,623.2,Leisure - Hotels,Small Cap
+ITDC,24.2,33.0,-20,-29,-8,-3,3,-5,-2,,,,,,,-2.1,-4.5,-6.5,2,623.2,Leisure - Hotels,Small Cap
 ITI,22.9,56.9,-2,-40,-9,-5,3,1,-5,,,,,,,8.3,1.9,-5.3,3,255.69,Telecom,Small Cap
 IVALUE,41.0,44.2,-15,-46,-9,-4,-5,-3,-4,,,,,,,-12.5,-17.0,-25.5,0,189.8,IT Enabled Services,Small Cap
 IVP,25.0,35.9,-16,-16,-3,-2,1,-3,-1,,,,,,,-9.8,-11.5,-0.4,2,186.0,Chemicals - Bulk,Small Cap
@@ -997,7 +997,7 @@ LICI,10.0,33.1,11,-48,-8,-4,2,1,-4,,,,,,,4.5,2.1,-0.7,4,408.5,Financials - Life,
 LIKHITHA,20.5,56.5,-19,-23,-5,-4,3,-4,-4,,,,,,,-0.4,-0.6,-4.5,6,216.29,Infra - Construction,Small Cap
 LINC,25.5,58.7,-6,-38,-8,-4,-2,3,-4,,,,,,,5.7,2.0,-4.9,3,92.99,Consumption - Misc,Small Cap
 LINCOLN,33.7,47.9,-20,-38,-8,-4,-5,-8,-6,,,,,,,-4.3,-11.5,-13.8,5,510.45,Healthcare - Pharma,Small Cap
-LINDEINDIA,21.1,36.0,11,-47,-9,-5,3,1,-6,,,,,,,7.6,3.5,-3.2,7,6354.5,Chemicals - Misc,Mid Cap
+LINDEINDIA,21.1,36.0,11,-47,-9,-5,3,1,-6,,,,,,,7.6,3.5,-3.2,6,6354.5,Chemicals - Misc,Mid Cap
 LLOYDSENGG,20.5,20.5,-12,-21,-4,-2,-4,-4,-1,,,,,,,-7.2,-6.4,-6.3,5,82.8,Metals - Iron & Steel,Small Cap
 LLOYDSENT,25.5,34.6,-19,-26,-6,-3,1,-4,-3,,,,,,,-5.4,-10.7,-14.8,7,63.08,Others,Small Cap
 LLOYDSME,15.4,15.4,-20,-24,-2,-3,-2,1,-3,,,,,,,-0.6,-1.2,-2.8,8,1797.0,Metals - Iron & Steel,Mid Cap
@@ -1041,9 +1041,9 @@ MALUPAPER,21.4,56.4,-14,-37,-7,-3,-1,-3,-4,,,,,,,-1.6,-4.1,-4.1,2,30.5,Paper,Sma
 MANAKALUCO,56.0,56.0,-12,-48,-9,-3,7,-12,-3,,,,,,,1.3,-11.6,-15.8,3,29.98,Metals - Aluminium,Small Cap
 MANAKCOAT,3.9,17.8,1,1,0,0,7,2,5,,,,,,,14.0,17.1,21.6,5,150.2,Metals - Casting/Forging,Small Cap
 MANAKSIA,17.8,68.9,19,-35,-7,-5,3,1,-2,,,,,,,8.1,1.0,2.6,3,60.3,Metals - Iron & Steel,Small Cap
-MANAKSTEEL,2.4,2.4,10,34,6,0,6,1,8,117.9,99.3,2.11,21.29,2.1,21.3,9.5,13.5,32.7,5,120.4,Metals - Iron & Steel,Small Cap
+MANAKSTEEL,2.4,0.3,10,34,6,0,6,1,8,117.9,99.3,2.11,21.29,2.1,21.3,9.5,13.5,32.7,5,120.4,Metals - Iron & Steel,Small Cap
 MANALIPETC,21.7,51.3,-20,-20,-8,-2,2,-3,-1,,,,,,,-7.0,-10.1,-0.8,2,72.83,Chemicals - Petro,Small Cap
-MANAPPURAM,17.5,17.5,-15,-48,-9,-4,2,1,-3,,,,,,,2.7,-1.7,-4.8,5,314.75,Financials - NBFC,Small Cap
+MANAPPURAM,17.5,17.5,-15,-48,-9,-4,2,1,-3,,,,,,,2.7,-1.7,-4.8,4,314.75,Financials - NBFC,Small Cap
 MANGALAM,44.3,86.6,-19,-35,-8,-2,2,-3,-2,,,,,,,-0.0,-2.6,2.7,1,30.29,Healthcare - Pharma,Small Cap
 MANGLMCEM,20.7,20.7,-15,-41,-9,-3,1,-8,-2,,,,,,,-4.2,-10.4,-7.5,4,888.4,Infra - Cement,Small Cap
 MANINDS,26.3,26.3,-20,-26,-6,-2,1,-5,-1,,,,,,,-6.6,-7.9,9.2,5,765.9,Metals - Pipe & Tube,Small Cap
@@ -1056,7 +1056,7 @@ MANYAVAR,20.1,67.0,-12,-40,-8,-2,3,-8,-1,,,,,,,0.5,-5.5,3.1,0,498.4,Textile - Ap
 MAPMYINDIA,50.3,67.3,-14,-44,-8,-3,3,1,-3,,,,,,,3.5,-0.5,-6.1,2,899.05,IT - Product/Platform,Small Cap
 MARALOVER,13.6,57.0,-4,-38,-8,-4,-3,1,8,,,,,,,3.1,1.7,4.7,2,59.49,Textile - Spinning/Yarn,Small Cap
 MARATHON,31.7,48.5,-12,-39,-8,-5,5,1,-2,,,,,,,6.9,-0.6,0.2,3,396.0,Real Estate,Small Cap
-MARICO,1.0,1.0,0,0,8,3,5,1,1,,,,,,,11.8,9.9,7.2,7,886.75,Agri - Edible Oil,Mid Cap
+MARICO,1.0,0.3,0,0,8,3,5,1,1,,,,,,,11.8,9.9,7.2,7,886.75,Agri - Edible Oil,Mid Cap
 MARINE,9.2,9.2,-20,-20,-3,1,2,1,8,,,,,,,3.1,5.9,25.7,7,445.5,Electronic - Equipment,Small Cap
 MARKOLINES,6.3,6.3,-12,-12,-1,-4,3,4,1,,,,,,,2.9,4.2,3.7,5,179.6,Others,Small Cap
 MARUTI,31.4,31.4,0,-48,-9,-3,3,1,-3,,,,,,,4.4,-1.3,-8.0,4,11917.0,Auto - PV/Trucks,Large Cap
@@ -1156,7 +1156,7 @@ NAUKRI,16.4,35.7,-12,-43,-9,-2,-2,-3,-2,,,,,,,-2.8,-6.4,-3.2,5,1173.1,IT - Produ
 NAVA,29.3,29.3,-20,-20,-9,-4,6,1,-6,,,,,,,-0.0,-3.8,-7.5,5,523.0,Power - Misc,Small Cap
 NAVKARCORP,32.7,67.0,-15,-47,-9,-5,2,-17,-4,,,,,,,0.5,-6.8,-15.1,1,81.44,Transport - Logistics,Small Cap
 NAVNETEDUL,19.8,31.3,0,-45,-9,-5,6,2,1,,,,,,,7.3,5.3,-0.4,1,132.99,Media - Publishing,Small Cap
-NAZARA,0.0,0.0,11,11,1,0,2,7,8,418.1,375.0,0.9,12.51,0.9,12.5,5.6,10.5,20.6,2,421.9,IT - Product/Platform,Small Cap
+NAZARA,0.0,0.5,11,11,1,0,2,7,8,418.1,375.0,0.9,12.51,0.9,12.5,5.6,10.5,20.6,2,421.9,IT - Product/Platform,Small Cap
 NBCC,38.3,44.5,14,-48,-9,-4,7,1,-5,,,,,,,5.8,-2.2,-12.8,3,77.64,Infra - Construction,Small Cap
 NBIFIN,26.7,56.2,-14,-35,-7,-4,5,-14,-3,,,,,,,0.4,-4.8,-8.7,2,1797.6,Financials - NBFC,Small Cap
 NCC,30.9,66.7,-11,-39,-8,-5,3,-9,-6,,,,,,,0.2,-8.4,-12.8,3,121.2,Infra - Construction,Small Cap
@@ -1168,7 +1168,7 @@ NDTV,37.2,88.6,-14,-40,-8,-5,3,1,-5,,,,,,,3.6,-3.9,-10.9,2,65.56,Media - TV Broa
 NECCLTD,17.2,83.2,-15,-15,-5,-1,3,-3,-1,,,,,,,-5.0,-5.5,1.1,0,17.29,Transport - Logistics,Small Cap
 NELCAST,6.4,16.6,-19,-19,3,4,7,1,2,,,,,,,19.2,31.7,28.2,4,162.13,Metals - Casting/Forging,Small Cap
 NELCO,37.0,53.0,-20,-28,-7,-3,1,-6,-2,,,,,,,-8.3,-19.3,-21.2,5,706.1,IT - Equipments,Small Cap
-NEOGEN,18.6,18.6,-14,-14,-2,-1,2,-3,-1,,,,,,,-3.2,-2.0,3.4,5,2267.5,Chemicals - Specialty,Small Cap
+NEOGEN,18.6,18.6,-14,-14,-2,-1,2,-3,-1,,,,,,,-3.2,-2.0,3.4,4,2267.5,Chemicals - Specialty,Small Cap
 NEPHROPLUS,20.5,20.5,-19,-35,-7,-2,-1,-7,-2,,,,,,,0.4,-7.4,-8.2,5,620.95,Healthcare Service Provider,Small Cap
 NESCO,21.4,36.5,-14,-38,-7,-5,6,1,-6,,,,,,,2.0,-0.4,-1.9,5,1041.2,Real Estate,Small Cap
 NESTLEIND,20.3,20.3,-14,-44,-9,-2,5,-12,-3,,,,,,,-0.8,-7.2,-11.2,5,1238.1,Consumption - FMCG,Large Cap
@@ -1178,7 +1178,7 @@ NEWGEN,51.9,75.5,-12,-45,-9,-3,-6,-3,-3,,,,,,,-4.5,-9.3,-12.1,3,441.2,IT - Softw
 NFL,34.8,63.9,-20,-48,-9,-5,3,1,-7,,,,,,,1.0,-5.8,-11.4,4,61.4,Agrichem - Fertilizers,Small Cap
 NGIL,7.5,86.5,-3,-3,-1,-1,6,2,2,,,,,,,11.3,12.4,11.3,0,43.39,Consumption - Misc,Small Cap
 NGLFINE,25.7,25.7,-19,-19,-3,-3,1,-4,-3,,,,,,,-2.3,-3.9,-10.2,4,2674.9,Healthcare - Pharma,Small Cap
-NH,7.7,18.5,0,-43,-9,-4,7,1,1,,,,,,,11.5,6.5,3.0,6,1931.3,Healthcare - Hospitals,Mid Cap
+NH,7.7,18.5,0,-43,-9,-4,7,1,1,,,,,,,11.5,6.5,3.0,5,1931.3,Healthcare - Hospitals,Mid Cap
 NHIT,,,,,,,,,,,,,,,,,,,,,,
 NHPC,7.7,34.0,-2,-2,0,-4,7,2,1,,,,,,,6.0,4.5,2.1,4,78.2,Power - Misc,Mid Cap
 NIACL,33.9,58.1,-15,-40,-8,-2,1,-3,-2,,,,,,,-4.6,-10.8,-10.6,0,160.4,Financials - Non-Life,Small Cap
@@ -1188,7 +1188,7 @@ NIFTYBEES,9.7,9.7,0,-47,-9,-3,5,1,1,,,,,,,4.6,2.9,1.0,8,272.79,Index,ETF
 NIITLTD,35.4,89.1,-20,-45,-9,-3,2,-9,-2,,,,,,,-7.8,-17.6,-22.3,3,71.75,IT - Education,Small Cap
 NIITMTS,62.6,71.2,-20,-45,-9,-3,-5,-12,-10,,,,,,,-12.3,-20.0,-25.2,2,166.22,IT - Education,Small Cap
 NILKAMAL,7.6,37.5,-4,-40,-8,-2,6,2,5,,,,,,,10.5,4.2,15.0,2,1986.1,Consumption - Misc,Small Cap
-NINSYS,4.5,4.5,-2,-2,-1,-1,5,6,2,,,,,,,8.2,20.3,19.3,2,942.6,IT - Software/Consulting,Small Cap
+NINSYS,4.5,4.3,-2,-2,-1,-1,5,6,2,,,,,,,8.2,20.3,19.3,2,942.6,IT - Software/Consulting,Small Cap
 NIPPOBATRY,34.6,64.2,-14,-40,-9,-5,2,-11,-6,,,,,,,0.4,-3.0,-6.1,1,306.95,Batteries,Small Cap
 NIRAJ,45.5,66.9,-14,-45,-5,-5,2,-5,-5,,,,,,,-3.8,-9.1,-12.0,1,24.81,Infra - Construction,Small Cap
 NIRAJISPAT,51.4,65.9,-20,-20,-8,-2,-8,-4,-2,,,,,,,-25.3,-14.4,,0,209.0,Others,Small Cap
@@ -1271,7 +1271,7 @@ PARAS,20.3,20.7,-4,-49,-9,-3,-4,-8,-2,,,,,,,0.2,-5.8,-3.6,3,1262.6,Defense - Mis
 PARKHOSPS,24.4,24.4,-20,-46,-9,-4,2,-6,-3,,,,,,,-1.6,-12.2,-15.4,5,230.53,Hospital,Small Cap
 PARKHOTELS,26.6,56.3,-12,-49,-9,-3,3,1,-4,,,,,,,0.9,-3.3,-10.1,0,102.69,Leisure - Hotels,Small Cap
 PARNAXLAB,,29.8,-20,-43,-8,-3,-2,-8,-3,,,,,,,-2.8,-11.1,,0,105.0,,
-PASHUPATI,13.9,13.9,-2,-2,-1,-1,16,3,2,,,,,,,32.9,50.6,52.6,6,133.85,Textile - Spinning/Yarn,Small Cap
+PASHUPATI,13.9,10.0,-2,-2,-1,-1,16,3,2,,,,,,,32.9,50.6,52.6,6,133.85,Textile - Spinning/Yarn,Small Cap
 PASUPTAC,17.4,17.4,-14,-14,-3,-2,3,-3,8,,,,,,,-2.3,1.2,7.6,3,71.01,Chemicals - Petro,Small Cap
 PATANJALI,34.1,65.9,3,-28,-6,-5,2,1,1,,,,,,,5.6,6.1,3.6,0,383.7,Agri - Edible Oil,Mid Cap
 PATELENG,29.8,68.1,-20,-46,-9,-4,7,1,-4,,,,,,,4.7,-2.2,-9.9,2,25.23,Infra - Construction,Small Cap
@@ -1329,7 +1329,7 @@ POWERINDIA,25.6,25.6,-20,-46,-9,-5,1,-11,-5,,,,,,,0.2,-5.7,-10.0,9,28875.0,Power
 POWERMECH,25.0,39.4,-14,-45,-9,-4,3,-4,-4,,,,,,,-1.7,-5.1,-9.8,5,2256.5,Infra - Construction,Small Cap
 PPAP,42.3,69.7,-14,-43,-8,-3,2,-3,-3,,,,,,,-3.1,-8.1,-15.2,1,219.0,Auto - OEM Suppliers,Small Cap
 PPL,33.6,66.8,-17,-36,-8,-5,2,-7,-3,,,,,,,-2.0,-11.2,-14.5,6,221.96,Infra - Plastic Pipes,Small Cap
-PRABHA,27.2,39.4,-19,-38,-7,-2,2,-6,-1,,,,,,,-3.4,-10.8,3.2,5,191.41,Others,Small Cap
+PRABHA,27.2,39.4,-19,-38,-7,-2,2,-6,-1,,,,,,,-3.4,-10.8,3.2,0,191.41,Others,Small Cap
 PRAENG,46.4,62.6,-17,-43,-5,-5,6,-6,-2,,,,,,,-3.0,-15.0,-15.0,3,17.26,Real Estate,Small Cap
 PRAJIND,39.6,70.8,-20,-46,-9,-5,-1,-10,-6,,,,,,,-5.2,-15.8,-20.3,5,255.57,Engineering,Small Cap
 PRAKASH,27.5,51.7,-12,-45,-9,-5,2,-3,-5,,,,,,,-1.1,-4.1,-8.6,1,115.31,Metals - Pipe & Tube,Small Cap
@@ -1391,7 +1391,7 @@ RAMRAT,19.5,19.5,-20,-20,-4,-1,1,-4,-1,,,,,,,-4.6,-4.2,8.2,8,533.65,Power - Wiri
 RANEHOLDIN,21.9,47.2,-12,-36,-7,-3,3,-8,-3,,,,,,,-0.4,-5.0,-9.3,1,1479.2,Auto - Misc,Small Cap
 RATEGAIN,24.1,24.1,-15,-44,-9,-3,-1,1,-3,,,,,,,-2.5,-6.2,-9.8,3,796.85,IT - Product/Platform,Small Cap
 RATNAMANI,26.9,38.5,-20,-37,-7,-1,3,-6,-2,,,,,,,0.3,-6.1,-4.0,5,2446.2,Metals - Pipe & Tube,Small Cap
-RATNAVEER,2.4,2.4,-3,-3,0,0,8,2,8,,,,,,,10.3,18.0,47.6,5,380.7,Metals - Iron & Steel,Small Cap
+RATNAVEER,2.4,1.9,-3,-3,0,0,8,2,8,,,,,,,10.3,18.0,47.6,5,380.7,Metals - Iron & Steel,Small Cap
 RAYMOND,14.2,67.1,-17,-21,-4,-2,4,1,8,,,,,,,1.9,13.9,42.1,3,1149.0,Textile - Apparels,Small Cap
 RAYMONDLSL,57.9,83.5,-20,-38,-7,-4,2,-11,-13,,,,,,,-5.9,-17.5,-25.6,0,510.0,Textile - Apparels,Small Cap
 RAYMONDREL,24.6,46.7,-20,-26,-5,-2,2,-3,-2,,,,,,,-8.4,-7.5,-10.5,5,559.4,Residential- Commercial Projects,
@@ -1499,7 +1499,7 @@ SARLAPOLY,21.4,34.0,-14,-43,-5,-5,-1,-3,-3,,,,,,,-7.2,-10.0,-11.7,2,87.28,Textil
 SASKEN,37.2,37.2,-6,-6,-8,-5,-4,-1,-3,,,,,,,2.3,-0.5,-7.9,5,1746.8,IT - Services,Small Cap
 SATIA,8.0,59.5,-20,-23,-3,-1,-1,1,4,,,,,,,1.2,2.1,7.8,4,66.49,Paper,Small Cap
 SATIN,6.4,54.6,3,3,0,3,7,2,2,,,,,,,11.3,13.5,9.4,1,256.47,Financials - MFI,Small Cap
-SBC,1.5,1.5,-4,-4,0,0,2,11,19,,,,,,,4.7,23.0,40.5,8,67.29,Others,Small Cap
+SBC,1.5,0.5,-4,-4,0,0,2,11,19,,,,,,,4.7,23.0,40.5,8,67.29,Others,Small Cap
 SBFC,19.6,28.3,-5,-47,-9,-3,3,1,-3,,,,,,,4.1,-1.9,-3.2,5,88.25,Financials - NBFC,Small Cap
 SBGLP,45.5,84.4,-13,-32,-9,-5,2,1,-10,,,,,,,3.2,-1.8,-7.1,2,22.29,Real Estate,Small Cap
 SBICARD,39.0,52.5,-13,-39,-9,-3,2,-8,-3,,,,,,,0.3,-7.7,-10.0,1,552.85,Financials - NBFC,Large Cap
@@ -1526,11 +1526,11 @@ SESHAPAPER,26.1,48.7,-15,-35,-8,-4,4,-6,-2,,,,,,,2.2,-5.2,-5.0,4,216.5,Paper,Sma
 SETL,10.6,10.6,-20,-33,-8,-2,7,2,8,,,,,,,10.2,9.1,31.1,5,418.7,Engineering,Small Cap
 SFL,39.0,74.9,-12,-36,-7,-3,-11,-7,-3,,,,,,,-12.4,-18.2,-25.1,3,508.2,Infra - Home Furnish,Small Cap
 SGFIN,5.5,5.5,-4,-4,0,0,1,2,2,,,,,,,5.2,6.8,7.4,5,703.0,Non Banking Financial Company (NBFC),Small Cap
-SGIL,21.9,21.9,-18,-28,-5,-2,-2,-5,-2,,,,,,,-5.7,-8.6,-7.7,7,545.15,Power - Green,Small Cap
+SGIL,21.9,21.9,-18,-28,-5,-2,-2,-5,-2,,,,,,,-5.7,-8.6,-7.7,5,545.15,Power - Green,Small Cap
 SGMART,1.0,1.0,0,0,0,0,9,5,12,,,,,,,13.0,15.8,24.9,5,905.0,Others,Small Cap
 SGRL,,12.6,-20,-28,-9,-2,1,-4,-1,,,,,,,-0.8,-0.3,,0,655.0,,
 SHADOWFAX,,7.6,-14,-14,-3,-2,1,-3,10,,,,,,,-2.1,2.8,11.5,0,279.5,Transport - Logistics,Small Cap
-SHAHALLOYS,38.4,46.7,-20,-43,-9,-3,-2,-8,-2,,,,,,,-2.2,-15.5,-7.6,6,72.0,Metals - Iron & Steel,Small Cap
+SHAHALLOYS,38.4,46.7,-20,-43,-9,-3,-2,-8,-2,,,,,,,-2.2,-15.5,-7.6,5,72.0,Metals - Iron & Steel,Small Cap
 SHAILY,17.4,17.4,-3,-37,-6,-3,-2,1,1,,,,,,,-2.5,-5.1,-2.9,8,2984.9,Industrial - Consumables,Small Cap
 SHAKTIPUMP,54.7,74.0,-20,-46,-8,-4,-1,-17,-4,,,,,,,-8.8,-18.5,-26.8,4,360.5,Industrial - Pumps/Engines,Small Cap
 SHALBY,41.7,63.7,-20,-47,-9,-4,7,-18,-4,,,,,,,-1.2,-10.1,-18.5,1,123.4,Healthcare - Hospitals,Small Cap
@@ -1589,7 +1589,7 @@ SKMEGGPROD,38.0,38.0,1,-47,-9,-4,3,1,-3,,,,,,,11.7,2.1,-8.8,5,230.79,Consumption
 SKYGOLD,14.3,14.3,-12,-12,-2,0,1,-2,8,,,,,,,-2.1,7.7,23.9,5,929.0,Consumption - Jewelry,Small Cap
 SMARTLINK,26.0,44.9,-11,-11,-7,-3,-10,-2,-1,,,,,,,-8.5,-9.3,-5.3,2,196.0,IT - Equipments,Small Cap
 SMARTWORKS,14.2,21.3,-20,-38,-6,-3,1,1,-2,,,,,,,3.3,-4.0,-1.3,0,487.05,Diversified Commercial Services,Small Cap
-SMCGLOBAL,24.3,24.3,-15,-15,-3,-1,-14,-3,5,,,,,,,-8.1,1.6,11.1,8,93.9,Financials - Broking,Small Cap
+SMCGLOBAL,24.3,24.3,-15,-15,-3,-1,-14,-3,5,,,,,,,-8.1,1.6,11.1,7,93.9,Financials - Broking,Small Cap
 SMLMAH,28.5,28.5,-15,-26,-5,-2,2,-5,-1,,,,,,,-8.6,-15.1,-4.2,4,4930.0,Auto - CV,Small Cap
 SMLT,28.2,83.8,-18,-18,-4,-5,-7,-2,2,,,,,,,-2.0,6.3,5.5,3,72.51,Metals - Iron & Steel,Small Cap
 SNOWMAN,27.2,63.4,-14,-45,-9,-3,-5,-12,-3,,,,,,,-1.2,-4.3,-7.7,3,33.58,Transport - Logistics,Small Cap
@@ -1601,7 +1601,7 @@ SOLEX,67.8,70.6,-20,-49,-9,-5,3,-24,-6,,,,,,,-1.6,-12.4,-29.1,4,583.0,IT - Equip
 SOMANYCERA,10.2,42.0,-20,-20,-5,-2,2,-4,-1,,,,,,,-0.8,-1.5,4.1,1,567.05,Infra - Ceramics,Small Cap
 SOMATEX,50.6,54.6,-20,-42,-9,-5,3,-8,-6,,,,,,,-0.3,-7.3,-17.1,4,73.15,Textile - Misc,Small Cap
 SOMICONVEY,49.3,67.3,-20,-33,-6,-4,1,-8,-7,,,,,,,-3.0,-10.9,-16.1,3,77.0,Engineering,Small Cap
-SONACOMS,2.2,2.2,-3,-3,-1,-1,7,2,10,,,,,,,8.5,10.0,17.5,2,892.3,Auto - OEM Suppliers,Small Cap
+SONACOMS,2.2,2.1,-3,-3,-1,-1,7,2,10,,,,,,,8.5,10.0,17.5,2,892.3,Auto - OEM Suppliers,Small Cap
 SONAMLTD,13.2,27.9,-11,-11,-2,-2,2,-2,10,,,,,,,-3.2,-1.1,10.8,8,69.7,Consumption - Appliances,Small Cap
 SONATSOFTW,39.4,73.9,-14,-49,-9,-3,-1,-12,-3,,,,,,,-4.1,-13.2,-19.3,5,227.3,IT - Software/Consulting,Small Cap
 SOTL,21.3,21.3,-19,-19,-8,-2,2,-3,-1,,,,,,,-5.2,-5.0,1.9,4,677.2,Petro - Lubricants,Small Cap
@@ -1611,7 +1611,7 @@ SPAL,28.4,28.4,-14,-42,-9,-5,2,-8,-2,,,,,,,-1.2,-7.9,-11.1,4,874.4,Textile - App
 SPANDANA,42.6,86.9,-19,-47,-9,-5,-1,-16,-4,,,,,,,-7.7,-16.2,-24.8,0,183.21,Financials - MFI,Small Cap
 SPARC,35.7,65.0,-20,-26,-6,-4,1,-5,-4,,,,,,,1.7,-3.3,-11.1,1,185.94,Healthcare - Pharma,Small Cap
 SPECIALITY,17.6,51.9,-14,-23,-4,-1,2,-4,-1,,,,,,,-0.5,-3.0,0.7,2,138.0,Leisure - Restaurants,Small Cap
-SPECTRUM,1.5,1.5,0,0,0,0,2,10,7,,,,,,,12.2,31.6,61.2,6,4303.5,IT - Equipments,Small Cap
+SPECTRUM,1.5,2.9,0,0,0,0,2,10,7,,,,,,,12.2,31.6,61.2,6,4303.5,IT - Equipments,Small Cap
 SPENCERS,57.6,91.1,-19,-48,-9,-5,-2,-19,-5,,,,,,,-11.3,-24.2,-34.5,4,19.78,Consumption - Retail,Small Cap
 SPIC,31.1,53.9,-20,-40,-9,-5,3,-8,-3,,,,,,,0.8,-7.6,-10.4,3,59.05,Agrichem - Fertilizers,Small Cap
 SPLIL,31.0,68.1,-18,-47,-9,-2,-1,-6,-3,,,,,,,-1.0,-6.7,-9.4,2,27.53,Textile - Misc,Small Cap
@@ -1686,7 +1686,7 @@ SWELECTES,14.1,59.0,-14,-14,-2,-5,3,-3,-5,,,,,,,0.9,3.6,0.2,4,612.15,Power - Equ
 SWIGGY,57.4,70.9,-19,-48,-9,-4,-12,-10,-3,,,,,,,-13.7,-26.9,-29.9,0,179.79,IT - Product/Platform,
 SWSOLAR,42.5,81.9,-13,-47,-9,-5,2,-17,-4,,,,,,,-2.7,-12.0,-23.1,4,150.0,Power - Green,Small Cap
 SYMPHONY,47.7,77.0,-19,-37,-7,-5,2,-8,-7,,,,,,,-3.1,-9.6,-17.9,1,507.5,Consumption - Appliances,Small Cap
-SYNCOMF,25.4,26.5,-19,-24,-4,-1,1,-3,-1,,,,,,,-4.7,-1.4,17.8,6,20.5,Healthcare - Pharma,Small Cap
+SYNCOMF,25.4,26.5,-19,-24,-4,-1,1,-3,-1,,,,,,,-4.7,-1.4,17.8,4,20.5,Healthcare - Pharma,Small Cap
 SYNGENE,38.6,56.6,1,45,8,-4,6,4,1,413.8,344.4,0.8,21.09,0.8,21.1,9.0,8.5,3.8,4,417.1,Healthcare - Pharma,Mid Cap
 SYSTMTXC,57.5,58.4,-10,-10,-1,-2,1,-1,3,,,,,,,-1.2,7.3,12.0,0,74.02,Stockbroking & Allied,
 TAINWALCHM,23.0,40.9,-17,-30,-4,-3,1,-4,-2,,,,,,,-0.4,-3.6,-3.6,3,198.0,Industrial - Consumables,Small Cap
@@ -1710,7 +1710,7 @@ TATASTEEL,20.1,20.1,19,-28,-8,-5,3,1,-6,,,,,,,3.6,-0.6,-2.8,5,179.34,Metals - Ir
 TATATECH,26.8,53.4,-14,-45,-9,-2,-13,-3,-2,,,,,,,-5.2,-10.7,-12.7,0,652.3,IT - Software/Consulting,Mid Cap
 TBOTEK,13.5,23.3,-19,-44,-6,-2,3,-6,-1,,,,,,,-3.9,-7.3,-3.5,0,1533.8,Leisure - Misc,Small Cap
 TBZ,23.1,23.1,-11,-11,-2,-1,-9,-2,7,,,,,,,-7.1,10.0,55.1,4,606.65,Consumption - Jewelry,Small Cap
-TCC,,61.3,-20,-35,-7,-5,-4,-7,-10,,,,,,,-1.5,-11.1,-22.9,0,40.79,Commercial Services & Supplies,Small Cap
+TCC,,61.5,-20,-35,-7,-5,-4,-7,-10,,,,,,,-2.0,-11.6,-23.3,0,40.58,Commercial Services & Supplies,Small Cap
 TCI,23.5,34.0,-20,-47,-9,-4,-1,1,-13,,,,,,,-0.0,-0.0,-3.6,4,863.55,Transport - Logistics,Small Cap
 TCIEXP,20.2,80.6,0,-46,-9,-3,7,1,-3,,,,,,,4.5,-1.0,-5.1,5,498.6,Transport - Logistics,Small Cap
 TCPLPACK,1.8,8.2,12,12,0,0,1,1,6,4485.0,3744.5,0.31,20.15,0.3,20.1,7.1,11.5,23.6,4,4499.0,Packaging,Small Cap
@@ -1718,7 +1718,7 @@ TCS,27.3,46.9,-7,-7,-2,-1,-1,5,2,,,,,,,2.0,7.1,8.0,6,2436.4,IT - Software/Consul
 TEAMGTY,27.8,27.8,-17,-17,-2,-5,4,-2,-2,,,,,,,1.1,1.0,3.0,4,240.0,Financials - NBFC,Small Cap
 TEAMLEASE,36.7,80.5,-12,-44,-8,-4,4,-8,-5,,,,,,,0.3,-6.9,-13.6,3,1085.0,Human Resources,Small Cap
 TECHM,4.3,4.3,-10,-10,-1,-1,-1,4,5,,,,,,,4.2,9.6,12.7,5,1774.8,IT - Software/Consulting,Large Cap
-TECHNOCRAF,,3.8,0,0,2,1,2,1,4,,,,,,,12.2,22.2,,0,546.8,,
+TECHNOCRAF,,5.8,0,0,2,1,2,1,4,,,,,,,12.2,22.2,,0,546.8,,
 TECHNOE,36.5,51.7,-20,-31,-6,-5,2,-6,-6,,,,,,,-1.8,-7.6,-11.4,3,879.4,Engineering,Small Cap
 TEGA,17.8,22.4,-19,-30,-4,-1,2,-4,-1,,,,,,,-1.6,-1.1,3.6,5,1806.1,Engineering,Small Cap
 TEJASNET,33.8,71.4,-20,-40,-8,-4,2,-8,-2,,,,,,,-2.0,-12.9,-18.1,4,426.85,IT - Equipments,Small Cap
@@ -1791,12 +1791,12 @@ UCOBANK,26.5,67.5,-14,-47,-9,-4,3,-3,-4,,,,,,,0.3,-3.1,-8.5,2,22.97,Financials -
 UDS,15.3,53.6,-13,-41,-9,-3,-2,1,8,,,,,,,-2.2,-3.4,-0.2,2,203.45,Human Resources,Small Cap
 UEL,34.2,96.6,-17,-46,-8,-2,-3,1,-1,,,,,,,-0.3,-5.1,13.2,0,186.99,IT - Equipments,Small Cap
 UFBL,35.2,71.7,-17,-45,-9,-3,-4,-10,-2,,,,,,,-14.7,-19.8,-20.9,0,550.4,Leisure - Restaurants,Small Cap
-UFLEX,19.6,32.3,-19,-42,-8,-1,1,-5,-1,,,,,,,-2.3,-7.8,5.9,4,582.0,Packaging,Small Cap
+UFLEX,19.6,32.3,-19,-42,-8,-1,1,-5,-1,,,,,,,-2.3,-7.8,5.9,3,582.0,Packaging,Small Cap
 UFO,30.8,90.1,-4,-47,-8,-5,2,3,-5,,,,,,,4.5,1.2,-5.4,1,61.65,Media - Films,Small Cap
 UGARSUGAR,36.8,68.9,-14,-26,-5,-2,2,-5,-2,,,,,,,-15.3,-20.8,-11.9,3,42.2,Agri - Sugar,Small Cap
 UGROCAP,61.7,77.9,-13,-44,-9,-5,-12,-13,-12,,,,,,,-7.8,-13.1,-20.2,2,70.5,Financials - NBFC,Small Cap
 UJJIVANSFB,23.2,23.2,-15,-44,-9,-3,2,-5,-2,,,,,,,-5.0,-10.4,-11.6,1,56.81,Financials - Private Bank,Small Cap
-ULTRACEMCO,10.0,10.0,0,45,8,-3,16,3,1,11717.0,10426.0,0.73,13.21,0.7,13.2,7.5,6.6,3.8,6,11803.0,Infra - Cement,Large Cap
+ULTRACEMCO,10.0,10.0,0,45,8,-3,16,3,1,11717.0,10426.0,0.73,13.21,0.7,13.2,7.5,6.6,3.8,5,11803.0,Infra - Cement,Large Cap
 UMAEXPORTS,57.5,87.3,-20,-35,-9,-5,1,-5,-3,,,,,,,-1.7,-9.6,-11.7,4,19.26,Agri - Misc,Small Cap
 UMIYA-MRO,20.2,31.4,-16,-40,-8,-2,-3,-6,-2,,,,,,,-3.5,-7.1,-5.0,5,87.0,Real Estate,Small Cap
 UNICHEMLAB,26.2,45.9,-20,-28,-9,-2,7,1,-2,,,,,,,0.1,-4.1,-2.9,3,507.25,Healthcare - Pharma,Small Cap
@@ -1851,7 +1851,7 @@ VIKRAMSOLR,49.5,67.3,-14,-47,-9,-5,3,-10,-6,,,,,,,-2.0,-12.9,-21.0,0,133.54,Othe
 VIKRAN,49.3,52.8,-15,-15,-8,-4,3,-3,-4,,,,,,,0.2,-2.4,-13.0,0,55.91,Civil Construction,Small Cap
 VIMTALABS,26.2,44.8,-20,-43,-7,-2,1,-8,-2,,,,,,,-2.7,-13.2,-14.4,5,498.35,Healthcare - Pharma,Small Cap
 VINATIORGA,39.0,58.1,-20,-38,-9,-4,-5,-11,-16,,,,,,,-7.7,-16.3,-20.8,5,997.0,Chemicals - Specialty,Mid Cap
-VINCOFE,12.0,12.0,-20,-20,-5,-2,2,-5,-2,,,,,,,2.7,-1.7,3.2,7,168.4,Agri - Tea/Coffee,Small Cap
+VINCOFE,12.0,12.0,-20,-20,-5,-2,2,-5,-2,,,,,,,2.7,-1.7,3.2,3,168.4,Agri - Tea/Coffee,Small Cap
 VINDHYATEL,9.1,15.6,-14,-14,-2,0,1,1,8,,,,,,,-0.8,0.8,12.7,4,2724.7,Telecom,Small Cap
 VINEETLAB,16.6,70.0,-14,-44,-2,-3,1,1,5,,,,,,,-0.5,0.6,1.7,0,37.21,Healthcare - Pharma,Small Cap
 VINYAS,11.6,11.6,-12,-12,-2,-2,6,1,8,,,,,,,1.3,0.7,6.1,8,1530.0,Electronic - Equipment,Small Cap
@@ -1921,7 +1921,7 @@ ZENSARTECH,29.9,46.0,-4,-4,-1,-1,-1,5,2,,,,,,,6.7,13.8,11.5,5,532.25,IT - Softwa
 ZENTEC,15.8,34.5,-2,-42,-9,-4,7,1,1,,,,,,,6.8,2.3,-1.2,4,1720.8,Defense - Technology,Small Cap
 ZFCVINDIA,29.7,29.7,-14,-42,-7,-4,3,-10,-3,,,,,,,0.5,-7.8,-11.1,4,2140.1,Auto - OEM Suppliers,Small Cap
 ZIMLAB,16.5,16.5,-17,-17,-3,-1,3,1,8,,,,,,,-4.1,-1.1,6.3,4,133.39,Healthcare - Pharma,Small Cap
-ZODIAC,39.4,74.6,-19,-45,-8,-5,-2,2,-6,,,,,,,2.0,-5.6,-14.1,4,207.24,Engineering,Small Cap
+ZODIAC,40.1,74.9,-19,-45,-8,-5,-2,2,-6,,,,,,,0.9,-6.7,-15.1,4,204.83,Engineering,Small Cap
 ZODIACLOTH,30.6,77.4,-19,-44,-8,-5,-1,1,-4,,,,,,,-0.3,-5.1,-11.1,1,64.9,Textile - Apparels,Small Cap
 ZOTA,28.9,29.9,-14,-14,-3,-4,-3,-3,-1,,,,,,,-6.3,-0.6,-3.4,6,1219.0,Healthcare - Pharma,Small Cap
 ZUARI,44.6,72.2,-20,-45,-9,-3,1,-9,-4,,,,,,,-3.2,-10.1,-13.5,1,191.62,Agrichem - Fertilizers,Small Cap
