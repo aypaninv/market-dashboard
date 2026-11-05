@@ -116,8 +116,7 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const filteredRows = (data || []).filter(row => {
     const wHA = Number(row.W_HA);
-    const fBO = Number(row.F_BO);
-    return Number.isFinite(wHA) && wHA > 0 && wHA < 5 && Number.isFinite(fBO) && fBO > 0;
+    return Number.isFinite(wHA) && wHA > 0 && wHA < 5;
   });
   tfcRows = window.sortRowsByColumn(filteredRows, "D_BO", false);
   tfcColWidths = computeSharedColWidthsTFC(tfcRows);
