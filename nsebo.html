@@ -13,20 +13,16 @@ const CSV_NSEBO = "nsebo_report.csv";
 const COLS_NSEBO = [
   "Symbol","Chart","Folio",
   "DD_52W","DD_ATH",
-  "F_BO", "D_BO", "W_BO", "M_BO", "D_HA", "W_HA", "M_HA",
-  "BO_TH","SL_TH",
+  "F_BO", "D_HA", "W_HA", "M_HA",
   "MA20","MA50","MA100",
   "Trend",
-  "BO_P","SL_P","CurPrice",
+  "CurPrice",
   "MarketCap","Sector","W_RSI","M_RSI",
   "Notes"
 ];
 
 const HEADER_LABELS_NSEBO = {
-  "W_BO": "W_BO",
   "F_BO": "F_BO",
-  "D_BO": "D_BO",
-  "M_BO": "M_BO",
   "Trend": "TD",
 };
 
@@ -40,7 +36,7 @@ const NSEBO_FILTER = {
 };
 
 let rawNseBo = [];
-let nseboSortState = { col: "D_BO", asc: false };
+let nseboSortState = { col: "F_BO", asc: false };
 let nseboColWidths = {};
 
 function toNumberNseBo(value) {

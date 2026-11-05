@@ -13,16 +13,13 @@ const CSV_NSEALL = "nseall_report.csv";
 const COLS_NSEALL = [
   "Symbol","Chart","Folio",
   "DD_ATH","DD_52W",
-  "F_BO", "D_BO", "W_BO", "M_BO", "D_HA", "W_HA", "M_HA",
+  "F_BO", "D_HA", "W_HA", "M_HA",
   "MA20","MA50","MA100",
   "Trend","CurPrice","Sector","W_RSI","M_RSI","MarketCap","Notes"
 ];
 
 const HEADER_LABELS_NSEALL = {
   "F_BO": "F_BO",
-  "D_BO": "D_BO",
-  "W_BO": "W_BO",
-  "M_BO": "M_BO",
   "D_HA": "D_HA",
   "W_HA": "W_HA",
   "M_HA": "M_HA",
@@ -34,11 +31,11 @@ const HEADER_LABELS_NSEALL = {
 const NSEALL_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) < 15,
   TD: r => parseFloat(r.Trend) >= 5,
-  BO_ANY: r => parseFloat(r.D_BO) >= 0 || parseFloat(r.W_BO) >= 0 || parseFloat(r.F_BO) >= 0 || parseFloat(r.M_BO) >= 0,
+  BO_ANY: r => parseFloat(r.F_BO) >= 0,
 };
 
 let rawNseAll = [];
-let nseallSortState = { col: "D_BO", asc: false };
+let nseallSortState = { col: "F_BO", asc: false };
 let nseallColWidths = {};
 
 function toNumberNseAll(value) {

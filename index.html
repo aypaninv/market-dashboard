@@ -272,7 +272,7 @@ body {
    SHARED TABLE UTILITIES
    ========================================================= */
 
-window.createCustomSorter = function (column = "W_BO") {
+window.createCustomSorter = function (column = "W_HA") {
   return (a, b) => {
     const x = parseFloat(a?.[column]);
     const y = parseFloat(b?.[column]);
@@ -294,7 +294,7 @@ window.createCustomSorter = function (column = "W_BO") {
   };
 };
 
-window.sortRowsByCustomDefault = function (rows, column = "W_BO") {
+window.sortRowsByCustomDefault = function (rows, column = "F_BO") {
   return [...rows].sort(window.createCustomSorter(column));
 };
 
@@ -416,7 +416,7 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("green");
   }
 
-  if (["F_BO", "D_BO", "W_BO", "M_BO", "D_HA", "W_HA", "M_HA", "BO_TH", "SL_TH"].includes(column) && isNum && num >= 0) {
+  if (["F_BO", "D_HA", "W_HA", "M_HA"].includes(column) && isNum && num >= 0) {
     td.classList.add("green");
   }
 
