@@ -134,17 +134,19 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Sate: d => {
     const lbPert = toNumber(d["LB_P"]);
-    const dHA = toNumber(d["D_HA"]);
+    const fBO = toNumber(d["F_BO"]);
+    const wHA = toNumber(d["W_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);    
-    return ( ic < 4 && lbPert >= 0 && dHA > 0 && dHA < 6 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 4 && lbPert >= 0 && fBO > 0 && wHA > 0 && wHA < 5 && meetsPnLThreshold(ic, pnl))
   },
   Core: d => {
     const lbPert = toNumber(d["LB_P"]);
+    const fBO = toNumber(d["F_BO"]);
     const wHA = toNumber(d["W_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ( ic < 6 && wHA > 0 && wHA < 3 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 6 && fBO > 0 && wHA > 0 && wHA < 5 && meetsPnLThreshold(ic, pnl))
   },
 };
 
