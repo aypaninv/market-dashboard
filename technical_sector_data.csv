@@ -3,7 +3,7 @@ Sector,Count,W_RSI,WD_RSI,M_RSI,MD_RSI
 Abrasives & Bearings,1,42,5,,
 Agri - Animal Feed,4,44,-1,48,3
 Agri - Edible Oil,10,49,2,48,3
-Agri - Misc,11,47,0,50,1
+Agri - Misc,11,46,-1,50,1
 Agri - Rice,3,57,2,56,5
 Agri - Seeds,3,45,1,41,3
 Agri - Sugar,23,50,0,51,2
@@ -12,7 +12,7 @@ Agrichem - Fertilizers,21,49,4,50,4
 Agrichem - Protection,21,39,2,42,0
 Aluminium Copper & Zinc Products,1,45,7,,
 Asset Management Company,2,50,3,,
-Auto - 2W,5,54,-1,57,2
+Auto - 2W,5,54,-1,58,3
 Auto - CV,5,51,0,54,4
 Auto - Misc,9,42,3,47,2
 Auto - OEM Suppliers,49,53,2,56,3
@@ -112,7 +112,7 @@ Leisure - Misc,9,48,2,50,3
 Leisure - Restaurants,8,53,0,52,1
 Life Insurance,1,36,1,,
 Media - Entertainment,4,42,5,48,1
-Media - Entertaintment,2,72,2,68,3
+Media - Entertaintment,2,73,3,69,4
 Media - Films,7,50,1,49,0
 Media - Misc,3,40,1,35,1
 Media - Publishing,10,47,1,44,3
