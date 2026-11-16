@@ -65,7 +65,7 @@ AGROPHOS,47.3,85.1,-17,-46,-9,-5,5,1,-13,,,,,,,3.6,0.0,-10.8,2,23.2,Agrichem - F
 AHLADA,43.6,84.9,-16,-37,-7,-4,3,2,-7,,,,,,,3.8,1.8,-0.3,0,37.48,Infra - Home Furnish,Small Cap
 AHLEAST,23.0,40.5,-18,-47,-9,-5,6,1,-6,,,,,,,1.3,-0.8,-4.4,3,133.18,Leisure - Hotels,Small Cap
 AHLUCONT,50.1,66.8,-19,-43,-9,-4,1,-17,-4,,,,,,,-5.1,-9.3,-25.4,4,511.4,Infra - Construction,Small Cap
-AIAENG,38.1,38.1,-19,-46,-9,-5,1,-14,-4,,,,,,,-8.0,-15.2,-23.8,5,3205.7,Metals - Casting/Forging,Small Cap
+AIAENG,38.1,38.1,-19,-46,-9,-5,1,-14,-4,,,,,,,-7.9,-15.2,-23.8,5,3205.7,Metals - Casting/Forging,Small Cap
 AIIL,14.1,14.1,-2,-2,-4,1,5,2,1,,,,,,,9.9,9.1,8.5,3,586.65,,
 AIRAN,25.5,66.9,2,-42,-8,-5,8,2,-2,,,,,,,11.4,4.9,4.9,2,16.16,IT - Services,Small Cap
 AIROLAM,8.5,42.9,0,0,-1,4,7,2,1,,,,,,,21.6,25.1,25.4,3,112.35,Infra - Laminates,Small Cap
@@ -352,7 +352,7 @@ CHOLAFIN,4.6,4.6,0,40,8,-3,11,2,1,1859.0,1415.0,0.16,31.59,0.2,31.6,14.9,10.7,6.
 CHOLAHLDNG,26.1,34.5,2,-41,-8,-4,11,2,-4,,,,,,,7.0,2.9,-2.8,4,1462.4,Financials - Misc,Small Cap
 CIEINDIA,28.1,39.2,0,-35,-6,-4,5,1,-7,,,,,,,4.1,0.9,-6.6,4,378.25,Auto - OEM Suppliers,Small Cap
 CIFL,53.2,58.2,-10,-31,-6,-5,3,1,-11,,,,,,,1.5,-5.2,-10.2,0,18.58,Non Banking Financial Company (NBFC),Small Cap
-CIGNITITEC,,,0,0,0,0,-1,-1,-1,,,,,,,,,,0,1260.1,IT - Services,Small Cap
+CIGNITITEC,,,,,,,,,,,,,,,,,,,,,,
 CINELINE,12.8,50.8,-7,-44,-9,1,2,2,5,,,,,,,2.1,1.1,5.0,2,91.0,Real Estate,Small Cap
 CIPLA,8.5,17.3,-3,-48,-1,-3,14,3,1,,,,,,,3.1,3.0,0.3,5,1408.3,Healthcare - Pharma,Large Cap
 CLEAN,23.6,74.0,-19,-47,-7,-2,3,-8,-2,,,,,,,-2.8,-10.0,-10.0,0,703.3,Chemicals - Bulk,Mid Cap
@@ -649,7 +649,7 @@ GSFC,21.6,54.2,-17,-45,-9,-5,7,1,-7,,,,,,,4.8,-0.8,-4.6,2,147.43,Agrichem - Fert
 GSLSU,83.1,93.2,-20,-33,-7,-5,-1,-6,-11,,,,,,,-5.7,-14.9,-24.7,0,22.81,Infra - Granites/Marbles,Small Cap
 GSPL,,,,,,,,,,,,,,,,,,,,,,
 GSS,48.8,97.0,-15,-44,-9,-5,5,-13,-38,,,,,,,1.3,-1.6,-11.8,2,10.23,IT - Services,Small Cap
-GTECJAINX,25.0,78.9,-19,-19,-5,-1,5,1,-1,,,,,,,1.9,1.9,7.1,4,29.66,IT - Education,Small Cap
+GTECJAINX,25.0,78.9,-19,-19,-5,-1,5,1,-1,,,,,,,1.9,1.9,,4,29.66,IT - Education,Small Cap
 GTLINFRA,34.7,87.4,-4,-44,-8,-5,8,2,-5,,,,,,,9.0,-0.9,-9.2,1,1.09,Telecom,Small Cap
 GTPL,50.4,82.9,-20,-40,-8,-5,-1,-4,-15,,,,,,,-1.4,-3.7,-6.4,1,53.62,Media - TV Broadcast,Small Cap
 GUFICBIO,1.4,3.4,1,1,8,1,6,2,7,,,,,,,15.3,14.5,18.5,5,487.0,Healthcare - Pharma,Small Cap
@@ -786,7 +786,7 @@ INDOCO,20.7,56.9,-17,-47,-8,-2,3,1,-2,,,,,,,2.5,-4.5,-3.5,3,228.32,Healthcare - 
 INDORAMA,31.2,31.2,-17,-35,-6,-2,-1,1,-1,,,,,,,-3.7,-9.3,11.8,4,77.25,Textiles - Polyester,Small Cap
 INDOSTAR,28.8,65.8,1,-47,-9,-2,8,2,-3,,,,,,,9.1,-2.1,-11.1,0,207.89,Financials - NBFC,Small Cap
 INDOTECH,31.6,31.6,-20,-43,-9,-2,2,-11,-2,,,,,,,-1.3,-12.4,-15.9,3,2756.6,Power - Equipment,Small Cap
-INDOTHAI,92.8,93.2,-17,-48,-9,-5,5,1,-7,,,,,,,3.0,-45.8,-78.4,4,31.72,Financials - Broking,Small Cap
+INDOTHAI,92.8,93.2,-17,-48,-9,-5,5,1,-7,,,,,,,3.0,-45.8,,4,31.72,Financials - Broking,Small Cap
 INDRAMEDCO,34.9,47.5,-5,-33,-6,-4,7,2,-12,,,,,,,5.3,-0.7,-5.8,5,336.25,Healthcare - Hospitals,Small Cap
 INDSWFTLAB,15.5,15.5,-9,-29,-7,-2,2,-1,11,,,,,,,0.6,-3.2,15.6,4,360.35,Healthcare - Pharma,Small Cap
 INDTERRAIN,25.5,88.1,-19,-48,-9,-5,6,1,1,,,,,,,5.6,3.4,0.3,1,30.19,Textile - Apparels,Small Cap
