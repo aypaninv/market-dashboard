@@ -8,11 +8,11 @@ Agri - Rice,3,55,-2,56,5
 Agri - Seeds,3,43,-3,40,2
 Agri - Sugar,23,50,-1,51,2
 Agri - Tea/Coffee,12,45,-3,49,2
-Agrichem - Fertilizers,21,48,-1,50,4
+Agrichem - Fertilizers,21,47,-2,50,4
 Agrichem - Protection,21,38,-1,42,0
 Aluminium Copper & Zinc Products,1,45,0,,
 Asset Management Company,2,50,0,,
-Auto - 2W,5,54,0,57,2
+Auto - 2W,5,53,-1,57,2
 Auto - CV,5,49,-1,53,3
 Auto - Misc,9,39,-2,45,0
 Auto - OEM Suppliers,49,52,-2,55,2
@@ -48,7 +48,7 @@ Consumption - Personal,10,43,0,45,3
 Consumption - Retail,13,46,1,46,2
 Defense - Misc,17,52,-2,56,2
 Defense - Ship Building,4,48,0,54,4
-Defense - Technology,6,53,-2,61,4
+Defense - Technology,6,52,-3,61,4
 Diversified Commercial Services,2,46,0,43,0
 Diversified Metals,1,42,2,,
 E-Learning,2,46,-2,18,
@@ -91,7 +91,7 @@ IT - Services,32,47,-1,45,1
 IT - Software,1,34,0,,
 IT - Software/Consulting,59,47,-1,48,1
 IT Enabled Services,3,43,2,56,-7
-Index,5,48,-1,59,2
+Index,5,47,-2,59,2
 Industrial - Bearings,6,51,-1,54,3
 Industrial - Consumables,16,48,0,52,1
 Industrial - Pumps/Engines,13,45,-1,51,1
@@ -112,7 +112,7 @@ Leisure - Misc,9,48,-2,50,3
 Leisure - Restaurants,8,52,-1,51,0
 Life Insurance,1,47,-1,,
 Media - Entertainment,4,40,-3,47,0
-Media - Entertaintment,2,75,2,70,5
+Media - Entertaintment,2,74,1,70,5
 Media - Films,7,49,-1,50,1
 Media - Misc,3,38,-3,34,0
 Media - Publishing,10,44,-2,43,2
@@ -138,7 +138,7 @@ Paper,21,46,-2,44,0
 Petro - Lubricants,7,53,-1,56,1
 Petro - Refineries,6,54,0,59,3
 Pharmaceuticals,2,62,-2,,
-Power - Equipment,27,47,-2,53,0
+Power - Equipment,27,46,-3,53,0
 Power - Green,17,41,-2,49,1
 Power - Misc,20,42,-1,50,1
 Power - Wiring,19,48,-2,53,1
@@ -153,11 +153,11 @@ Software Products,1,48,-2,,
 Speciality Retail,2,36,-1,12,5
 Stockbroking & Allied,2,62,0,,
 Tech - BPO,9,50,-1,50,0
-Telecom,15,53,-1,56,0
+Telecom,15,53,-1,57,1
 Telecom - Infrastructure,1,49,7,,
 Textile - Apparels,21,49,0,49,2
 Textile - Innerwear,6,42,-1,41,1
-Textile - Misc,21,51,-1,52,2
+Textile - Misc,21,50,-2,52,2
 Textile - Spinning/Yarn,34,51,-1,53,2
 Textiles - Polyester,5,48,0,52,1
 Textiles - Processing,7,52,3,46,3
