@@ -29,10 +29,10 @@ const HEADER_LABELS_NSEBO = {
 // ── Hardcoded entry-quality filter ──────────────────────────────────────────
 // Only symbols passing ALL conditions are shown in the table.
 const NSEBO_FILTER = {
-  DD_ATH: r => parseFloat(r.DD_ATH) < 15,
-  F_BO: r => parseFloat(r.F_BO) > 0,
+  DD_ATH: r => parseFloat(r.DD_ATH) < 20,
+  F_BO: r => parseFloat(r.F_BO) >= 0,
   W_HA_GT_0: r => parseFloat(r.W_HA) > 0,
-  W_HA_LT_5: r => parseFloat(r.W_HA) < 5,
+  // W_HA_LT_5: r => parseFloat(r.W_HA) < 5,
 };
 
 let rawNseBo = [];
