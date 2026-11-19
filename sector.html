@@ -26,7 +26,7 @@ const F_BO_MIN = 1;
 const D_BO_MIN = 1;
 const TREND_MIN = 5;
 const COLS_SECTOR = [
-  "Sector", "Count", "Trend", "F_BO", "D_BO", "W_BO", "M_BO", "W_RSI", "M_RSI", "WD_RSI", "MD_RSI"
+  "Sector", "Count", "Trend", "F_BO", "D_BO", "W_BO", "M_BO", "D_RSI", "W_RSI", "M_RSI", "DD_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -130,7 +130,7 @@ function renderSectorSummary() {
 
 function drawSectorTable(table, rows) {
   table.innerHTML = "";
-  const deltaCols = new Set(["WD_RSI", "MD_RSI"]);
+  const deltaCols = new Set(["DD_RSI", "WD_RSI", "MD_RSI"]);
   const breakoutCountCols = new Set(["F_BO", "D_BO", "W_BO", "M_BO", "Trend"]);
   const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
