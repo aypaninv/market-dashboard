@@ -22,16 +22,18 @@ const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 const W_BO_MIN = 1;
 const M_BO_MIN = 0;
+const F_BO_MIN = 1;
+const D_BO_MIN = 1;
 const TREND_MIN = 5;
 const COLS_SECTOR = [
-  "Sector", "Count", "Trend", "W_BO", "M_BO", "W_RSI", "M_RSI", "WD_RSI", "MD_RSI"
+  "Sector", "Count", "Trend", "F_BO", "D_BO", "W_BO", "M_BO", "W_RSI", "M_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
   "Symbol", "Chart", "MarketCap",
   "DD_ATH", "DD_52W",
-  "F_BO", "D_HA", "W_HA", "M_HA",
-  "D_BO", "W_BO", "M_BO",
+  "F_BO", "D_BO", "W_BO", "M_BO",
+  "D_HA", "W_HA", "M_HA",
   "Trend", "Close"
 ];
 
@@ -66,6 +68,14 @@ function toFiniteNumber(value) {
 }
 
 function matchesDrilldownFilter(row, filterMode) {
+  if (filterMode === "F_BO") {
+    const v = toFiniteNumber(row.F_BO);
+    return !Number.isNaN(v) && v >= F_BO_MIN;
+  }
+  if (filterMode === "D_BO") {
+    const v = toFiniteNumber(row.D_BO);
+    return !Number.isNaN(v) && v >= D_BO_MIN;
+  }
   if (filterMode === "W_BO") {
     const v = toFiniteNumber(row.W_BO);
     return !Number.isNaN(v) && v >= W_BO_MIN;
@@ -89,9 +99,11 @@ function buildSectorBreakoutCounts(rows) {
     if (!sector) return;
 
     if (!counts[sector]) {
-      counts[sector] = { W_BO: 0, M_BO: 0, Trend: 0 };
+      counts[sector] = { F_BO: 0, D_BO: 0, W_BO: 0, M_BO: 0, Trend: 0 };
     }
 
+    if (matchesDrilldownFilter(r, "F_BO")) counts[sector].F_BO += 1;
+    if (matchesDrilldownFilter(r, "D_BO")) counts[sector].D_BO += 1;
     if (matchesDrilldownFilter(r, "W_BO")) counts[sector].W_BO += 1;
     if (matchesDrilldownFilter(r, "M_BO")) counts[sector].M_BO += 1;
     if (matchesDrilldownFilter(r, "Trend")) counts[sector].Trend += 1;
@@ -119,7 +131,7 @@ function renderSectorSummary() {
 function drawSectorTable(table, rows) {
   table.innerHTML = "";
   const deltaCols = new Set(["WD_RSI", "MD_RSI"]);
-  const breakoutCountCols = new Set(["W_BO", "M_BO", "Trend"]);
+  const breakoutCountCols = new Set(["F_BO", "D_BO", "W_BO", "M_BO", "Trend"]);
   const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
   const sortInfo = sectorSortState.summary;
@@ -127,6 +139,8 @@ function drawSectorTable(table, rows) {
     const sectorName = String(r.Sector || "").trim();
     return {
       ...r,
+      F_BO: breakoutCountsBySector[sectorName]?.F_BO ?? 0,
+      D_BO: breakoutCountsBySector[sectorName]?.D_BO ?? 0,
       W_BO: breakoutCountsBySector[sectorName]?.W_BO ?? 0,
       M_BO: breakoutCountsBySector[sectorName]?.M_BO ?? 0,
       Trend: breakoutCountsBySector[sectorName]?.Trend ?? 0,
@@ -181,7 +195,10 @@ function drawSectorTable(table, rows) {
         const sectorName = String(r.Sector || "").trim();
         const countVal = Number.parseInt(String(v), 10) || 0;
         if (countVal > 0) {
-          const drillMode = h === "W_BO" ? "W_BO" : (h === "M_BO" ? "M_BO" : "Trend");
+          const drillMode = h === "F_BO" ? "F_BO" :
+            (h === "D_BO" ? "D_BO" :
+            (h === "W_BO" ? "W_BO" :
+            (h === "M_BO" ? "M_BO" : "Trend")));
           td.innerHTML = `<a href="#" onclick="openSectorDrilldown('${String(sectorName).replace(/'/g, "\\'")}', '${drillMode}')">${countVal}</a>`;
         } else {
           td.innerText = "-";
@@ -290,7 +307,7 @@ function drawSectorDrilldownTable(table, rows, key) {
           td.appendChild(a);
         });
       } else {
-        if (["D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
+        if (["D_BO", "W_BO", "M_BO", "F_BO", "D_BO"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
         } else {
           td.innerText = v;
@@ -309,7 +326,9 @@ function drawSectorDrilldownTable(table, rows, key) {
 }
 
 window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
-  const normalizedMode = filterMode === "W_BO" || filterMode === "M_BO" || filterMode === "Trend" ? filterMode : "ALL";
+  const normalizedMode = filterMode === "F_BO" || filterMode === "D_BO" ||
+    filterMode === "W_BO" || filterMode === "M_BO" || filterMode === "Trend"
+    ? filterMode : "ALL";
   let rows = symbolRows
     .filter(r => String(r.Sector || "") === String(sectorName || ""))
     .filter(r => matchesDrilldownFilter(r, normalizedMode));
@@ -320,7 +339,11 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
 
   const title = document.getElementById("sectorDrilldownTitle");
   let suffix = "";
-  if (normalizedMode === "W_BO") {
+  if (normalizedMode === "F_BO") {
+    suffix = ` | ${normalizedMode}>=${F_BO_MIN}`;
+  } else if (normalizedMode === "D_BO") {
+    suffix = ` | ${normalizedMode}>=${D_BO_MIN}`;
+  } else if (normalizedMode === "W_BO") {
     suffix = ` | ${normalizedMode}>=${W_BO_MIN}`;
   } else if (normalizedMode === "M_BO") {
     suffix = ` | ${normalizedMode}>=${M_BO_MIN}`;
