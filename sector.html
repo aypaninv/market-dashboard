@@ -159,11 +159,14 @@ function drawSectorTable(table, rows) {
     return;
   }
 
+  const historyColumns = getSectorHistoryColumns(data[0]);
+  const columns = [...COLS_SECTOR, ...historyColumns];
+
   const tr = document.createElement("tr");
-  COLS_SECTOR.forEach(h => {
+  columns.forEach(h => {
     if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h;
+    th.innerText = h.startsWith("D_RSI_") ? formatHistoryColumnLabel(h) : h;
     if (h !== "Chart") {
       th.onclick = () => {
         const existing = sectorSortState.summary;
@@ -179,7 +182,7 @@ function drawSectorTable(table, rows) {
 
   data.forEach(r => {
     const row = document.createElement("tr");
-    COLS_SECTOR.forEach(h => {
+    columns.forEach(h => {
       if (h !== "Chart" && !(h in r)) return;
       const td = document.createElement("td");
       const v = r[h];
@@ -203,12 +206,16 @@ function drawSectorTable(table, rows) {
         } else {
           td.innerText = "-";
         }
+      } else if (h.startsWith("D_RSI_")) {
+        td.className = "num";
+        td.innerText = v === "" ? "-" : Math.round(parseFloat(v));
+        applyRsiHistoryGradient(td, r, h, historyColumns);
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h !== "Sector" && h !== "Count" && !breakoutCountCols.has(h)) {
+      if (h !== "Sector" && h !== "Count" && !breakoutCountCols.has(h) && !h.startsWith("D_RSI_")) {
         const num = parseFloat(v);
         if (!isNaN(num)) {
           if (deltaCols.has(h)) {
@@ -423,4 +430,42 @@ window.registerTabs(addTab => {
     loadSectorData().then(() => renderSectorSummary());
   });
 });
+
+function getSectorHistoryColumns(row) {
+  return Object.keys(row)
+    .filter(key => /^D_RSI_\d{4}-\d{2}-\d{2}$/.test(key))
+    .sort((a, b) => b.localeCompare(a));
+}
+
+function formatHistoryColumnLabel(columnName) {
+  const datePart = columnName.replace("D_RSI_", "");
+  const [, month, day] = datePart.split("-");
+  return `${day}/${month}`;
+}
+
+function applyRsiHistoryGradient(td, row, columnName, historyColumns) {
+  const index = historyColumns.indexOf(columnName);
+  const olderColumn = historyColumns[index + 1];
+  const current = toFiniteNumber(row[columnName]);
+  const previous = olderColumn ? toFiniteNumber(row[olderColumn]) : NaN;
+
+  if (Number.isNaN(current) || Number.isNaN(previous)) {
+    td.style.backgroundColor = "rgba(34, 197, 94, 0.08)";
+    return;
+  }
+
+  const delta = current - previous;
+  const magnitude = Math.min(Math.abs(delta) / 30, 1);
+  let alpha;
+  if (delta > 0) {
+    alpha = 0.20 + (0.55 * magnitude);
+  } else if (delta < 0) {
+    alpha = 0.06 + (0.12 * (1 - magnitude));
+  } else {
+    alpha = 0.12;
+  }
+
+  td.style.backgroundColor = `rgba(34, 197, 94, ${alpha})`;
+  td.title = `${delta >= 0 ? "+" : ""}${Math.round(delta)} vs ${formatHistoryColumnLabel(olderColumn)}`;
+}
 </script>
