@@ -115,7 +115,6 @@ window.registerTabs(addTab => {
 
 function renderTF(data) {
   const filtered = (data || []).filter(r =>
-    toNumberTFW(r.M_RS) >= 0 &&
     toNumberTFW(r.W_RS) >= 0 &&
     toNumberTFW(r["11x21"]) >= 0
   );
