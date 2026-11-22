@@ -272,7 +272,7 @@ body {
    SHARED TABLE UTILITIES
    ========================================================= */
 
-window.createCustomSorter = function (column = "W_HA") {
+window.createCustomSorter = function (column = "F_BO") {
   return (a, b) => {
     const x = parseFloat(a?.[column]);
     const y = parseFloat(b?.[column]);
@@ -416,13 +416,8 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
     td.classList.add("green");
   }
 
-  if (["F_BO", "D_HA", "W_HA", "M_HA"].includes(column) && isNum && num >= 0) {
+  if (column === "F_BO" && isNum && num >= 0) {
     td.classList.add("green");
-  }
-
-  if (["MA20", "MA50", "MA100"].includes(column) && isNum) {
-    if (num > 0) td.classList.add("green");
-    else if (num < 0) td.classList.add("red");
   }
 
   if (profitColumns.includes(column) && isNum && num > 4) {

@@ -15,8 +15,7 @@ const DEFAULT_COLUMN_ORDER = [
   "IC","CC","PnL",
   "DD_52W","DD_ATH",
   "LB_D","LB_P",
-  "F_BO","D_HA","W_HA","M_HA",
-  "MA20","MA50","MA100",
+  "F_BO",
   "AvgPrice","Trend",
   "CurPrice",
   "MarketCap","Sector","SW_RS","SM_RS",
@@ -32,8 +31,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "IC","CC","PnL",
     "DD_52W","DD_ATH",
     "LB_D","LB_P",
-    "F_BO", "D_HA", "W_HA", "M_HA",
-    "MA20","MA50","MA100",
+    "F_BO",
     "AvgPrice","Trend",
     "CurPrice",
     "MarketCap","Sector","SW_RS","SM_RS",
@@ -44,8 +42,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "IC","CC","PnL",
     "DD_52W","DD_ATH",
     "LB_D","LB_P",
-    "F_BO", "D_HA", "W_HA", "M_HA",
-    "MA20","MA50","MA100",
+    "F_BO",
     "AvgPrice","Trend",
     "CurPrice",
     "MarketCap","Sector","SW_RS","SM_RS",
@@ -131,18 +128,16 @@ function meetsPnLThreshold(ic, pnl) {
 const addConditionsByFolio = {
   Sate: d => {
     const lbPert = toNumber(d["LB_P"]);
-    const dHA = toNumber(d["D_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);    
-    return ( ic < 4 && lbPert >= 0 && dHA > 0 && dHA < 6 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 4 && lbPert >= 0 && meetsPnLThreshold(ic, pnl))
   },
   Core: d => {
     const lbPert = toNumber(d["LB_P"]);
     const fBO = toNumber(d["F_BO"]);
-    const wHA = toNumber(d["W_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ( ic < 6 && fBO > 0 && wHA > 0 && wHA < 5 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 6 && fBO > 0 && meetsPnLThreshold(ic, pnl))
   },
 };
 
@@ -426,12 +421,9 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
           td.appendChild(a);
         } else if (["BO_P", "SL_P", "BO_TH", "SL_TH"].includes(h) && v !== "") {
           td.innerText = Number.parseFloat(v).toFixed(1);
-        } else if (["F_BO", "D_BO", "W_BO", "M_BO", "D_HA", "W_HA", "M_HA"].includes(h) && v !== "") {
+        } else if (["F_BO", "D_BO", "W_BO", "M_BO"].includes(h) && v !== "") {
           // BO columns are discrete levels; display as integer.
           td.innerText = Math.round(parseFloat(v));
-        } else if (["MA20", "MA50", "MA100"].includes(h) && v !== "") {
-          const num = parseFloat(v);
-          td.innerText = Number.isFinite(num) ? num.toFixed(1) : v;
         } else {
           td.innerText = v;
         }
