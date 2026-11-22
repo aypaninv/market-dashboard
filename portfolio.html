@@ -15,7 +15,7 @@ const DEFAULT_COLUMN_ORDER = [
   "IC","CC","PnL",
   "DD_52W","DD_ATH",
   "LB_D","LB_P",
-  "F_BO","D_RS","W_RS","M_RS","11x21",
+  "F_BO","W_BO","D_RS","W_RS","M_RS","11x21",
   "AvgPrice","Trend",
   "CurPrice",
   "MarketCap","Sector","SW_RS","SM_RS",
@@ -31,7 +31,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "IC","CC","PnL",
     "DD_52W","DD_ATH",
     "LB_D","LB_P",
-    "F_BO","D_RS","W_RS","M_RS","11x21",
+    "F_BO","W_BO","D_RS","W_RS","M_RS","11x21",
     "AvgPrice","Trend",
     "CurPrice",
     "MarketCap","Sector","SW_RS","SM_RS",
@@ -42,7 +42,7 @@ const COLUMN_ORDER_BY_FOLIO = {
     "IC","CC","PnL",
     "DD_52W","DD_ATH",
     "LB_D","LB_P",
-    "F_BO","D_RS","W_RS","M_RS","11x21",
+    "F_BO","W_BO","D_RS","W_RS","M_RS","11x21",
     "AvgPrice","Trend",
     "CurPrice",
     "MarketCap","Sector","SW_RS","SM_RS",
@@ -129,18 +129,20 @@ const addConditionsByFolio = {
   Sate: d => {
     const lbPert = toNumber(d["LB_P"]);
     const fBO = toNumber(d["F_BO"]);
+    const wBO = toNumber(d["W_BO"]);
     const wRS = toNumber(d["W_RS"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);    
-    return ( ic < 4 && lbPert >= 8 && fBO > 0 && wRS >= 0 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 4 && lbPert >= 8 && (fBO > 0 || wBO > 0) && wRS >= 0 && meetsPnLThreshold(ic, pnl))
   },
   Core: d => {
     const lbPert = toNumber(d["LB_P"]);
     const fBO = toNumber(d["F_BO"]);
+    const wBO = toNumber(d["W_BO"]);
     const wRS = toNumber(d["W_RS"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ( ic < 6 && lbPert >= 8 && fBO > 0 && wRS >= 0 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 6 && lbPert >= 8 && (fBO > 0 || wBO > 0) && wRS >= 0 && meetsPnLThreshold(ic, pnl))
   },
 };
 
