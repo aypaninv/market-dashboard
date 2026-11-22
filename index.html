@@ -351,8 +351,8 @@ window.ensureSectorRsiMapLoaded = function () {
         const sector = String(r.Sector || "").trim();
         if (!sector) return;
         lookup[sector] = {
-          W_RSI: String(r.W_RSI ?? "").trim(),
-          M_RSI: String(r.M_RSI ?? "").trim(),
+          SW_RS: String(r.SW_RS ?? "").trim(),
+          SM_RS: String(r.SM_RS ?? "").trim(),
         };
       });
       sectorRsiLookup = lookup;
@@ -373,8 +373,8 @@ window.attachSectorRsiColumns = function (rows) {
     const metrics = sectorRsiLookup?.[sector] || {};
     return {
       ...row,
-      W_RSI: String(metrics.W_RSI ?? "").trim(),
-      M_RSI: String(metrics.M_RSI ?? "").trim(),
+      SW_RS: String(metrics.SW_RS ?? "").trim(),
+      SM_RS: String(metrics.SM_RS ?? "").trim(),
     };
   });
 };
