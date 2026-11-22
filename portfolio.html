@@ -146,12 +146,15 @@ const addConditionsByFolio = {
 
 const trimOrExitConditionsByFolio = {
   Sate: d => {
-    const lbPert = toNumber(d["LB_P"]);
-    return lbPert <= -8;
+    const pnl = toNumber(d["PnL"]);
+    const wRS = toNumber(d["W_RS"]);
+    return (pnl <= -8 || wRS < 0);
   },
   Core: d => {
-    const lbPert = toNumber(d["LB_P"]);
-    return lbPert <= -8;
+    const pnl = toNumber(d["PnL"]);
+    const mRS = toNumber(d["M_RS"]);
+    const wRS = toNumber(d["W_RS"]);
+    return (pnl <= -8 || mRS < 0 || (wRS < 0 && pnl < 0));
   },
 };
   

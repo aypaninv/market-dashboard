@@ -113,7 +113,12 @@ window.registerTabs(addTab => {
 });
 
 function renderTFS(data) {
-  tfsRows = window.sortRowsByColumn(data || [], "D_BO", false);
+  const filtered = (data || []).filter(r =>
+    toNumberTFS(r.M_RS) >= 0 &&
+    toNumberTFS(r.W_RS) >= 0 &&
+    toNumberTFS(r["11x21"]) >= 0
+  );
+  tfsRows = window.sortRowsByColumn(filtered, "11x21", true);
   tfsColWidths = computeSharedColWidthsTFS(tfsRows);
   tfsSortState = null;
   drawTFSTable();
