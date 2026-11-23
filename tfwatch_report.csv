@@ -10,7 +10,7 @@ GODREJPROP,TFWatch,11.8,43.5,-4,14,2,-4,13,-4,-1,-3,,,,,,,5,1923.0,Real Estate -
 CDSL,TFWatch,14.9,29.9,-7,14,-1,8,11,-7,-1,-3,,,,,,,4,1395.0,Financials - Exchanges,Small Cap,ResearchReport
 SHRIRAMFIN,TFWatch,13.7,13.7,-7,12,-13,1,8,-48,-9,-3,,,,,,,4,995.9,Financials - NBFC Vehl Fin,Mid Cap,ResearchReport
 KIRLOSBROS,TFWatch,28.3,41.5,-14,-14,-13,-3,-3,-36,-9,-4,,,,,,,4,1570.6,Cap Goods - Pumps & Valves,Small Cap,ResearchReport
-INDHOTEL,TFWatch,1.3,1.3,-4,26,7,6,24,-4,-1,0,,,,,,,6,906.0,Cons Disc - Hotels,Mid Cap,ResearchReport
+INDHOTEL,TFWatch,1.3,0.8,-4,26,7,6,24,-4,-1,0,,,,,,,6,906.0,Cons Disc - Hotels,Mid Cap,ResearchReport
 TRENT,TFWatch,26.1,61.6,-2,16,3,-11,11,-2,-1,-4,,,,,,,7,3208.0,Cons Disc - Retail Apparel,Mid Cap,ResearchReport
 MSTCLTD,TFWatch,18.6,43.8,-8,-3,-2,-2,7,-40,-1,-2,,,,,,,5,655.2,Trading - Diversified,Small Cap,ResearchReport
 HSCL,TFWatch,32.5,32.5,-10,-65,-9,-2,5,-38,-9,-4,,,,,,,3,552.95,Chemicals - Specialty,Small Cap,ResearchReport
@@ -20,16 +20,16 @@ BALAMINES,TFWatch,32.1,65.8,-6,-50,-9,-2,3,-32,-8,-2,,,,,,,3,1786.4,Chem - Agro 
 CGPOWER,TFWatch,19.4,19.4,-12,-32,-9,24,-39,-49,-9,-4,,,,,,,5,790.6,Cap Goods - Elec Equip,Mid Cap,ResearchReport
 POCL,TFWatch,41.9,43.4,-8,-111,-20,-3,-34,-40,-9,-4,,,,,,,5,366.7,Metals - Recycling,Small Cap,ResearchReport
 VENUSPIPES,TFWatch,27.4,30.5,-7,-28,-2,-1,6,-43,-9,-1,,,,,,,6,1703.5,Metals - Steel Prod & Tubes,Small Cap,ResearchReport
-CUB,TFWatch,3.3,3.3,-7,9,3,24,5,-7,-1,2,,,,,,,5,245.54,Financials - Pvt Bank Mid & Sml,Small Cap,GREEN-Nov-21
-APOLLOHOSP,TFWatch,1.6,1.6,-3,11,2,24,15,-40,-1,2,,,,,,,7,9257.0,Healthcare - Hospitals,Large Cap,GREEN-Nov-21
-AXISBANK,TFWatch,4.8,4.8,-2,12,4,24,9,-2,-1,3,,,,,,,6,1388.6,Financials - Pvt Bank Lrg,Large Cap,GREEN-Nov-21
+CUB,TFWatch,3.3,2.2,-7,9,3,24,5,-7,-1,2,,,,,,,5,245.54,Financials - Pvt Bank Mid & Sml,Small Cap,GREEN-Nov-21
+APOLLOHOSP,TFWatch,1.6,0.3,-3,11,2,24,15,-40,-1,2,,,,,,,7,9257.0,Healthcare - Hospitals,Large Cap,GREEN-Nov-21
+AXISBANK,TFWatch,4.8,4.2,-2,12,4,24,9,-2,-1,3,,,,,,,6,1388.6,Financials - Pvt Bank Lrg,Large Cap,GREEN-Nov-21
 BAJFINANCE,TFWatch,6.9,6.9,-4,13,4,1,11,-4,-1,-3,,,,,,,7,1095.5,Financials - NBFC Diversified,Large Cap,GREEN-Nov-21
 SANSERA,TFWatch,4.8,4.8,-5,3,65,15,12,-5,-1,1,,,,,,,7,4619.3,Auto - Ancs Forgings,Small Cap,GREEN-Nov-21
 M&M,TFWatch,9.2,9.2,-2,13,4,1,18,-2,-1,2,,,,,,,6,3487.4,Auto - PV/Trucks,Large Cap,GREEN-Nov-21
 BHARTIARTL,TFWatch,2.0,2.1,-5,26,5,2,25,-5,-1,2,,,,,,,7,2128.5,Telecom - Services,Large Cap,GREEN-Nov-21
 LICHSGFIN,TFWatch,3.2,26.7,-4,11,3,1,8,-4,-1,3,,,,,,,3,606.0,Financials - NBFC Housing Fin,Mid Cap,GREEN-Nov-21
 BANKBARODA,TFWatch,15.3,15.3,-2,15,3,1,25,-2,-1,3,,,,,,,5,275.58,Financials - PSU Bank,Large Cap,GREEN-Nov-21
-GAIL,TFWatch,3.5,24.6,-2,15,4,1,14,-2,-1,2,,,,,,,3,185.6,Energy - Gas Dist,Large Cap,GREEN-Nov-21
+GAIL,TFWatch,3.5,24.6,-2,15,4,1,14,-2,-1,2,,,,,,,4,185.6,Energy - Gas Dist,Large Cap,GREEN-Nov-21
 HONASA,TFWatch,0.6,1.3,1,10,4,8,10,1,0,1,,,,,,,2,539.75,Cons Staples - FMCG HPC,Small Cap,GREEN-Nov-21
 INDUSINDBK,TFWatch,10.7,52.7,-7,3,-1,-24,10,-49,-1,-3,,,,,,,1,963.0,Financials - Pvt Bank Lrg,Large Cap,BLUE-Nov-21
 ALICON,TFWatch,7.5,33.3,-2,7,9,1,7,-2,-1,1,,,,,,,5,1028.85,Auto - Ancs Forgings,Small Cap,BLUE-Nov-21
@@ -45,16 +45,16 @@ CANBK,TFWatch,17.9,17.9,-2,12,3,1,10,-2,-1,4,,,,,,,4,133.75,Financials - PSU Ban
 BANKINDIA,TFWatch,10.8,26.7,-2,12,3,1,10,-2,-1,1,,,,,,,1,159.01,Financials - PSU Bank,Mid Cap,BLUE-Nov-21
 ORIENTHOT,TFWatch,2.0,10.9,0,26,15,6,26,0,0,0,,,,,,,5,180.04,Cons Disc - Hotels,Small Cap,BLUE-Nov-21
 SBIN,TFWatch,8.3,8.3,-2,12,3,1,18,-2,-1,2,,,,,,,7,1132.65,Financials - PSU Bank,Large Cap,BLUE-Nov-21
-ANURAS,TFWatch,6.6,7.2,-2,10,3,24,11,-2,-1,4,,,,,,,3,1313.6,Healthcare - Pharma CDMO,Small Cap,BLUE-Nov-21
-UNIONBANK,TFWatch,5.2,5.2,-2,20,5,24,22,-2,-1,2,,,,,,,3,208.2,Financials - PSU Bank,Mid Cap,ORANGE-Nov-21
+ANURAS,TFWatch,6.6,7.2,-2,10,3,24,11,-2,-1,4,,,,,,,5,1313.6,Healthcare - Pharma CDMO,Small Cap,BLUE-Nov-21
+UNIONBANK,TFWatch,5.2,5.0,-2,20,5,24,22,-2,-1,2,,,,,,,3,208.2,Financials - PSU Bank,Mid Cap,ORANGE-Nov-21
 SYNGENE,TFWatch,34.7,53.8,-7,18,3,-11,22,-7,-1,3,,,,,,,4,443.65,Healthcare - Pharma CDMO,Mid Cap,ORANGE-Nov-21
-KOTAKBANK,TFWatch,3.6,3.6,-2,20,9,4,31,-2,-1,0,,,,,,,5,502.85,Financials - Pvt Bank Lrg,Large Cap,ORANGE-Nov-21
+KOTAKBANK,TFWatch,3.6,2.7,-2,20,9,4,31,-2,-1,0,,,,,,,5,502.85,Financials - Pvt Bank Lrg,Large Cap,ORANGE-Nov-21
 ICICIBANK,TFWatch,3.6,3.6,-2,14,5,2,26,-2,-1,2,,,,,,,8,1585.5,Financials - Pvt Bank Lrg,Large Cap,ORANGE-Nov-21
-MAHABANK,TFWatch,3.1,3.1,-2,12,4,20,10,-2,-1,3,,,,,,,5,97.56,Financials - PSU Bank,Mid Cap,ORANGE-Nov-21
+MAHABANK,TFWatch,3.1,2.0,-2,12,4,20,10,-2,-1,3,,,,,,,5,97.56,Financials - PSU Bank,Mid Cap,ORANGE-Nov-21
 YATHARTH,TFWatch,8.4,8.4,-4,13,4,24,10,-40,-9,1,,,,,,,8,1085.05,Healthcare - Hospitals,Small Cap,ORANGE-Nov-21
 NEOGEN,TFWatch,6.1,6.1,-2,12,4,6,8,-2,-1,0,,,,,,,5,2787.7,Chem - Agro & Pharma Int,Small Cap,ORANGE-Nov-21
-TFCILTD,TFWatch,0.2,0.2,0,20,20,24,32,0,0,0,,,,,,,4,173.51,Financials - NBFC Diversified,Small Cap,ORANGE-Nov-21
-ICIL,TFWatch,0.7,0.7,0,15,5,7,12,0,0,1,,,,,,,4,593.3,Textiles - Home Txtl,Small Cap,ORANGE-Nov-21
+TFCILTD,TFWatch,0.2,0.9,0,20,20,24,32,0,0,0,,,,,,,4,173.51,Financials - NBFC Diversified,Small Cap,ORANGE-Nov-21
+ICIL,TFWatch,0.7,0.1,0,15,5,7,12,0,0,1,,,,,,,4,593.3,Textiles - Home Txtl,Small Cap,ORANGE-Nov-21
 ATHERENERG,TFWatch,2.1,2.1,5,20,68,5,21,5,0,0,,,,,,,5,1979.2,Auto - OEM 2W/3W/EV,Small Cap,ORANGE-Nov-21
 PNB,TFWatch,4.3,35.3,-2,24,6,5,24,-2,-1,0,,,,,,,1,149.75,Financials - PSU Bank,Large Cap,ORANGE-Nov-21
 KDDL,TFWatch,11.4,11.4,-4,5,28,24,11,-4,-1,2,,,,,,,6,4604.0,Cons Disc - Watches,Small Cap,ORANGE-Nov-21
