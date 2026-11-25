@@ -13,7 +13,7 @@ const CSV_TFS = "tfstudy_report.csv";
 const COLS_TFS = [
   "Symbol","Chart","Folio",
   "DD_52W","DD_ATH",
-  "F_BO","W_BO","W_RS","M_RS","11x21",
+  "F_BO","D_RS","W_RS","M_RS","11x21",
   "Trend",
   "CurPrice",
   "MarketCap","Sector","SW_RS","SM_RS",
@@ -116,9 +116,9 @@ function renderTFS(data) {
   const filtered = (data || []).filter(r =>
     toNumberTFS(r.M_RS) >= 0 &&
     toNumberTFS(r.W_RS) >= 0 &&
-    toNumberTFS(r["11x21"]) >= 0
+    toNumberTFS(r["D_RS"]) >= 0
   );
-  tfsRows = window.sortRowsByColumn(filtered, "11x21", true);
+  tfsRows = window.sortRowsByColumn(filtered, "D_RS", true);
   tfsColWidths = computeSharedColWidthsTFS(tfsRows);
   tfsSortState = null;
   drawTFSTable();

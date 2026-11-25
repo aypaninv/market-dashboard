@@ -116,9 +116,9 @@ window.registerTabs(addTab => {
 function renderTF(data) {
   const filtered = (data || []).filter(r =>
     toNumberTFW(r.W_RS) >= 0 &&
-    toNumberTFW(r["11x21"]) >= 0
+    toNumberTFW(r["D_RS"]) >= 0
   );
-  tfRows = window.sortRowsByColumn(filtered, "11x21", true);
+  tfRows = window.sortRowsByColumn(filtered, "D_RS", true);
   tfColWidths = computeSharedColWidthsTFW(tfRows);
   tfSortState = null;
   drawTFTable();

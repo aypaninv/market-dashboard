@@ -13,7 +13,7 @@ const CSV_NSEBO = "nsebo_report.csv";
 const COLS_NSEBO = [
   "Symbol","Chart","Folio",
   "DD_52W","DD_ATH",
-  "F_BO","W_BO","W_RS","M_RS","11x21",
+  "F_BO","D_RS","W_RS","M_RS","11x21",
   "Trend",
   "CurPrice",
   "MarketCap","Sector","SW_RS","SM_RS",
@@ -30,8 +30,8 @@ const HEADER_LABELS_NSEBO = {
 const NSEBO_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) <= 15,
   M_RS: r => parseFloat(r.M_RS) >= 0,
-  W_RS_GT: r => parseFloat(r.W_RS) >= 0,
-  W_RS_LT: r => parseFloat(r.W_RS) < 5,
+  D_RS_GT: r => parseFloat(r.D_RS) >= 0,
+  D_RS_LT: r => parseFloat(r.D_RS) < 8,
 };
 
 let rawNseBo = [];
