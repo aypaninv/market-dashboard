@@ -177,6 +177,52 @@ const W_LOOKBACK_WEEKS = 10;
 const M_LOOKBACK_MONTHS = 6;
 const TF_LOOKBACK = { D: 14, W: W_LOOKBACK_WEEKS, M: M_LOOKBACK_MONTHS, Y: 10 };
 
+// RSI sub-chart settings (keep in sync with RSI_PERIOD / RSI_MIDDLE_LIMIT in technical_symbol.py)
+const CHART_RSI_PERIOD = 14;
+const CHART_RSI_MIDDLE = 55;
+const CHART_RSI_TFS = ["D", "W", "M"];
+const CHART_RSI_GAP = 14;
+const CHART_RSI_HEIGHT = 80;
+
+function chartShowsRsi(tf) {
+  return CHART_RSI_TFS.includes(tf) && chartState.sourceType === "symbol";
+}
+
+// Wilder RSI (same as compute_rsi in technical_sector.py); returns array aligned to rows (null when unavailable)
+function computeRsiSeries(rows, period) {
+  const out = new Array(rows.length).fill(null);
+  const alpha = 1 / period;
+  let avgGain = null, avgLoss = null, count = 0;
+  let prevClose = null;
+
+  rows.forEach((row, i) => {
+    const close = +row.Close;
+    if (!Number.isFinite(close)) return;
+    if (prevClose === null) { prevClose = close; return; }
+
+    const delta = close - prevClose;
+    prevClose = close;
+    const gain = Math.max(delta, 0);
+    const loss = Math.max(-delta, 0);
+
+    if (avgGain === null) {
+      avgGain = gain;
+      avgLoss = loss;
+    } else {
+      avgGain = (1 - alpha) * avgGain + alpha * gain;
+      avgLoss = (1 - alpha) * avgLoss + alpha * loss;
+    }
+    count++;
+    if (count < period) return;
+
+    if (avgGain === 0 && avgLoss === 0) out[i] = 50;
+    else if (avgLoss === 0) out[i] = 100;
+    else out[i] = 100 - 100 / (1 + avgGain / avgLoss);
+  });
+
+  return out;
+}
+
 const OHLC_LABELS = { D: "Daily", W: "Weekly", M: "Monthly", Y: "Yearly" };
 const ohlcCache = {};
 const chartState = {
@@ -188,6 +234,25 @@ const chartState = {
   sourceType: "symbol",
   chartMode: "STD",
 };
+
+// HA stoploss value (SLV): within the last `lookback` HA candles (current included), take the candle with
+// the highest HA high (latest wins a tie); its HA low is the stoploss. Mirrors prepare_heikin_ashi_stoploss_map_df
+// in technical_symbol.py (W_LOOKBACK_CANDLE / M_LOOKBACK_CANDLE must stay in sync with W_LOOKBACK_WEEKS / M_LOOKBACK_MONTHS).
+function computeHaStopLoss(rows, lookback) {
+  if (!Array.isArray(rows) || !rows.length) return null;
+  const valid = rows.filter(r =>
+    [r.Open, r.High, r.Low, r.Close].every(v => v !== "" && v != null && Number.isFinite(Number(v)))
+  );
+  if (!valid.length) return null;
+
+  const ha = toHeikinAshiSeries(valid);
+  const recent = ha.slice(-Math.max(lookback, 1));
+  let best = null;
+  recent.forEach(c => {
+    if (best === null || c.High >= best.High) best = c;
+  });
+  return best && Number.isFinite(best.Low) ? best.Low : null;
+}
 
 function toHeikinAshiSeries(rows) {
   if (!Array.isArray(rows) || !rows.length) return [];
@@ -433,6 +498,8 @@ window.renderCandleChart = function(symbol, tf, sourceType = "symbol") {
       const chartMeta = {
         boP: rowMeta.BO_P ? parseFloat(rowMeta.BO_P) : null,
         slP: rowMeta.SL_P ? parseFloat(rowMeta.SL_P) : null,
+        wSlv: sourceType === "symbol" ? computeHaStopLoss(weeklyRows, W_LOOKBACK_WEEKS) : null,
+        mSlv: sourceType === "symbol" ? computeHaStopLoss(monthlyRows, M_LOOKBACK_MONTHS) : null,
       };
       window.showChart(symbol, tf, displayRows, rows, refDate, chartMeta);
       setActiveChartTfButton(tf);
@@ -450,7 +517,7 @@ window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
   canvas.width  = Math.min(760, window.innerWidth - 40);
-  canvas.height = Math.round(canvas.width * 0.75);
+  canvas.height = Math.round(canvas.width * 0.75) + (chartShowsRsi(tf) ? CHART_RSI_GAP + CHART_RSI_HEIGHT : 0);
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
@@ -488,7 +555,12 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
   const visibleCandles = mode === "HA" ? toHeikinAshiSeries(candles) : candles;
   const W = canvas.width, H = canvas.height;
   const P = { t: 22, r: 16, b: 28, l: 62 };
-  const cW = W - P.l - P.r, cH = H - P.t - P.b;
+  const showRsi = chartShowsRsi(tf);
+  const rsiBlock = showRsi ? CHART_RSI_GAP + CHART_RSI_HEIGHT : 0;
+  const cW = W - P.l - P.r, cH = H - P.t - P.b - rsiBlock;
+  const priceBottom = P.t + cH;
+  const rsiTop = priceBottom + CHART_RSI_GAP;
+  const rsiBottom = rsiTop + CHART_RSI_HEIGHT;
   const dark = document.body.classList.contains("dark");
   const bgC    = dark ? "#161b22" : "#ffffff";
   const gridC  = dark ? "#2b313a" : "#e5e5e5";
@@ -516,6 +588,52 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
 
   const infoEl = document.getElementById("chartInfo");
   const latest = candles[candles.length - 1] || null;
+
+  // RSI aligned to the visible candles (computed on full history for warm-up)
+  let rsiVisible = [];
+  if (showRsi) {
+    const rsiAll = computeRsiSeries(allRows || candles, CHART_RSI_PERIOD);
+    rsiVisible = rsiAll.slice(Math.max(0, rsiAll.length - n));
+  }
+
+  function drawRsiPanel(hoverIndex) {
+    const rsiY = v => rsiTop + CHART_RSI_HEIGHT * (1 - v / 100);
+    const midY = rsiY(CHART_RSI_MIDDLE);
+
+    // Middle limit (dotted)
+    ctx.strokeStyle = labelC;
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 3]);
+    ctx.beginPath();
+    ctx.moveTo(P.l, midY);
+    ctx.lineTo(W - P.r, midY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = labelC;
+    ctx.font = "10px Courier New";
+    ctx.textAlign = "right";
+    ctx.fillText(String(CHART_RSI_MIDDLE), P.l - 5, midY + 3);
+
+    // RSI thin line
+    ctx.strokeStyle = "#8b5cf6";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    let started = false;
+    rsiVisible.forEach((v, i) => {
+      if (!Number.isFinite(v)) return;
+      const x = P.l + (i + 0.5) * slotW;
+      if (!started) { ctx.moveTo(x, rsiY(v)); started = true; }
+      else ctx.lineTo(x, rsiY(v));
+    });
+    ctx.stroke();
+
+    const idx = Number.isInteger(hoverIndex) && hoverIndex >= 0 && hoverIndex < n ? hoverIndex : n - 1;
+    const cur = rsiVisible[idx];
+    ctx.fillStyle = "#8b5cf6";
+    ctx.textAlign = "left";
+    ctx.fillText("RSI(" + CHART_RSI_PERIOD + ") " + (Number.isFinite(cur) ? cur.toFixed(1) : "NA"), P.l + 4, rsiTop + 10);
+  }
 
   function fmt(v, d) {
     return Number.isFinite(+v) ? (+v).toFixed(d) : "NA";
@@ -555,12 +673,36 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
     ctx.font = "10px Courier New";
     const tw = ctx.measureText(tag).width + 8;
     const tx = P.l + 6;
-    const ty = Math.max(P.t + 10, Math.min(H - P.b - 2, y + 3));
+    const ty = Math.max(P.t + 10, Math.min(priceBottom - 2, y + 3));
     ctx.fillStyle = dark ? "rgba(22,27,34,0.88)" : "rgba(255,255,255,0.9)";
     ctx.fillRect(tx, ty - 10, tw, 13);
     ctx.fillStyle = color;
     ctx.textAlign = "left";
     ctx.fillText(tag, tx + 4, ty);
+  }
+
+  // Thin dotted horizontal line with its label/value on the left side of the line.
+  function drawStopLossLine(value, color, name) {
+    if (!Number.isFinite(value)) return;
+    const y = Math.min(Math.max(py(value), P.t + 10), priceBottom - 10);
+    const tag = name + " " + value.toFixed(1);
+
+    ctx.font = "10px Courier New";
+    const tw = ctx.measureText(tag).width;
+    const tx = P.l + 6;
+
+    ctx.fillStyle = color;
+    ctx.textAlign = "left";
+    ctx.fillText(tag, tx, y + 3);
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 0.8;
+    ctx.setLineDash([2, 3]);
+    ctx.beginPath();
+    ctx.moveTo(tx + tw + 6, y);
+    ctx.lineTo(W - P.r, y);
+    ctx.stroke();
+    ctx.setLineDash([]);
   }
 
   // Horizontal grid + price labels
@@ -610,17 +752,24 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
       }
     });
 
+    if (tf === "D" || tf === "W" || tf === "M") {
+      drawStopLossLine(chartMeta.wSlv, "#f97316", "W_SLV");
+      drawStopLossLine(chartMeta.mSlv, "#0ea5e9", "M_SLV");
+    }
+
     if (tf === "D") {
       if (Number.isFinite(chartMeta.boP)) {
-        const yBo = Math.min(Math.max(py(chartMeta.boP), P.t + 10), H - P.b - 10);
+        const yBo = Math.min(Math.max(py(chartMeta.boP), P.t + 10), priceBottom - 10);
         drawPricePointerLine(yBo, "#22c55e", "BO_P " + chartMeta.boP.toFixed(1));
       }
 
       if (Number.isFinite(chartMeta.slP)) {
-        const ySl = Math.min(Math.max(py(chartMeta.slP), P.t + 10), H - P.b - 10);
+        const ySl = Math.min(Math.max(py(chartMeta.slP), P.t + 10), priceBottom - 10);
         drawPricePointerLine(ySl, "#ef4444", "SL_P " + chartMeta.slP.toFixed(1));
       }
     }
+
+    if (showRsi) drawRsiPanel(hoverIndex);
 
     // X-axis date labels (every ~4 candles)
     ctx.fillStyle = labelC;

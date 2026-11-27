@@ -32,7 +32,7 @@ const COLS_SECTOR = [
 const COLS_SECTOR_DRILLDOWN = [
   "Symbol", "Chart", "MarketCap",
   "DD_ATH", "DD_52W",
-  "F_BO", "D_HA", "W_HA", "M_HA", "D_RS", "W_RS", "M_RS", "11x21",
+  "F_BO", "D_HA", "W_HA", "M_HA", "D_RS", "W_RS", "M_RS", "11x21", "W_SL", "M_SL",
   "Trend", "Close"
 ];
 
@@ -315,6 +315,8 @@ function drawSectorDrilldownTable(table, rows, key) {
       } else {
         if (["D_BO", "W_BO", "M_BO", "F_BO", "D_BO", "D_HA", "W_HA", "M_HA"].includes(h) && v !== "") {
           td.innerText = Math.round(parseFloat(v));
+        } else if (["W_SL", "M_SL"].includes(h) && v !== "") {
+          td.innerText = Number.parseFloat(v).toFixed(1);
         } else {
           td.innerText = v;
         }
