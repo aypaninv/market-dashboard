@@ -235,9 +235,10 @@ const chartState = {
   chartMode: "STD",
 };
 
-// HA stoploss value (SLV): within the last `lookback` HA candles (current included), take the candle with
-// the highest HA high (latest wins a tie); its HA low is the stoploss. Mirrors prepare_heikin_ashi_stoploss_map_df
-// in technical_symbol.py (W_LOOKBACK_CANDLE / M_LOOKBACK_CANDLE must stay in sync with W_LOOKBACK_WEEKS / M_LOOKBACK_MONTHS).
+// HA stoploss value (SLV): within the last `lookback` HA candles (current included), take the GREEN HA candle
+// (HA close >= HA open) with the highest HA high (latest wins a tie); its HA low is the stoploss. Null when no
+// green HA candle exists in the window. Mirrors prepare_heikin_ashi_stoploss_map_df in technical_symbol.py
+// (W_LOOKBACK_CANDLE / M_LOOKBACK_CANDLE must stay in sync with W_LOOKBACK_WEEKS / M_LOOKBACK_MONTHS).
 function computeHaStopLoss(rows, lookback) {
   if (!Array.isArray(rows) || !rows.length) return null;
   const valid = rows.filter(r =>
@@ -249,6 +250,7 @@ function computeHaStopLoss(rows, lookback) {
   const recent = ha.slice(-Math.max(lookback, 1));
   let best = null;
   recent.forEach(c => {
+    if (c.Close < c.Open) return;
     if (best === null || c.High >= best.High) best = c;
   });
   return best && Number.isFinite(best.Low) ? best.Low : null;
@@ -616,7 +618,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
     ctx.fillText(String(CHART_RSI_MIDDLE), P.l - 5, midY + 3);
 
     // RSI thin line
-    ctx.strokeStyle = "#8b5cf6";
+    ctx.strokeStyle = "#ef4444";
     ctx.lineWidth = 1;
     ctx.beginPath();
     let started = false;
@@ -630,7 +632,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
 
     const idx = Number.isInteger(hoverIndex) && hoverIndex >= 0 && hoverIndex < n ? hoverIndex : n - 1;
     const cur = rsiVisible[idx];
-    ctx.fillStyle = "#8b5cf6";
+    ctx.fillStyle = "#ef4444";
     ctx.textAlign = "left";
     ctx.fillText("RSI(" + CHART_RSI_PERIOD + ") " + (Number.isFinite(cur) ? cur.toFixed(1) : "NA"), P.l + 4, rsiTop + 10);
   }
@@ -681,25 +683,22 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
     ctx.fillText(tag, tx + 4, ty);
   }
 
-  // Thin dotted horizontal line with its label/value on the left side of the line.
+  // Thin dotted horizontal line with its label/value on top of the line (left aligned).
   function drawStopLossLine(value, color, name) {
     if (!Number.isFinite(value)) return;
-    const y = Math.min(Math.max(py(value), P.t + 10), priceBottom - 10);
+    const y = Math.min(Math.max(py(value), P.t + 12), priceBottom - 10);
     const tag = name + " " + value.toFixed(1);
 
     ctx.font = "10px Courier New";
-    const tw = ctx.measureText(tag).width;
-    const tx = P.l + 6;
-
     ctx.fillStyle = color;
     ctx.textAlign = "left";
-    ctx.fillText(tag, tx, y + 3);
+    ctx.fillText(tag, P.l + 6, y - 3);
 
     ctx.strokeStyle = color;
     ctx.lineWidth = 0.8;
     ctx.setLineDash([2, 3]);
     ctx.beginPath();
-    ctx.moveTo(tx + tw + 6, y);
+    ctx.moveTo(P.l, y);
     ctx.lineTo(W - P.r, y);
     ctx.stroke();
     ctx.setLineDash([]);
