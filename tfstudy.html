@@ -116,7 +116,7 @@ function renderTFS(data) {
   const filtered = (data || []).filter(r =>
     toNumberTFS(r.M_RS) >= 0 &&
     toNumberTFS(r.W_RS) >= 0 &&
-    toNumberTFS(r["D_RS"]) >= 0
+    toNumberTFS(r["D_HA"]) >= 0
   );
   tfsRows = window.sortRowsByColumn(filtered, "D_RS", true);
   tfsColWidths = computeSharedColWidthsTFS(tfsRows);

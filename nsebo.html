@@ -29,9 +29,8 @@ const HEADER_LABELS_NSEBO = {
 // Only symbols passing ALL conditions are shown in the table.
 const NSEBO_FILTER = {
   DD_ATH: r => parseFloat(r.DD_ATH) <= 15,
-  M_RS: r => parseFloat(r.M_RS) >= 0,
-  D_RS_GT: r => parseFloat(r.D_RS) >= 0,
-  D_RS_LT: r => parseFloat(r.D_RS) < 8,
+  W_HA_GT: r => parseFloat(r.W_HA) >= 0,
+  W_HA_LT: r => parseFloat(r.W_HA) < 5,
 };
 
 let rawNseBo = [];
