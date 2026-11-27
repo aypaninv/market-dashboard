@@ -22,9 +22,11 @@ const CSV_SECTOR = "technical_sector_data.csv";
 const CSV_SYMBOL_TECH = "technical_symbol_data.csv";
 const F_BO_MIN = 1;
 const HA_MIN = 1;
+const HA_WEEK_FILTERS = { HA_1W: 1, HA_2W: 2, HA_3W: 3, HA_4W: 4 };
+const HA_WEEK_COLS = Object.keys(HA_WEEK_FILTERS);
 const TREND_MIN = 5;
 const COLS_SECTOR = [
-  "Sector", "Count", "Trend", "F_BO", "D_HA", "W_HA", "M_HA", "SD_RS", "SW_RS", "SM_RS", "DD_RSI", "WD_RSI", "MD_RSI"
+  "Sector", "Count", "Trend", "F_BO", "D_HA", "W_HA", "M_HA", ...HA_WEEK_COLS, "SD_RS", "SW_RS", "SM_RS", "DD_RSI", "WD_RSI", "MD_RSI"
 ];
 
 const COLS_SECTOR_DRILLDOWN = [
@@ -73,6 +75,10 @@ function matchesDrilldownFilter(row, filterMode) {
     const v = toFiniteNumber(row[filterMode]);
     return !Number.isNaN(v) && v >= HA_MIN;
   }
+  if (filterMode in HA_WEEK_FILTERS) {
+    const v = toFiniteNumber(row.W_HA);
+    return !Number.isNaN(v) && Math.round(v) === HA_WEEK_FILTERS[filterMode];
+  }
   if (filterMode === "Trend") {
     const v = toFiniteNumber(row.Trend);
     return !Number.isNaN(v) && v >= TREND_MIN;
@@ -89,8 +95,12 @@ function buildSectorBreakoutCounts(rows) {
 
     if (!counts[sector]) {
       counts[sector] = { F_BO: 0, D_HA: 0, W_HA: 0, M_HA: 0, Trend: 0 };
+      HA_WEEK_COLS.forEach(c => { counts[sector][c] = 0; });
     }
 
+    HA_WEEK_COLS.forEach(c => {
+      if (matchesDrilldownFilter(r, c)) counts[sector][c] += 1;
+    });
     if (matchesDrilldownFilter(r, "F_BO")) counts[sector].F_BO += 1;
     if (matchesDrilldownFilter(r, "D_HA")) counts[sector].D_HA += 1;
     if (matchesDrilldownFilter(r, "W_HA")) counts[sector].W_HA += 1;
@@ -120,7 +130,7 @@ function renderSectorSummary() {
 function drawSectorTable(table, rows) {
   table.innerHTML = "";
   const deltaCols = new Set(["DD_RSI", "WD_RSI", "MD_RSI"]);
-  const breakoutCountCols = new Set(["F_BO", "D_HA", "W_HA", "M_HA", "Trend"]);
+  const breakoutCountCols = new Set(["F_BO", "D_HA", "W_HA", "M_HA", ...HA_WEEK_COLS, "Trend"]);
   const breakoutCountsBySector = buildSectorBreakoutCounts(symbolRows);
 
   const sortInfo = sectorSortState.summary;
@@ -132,6 +142,7 @@ function drawSectorTable(table, rows) {
       D_HA: breakoutCountsBySector[sectorName]?.D_HA ?? 0,
       W_HA: breakoutCountsBySector[sectorName]?.W_HA ?? 0,
       M_HA: breakoutCountsBySector[sectorName]?.M_HA ?? 0,
+      ...Object.fromEntries(HA_WEEK_COLS.map(c => [c, breakoutCountsBySector[sectorName]?.[c] ?? 0])),
       Trend: breakoutCountsBySector[sectorName]?.Trend ?? 0,
     };
   });
@@ -148,14 +159,13 @@ function drawSectorTable(table, rows) {
     return;
   }
 
-  const historyColumns = getSectorHistoryColumns(data[0]);
-  const columns = [...COLS_SECTOR, ...historyColumns];
+  const columns = COLS_SECTOR;
 
   const tr = document.createElement("tr");
   columns.forEach(h => {
     if (h !== "Chart" && !(h in data[0])) return;
     const th = document.createElement("th");
-    th.innerText = h.startsWith("SD_RS_") ? formatHistoryColumnLabel(h) : h;
+    th.innerText = h;
     if (h !== "Chart") {
       th.onclick = () => {
         const existing = sectorSortState.summary;
@@ -192,16 +202,12 @@ function drawSectorTable(table, rows) {
         } else {
           td.innerText = "-";
         }
-      } else if (h.startsWith("SD_RS_")) {
-        td.className = "num";
-        td.innerText = v === "" ? "-" : Math.round(parseFloat(v));
-        applyRsiHistoryGradient(td, r, h, historyColumns);
       } else {
         td.innerText = v;
         td.className = (!isNaN(v) && v !== "") ? "num" : "text";
       }
 
-      if (h !== "Sector" && h !== "Count" && !breakoutCountCols.has(h) && !h.startsWith("SD_RS_")) {
+      if (h !== "Sector" && h !== "Count" && !breakoutCountCols.has(h)) {
         const num = parseFloat(v);
         if (!isNaN(num)) {
           if (deltaCols.has(h)) {
@@ -321,7 +327,7 @@ function drawSectorDrilldownTable(table, rows, key) {
 }
 
 window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
-  const normalizedMode = ["F_BO", "D_HA", "W_HA", "M_HA", "Trend"].includes(filterMode)
+  const normalizedMode = ["F_BO", "D_HA", "W_HA", "M_HA", ...HA_WEEK_COLS, "Trend"].includes(filterMode)
     ? filterMode : "ALL";
   let rows = symbolRows
     .filter(r => String(r.Sector || "") === String(sectorName || ""))
@@ -337,6 +343,8 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
     suffix = ` | ${normalizedMode}>=${F_BO_MIN}`;
   } else if (["D_HA", "W_HA", "M_HA"].includes(normalizedMode)) {
     suffix = ` | ${normalizedMode}>=${HA_MIN}`;
+  } else if (normalizedMode in HA_WEEK_FILTERS) {
+    suffix = ` | W_HA=${HA_WEEK_FILTERS[normalizedMode]}`;
   } else if (normalizedMode === "Trend") {
     suffix = ` | ${normalizedMode}>=${TREND_MIN}`;
   }
@@ -413,42 +421,4 @@ window.registerTabs(addTab => {
     loadSectorData().then(() => renderSectorSummary());
   });
 });
-
-function getSectorHistoryColumns(row) {
-  return Object.keys(row)
-    .filter(key => /^SD_RS_\d{4}-\d{2}-\d{2}$/.test(key))
-    .sort((a, b) => b.localeCompare(a));
-}
-
-function formatHistoryColumnLabel(columnName) {
-  const datePart = columnName.replace("SD_RS_", "");
-  const [, month, day] = datePart.split("-");
-  return `${day}/${month}`;
-}
-
-function applyRsiHistoryGradient(td, row, columnName, historyColumns) {
-  const index = historyColumns.indexOf(columnName);
-  const olderColumn = historyColumns[index + 1];
-  const current = toFiniteNumber(row[columnName]);
-  const previous = olderColumn ? toFiniteNumber(row[olderColumn]) : NaN;
-
-  if (Number.isNaN(current) || Number.isNaN(previous)) {
-    td.style.backgroundColor = "rgba(34, 197, 94, 0.08)";
-    return;
-  }
-
-  const delta = current - previous;
-  const magnitude = Math.min(Math.abs(delta) / 30, 1);
-  let alpha;
-  if (delta > 0) {
-    alpha = 0.20 + (0.55 * magnitude);
-  } else if (delta < 0) {
-    alpha = 0.06 + (0.12 * (1 - magnitude));
-  } else {
-    alpha = 0.12;
-  }
-
-  td.style.backgroundColor = `rgba(34, 197, 94, ${alpha})`;
-  td.title = `${delta >= 0 ? "+" : ""}${Math.round(delta)} vs ${formatHistoryColumnLabel(olderColumn)}`;
-}
 </script>

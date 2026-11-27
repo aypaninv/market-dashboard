@@ -139,9 +139,10 @@ const addConditionsByFolio = {
     const lbPert = toNumber(d["LB_P"]);
     const fBO = toNumber(d["F_BO"]);
     const dHA = toNumber(d["D_HA"]);
+    const wHA = toNumber(d["W_HA"]);
     const ic = toNumber(d["IC"]);
     const pnl = toNumber(d["PnL"]);
-    return ( ic < 6 && lbPert >= 8 && dHA >= 0 && meetsPnLThreshold(ic, pnl))
+    return ( ic < 6 && lbPert >= 8 && dHA >= 0 && wHA >= 0 && meetsPnLThreshold(ic, pnl))
   },
 };
 
