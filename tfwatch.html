@@ -115,7 +115,7 @@ window.registerTabs(addTab => {
 
 function renderTF(data) {
   const filtered = (data || []).filter(r =>
-    toNumberTFW(r.W_RS) >= 0 &&
+    toNumberTFW(r.W_HA) >= 0 &&
     toNumberTFW(r["D_HA"]) >= 0
   );
   tfRows = window.sortRowsByColumn(filtered, "D_RS", true);
