@@ -152,8 +152,7 @@ const trimOrExitConditionsByFolio = {
     const wRS = toNumber(d["W_RS"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    const wHA = toNumber(d["W_HA"]);
-    return (pnl <= -8 || wRS < 0 || wSL < 0 || mSL < 0 || wHA < 0);
+    return (pnl <= -8 || wRS < 0 || wSL < 0 || mSL < 0 );
   },
   Core: d => {
     const pnl = toNumber(d["PnL"]);
