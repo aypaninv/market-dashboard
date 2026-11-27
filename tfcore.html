@@ -13,7 +13,7 @@ const CSV_TFC = "tfcore_report.csv";
 const COLS_TFC = [
   "Symbol","Chart","Folio",
   "DD_52W","DD_ATH",
-  "F_BO","D_HA","W_HA","M_HA","D_RS","W_RS","M_RS","11x21","W_SL","M_SL",
+  "F_BO","D_HA","W_HA","M_HA","D_RS","W_RS","M_RS","W_SL","M_SL",
   "Trend",
   "CurPrice",
   "MarketCap","Sector","SW_RS","SM_RS",
@@ -115,10 +115,9 @@ window.registerTabs(addTab => {
 function renderTFC(data) {
   const filtered = (data || []).filter(r =>
     toNumberTFC(r.M_RS) >= 0 &&
-    toNumberTFC(r.W_RS) >= 0 &&
-    toNumberTFC(r["11x21"]) >= 0
+    toNumberTFC(r.W_RS) >= 0
   );
-  tfcRows = window.sortRowsByColumn(filtered, "11x21", true);
+  tfcRows = filtered;
   tfcColWidths = computeSharedColWidthsTFC(tfcRows);
   tfcSortState = null;
   drawTFCTable();
