@@ -1,0 +1,250 @@
+<!-- ===================== MYWATCH FEATURE ===================== -->
+
+<div id="mywatchFeature" style="display:none">
+  <div class="update-time" id="updateTime_mw"></div>
+  <div class="content">
+    <div id="mywatchSections"></div>
+  </div>
+</div>
+
+<script>
+const CSV_MW = "mywatch_report.csv";
+
+const COLS_MW = [
+  "Symbol","Chart","Folio",
+  "DD_52W","DD_ATH",
+  "F_BO","D_HA","W_HA","M_HA","D_RS","W_RS","M_RS","W_SL","M_SL",
+  "Trend",
+  "CurPrice",
+  "MarketCap","Sector","SW_RS","SM_RS",
+  "Notes"
+];
+
+const HEADER_LABELS_MW = {
+  "F_BO": "F_BO",
+  "Trend": "TD",
+};
+
+let rawMW = [];
+let mwRows = [];
+let mwSortState = null;
+let mwColWidths = {};
+
+function toNumberMW(value) {
+  const num = parseFloat(value);
+  return Number.isFinite(num) ? num : NaN;
+}
+
+function computeSharedColWidthsMW(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_MW.filter(h => h !== "Chart" && h in allRows[0]);
+  if (!visibleCols.length) return {};
+
+  const probe = document.createElement("table");
+  probe.className = "portfolio-section-table";
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = HEADER_LABELS_MW[h] || h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      td.innerText = r[h] ?? "";
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-child th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
+function parseCSVMyWatch(text) {
+  const lines = text.trim().split("\n");
+  const h = lines[0].split(",");
+  return lines.slice(1).map(r => {
+    const v = r.split(",");
+    let o = {};
+    h.forEach((k, i) => o[k] = v[i] ?? "");
+    return o;
+  });
+}
+
+window.registerTabs(addTab => {
+  Promise.all([
+    window.ensureSectorRsiMapLoaded(),
+    fetch(CSV_MW).then(r => r.text()),
+  ])
+    .then(([, t]) => {
+      rawMW = window.attachSectorRsiColumns(window.normalizeDrawdownRows(parseCSVMyWatch(t)));
+      [...new Set(rawMW.map(d => d.Folio).filter(Boolean).map(f => f.replace(/_Low$/, '')))]
+        .forEach(folio =>
+          addTab(folio, () => {
+            hideAllFeatures();
+            document.getElementById("mywatchFeature").style.display = "block";
+            const folioBase = folio.replace(/_Low$/, '');
+            renderMW(rawMW.filter(d => d.Folio === folioBase || d.Folio === folioBase + "_Low"));
+          })
+        );
+      updateMWTime();
+    });
+});
+
+function renderMW(data) {
+  const filtered = (data || []).filter(r =>
+    toNumberMW(r.M_HA) >= 0 &&
+    toNumberMW(r.W_HA) >= 0 &&
+    toNumberMW(r["D_HA"]) >= 0
+  );
+  mwRows = window.sortRowsByColumn(filtered, "D_RS", true);
+  mwColWidths = computeSharedColWidthsMW(mwRows);
+  mwSortState = null;
+  drawMWTable();
+}
+
+function drawMWTable() {
+  const container = document.getElementById("mywatchSections");
+  container.innerHTML = "";
+  const table = document.createElement("table");
+  container.appendChild(table);
+
+  const sortInfo = mwSortState;
+  const data = sortInfo
+    ? window.sortRowsByColumn(mwRows, sortInfo.col, sortInfo.asc)
+    : mwRows;
+
+  if (!data.length) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.innerText = "No data";
+    td.className = "text";
+    td.colSpan = COLS_MW.length;
+    tr.appendChild(td);
+    table.appendChild(tr);
+    return;
+  }
+
+  if (mwColWidths && Object.keys(mwColWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_MW.forEach(h => {
+      const col = document.createElement("col");
+      if (h === "Chart") {
+        col.style.width = "42px";
+      } else if (h in data[0] && mwColWidths[h]) {
+        col.style.width = mwColWidths[h] + "px";
+      }
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
+  }
+
+  const tr = document.createElement("tr");
+  COLS_MW.forEach(h => {
+    if (h !== "Chart" && !(h in data[0])) return;
+    const th = document.createElement("th");
+    th.innerText = HEADER_LABELS_MW[h] || h;
+    if (h !== "Chart") {
+      th.onclick = () => {
+        const existing = mwSortState;
+        const asc = existing && existing.col === h ? !existing.asc : true;
+        mwSortState = { col: h, asc };
+        drawMWTable();
+      };
+    }
+    if (mwSortState && mwSortState.col === h) th.dataset.sort = mwSortState.asc ? "asc" : "desc";
+    if (h === "Symbol") th.classList.add("symbol-col");
+    tr.appendChild(th);
+  });
+  table.appendChild(tr);
+
+  data.forEach(r => {
+    const row = document.createElement("tr");
+    COLS_MW.forEach(h => {
+      if (h !== "Chart" && !(h in r)) return;
+      const td = document.createElement("td");
+      const v = r[h];
+
+      if (h === "Symbol") {
+        td.className = "symbol-col text";
+        td.innerHTML = `<a href="#" onclick="openTVChart2('${v}')">${v}</a>`;
+      } else if (h === "Chart") {
+        td.className = "text";
+        td.style.whiteSpace = "nowrap";
+        const tfs = ["D", "W", "M"];
+        tfs.forEach(tf => {
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          a.onclick = e => { e.preventDefault(); e.stopPropagation(); openCandleChart(r.Symbol, tf); };
+          td.appendChild(a);
+        });
+      } else {
+        if (h === "Trend" && v !== "") {
+          td.className = "num";
+          const a = document.createElement("a");
+          a.href = "#";
+          a.textContent = String(Math.round(parseFloat(v)));
+          a.onclick = e => {
+            e.preventDefault();
+            e.stopPropagation();
+            openCandleChart(r.Symbol, "Y");
+          };
+          td.appendChild(a);
+        } else if (["BO_P", "SL_P", "BO_TH", "SL_TH", "W_SL", "M_SL"].includes(h) && v !== "") {
+          td.innerText = Number.parseFloat(v).toFixed(1);
+        } else if (["F_BO", "D_BO", "W_BO", "M_BO", "D_HA", "W_HA", "M_HA"].includes(h) && v !== "") {
+          // BO columns are discrete levels; display as integer.
+          td.innerText = Math.round(parseFloat(v));
+        } else {
+          td.innerText = v;
+        }
+        if (h !== "Trend") {
+          td.className = (!isNaN(v) && v !== "") ? "num" : "text";
+        }
+      }
+
+      if (h !== "Chart") {
+        window.applyCommonCellClasses(td, h, v);
+      }
+      row.appendChild(td);
+    });
+    table.appendChild(row);
+  });
+}
+
+function updateMWTime() {
+  fetch(CSV_MW, { method: "HEAD" })
+    .then(res => {
+      const d = new Date(res.headers.get("Last-Modified"));
+      document.getElementById("updateTime_mw").innerText =
+        d.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit",hour12:false}) +
+        " / " +
+        d.toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"2-digit"});
+    });
+}
+</script>

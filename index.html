@@ -479,10 +479,19 @@ window.applyCommonCellClasses = function (td, column, value, options = {}) {
 const globalTabs = document.getElementById("globalTabs");
 let firstTabActivated = false;
 
+/* Fixed tab order; the first entry is the default tab. Unknown labels go last. */
+const TAB_ORDER = ["Indices", "MyWatch", "Sate", "Core", "TFCore", "TFWatch", "TFStudy", "NSEBO", "NSERC", "Sector"];
+const DEFAULT_TAB = TAB_ORDER[0];
+function tabRank(label) {
+  const i = TAB_ORDER.indexOf(label);
+  return i < 0 ? TAB_ORDER.length : i;
+}
+
 /* ---------- Hide all features ---------- */
 function hideAllFeatures() {
   [
     "indicesFeature",
+    "mywatchFeature",
     "portfolioFeature",
     "tfwatchFeature",
     "tfcoreFeature",
@@ -504,6 +513,7 @@ window.registerTabs = function (tabBuilderFn) {
 function addGlobalTab(label, onClick) {
   const div = document.createElement("div");
   div.className = "tab";
+  div.dataset.rank = String(tabRank(label));
   div.innerText = label;
   div.setAttribute("role", "tab");
   div.tabIndex = 0;
@@ -532,13 +542,24 @@ function addGlobalTab(label, onClick) {
     }, 0);
   };
 
-  globalTabs.appendChild(div);
+  /* Insert by fixed rank so tab order does not depend on which CSV finishes loading first */
+  const rank = tabRank(label);
+  const nextTab = [...globalTabs.children].find(t => Number(t.dataset.rank) > rank);
+  globalTabs.insertBefore(div, nextTab || null);
 
-  if (!firstTabActivated) {
+  if (!firstTabActivated && label === DEFAULT_TAB) {
     firstTabActivated = true;
     div.click();
   }
 }
+
+/* Fallback: if the default tab never loads, activate the first available tab */
+setTimeout(() => {
+  if (!firstTabActivated && globalTabs.firstElementChild) {
+    firstTabActivated = true;
+    globalTabs.firstElementChild.click();
+  }
+}, 4000);
 
 /* =========================================================
    FEATURE LOADER
@@ -566,6 +587,7 @@ function loadFeature(file, prefetched) {
 
 const FEATURE_IDS = [
   "indicesFeature",
+  "mywatchFeature",
   "portfolioFeature",
   "tfwatchFeature",
   "tfcoreFeature",
@@ -818,9 +840,10 @@ document.addEventListener("click", e => {
 /* Fetch every feature page in parallel, but insert/run them strictly in this order (tab order depends on it) */
 const FEATURE_FILES = [
   "indices.html",
+  "mywatch.html",
   "portfolio.html",
-  "tfwatch.html",
   "tfcore.html",
+  "tfwatch.html",
   "tfstudy.html",
   "nsebo.html",
   "nserc.html",

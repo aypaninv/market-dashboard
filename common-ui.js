@@ -58,6 +58,7 @@ window.applyStickyTableBehavior = function (table) {
 function getActiveFeature() {
   const featureIds = [
     "indicesFeature",
+    "mywatchFeature",
     "portfolioFeature",
     "tfwatchFeature",
     "tfcoreFeature",
@@ -160,22 +161,15 @@ new MutationObserver(() => {
 /* ---------- Dark theme toggle ---------- */
 function toggleTheme() {
   document.body.classList.toggle("dark");
-  localStorage.setItem(
-    "theme",
-    document.body.classList.contains("dark") ? "dark" : "light"
-  );
   if (typeof window.syncThemeButton === "function") window.syncThemeButton();
   // Re-draw an open chart in the new theme
   if (typeof window.__chartRedraw === "function") window.__chartRedraw();
 }
 
-/* ---------- Load theme (saved choice, else OS preference) ---------- */
+/* ---------- Initial theme: always light; dark only when toggled by the user (not persisted) ---------- */
 document.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  if (saved ? saved === "dark" : prefersDark) {
-    document.body.classList.add("dark");
-  }
+  document.body.classList.remove("dark");
+  try { localStorage.removeItem("theme"); } catch (_) { /* ignore */ }
   if (typeof window.syncThemeButton === "function") window.syncThemeButton();
 });
 
