@@ -159,8 +159,7 @@ const trimOrExitConditionsByFolio = {
     const mRS = toNumber(d["M_RS"]);
     const wSL = toNumber(d["W_SL"]);
     const mSL = toNumber(d["M_SL"]);
-    const mHA = toNumber(d["M_HA"]);
-    return (pnl <= -8 || mRS < 0 || mSL < 0 || mHA < 0 || (wSL < 0 && pnl < 0));
+    return (pnl <= -8 || mRS < 0 || mSL < 0 || (wSL < 0 && pnl < 0));
   },
 };
   
@@ -391,6 +390,8 @@ function renderTable(table, baseRows, sectionKey, colWidths, columnOrder) {
         renderTable(table, baseRows, sectionKey, colWidths, columnOrder);
       };
     }
+    const sectionSort = sectionSortState[sectionKey];
+    if (sectionSort && sectionSort.col === h) th.dataset.sort = sectionSort.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

@@ -195,6 +195,7 @@ function buildNseboTable(table, rows) {
         renderNseBo(rawNseBo);
       };
     }
+    if (nseboSortState.col === h) th.dataset.sort = nseboSortState.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

@@ -164,6 +164,7 @@ function drawIDXTable() {
         drawIDXTable();
       };
     }
+    if (idxSortState && idxSortState.col === h) th.dataset.sort = idxSortState.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

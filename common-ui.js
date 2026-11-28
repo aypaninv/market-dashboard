@@ -12,8 +12,11 @@ let kbIndex = -1;
 window.applyStickyTableBehavior = function (table) {
   if (!table) return;
 
-  const rows = [...table.querySelectorAll("tr")];
+  const rows = [...table.rows];
   if (!rows.length) return;
+
+  // Already processed for this exact row count -> skip (observer fires on every DOM change)
+  if (table.dataset.stickyRows === String(rows.length)) return;
 
   const headerRow = rows.find(r => r.querySelector("th"));
   if (!headerRow) return;
@@ -32,11 +35,23 @@ window.applyStickyTableBehavior = function (table) {
   headerCells[symbolIndex]?.classList.add("symbol-col");
 
   rows.forEach(r => {
-    const dataCells = [...r.children].filter(c => c.tagName === "TD");
-    if (dataCells[symbolIndex]) {
-      dataCells[symbolIndex].classList.add("symbol-col");
+    let tdIndex = -1;
+    for (const c of r.children) {
+      if (c.tagName !== "TD") continue;
+      tdIndex++;
+      if (tdIndex === symbolIndex) {
+        c.classList.add("symbol-col");
+        break;
+      }
     }
   });
+
+  // Sortable headers (onclick) must be keyboard reachable
+  headerCells.forEach(th => {
+    if (th.onclick && !th.hasAttribute("tabindex")) th.tabIndex = 0;
+  });
+
+  table.dataset.stickyRows = String(rows.length);
 };
 
 /* ---------- Active table ---------- */
@@ -72,6 +87,14 @@ function getActiveTable() {
 
 /* ---------- Keyboard navigation ---------- */
 document.addEventListener("keydown", e => {
+  // Enter / Space on a focused sortable header = click it
+  const focusedTh = e.target && e.target.closest ? e.target.closest("th") : null;
+  if (focusedTh && (e.key === "Enter" || e.key === " ")) {
+    e.preventDefault();
+    focusedTh.click();
+    return;
+  }
+
   if (!["ArrowUp", "ArrowDown", "Enter"].includes(e.key)) return;
 
   const table = getActiveTable();
@@ -101,18 +124,24 @@ document.addEventListener("keydown", e => {
 
 /* ---------- Sector separators ---------- */
 function applySectorSeparators(table) {
-  const rows = [...table.querySelectorAll("tr")].slice(1);
+  // Stamp by row count: the observer fires on every DOM change, skip when this table was already processed
+  if (table.dataset.sepRows === String(table.rows.length)) return;
+
+  const rows = [...table.rows].slice(1);
   let last = null;
 
   rows.forEach(r => {
     r.classList.remove("sector-break");
     const cells = [...r.children];
-    const sector = cells.find(td => td.innerText.length > 2 && td.innerText.length < 40);
+    const sector = cells.find(td => td.textContent.length > 2 && td.textContent.length < 40);
     if (!sector) return;
 
-    if (last && sector.innerText !== last) r.classList.add("sector-break");
-    last = sector.innerText;
+    const text = sector.textContent;
+    if (last && text !== last) r.classList.add("sector-break");
+    last = text;
   });
+
+  table.dataset.sepRows = String(table.rows.length);
 }
 
 /* ---------- Auto apply (debounced for performance) ---------- */
@@ -135,13 +164,19 @@ function toggleTheme() {
     "theme",
     document.body.classList.contains("dark") ? "dark" : "light"
   );
+  if (typeof window.syncThemeButton === "function") window.syncThemeButton();
+  // Re-draw an open chart in the new theme
+  if (typeof window.__chartRedraw === "function") window.__chartRedraw();
 }
 
-/* ---------- Load theme ---------- */
+/* ---------- Load theme (saved choice, else OS preference) ---------- */
 document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("theme") === "dark") {
+  const saved = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  if (saved ? saved === "dark" : prefersDark) {
     document.body.classList.add("dark");
   }
+  if (typeof window.syncThemeButton === "function") window.syncThemeButton();
 });
 
 /* ---------- Touch scroll optimization ---------- */
@@ -446,15 +481,16 @@ function setActiveChartTfButton(tf) {
   });
 }
 
+// Single HA toggle button: off = standard candles (default), on = Heikin-Ashi candles
 function setActiveChartModeButton(mode) {
-  ["STD", "HA"].forEach(key => {
-    const btn = document.getElementById("chartModeBtn_" + key);
-    if (!btn) return;
-    const active = key === mode;
-    btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
-    btn.style.color = active ? "#fff" : "var(--text)";
-    btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
-  });
+  const btn = document.getElementById("chartModeBtn_HA");
+  if (!btn) return;
+  const active = mode === "HA";
+  btn.style.background = active ? "var(--accent, #2563eb)" : "transparent";
+  btn.style.color = active ? "#fff" : "var(--text)";
+  btn.style.borderColor = active ? "var(--accent, #2563eb)" : "var(--grid)";
+  btn.setAttribute("aria-pressed", active ? "true" : "false");
+  btn.title = active ? "Heikin-Ashi candles (click for standard)" : "Standard candles (click for Heikin-Ashi)";
 }
 
 window.setChartMode = function(mode) {
@@ -515,11 +551,19 @@ window.openCandleChart = function(symbol, tf) {
   window.renderCandleChart(symbol, tf, "symbol");
 };
 
+const CHART_MAX_WIDTH = 1000;
+const CHART_ASPECT = 0.62;
+
 window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {}) {
   const canvas = document.getElementById("chartCanvas");
   const info = document.getElementById("chartInfo");
-  canvas.width  = Math.min(760, window.innerWidth - 40);
-  canvas.height = Math.round(canvas.width * 0.75) + (chartShowsRsi(tf) ? CHART_RSI_GAP + CHART_RSI_HEIGHT : 0);
+  const rsiBlock = chartShowsRsi(tf) ? CHART_RSI_GAP + CHART_RSI_HEIGHT : 0;
+  canvas.width  = Math.min(CHART_MAX_WIDTH, window.innerWidth - 56);
+  // Wider chart, but keep the whole popup (header + info + canvas) inside the viewport height
+  const maxPriceH = Math.max(260, window.innerHeight - 170 - rsiBlock);
+  canvas.height = Math.min(Math.round(canvas.width * CHART_ASPECT), maxPriceH) + rsiBlock;
+  if (info) info.style.maxWidth = canvas.width + "px";
+  canvas.style.display = "block";
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
   document.getElementById("chartTitle").style.marginBottom = "10px";
   if (info) info.textContent = "";
@@ -823,7 +867,7 @@ window.drawCandles = function(canvas, candles, allRows, tf, refDate, chartMeta =
 
   canvas.onmousemove = function(e) {
     const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const x = (e.clientX - rect.left) * (rect.width ? canvas.width / rect.width : 1);
     if (x < P.l || x > W - P.r) {
       drawChart(null);
       setInfo(latest, false);
@@ -853,7 +897,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const popup = document.createElement("div");
     popup.id = "chartPopup";
-    popup.style.cssText = "background:var(--panel);border-radius:12px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,0.52);border:1px solid var(--grid);";
+    popup.style.cssText = "background:var(--panel);border-radius:12px;padding:16px 18px;box-shadow:0 10px 40px rgba(0,0,0,0.52);border:1px solid var(--grid);box-sizing:border-box;max-width:calc(100vw - 8px);max-height:calc(100dvh - 8px);overflow:auto;";
     popup.onclick = (e) => e.stopPropagation();
 
     const headerRow = document.createElement("div");
@@ -888,12 +932,9 @@ document.addEventListener("DOMContentLoaded", () => {
     navControls.appendChild(makeHeaderButton("chartNavUpBtn", "▲", () => window.navigateChartSymbol(-1)));
     navControls.appendChild(makeHeaderButton("chartNavDownBtn", "▼", () => window.navigateChartSymbol(1)));
 
-    ["STD", "HA"].forEach(modeKey => {
-      const btn = makeHeaderButton("chartModeBtn_" + modeKey, modeKey, () => {
-        window.setChartMode(modeKey);
-      });
-      modeControls.appendChild(btn);
-    });
+    modeControls.appendChild(makeHeaderButton("chartModeBtn_HA", "HA", () => {
+      window.setChartMode(chartState.chartMode === "HA" ? "STD" : "HA");
+    }));
 
     ["D", "W", "M", "Y"].forEach(tfKey => {
       const btn = makeHeaderButton("chartTfBtn_" + tfKey, tfKey, () => {
@@ -909,7 +950,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const info = document.createElement("div");
     info.id = "chartInfo";
-    info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:760px;";
+    info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:1000px;";
     
     const canvas = document.createElement("canvas");
     canvas.id = "chartCanvas";

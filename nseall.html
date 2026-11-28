@@ -190,6 +190,7 @@ function buildNseAllTable(table, rows) {
         renderNseAll(rawNseAll);
       };
     }
+    if (nseallSortState.col === h) th.dataset.sort = nseallSortState.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

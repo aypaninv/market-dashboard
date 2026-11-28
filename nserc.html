@@ -192,6 +192,7 @@ function buildNseRcrTable(table, rows) {
         renderNseRcr(rawNseRcr);
       };
     }
+    if (nsercSortState.col === h) th.dataset.sort = nsercSortState.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

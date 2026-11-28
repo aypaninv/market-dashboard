@@ -175,6 +175,7 @@ function drawTFSTable() {
         drawTFSTable();
       };
     }
+    if (tfsSortState && tfsSortState.col === h) th.dataset.sort = tfsSortState.asc ? "asc" : "desc";
     if (h === "Symbol") th.classList.add("symbol-col");
     tr.appendChild(th);
   });

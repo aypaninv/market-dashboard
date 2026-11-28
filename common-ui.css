@@ -17,6 +17,8 @@
   --table-shadow: 0 10px 30px rgba(20, 35, 55, 0.1);
   --row-pop-shadow: 0 6px 18px rgba(18, 28, 45, 0.16);
   --focus-ring: rgba(0, 122, 204, 0.28);
+  --font-mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", "Courier New", monospace;
+  --zebra: color-mix(in srgb, var(--panel) 82%, var(--panel-alt));
 }
 
 /* ---------- DARK TERMINAL ---------- */
@@ -89,15 +91,16 @@ body.dark {
 /* ---------- Base ---------- */
 body {
   margin: 0;
-  background-image:
+  background:
     radial-gradient(circle at 8% -10%, rgba(0, 122, 204, 0.08), transparent 40%),
-    radial-gradient(circle at 100% 100%, rgba(46, 204, 113, 0.06), transparent 42%);
-  background: var(--bg);
+    radial-gradient(circle at 100% 100%, rgba(46, 204, 113, 0.06), transparent 42%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
 }
 
 * {
-  font-family: "Courier New", monospace !important;
+  font-family: var(--font-mono) !important;
 }
 
 /* ---------- Table ---------- */
@@ -127,11 +130,8 @@ th, td {
   border-bottom: none;
   background: var(--panel);
   color: var(--text);
-  transition:
-    background-color 0.16s ease,
-    transform 0.16s ease,
-    box-shadow 0.16s ease,
-    color 0.16s ease;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.12s ease;
 }
 
 /* ---------- Header ---------- */
@@ -153,6 +153,28 @@ th:hover {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent),
     var(--header-bg);
+}
+
+/* Sort indicator (set via data-sort="asc|desc" on the active th); absolutely positioned so column widths are unaffected */
+th[data-sort]::after {
+  content: "\25B2";
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px;
+  color: var(--accent);
+}
+
+th[data-sort="desc"]::after {
+  content: "\25BC";
+}
+
+th:focus-visible,
+.tab:focus-visible,
+.chart-icon:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 /* ---------- Sticky Symbol ---------- */
@@ -177,52 +199,34 @@ td.symbol-col {
 td.text { text-align: left; }
 td.num  { text-align: right; }
 
-tbody tr:nth-child(even) td {
-  background: color-mix(in srgb, var(--panel) 82%, var(--panel-alt));
+/* Zebra striping (rows are direct children of <table>, there is no <tbody>; row 1 is the header) */
+table tr:nth-of-type(2n+3) td {
+  background: var(--zebra);
 }
 
-/* ---------- Heat colors ---------- */
-.green  { background: rgba(46, 204, 113, 0.25) !important; }
-.red    { background: rgba(218, 105, 93, 0.25) !important; }
-.subtle_orange   { background: rgba(226, 192, 137, 0.242) !important; }
-.orange { background: rgba(243, 156, 18, 0.25) !important; }
+/* ---------- Heat colors ----------
+   Drawn as an overlay (background-image) so zebra / hover / keyboard-selection
+   backgrounds still show through underneath. */
+.green  { background-image: linear-gradient(rgba(46, 204, 113, 0.25), rgba(46, 204, 113, 0.25)) !important; }
+.red    { background-image: linear-gradient(rgba(218, 105, 93, 0.25), rgba(218, 105, 93, 0.25)) !important; }
+.subtle_orange   { background-image: linear-gradient(rgba(226, 192, 137, 0.242), rgba(226, 192, 137, 0.242)) !important; }
+.orange { background-image: linear-gradient(rgba(243, 156, 18, 0.25), rgba(243, 156, 18, 0.25)) !important; }
 
 td.red { font-weight: bold; }
 
-/* ---------- Row hover (entire row) ---------- */
-table tr {
-  transition: transform 0.16s ease, filter 0.16s ease;
-}
-
-table tr:hover {
-  transform: none;
-  filter: none;
-}
-
-table tr:hover td {
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-}
-
-/* Desktop/laptop row pop-up */
+/* ---------- Row hover (entire row): background highlight only, no per-cell transforms ---------- */
 @media (hover: hover) and (pointer: fine) {
   table tr:not(:first-of-type):hover td {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
-    outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    outline-offset: -1px;
-    position: relative;
-    z-index: 2;
+    background: var(--row-hover);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--accent) 35%, transparent),
+                inset 0 -1px 0 color-mix(in srgb, var(--accent) 35%, transparent);
   }
 }
 
 /* Touch feedback on mobile */
 @media (hover: none) {
   table tr:not(:first-of-type):active td {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(18, 28, 45, 0.14);
-    outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    outline-offset: -1px;
+    background: var(--row-hover);
   }
 }
 
@@ -242,6 +246,7 @@ tr.sector-break td {
 /* ---------- Containers ---------- */
 .content {
   height: calc(100vh - 64px);
+  height: calc(100dvh - 64px);
   overflow: auto;
   position: relative;
   padding: 10px;
@@ -274,7 +279,7 @@ tr.sector-break td {
 .update-time {
   position: fixed;
   top: 9px;
-  right: 86px;
+  right: 126px;
   font-size: 11px;
   color: var(--muted);
   z-index: 22;
@@ -322,16 +327,23 @@ a:hover {
   to { transform: rotate(360deg); }
 }
 
-/* ---------- PERFORMANCE OPTIMIZATIONS ---------- */
-tbody tr {
-  will-change: transform, box-shadow;
+/* ---------- SCROLLING ---------- */
+.content {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
-/* GPU acceleration for smooth scrolling */
-.content {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-overflow-scrolling: touch;
+.empty-state {
+  padding: 28px 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* ---------- MOBILE RESPONSIVE ---------- */
@@ -352,20 +364,16 @@ tbody tr {
     white-space: nowrap;
   }
   
-  /* Better row selection for touch */
-  tbody tr:active td {
-    background: var(--row-hover) !important;
-  }
-  
   .content {
     height: calc(100vh - 68px);
+    height: calc(100dvh - 68px);
     padding: 8px 6px;
   }
 
   .update-time {
     font-size: 10px;
     top: 7px;
-    right: 46px;
+    right: 86px;
     max-width: 150px;
   }
 }
@@ -379,7 +387,7 @@ tbody tr {
   .update-time {
     font-size: 9px;
     top: 8px;
-    right: 44px;
+    right: 84px;
     max-width: 120px;
   }
 }
