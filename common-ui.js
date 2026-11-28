@@ -408,7 +408,7 @@ function getRowDateLabel(row) {
   return (row?.Date || row?.Datetime || "").slice(0, 10);
 }
 
-function getSectorForSymbolFromTable(symbol, table) {
+function getColumnForSymbolFromTable(symbol, table, columnName) {
   if (!symbol || !table) return "";
 
   const headerCells = [...table.querySelectorAll("tr:first-child th")];
@@ -416,19 +416,34 @@ function getSectorForSymbolFromTable(symbol, table) {
 
   const colNames = headerCells.map(th => String(th.textContent || "").trim().toUpperCase());
   const symbolIdx = colNames.indexOf("SYMBOL");
-  const sectorIdx = colNames.indexOf("SECTOR");
-  if (symbolIdx < 0 || sectorIdx < 0) return "";
+  const colIdx = colNames.indexOf(String(columnName).toUpperCase());
+  if (symbolIdx < 0 || colIdx < 0) return "";
 
   const rows = [...table.querySelectorAll("tr")].slice(1);
   for (const row of rows) {
     const cells = [...row.querySelectorAll("td")];
-    if (!cells[symbolIdx] || !cells[sectorIdx]) continue;
+    if (!cells[symbolIdx] || !cells[colIdx]) continue;
     const rowSymbol = String(cells[symbolIdx].textContent || "").trim();
     if (rowSymbol !== symbol) continue;
-    return String(cells[sectorIdx].textContent || "").trim();
+    return String(cells[colIdx].textContent || "").trim();
   }
 
   return "";
+}
+
+function getSectorForSymbolFromTable(symbol, table) {
+  return getColumnForSymbolFromTable(symbol, table, "SECTOR");
+}
+
+// Small detail line shown under the chart title: "<Sector> | <MarketCap>"
+function buildChartSubtitle(symbol) {
+  if (chartState.sourceType !== "symbol") return "";
+  const table = chartState.sourceTable || getActiveTable();
+  const parts = [
+    getColumnForSymbolFromTable(symbol, table, "SECTOR"),
+    getColumnForSymbolFromTable(symbol, table, "MARKETCAP")
+  ].filter(Boolean);
+  return parts.join("  |  ");
 }
 
 function getChartRowMetaFromTable(symbol, table) {
@@ -463,10 +478,6 @@ function getChartRowMetaFromTable(symbol, table) {
 }
 
 function buildChartTitle(symbol, tf, candles) {
-  if (chartState.sourceType === "symbol") {
-    const sectorName = getSectorForSymbolFromTable(symbol, chartState.sourceTable || getActiveTable());
-    if (sectorName) return symbol + " - (" + sectorName + ")";
-  }
   return symbol;
 }
 
@@ -565,7 +576,12 @@ window.showChart = function(symbol, tf, candles, allRows, refDate, chartMeta = {
   if (info) info.style.maxWidth = canvas.width + "px";
   canvas.style.display = "block";
   document.getElementById("chartTitle").textContent = buildChartTitle(symbol, tf, candles);
-  document.getElementById("chartTitle").style.marginBottom = "10px";
+  document.getElementById("chartTitle").style.marginBottom = "0";
+  const subtitle = document.getElementById("chartSubtitle");
+  if (subtitle) {
+    subtitle.style.maxWidth = canvas.width + "px";
+    subtitle.textContent = buildChartSubtitle(symbol);
+  }
   if (info) info.textContent = "";
   window.drawCandles(canvas, candles, allRows, tf, refDate, chartMeta);
   document.getElementById("chartOverlay").style.display = "flex";
@@ -948,6 +964,10 @@ document.addEventListener("DOMContentLoaded", () => {
     title.id = "chartTitle";
     title.style.cssText = "font-size:12px;font-weight:700;letter-spacing:0.45px;color:var(--text);min-width:0;";
 
+    const subtitle = document.createElement("div");
+    subtitle.id = "chartSubtitle";
+    subtitle.style.cssText = "font-size:10px;opacity:0.75;color:var(--text);margin:0 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:1000px;";
+
     const info = document.createElement("div");
     info.id = "chartInfo";
     info.style.cssText = "font-size:11px;color:var(--text);margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:1000px;";
@@ -961,6 +981,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headerRow.appendChild(title);
     headerRow.appendChild(rightControls);
     popup.appendChild(headerRow);
+    popup.appendChild(subtitle);
     popup.appendChild(info);
     popup.appendChild(canvas);
     overlay.appendChild(popup);

@@ -212,8 +212,6 @@ table tr:nth-of-type(2n+3) td {
 .subtle_orange   { background-image: linear-gradient(rgba(226, 192, 137, 0.242), rgba(226, 192, 137, 0.242)) !important; }
 .orange { background-image: linear-gradient(rgba(243, 156, 18, 0.25), rgba(243, 156, 18, 0.25)) !important; }
 
-td.red { font-weight: bold; }
-
 /* ---------- Row hover (entire row): background highlight only, no per-cell transforms ---------- */
 @media (hover: hover) and (pointer: fine) {
   table tr:not(:first-of-type):hover td {
