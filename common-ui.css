@@ -109,9 +109,15 @@ table {
   background: var(--panel);
   border: 1px solid var(--grid);
   border-radius: 10px;
-  overflow: hidden;
+  /* no overflow:hidden here - it turns the table into a scroll container and breaks sticky headers */
   box-shadow: var(--table-shadow);
 }
+
+/* Rounded corners on corner cells (replaces overflow:hidden clipping) */
+table tr:first-of-type > :first-child { border-top-left-radius: 9px; }
+table tr:first-of-type > :last-child { border-top-right-radius: 9px; }
+table tr:last-of-type > :first-child { border-bottom-left-radius: 9px; }
+table tr:last-of-type > :last-child { border-bottom-right-radius: 9px; }
 
 th, td {
   padding: 6px 8px;
@@ -200,7 +206,7 @@ table tr:hover td {
 
 /* Desktop/laptop row pop-up */
 @media (hover: hover) and (pointer: fine) {
-  table tr:not(:first-child):hover td {
+  table tr:not(:first-of-type):hover td {
     transform: translateY(-2px);
     box-shadow: 0 5px 14px rgba(18, 28, 45, 0.16);
     outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
@@ -212,7 +218,7 @@ table tr:hover td {
 
 /* Touch feedback on mobile */
 @media (hover: none) {
-  table tr:not(:first-child):active td {
+  table tr:not(:first-of-type):active td {
     transform: translateY(-1px);
     box-shadow: 0 3px 10px rgba(18, 28, 45, 0.14);
     outline: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
@@ -241,10 +247,27 @@ tr.sector-break td {
   padding: 10px;
 }
 
-/* Shared wrapper used by section-based pages; keep horizontal table scroll local */
+/* Wrapper must NOT be a scroll container, otherwise table headers can't stick to the page scroll (.content scrolls both ways) */
 .portfolio-dropdown-content {
-  overflow: auto;
-  max-width: 100%;
+  overflow: visible;
+}
+
+/* Section pages: section title sticks first, then the table header sticks right below it */
+.portfolio-dropdown > summary {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-sizing: border-box;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 8px;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--bg);
+}
+
+.portfolio-dropdown > .portfolio-dropdown-content th {
+  top: 28px;
 }
 
 /* ---------- Update time ---------- */

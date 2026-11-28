@@ -249,7 +249,69 @@ function groupedByCap(rows) {
   return groups;
 }
 
-function drawSectorDrilldownTable(table, rows, key) {
+function formatDrilldownValue(h, v) {
+  if (v === "" || v == null) return "";
+  if (["F_BO", "D_HA", "W_HA", "M_HA"].includes(h)) return String(Math.round(parseFloat(v)));
+  if (["W_SL", "M_SL"].includes(h)) return Number.parseFloat(v).toFixed(1);
+  return String(v);
+}
+
+// One shared set of column widths so every cap-group table has identical column widths
+function computeSectorDrilldownColWidths(allRows) {
+  if (!allRows.length) return {};
+  const visibleCols = COLS_SECTOR_DRILLDOWN.filter(h => h === "Chart" || h in allRows[0]);
+
+  const probe = document.createElement("table");
+  Object.assign(probe.style, {
+    position: "absolute",
+    visibility: "hidden",
+    top: "-9999px",
+    left: "-9999px",
+    tableLayout: "auto",
+    width: "max-content",
+  });
+  document.body.appendChild(probe);
+
+  const hrow = document.createElement("tr");
+  visibleCols.forEach(h => {
+    const th = document.createElement("th");
+    th.style.whiteSpace = "nowrap";
+    th.innerText = h;
+    hrow.appendChild(th);
+  });
+  probe.appendChild(hrow);
+
+  allRows.forEach(r => {
+    const row = document.createElement("tr");
+    visibleCols.forEach(h => {
+      const td = document.createElement("td");
+      td.style.whiteSpace = "nowrap";
+      if (h === "Chart") {
+        ["D", "W", "M"].forEach(tf => {
+          const a = document.createElement("a");
+          a.textContent = tf;
+          a.className = "chart-icon chart-icon-" + tf;
+          td.appendChild(a);
+        });
+      } else {
+        if (h === "Symbol") td.style.fontWeight = "bold";
+        td.innerText = formatDrilldownValue(h, r[h]);
+      }
+      row.appendChild(td);
+    });
+    probe.appendChild(row);
+  });
+
+  const ths = probe.querySelectorAll("tr:first-of-type th");
+  const widths = {};
+  visibleCols.forEach((h, i) => {
+    widths[h] = ths[i] ? Math.ceil(ths[i].getBoundingClientRect().width) : 0;
+  });
+  document.body.removeChild(probe);
+  return widths;
+}
+
+function drawSectorDrilldownTable(table, rows, key, colWidths) {
   table.innerHTML = "";
 
   const sortInfo = sectorDrillSortState[key];
@@ -264,6 +326,19 @@ function drawSectorDrilldownTable(table, rows, key) {
     tr.appendChild(td);
     table.appendChild(tr);
     return;
+  }
+
+  if (colWidths && Object.keys(colWidths).length) {
+    const colgroup = document.createElement("colgroup");
+    COLS_SECTOR_DRILLDOWN.forEach(h => {
+      if (h !== "Chart" && !(h in data[0])) return;
+      const col = document.createElement("col");
+      if (colWidths[h]) col.style.width = colWidths[h] + "px";
+      colgroup.appendChild(col);
+    });
+    table.appendChild(colgroup);
+    table.style.tableLayout = "fixed";
+    table.style.width = "max-content";
   }
 
   const tr = document.createElement("tr");
@@ -334,6 +409,7 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
     .filter(r => matchesDrilldownFilter(r, normalizedMode));
 
   const groups = groupedByCap(rows);
+  const drillColWidths = computeSectorDrilldownColWidths(rows);
   const container = document.getElementById("sectorDrilldownSections");
   container.innerHTML = "";
 
@@ -372,7 +448,7 @@ window.openSectorDrilldown = function(sectorName, filterMode = "ALL") {
     wrapper.className = "portfolio-dropdown-content";
 
     const table = document.createElement("table");
-    drawSectorDrilldownTable(table, list, groupName);
+    drawSectorDrilldownTable(table, list, groupName, drillColWidths);
 
     wrapper.appendChild(table);
     details.appendChild(wrapper);
