@@ -20,11 +20,11 @@ CIPLA,TFCore,6.5,15.4,-2,3,5,1,3,1,-11,-2,0,-3,3.2,5.4,,,,,,,5,1439.9,Healthcare
 BRITANNIA,TFCore,19.2,21.7,-2,6,4,-3,3,-40,-4,-2,0,-3,5.9,-2.9,,,,,,,6,5065.0,Cons Staples - FMCG Foods,Large Cap,,4783.62,5216.0
 GILLETTE,TFCore,18.8,37.0,-15,3,-2,-6,-10,-62,-10,-15,-2,-5,3.2,,,,,,,,2,7243.0,Cons Staples - FMCG HPC,Mid Cap,,7017.5,
 AFFLE,TFCore,10.1,24.8,1,6,4,1,18,1,1,1,1,2,23.3,10.1,,,,,,,6,1644.2,IT - Product/Platform,Small Cap,,1333.8,1493.64
+APLAPOLLO,TFCore,34.7,34.7,-9,-8,-1,-1,-8,-2,-1,-46,-1,-2,-25.9,-22.2,,,,,,,6,1509.5,Metals - Steel Prod & Tubes,Mid Cap,,2037.7,1939.56
 CHOLAFIN,TFCore,7.7,7.7,-7,-2,4,1,17,4,1,-7,-1,-3,0.8,6.0,,,,,,,7,1802.0,Financials - NBFC Vehl Fin,Large Cap,,1787.75,1700.28
 FIEMIND,TFCore,22.9,22.9,-5,-4,4,-3,1,-15,1,-5,-1,-3,8.8,1.5,,,,,,,5,2062.6,Auto - Ancs Electricals,Small Cap,,1895.49,2033.0
 NH,TFCore,6.2,17.2,-3,-1,4,1,10,2,24,-3,-1,-4,5.2,4.3,,,,,,,6,1962.2,Healthcare - Hospitals,Mid Cap,,1865.46,1881.54
 ICICIBANK,TFCore,3.5,3.5,-4,-1,7,1,17,5,2,-4,-1,2,2.2,16.1,,,,,,,8,1593.4,Financials - Pvt Bank Lrg,Large Cap,,1559.82,1371.99
-CUB,TFCore,8.2,8.2,-4,-2,3,1,-1,3,24,-4,-1,2,0.6,12.9,,,,,,,5,233.1,Financials - Pvt Bank Mid & Sml,Small Cap,,231.76,206.41
 DIVISLAB,TFCore,2.2,2.2,-12,4,5,8,22,31,24,-12,0,0,19.4,28.2,,,,,,,7,11560.0,Healthcare - Pharma CDMO,Large Cap,,9682.35,9016.97
 DIXON,TFCore,12.4,31.4,-3,-2,4,-2,1,-12,-3,-40,-1,-3,4.2,6.1,,,,,,,4,13138.0,Cons Disc - EMS,Mid Cap,,12612.67,12376.92
 DMART,TFCore,23.3,40.0,-2,3,4,-5,3,-28,-5,-43,0,-5,4.2,-10.5,,,,,,,4,3541.3,Cons Disc - Retail Grocery,Large Cap,,3400.0,3955.0
@@ -46,7 +46,6 @@ POWERGRID,TFCore,16.5,26.8,-4,2,5,-7,6,-28,-7,-46,-1,-5,3.6,,,,,,,,5,268.2,Power
 TATAPOWER,TFCore,28.9,35.3,-12,-10,-2,-6,-11,-26,-4,-46,-2,-5,-7.8,,,,,,,,4,320.05,Power - Misc,Large Cap,,347.05,
 VBL,TFCore,23.6,37.6,-13,-1,4,-5,-2,-21,-5,-29,-2,-5,2.8,-15.4,,,,,,,7,424.9,Cons Staples - FMCG Foods,Large Cap,,413.16,502.35
 COLPAL,TFCore,23.1,54.5,-5,-1,3,-4,-1,-110,-22,-46,-5,-3,3.7,-10.9,,,,,,,5,1770.0,Cons Staples - FMCG HPC,Mid Cap,,1707.38,1986.3
-FINEORG,TFCore,0.9,22.1,2,7,3,8,7,3,1,33,0,4,7.5,13.7,5625.5,4883.0,1.46,16.89,1.5,16.9,4,5707.5,Chem - Surfactants,Small Cap,,5310.9,5020.0
 ABBOTINDIA,TFCore,10.1,26.6,-15,5,1,1,3,-16,-11,-39,0,-3,4.4,7.0,,,,,,,7,27145.0,Healthcare - Pharma MNC,Mid Cap,,25990.0,25370.0
 SONATSOFTW,TFCore,37.6,73.1,-10,1,-2,-3,-10,-15,-11,-44,-1,-3,-0.7,-17.7,,,,,,,5,233.84,IT - Services Mid & Sml,Small Cap,,235.5,284.19
 MSTCLTD,TFCore,18.2,43.5,-9,1,-1,-2,-6,-2,-2,-9,-1,-2,3.3,4.0,,,,,,,5,658.25,Trading - Diversified,Small Cap,,637.29,633.16
@@ -54,7 +53,6 @@ BALAMINES,TFCore,31.8,65.7,-7,1,-1,-2,-53,-9,-2,-35,-5,-2,-1.2,-13.9,,,,,,,3,179
 SHANTIGEAR,TFCore,34.3,34.3,-9,-4,-1,-1,-41,-7,-2,-46,-5,-2,0.4,6.5,,,,,,,3,487.85,Cap Goods - Power T&D,Small Cap,,486.1,457.91
 AIAENG,TFCore,34.6,34.6,-19,11,1,-4,-73,-15,-3,-47,-5,-5,1.8,-17.1,,,,,,,5,3386.5,Cap Goods - Refractories,Mid Cap,,3326.0,4084.44
 BECTORFOOD,TFCore,18.3,48.0,6,2,4,1,11,1,-13,6,0,1,8.4,21.2,,,,,,,3,228.76,Cons Staples - Food Products,Small Cap,,211.08,188.7
-SUNPHARMA,TFCore,7.2,7.2,-2,3,5,-3,15,3,24,-2,-2,-4,6.2,4.7,,,,,,,5,1899.9,Healthcare - Pharma US Gen,Large Cap,,1788.5,1814.5
 OFSS,TFCore,26.2,30.0,-13,-4,-12,-2,-55,-10,-1,-46,-5,-3,,-10.6,,,,,,,3,9250.0,IT - Software & SaaS,Mid Cap,,,10347.97
 ASIANPAINT,TFCore,15.2,29.5,-7,-2,4,-3,-2,-1,-4,-7,-1,-3,3.0,-1.8,,,,,,,5,2532.6,Build Mat - Paints,Large Cap,,2459.8,2579.9
 ASTEC,TFCore,38.2,76.6,-15,-7,-7,-2,-31,-7,-24,-44,-5,-5,,-23.8,,,,,,,3,535.9,Chem - Agrochemicals,Small Cap,,,703.4
@@ -62,9 +60,10 @@ ASTRAL,TFCore,28.6,48.6,-15,2,-6,-3,-15,-32,-8,-29,-5,-5,,-11.0,,,,,,,5,1262.5,B
 BALKRISIND,TFCore,14.9,30.1,-13,1,6,1,17,-1,-23,-13,-3,-3,13.9,5.3,,,,,,,5,2360.5,Auto - Tyres,Mid Cap,,2072.6,2241.1
 ESABINDIA,TFCore,25.4,27.6,-17,2,1,-3,-58,-13,-3,-44,-5,-5,4.8,-5.1,,,,,,,8,5298.5,Cap Goods - Electrodes,Small Cap,,5057.5,5585.0
 DEEPAKNTR,TFCore,16.9,51.4,-10,1,-1,-3,-8,-13,-17,-29,-1,-2,0.3,-5.9,,,,,,,5,1539.0,Chem - Perf & Indl,Mid Cap,,1535.0,1636.31
+FCL,TFCore,31.6,31.6,-15,-9,-2,-1,-29,-2,8,-41,-5,-2,-15.8,3.1,,,,,,,6,42.7,Chem - Surfactants,Small Cap,,50.74,41.42
 GMMPFAUDLR,TFCore,19.0,46.0,-15,4,1,5,-34,1,-24,-45,-5,-2,6.7,40.2,,,,,,,3,1242.5,Cap Goods - Process Equip,Small Cap,,1165.0,886.33
 GUFICBIO,TFCore,14.5,16.3,-10,1,-2,7,-9,-2,24,-10,-2,-2,1.7,8.1,,,,,,,4,422.1,Healthcare - Pharma Dom Fmtn,Small Cap,,415.03,390.65
-HNDFDS,TFCore,18.1,25.9,-14,6,1,-2,-58,-9,-2,-46,-5,-2,2.7,2.0,,,,,,,4,555.0,Cons Staples - Food Products,Small Cap,,540.25,544.14
+HNDFDS,TFCore,18.1,25.9,-14,6,1,-2,-54,-9,-2,-46,-5,-2,2.7,2.0,,,,,,,4,555.0,Cons Staples - Food Products,Small Cap,,540.25,544.14
 IONEXCHANG,TFCore,43.8,64.4,-19,-10,-9,-4,-43,-10,-17,-46,-5,-3,,-27.8,,,,,,,4,273.2,Infra - Water & Env,Small Cap,,,378.46
 KPITTECH,TFCore,59.5,73.0,-10,-3,-2,-11,-9,-110,-10,-49,-5,-5,1.1,,,,,,,,5,520.0,IT - ER&D,Mid Cap,,514.4,
 LTM,TFCore,32.8,43.1,-14,5,1,1,2,-13,-10,-14,-2,-2,4.1,6.8,,,,,,,5,4320.0,IT - Services Lrg,Large Cap,,4150.4,4046.83
@@ -84,7 +83,7 @@ TCIEXP,TFCore,38.1,84.9,-15,-3,-2,-3,-14,-19,-24,-39,-2,-3,-18.4,-20.7,,,,,,,5,3
 TIMKEN,TFCore,21.4,36.0,-7,1,4,-5,-4,-22,-5,-43,-2,-5,2.9,-10.6,,,,,,,5,3084.5,Cap Goods - Bearings,Mid Cap,,2996.74,3450.0
 TIINDIA,TFCore,32.7,53.4,-10,1,4,-5,-67,-22,-6,-46,-1,-5,5.8,-23.8,,,,,,,7,2243.2,Auto - Ancs Components,Large Cap,,2121.0,2943.05
 VGUARD,TFCore,16.9,48.7,-10,-4,4,-2,-4,-12,-16,-47,-1,-2,1.5,-3.2,,,,,,,4,296.25,Cons Disc - Elec Durables,Small Cap,,291.98,306.05
-VINATIORGA,TFCore,30.1,51.9,-5,1,3,-3,-2,-71,-17,-43,-1,-4,7.1,-12.1,,,,,,,5,1142.8,Chem - Agro & Pharma Int,Mid Cap,,1066.8,1300.2
+VINATIORGA,TFCore,30.1,51.9,-5,1,3,-3,1,-71,-17,-43,-1,-4,7.1,-12.1,,,,,,,5,1142.8,Chem - Agro & Pharma Int,Mid Cap,,1066.8,1300.2
 LIKHITHA,TFCore,29.5,61.4,-15,1,-7,-4,-34,-9,-24,-38,-5,-4,,3.6,,,,,,,6,191.89,Infra - EPC,Small Cap,,,185.2
 3MINDIA,TFCore,26.1,31.2,-14,2,-9,-3,-42,-15,-4,-45,-5,-3,,-15.2,,,,,,,5,28105.0,Diversified - Industrials,Mid Cap,,,33125.0
 AARTIIND,TFCore,20.6,62.5,-11,-9,-1,-2,-9,-6,24,-28,-5,-2,-0.9,-7.6,,,,,,,5,438.15,Chem - Agro & Pharma Int,Mid Cap,,442.1,474.43
@@ -116,7 +115,5 @@ CARBORUNIV,TFCore,26.9,45.6,-16,1,-7,-2,-34,-7,-2,-42,-5,-2,,-1.7,,,,,,,5,1001.2
 BLS,TFCore,36.3,58.4,-9,-5,-1,-7,-9,-97,-18,-45,-2,-5,-0.1,,,,,,,,4,216.85,Biz Svcs - Diversified,Small Cap,,217.12,
 TRITURBINE,TFCore,42.2,48.6,-14,1,-2,-5,-14,-16,-3,-46,-1,-5,-5.6,-27.5,,,,,,,5,455.2,Cap Goods - Power T&D,Small Cap,,482.31,627.84
 ANUP,TFCore,28.2,55.4,-8,1,3,-4,1,-21,-16,-8,-1,-5,16.9,-3.6,,,,,,,5,1721.7,Cap Goods - Process Equip,Small Cap,,1473.41,1786.2
-ANGELONE,TFCore,1.8,3.5,0,4,4,1,17,4,24,0,0,4,12.0,32.2,,,,,,,6,376.0,Financials - Broking & Wlth,Small Cap,,335.77,284.4
 CDSL,TFCore,11.3,27.0,-10,2,4,1,17,3,8,-10,-1,2,14.4,17.1,,,,,,,4,1453.0,Financials - Exchanges,Small Cap,,1269.91,1240.8
 CAMS,TFCore,11.5,31.1,-7,2,4,-3,2,-17,1,-7,0,-3,5.3,2.8,,,,,,,3,740.0,Financials - Exchanges,Small Cap,,702.97,720.0
-KFINTECH,TFCore,11.4,39.7,-7,2,4,1,16,1,1,-7,0,2,7.1,17.3,,,,,,,4,989.0,Financials - Exchanges,Small Cap,,923.44,843.25
